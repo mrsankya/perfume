@@ -488,34 +488,139 @@ function exportVisitorsCSV() {
   showToast('Promotional Calling List Exported to CSV', 'success');
 }
 
-// 3. ORDERS & 1-CLICK GST TAX INVOICE
+// 3. ORDERS & 1-CLICK GST TAX INVOICE & FULFILLMENT TRACKING
 function renderOrdersTable() {
   const tbody = document.getElementById('orders-table-tbody');
   if (!tbody) return;
 
-  tbody.innerHTML = orders.map(o => `
-    <tr class="border-b border-gray-800 hover:bg-[#231B17]/60 text-xs text-gray-300">
-      <td class="py-3 px-3 font-mono font-bold text-[#C59B27]">${o.id}</td>
-      <td class="py-3 px-3">
-        <span class="font-bold text-white block">${o.customer}</span>
-        <span class="text-[10px] text-gray-500 font-mono">${o.phone}</span>
-      </td>
-      <td class="py-3 px-3 text-[11px]">${o.items ? o.items.map(i => `${i.name} (x${i.qty})`).join(', ') : 'Perfume'}</td>
-      <td class="py-3 px-3 font-bold text-white">${formatRupees(o.total)}</td>
-      <td class="py-3 px-3 text-[10px] text-gray-400 max-w-xs truncate">${o.address}</td>
-      <td class="py-3 px-3">
-        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-950 text-green-300 border border-green-800">${o.paymentMethod || 'UPI'}</span>
-      </td>
-      <td class="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
-        <button onclick="generateGSTTaxInvoice('${o.id}')" class="p-1.5 rounded-lg bg-[#C59B27] text-[#18110E] hover:bg-[#AA771C] font-bold" title="Generate GST Tax Invoice">
-          <i class="fa-solid fa-file-invoice"></i>
-        </button>
-        <button onclick="confirmOrderWhatsApp('${o.id}', '${o.phone}', '${o.total}')" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d]" title="WhatsApp Dispatch Confirmation">
-          <i class="fa-brands fa-whatsapp"></i>
-        </button>
-      </td>
-    </tr>
-  `).join('');
+  if (orders.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="text-center py-8 text-gray-500 text-xs">
+          <i class="fa-solid fa-box-open text-2xl block mb-2 text-gray-600"></i>
+          No online orders received yet.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = orders.map(o => {
+    const status = o.status || 'Placed';
+    let badgeClass = 'bg-blue-950 text-blue-300 border-blue-800';
+    if (status === 'Packed') badgeClass = 'bg-indigo-950 text-indigo-300 border-indigo-800';
+    else if (status === 'Dispatched') badgeClass = 'bg-amber-950 text-amber-300 border-amber-800';
+    else if (status === 'Out for Delivery') badgeClass = 'bg-purple-950 text-purple-300 border-purple-800';
+    else if (status === 'Delivered') badgeClass = 'bg-green-950 text-green-300 border-green-800';
+    else if (status === 'Cancelled') badgeClass = 'bg-red-950 text-red-300 border-red-800';
+
+    return `
+      <tr class="border-b border-gray-800 hover:bg-[#231B17]/60 text-xs text-gray-300">
+        <td class="py-3 px-3 font-mono font-bold text-[#C59B27]">${o.id}</td>
+        <td class="py-3 px-3">
+          <span class="font-bold text-white block">${o.customer}</span>
+          <span class="text-[10px] text-gray-500 font-mono">${o.phone}</span>
+        </td>
+        <td class="py-3 px-3 text-[11px]">${o.items ? o.items.map(i => `${i.name} (x${i.qty})`).join(', ') : 'Perfume'}</td>
+        <td class="py-3 px-3 font-bold text-white">${formatRupees(o.total)}</td>
+        <td class="py-3 px-3">
+          <button onclick="openOrderStatusModal('${o.id}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${badgeClass} hover:opacity-80 flex items-center gap-1 shadow-sm transition-all" title="Click to update fulfillment stage">
+            <span>${status}</span>
+            <i class="fa-solid fa-pen-to-square text-[9px]"></i>
+          </button>
+        </td>
+        <td class="py-3 px-3 text-[11px]">
+          <span class="text-white block font-medium">${o.courier || 'BlueDart Express'}</span>
+          <span class="text-[10px] font-mono text-[#C59B27]">${o.awb ? 'AWB: ' + o.awb : 'AWB: Pending'}</span>
+        </td>
+        <td class="py-3 px-3">
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-950 text-green-300 border border-green-800">${o.paymentMethod || 'UPI'}</span>
+        </td>
+        <td class="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
+          <button onclick="openOrderStatusModal('${o.id}')" class="p-1.5 rounded-lg bg-blue-600/80 text-white hover:bg-blue-500 font-bold" title="Update Fulfillment Status">
+            <i class="fa-solid fa-truck-fast"></i>
+          </button>
+          <button onclick="generateGSTTaxInvoice('${o.id}')" class="p-1.5 rounded-lg bg-[#C59B27] text-[#18110E] hover:bg-[#AA771C] font-bold" title="Generate GST Tax Invoice">
+            <i class="fa-solid fa-file-invoice"></i>
+          </button>
+          <button onclick="sendWhatsAppOrderStatus('${o.id}')" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d]" title="WhatsApp Dispatch Alert">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openOrderStatusModal(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const modal = document.getElementById('order-status-modal');
+  if (!modal) return;
+
+  document.getElementById('status-order-id').value = order.id;
+  document.getElementById('status-modal-order-id-display').innerText = order.id;
+  document.getElementById('status-modal-customer-display').innerText = `${order.customer} (${order.phone})`;
+  document.getElementById('status-select-stage').value = order.status || 'Placed';
+  document.getElementById('status-input-courier').value = order.courier || 'BlueDart Air Express';
+  document.getElementById('status-input-awb').value = order.awb || '';
+  document.getElementById('status-input-note').value = order.dispatchNote || '';
+
+  modal.classList.remove('hidden');
+}
+
+function closeOrderStatusModal() {
+  document.getElementById('order-status-modal')?.classList.add('hidden');
+}
+
+function handleSaveOrderStatus(e) {
+  e.preventDefault();
+  const orderId = document.getElementById('status-order-id').value;
+  const stage = document.getElementById('status-select-stage').value;
+  const courier = document.getElementById('status-input-courier').value.trim();
+  const awb = document.getElementById('status-input-awb').value.trim();
+  const note = document.getElementById('status-input-note').value.trim();
+
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
+
+  order.status = stage;
+  order.courier = courier;
+  order.awb = awb;
+  order.dispatchNote = note;
+  order.updatedAt = new Date().toISOString();
+
+  // Save to storage
+  localStorage.setItem('perfumes_orders', JSON.stringify(orders));
+
+  // Sync to MongoDB Cloud
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushOrder) {
+    MongoSync.pushOrder(order);
+  }
+
+  closeOrderStatusModal();
+  renderOrdersTable();
+  showToast(`Order #${order.id} status updated to "${stage}"! 📦`, 'success');
+}
+
+function sendWhatsAppOrderStatus(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const phone = (order.phone || '').replace(/[\s\-\+]/g, '');
+  let msg = `*👑 PERFUME SHOPE - ORDER SHIPMENT UPDATE*\n`;
+  msg += `*Order Reference:* ${order.id}\n`;
+  msg += `*Dear ${order.customer},*\n\n`;
+  msg += `*Current Status:* ${order.status || 'Dispatched'}\n`;
+  if (order.courier) msg += `*Courier Partner:* ${order.courier}\n`;
+  if (order.awb) msg += `*Tracking AWB Number:* ${order.awb}\n`;
+  if (order.dispatchNote) msg += `*Dispatch Note:* ${order.dispatchNote}\n`;
+  msg += `*Delivery Destination:* ${order.address}\n\n`;
+  msg += `Track your luxury fragrance live anytime on our portal: https://perfume-shopee.pages.dev\n`;
+  msg += `Thank you for shopping with Perfume Shope Flagship Boutique! ✨`;
+
+  window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 function generateGSTTaxInvoice(orderId) {

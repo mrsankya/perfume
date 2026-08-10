@@ -146,6 +146,10 @@
           <i class="fa-solid fa-chart-line"></i>
           <span>Financial Intelligence</span>
         </button>
+        <button onclick="switchSuperTab('orders')" data-tab="orders" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-truck-fast text-[#C59B27]"></i>
+          <span>📦 Orders & Fulfillment</span>
+        </button>
         <button onclick="switchSuperTab('themes')" data-tab="themes" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
           <i class="fa-solid fa-wand-magic-sparkles text-[#C59B27]"></i>
           <span>🎨 UI Visual Styles (1-Click)</span>
@@ -228,6 +232,103 @@
             <div id="accord-breakdown-list" class="space-y-2">
               <!-- Rendered by superadmin.js -->
             </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 2: MASTER ORDERS & FULFILLMENT MANAGEMENT
+           ========================================================================= -->
+      <div id="super-tab-orders" class="super-tab-content hidden space-y-6">
+        
+        <!-- Header & Quick KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-1">
+            <span class="text-[10px] uppercase tracking-wider text-gray-400 font-bold block">Total Storefront Orders</span>
+            <div class="flex items-baseline justify-between">
+              <span id="super-orders-kpi-count" class="font-heading text-2xl font-bold text-white">0</span>
+              <span id="super-orders-kpi-val" class="text-xs text-[#C59B27] font-bold">₹0</span>
+            </div>
+          </div>
+
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-1">
+            <span class="text-[10px] uppercase tracking-wider text-amber-400 font-bold block">Pending Packaging</span>
+            <div class="flex items-baseline justify-between">
+              <span id="super-orders-kpi-pending" class="font-heading text-2xl font-bold text-amber-400">0</span>
+              <span class="text-[10px] text-gray-500">Requires Velvet Box & Seal</span>
+            </div>
+          </div>
+
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-1">
+            <span class="text-[10px] uppercase tracking-wider text-blue-400 font-bold block">In Air / Road Transit</span>
+            <div class="flex items-baseline justify-between">
+              <span id="super-orders-kpi-transit" class="font-heading text-2xl font-bold text-blue-400">0</span>
+              <span class="text-[10px] text-gray-500">With BlueDart / Local</span>
+            </div>
+          </div>
+
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-1">
+            <span class="text-[10px] uppercase tracking-wider text-green-400 font-bold block">Delivered & Closed</span>
+            <div class="flex items-baseline justify-between">
+              <span id="super-orders-kpi-delivered" class="font-heading text-2xl font-bold text-green-400">0</span>
+              <span class="text-[10px] text-green-500/80">100% Blind Buy Verified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Controls & Search -->
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <!-- Status Filter Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1 w-full md:w-auto">
+            <button onclick="filterSuperOrders('All')" data-order-filter="All" class="super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] transition-all shrink-0">
+              All Orders
+            </button>
+            <button onclick="filterSuperOrders('Placed')" data-order-filter="Placed" class="super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] text-gray-300 border border-gray-700 hover:border-gray-500 transition-all shrink-0">
+              📝 Placed
+            </button>
+            <button onclick="filterSuperOrders('Packed')" data-order-filter="Packed" class="super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] text-gray-300 border border-gray-700 hover:border-gray-500 transition-all shrink-0">
+              📦 Packed
+            </button>
+            <button onclick="filterSuperOrders('Dispatched')" data-order-filter="Dispatched" class="super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] text-gray-300 border border-gray-700 hover:border-gray-500 transition-all shrink-0">
+              🚚 Dispatched
+            </button>
+            <button onclick="filterSuperOrders('Delivered')" data-order-filter="Delivered" class="super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] text-gray-300 border border-gray-700 hover:border-gray-500 transition-all shrink-0">
+              ✨ Delivered
+            </button>
+          </div>
+
+          <!-- Search Input -->
+          <div class="relative w-full md:w-72">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-500 text-xs"></i>
+            <input 
+              type="text" 
+              id="super-order-search" 
+              placeholder="Search Order ID, Name, Phone, AWB..." 
+              oninput="searchSuperOrders(this.value)"
+              class="w-full bg-[#120D0A] border border-gray-700 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:border-[#C59B27] outline-none"
+            >
+          </div>
+        </div>
+
+        <!-- Master Orders Table -->
+        <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
+                  <th class="py-3 px-3">Order ID</th>
+                  <th class="py-3 px-3">Customer Details</th>
+                  <th class="py-3 px-3">Bottles & Items</th>
+                  <th class="py-3 px-3">Total (₹)</th>
+                  <th class="py-3 px-3">Live Status</th>
+                  <th class="py-3 px-3">Courier Partner & AWB</th>
+                  <th class="py-3 px-3">Payment</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="super-orders-table-tbody"></tbody>
+            </table>
           </div>
         </div>
 
@@ -865,6 +966,78 @@
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeHeroBannerModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
           <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Banner Slide</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SUPER ADMIN: ORDER STATUS & DISPATCH FULFILLMENT MODAL
+       ========================================================================= -->
+  <div id="super-order-status-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-lg w-full rounded-3xl border border-gray-800 p-6 relative shadow-2xl space-y-5">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold block">MASTER FULFILLMENT DESK</span>
+          <h3 class="font-heading text-base font-bold text-white uppercase">Manage Order Status & Courier</h3>
+        </div>
+        <button onclick="closeSuperOrderStatusModal()" class="text-gray-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="super-order-status-form" onsubmit="handleSaveSuperOrderStatus(event)" class="space-y-4">
+        <input type="hidden" id="super-status-order-id">
+
+        <div class="p-3.5 rounded-2xl bg-[#120D0A] border border-gray-800 flex justify-between items-center text-xs">
+          <div>
+            <span class="text-gray-500 block text-[10px] uppercase font-bold">Order ID</span>
+            <span id="super-status-modal-order-id-display" class="font-mono font-bold text-[#C59B27] text-sm">ORD-0000</span>
+          </div>
+          <div class="text-right">
+            <span class="text-gray-500 block text-[10px] uppercase font-bold">Customer & Phone</span>
+            <span id="super-status-modal-customer-display" class="font-bold text-white">Customer Name</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Fulfillment Stage</label>
+          <select id="super-status-select-stage" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] outline-none">
+            <option value="Placed">📝 Placed & Payment Verified</option>
+            <option value="Packed">📦 Packed in Velvet Box & Sealed</option>
+            <option value="Dispatched">🚚 Dispatched / In Transit</option>
+            <option value="Out for Delivery">📍 Out for Doorstep Delivery</option>
+            <option value="Delivered">✨ Delivered Successfully</option>
+            <option value="Cancelled">❌ Cancelled / Returned</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Courier Partner</label>
+            <input type="text" id="super-status-input-courier" placeholder="e.g. BlueDart Air Express" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white">
+          </div>
+          <div>
+            <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Tracking / AWB Number</label>
+            <input type="text" id="super-status-input-awb" placeholder="e.g. BD9482910IN" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Dispatch Note (Customer Visible)</label>
+          <input type="text" id="super-status-input-note" placeholder="e.g. Dispatched via Express Air Cargo" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white">
+        </div>
+
+        <div class="pt-2 flex items-center justify-between border-t border-gray-800">
+          <button type="button" onclick="sendSuperWhatsAppOrderStatus(document.getElementById('super-status-order-id').value)" class="bg-[#16a34a] hover:bg-[#15803d] text-white px-3.5 py-2 rounded-xl text-xs font-bold uppercase flex items-center gap-1.5">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp Alert</span>
+          </button>
+          
+          <div class="flex gap-2">
+            <button type="button" onclick="closeSuperOrderStatusModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+            <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save & Sync Cloud</button>
+          </div>
         </div>
       </form>
     </div>

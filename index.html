@@ -79,9 +79,15 @@
         </button>
       </div>
 
-      <!-- Right Header Actions (Google User Profile & Cart Drawer) -->
+      <!-- Right Header Actions (Track Order, Google User Profile & Cart Drawer) -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         
+        <!-- Track Order Button -->
+        <button onclick="openOrderTrackingModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl theme-card border theme-border flex items-center gap-1.5 text-xs font-semibold hover:border-gray-400 transition-colors" title="Track Your Perfume Order">
+          <i class="fa-solid fa-truck-fast theme-accent"></i>
+          <span class="hidden md:inline theme-text-main">Track Order</span>
+        </button>
+
         <!-- Google User Profile / Login -->
         <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl theme-card border theme-border flex items-center gap-2 text-xs font-semibold hover:border-gray-400 transition-colors">
           <i class="fa-brands fa-google text-red-500"></i>
@@ -916,14 +922,65 @@
       <p class="text-xs theme-text-muted">Your genuine batch sealed package with complimentary 2ml tester vial is being prepared.</p>
 
       <div class="p-3 rounded-2xl theme-bg-surface border theme-border text-left text-xs space-y-1 theme-text-secondary">
-        <p><strong>Order ID:</strong> <span id="success-order-id" class="theme-accent font-mono"></span></p>
+        <p><strong>Order ID:</strong> <span id="success-order-id" class="theme-accent font-mono font-bold"></span></p>
         <p><strong>Total Paid:</strong> <span id="success-total-val" class="theme-text-main font-bold"></span></p>
         <p><strong>Delivery Address:</strong> <span id="success-address-val" class="theme-text-muted text-[11px]"></span></p>
       </div>
 
-      <button onclick="closeOrderSuccessModal()" class="w-full theme-btn-primary py-2.5 rounded-xl font-bold text-xs uppercase">
-        Continue Exploring
+      <div class="grid grid-cols-2 gap-2 pt-1">
+        <button onclick="trackNewlyPlacedOrder()" class="theme-btn-primary py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Track Order</span>
+        </button>
+        <button onclick="closeOrderSuccessModal()" class="theme-card border theme-border hover:border-gray-400 py-2.5 rounded-xl font-bold text-xs uppercase theme-text-main">
+          Explore More
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       8. LIVE ORDER TRACKING MODAL (INTERACTIVE STEPPER & COURIER AWB)
+       ========================================================================= -->
+  <div id="order-tracking-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="theme-card max-w-2xl w-full rounded-3xl border theme-border p-5 sm:p-7 relative shadow-2xl max-h-[92vh] overflow-y-auto space-y-6">
+      <button onclick="closeOrderTrackingModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-2 rounded-full theme-bg-surface border theme-border shadow-sm z-20">
+        <i class="fa-solid fa-xmark text-sm"></i>
       </button>
+
+      <!-- Tracking Header -->
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 rounded-2xl border theme-border flex items-center justify-center theme-accent text-xl mx-auto theme-bg-surface shadow-md">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">LIVE SHIPMENT TRACKING</span>
+        <h3 class="font-heading text-2xl font-bold theme-text-main uppercase">Track Your Order Status</h3>
+        <p class="text-xs theme-text-muted max-w-md mx-auto">Enter your Order ID (e.g. ORD-84920) or Phone Number to view live packaging, batch inspection, and courier dispatch timeline.</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <i class="fa-solid fa-barcode absolute left-3.5 top-3 theme-text-muted text-xs"></i>
+          <input 
+            type="text" 
+            id="tracking-search-input" 
+            placeholder="Enter Order ID (e.g. ORD-123456) or Phone (+91...)" 
+            onkeyup="if(event.key==='Enter') lookupOrderTracking()"
+            class="w-full theme-input rounded-2xl pl-9 pr-4 py-2.5 text-xs font-mono transition-colors"
+          >
+        </div>
+        <button onclick="lookupOrderTracking()" class="theme-btn-primary px-5 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shrink-0 flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Track</span>
+        </button>
+      </div>
+
+      <!-- Live Tracking Results Container (Populated dynamically) -->
+      <div id="tracking-result-container" class="space-y-5">
+        <!-- Rendered by app.js -->
+      </div>
+
     </div>
   </div>
 

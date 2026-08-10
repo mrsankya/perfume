@@ -259,9 +259,14 @@
 
       <!-- TAB 3: ORDERS & GST INVOICES -->
       <div id="tab-orders" class="tab-content hidden space-y-4">
-        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800">
-          <h3 class="font-heading text-base font-bold text-white">Online Cart Orders & GST Tax Receipts</h3>
-          <p class="text-xs text-gray-400">Click the invoice icon (<i class="fa-solid fa-file-invoice text-[#C59B27]"></i>) on any order to generate and print a GST Tax Invoice.</p>
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-heading text-base font-bold text-white">Online Cart Orders & Fulfillment Tracking</h3>
+            <p class="text-xs text-gray-400">Update packaging & courier dispatch details (Packed, Dispatched, Out for Delivery, Delivered) and generate GST Invoices.</p>
+          </div>
+          <span class="text-xs text-[#C59B27] font-semibold bg-[#C59B27]/10 px-3 py-1 rounded-xl border border-[#C59B27]/30">
+            📦 Live Customer Sync Active
+          </span>
         </div>
 
         <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden shadow-sm">
@@ -273,7 +278,8 @@
                   <th class="py-3 px-3">Customer</th>
                   <th class="py-3 px-3">Items</th>
                   <th class="py-3 px-3">Total (₹)</th>
-                  <th class="py-3 px-3">Delivery Address</th>
+                  <th class="py-3 px-3">Fulfillment Status</th>
+                  <th class="py-3 px-3">Courier / AWB</th>
                   <th class="py-3 px-3">Payment</th>
                   <th class="py-3 px-3 text-right">Actions</th>
                 </tr>
@@ -478,6 +484,76 @@
 
       <div id="gst-invoice-modal-content"></div>
 
+    </div>
+  </div>
+
+  <!-- ORDER STATUS & COURIER FULFILLMENT MODAL -->
+  <div id="order-status-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-lg w-full rounded-3xl border border-gray-800 p-6 relative shadow-2xl space-y-5">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold block">FULFILLMENT DISPATCH</span>
+          <h3 class="font-heading text-base font-bold text-white uppercase">Update Order Status</h3>
+        </div>
+        <button onclick="closeOrderStatusModal()" class="text-gray-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="order-status-form" onsubmit="handleSaveOrderStatus(event)" class="space-y-4">
+        <input type="hidden" id="status-order-id">
+
+        <div class="p-3 rounded-2xl bg-[#120D0A] border border-gray-800 flex justify-between items-center text-xs">
+          <div>
+            <span class="text-gray-500 block text-[10px] uppercase font-bold">Order Reference</span>
+            <span id="status-modal-order-id-display" class="font-mono font-bold text-[#C59B27]">ORD-0000</span>
+          </div>
+          <div class="text-right">
+            <span class="text-gray-500 block text-[10px] uppercase font-bold">Customer</span>
+            <span id="status-modal-customer-display" class="font-bold text-white">Customer Name</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Fulfillment Stage</label>
+          <select id="status-select-stage" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] outline-none">
+            <option value="Placed">📝 Placed & Payment Verified</option>
+            <option value="Packed">📦 Packed in Velvet Box & Sealed</option>
+            <option value="Dispatched">🚚 Dispatched / In Transit</option>
+            <option value="Out for Delivery">📍 Out for Doorstep Delivery</option>
+            <option value="Delivered">✨ Delivered Successfully</option>
+            <option value="Cancelled">❌ Cancelled / Returned</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Courier Partner</label>
+            <input type="text" id="status-input-courier" placeholder="e.g. BlueDart Air Express" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white">
+          </div>
+          <div>
+            <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Tracking / AWB Number</label>
+            <input type="text" id="status-input-awb" placeholder="e.g. BD9482910IN" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Dispatch Note (Customer Visible)</label>
+          <input type="text" id="status-input-note" placeholder="e.g. Handed to Pune Hub for same-day delivery" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white">
+        </div>
+
+        <div class="pt-2 flex items-center justify-between border-t border-gray-800">
+          <button type="button" onclick="sendWhatsAppOrderStatus(document.getElementById('status-order-id').value)" class="bg-[#16a34a] hover:bg-[#15803d] text-white px-3.5 py-2 rounded-xl text-xs font-bold uppercase flex items-center gap-1.5">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp Update</span>
+          </button>
+          
+          <div class="flex gap-2">
+            <button type="button" onclick="closeOrderStatusModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+            <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save & Sync</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 

@@ -72,7 +72,16 @@
    - Quantity counter, 1-Click "Add to Cart", and "Buy Now".
 11. **🧭 Restored Floating Bottom Navigation Pill Bar**:
     - High-contrast frosted dock with glowing golden icons (`#E5BE72` / `#C59B27`), distinct item labels, and elevation shadow for quick one-tap jumping to **Home**, **Shop Catalog**, **Discovery Box**, **Alchemy Lab**, **The Scent Club**, and **Cart Drawer** with live item count badge.
-12. **⚡ Invisible Seamless Navigation Shortcuts**:
+12. **📦 Live Customer Order Tracking Portal (`#order-tracking-modal`)**:
+    - Accessible via header "Track Order" button, floating shortcuts, and order confirmation modal.
+    - Search by Order ID or phone number.
+    - Interactive 5-stage shipment stepper: **Order Placed & Confirmed** -> **Quality Checked & Velvet Box Sealed** -> **Dispatched / In Air Transit** -> **Out for Delivery** -> **Delivered Successfully**.
+    - Displays Courier Partner (e.g., *BlueDart Air Express / Delhivery*), Tracking AWB Number, itemized bottle manifest, destination address, and 1-click WhatsApp Concierge assistance.
+13. **🚚 Staff & Super Admin Order Fulfillment Management**:
+    - Dedicated fulfillment desk with status update modal (`Placed`, `Packed`, `Dispatched`, `Out for Delivery`, `Delivered`, `Cancelled`).
+    - Editable Courier Name, Tracking AWB number, and dispatch remarks with automatic cloud synchronization to MongoDB Atlas (`db-sync.js`).
+    - 1-Click WhatsApp customer dispatch alert with pre-filled tracking links.
+14. **⚡ Invisible Seamless Navigation Shortcuts**:
     - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines

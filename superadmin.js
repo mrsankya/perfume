@@ -477,6 +477,7 @@ function switchSuperTab(tabId) {
   });
 
   if (tabId === 'analytics') renderAnalytics();
+  if (tabId === 'orders') renderSuperOrdersTable();
   if (tabId === 'themes') renderThemeStyles();
   if (tabId === 'banners') renderHeroBannersManager();
   if (tabId === 'inventory') renderMasterInventory();
@@ -485,6 +486,216 @@ function switchSuperTab(tabId) {
   if (tabId === 'settings') renderSuperSettings();
   if (tabId === 'backup') renderBackupView();
   if (tabId === 'audit') renderAuditLogs();
+}
+
+// =========================================================================
+// MASTER ORDERS & FULFILLMENT MANAGEMENT CONTROLLER
+// =========================================================================
+let superOrdersFilter = 'All';
+let superOrdersSearchQuery = '';
+
+function filterSuperOrders(status) {
+  superOrdersFilter = status;
+  document.querySelectorAll('.super-order-filter-btn').forEach(btn => {
+    if (btn.dataset.orderFilter === status) {
+      btn.className = 'super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] transition-all shrink-0';
+    } else {
+      btn.className = 'super-order-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] text-gray-300 border border-gray-700 hover:border-gray-500 transition-all shrink-0';
+    }
+  });
+  renderSuperOrdersTable();
+}
+
+function searchSuperOrders(query) {
+  superOrdersSearchQuery = (query || '').toLowerCase().trim();
+  renderSuperOrdersTable();
+}
+
+function renderSuperOrdersTable() {
+  const tbody = document.getElementById('super-orders-table-tbody');
+  if (!tbody) return;
+
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {
+    allOrders = [];
+  }
+
+  // Update KPIs
+  const totalVal = allOrders.reduce((sum, o) => sum + (Number(o.total) || 0), 0);
+  const pendingCount = allOrders.filter(o => !o.status || o.status === 'Placed' || o.status === 'Confirmed').length;
+  const transitCount = allOrders.filter(o => o.status === 'Packed' || o.status === 'Dispatched' || o.status === 'Out for Delivery').length;
+  const deliveredCount = allOrders.filter(o => o.status === 'Delivered').length;
+
+  const kpiCount = document.getElementById('super-orders-kpi-count');
+  const kpiVal = document.getElementById('super-orders-kpi-val');
+  const kpiPending = document.getElementById('super-orders-kpi-pending');
+  const kpiTransit = document.getElementById('super-orders-kpi-transit');
+  const kpiDelivered = document.getElementById('super-orders-kpi-delivered');
+
+  if (kpiCount) kpiCount.innerText = allOrders.length;
+  if (kpiVal) kpiVal.innerText = formatRupees(totalVal);
+  if (kpiPending) kpiPending.innerText = pendingCount;
+  if (kpiTransit) kpiTransit.innerText = transitCount;
+  if (kpiDelivered) kpiDelivered.innerText = deliveredCount;
+
+  // Filter & Search
+  let filtered = allOrders;
+  if (superOrdersFilter !== 'All') {
+    filtered = filtered.filter(o => (o.status || 'Placed').toLowerCase() === superOrdersFilter.toLowerCase());
+  }
+
+  if (superOrdersSearchQuery) {
+    filtered = filtered.filter(o => {
+      const idMatch = String(o.id || '').toLowerCase().includes(superOrdersSearchQuery);
+      const nameMatch = String(o.customer || '').toLowerCase().includes(superOrdersSearchQuery);
+      const phoneMatch = String(o.phone || '').toLowerCase().includes(superOrdersSearchQuery);
+      const awbMatch = String(o.awb || '').toLowerCase().includes(superOrdersSearchQuery);
+      const courierMatch = String(o.courier || '').toLowerCase().includes(superOrdersSearchQuery);
+      return idMatch || nameMatch || phoneMatch || awbMatch || courierMatch;
+    });
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="text-center py-10 text-gray-500 text-xs">
+          <i class="fa-solid fa-box-open text-3xl block mb-2 text-gray-600"></i>
+          No orders found matching criteria.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(o => {
+    const status = o.status || 'Placed';
+    let badgeClass = 'bg-blue-950 text-blue-300 border-blue-800';
+    if (status === 'Packed') badgeClass = 'bg-indigo-950 text-indigo-300 border-indigo-800';
+    else if (status === 'Dispatched') badgeClass = 'bg-amber-950 text-amber-300 border-amber-800';
+    else if (status === 'Out for Delivery') badgeClass = 'bg-purple-950 text-purple-300 border-purple-800';
+    else if (status === 'Delivered') badgeClass = 'bg-green-950 text-green-300 border-green-800';
+    else if (status === 'Cancelled') badgeClass = 'bg-red-950 text-red-300 border-red-800';
+
+    return `
+      <tr class="border-b border-gray-800 hover:bg-[#231B17]/60 text-xs text-gray-300">
+        <td class="py-3 px-3 font-mono font-bold text-[#C59B27]">${o.id}</td>
+        <td class="py-3 px-3">
+          <span class="font-bold text-white block">${o.customer}</span>
+          <span class="text-[10px] text-gray-500 font-mono">${o.phone}</span>
+        </td>
+        <td class="py-3 px-3 text-[11px] max-w-xs truncate">${o.items ? o.items.map(i => `${i.name} (x${i.qty})`).join(', ') : 'Perfume Extrait'}</td>
+        <td class="py-3 px-3 font-bold text-white">${formatRupees(o.total)}</td>
+        <td class="py-3 px-3">
+          <button onclick="openSuperOrderStatusModal('${o.id}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${badgeClass} hover:opacity-80 flex items-center gap-1 shadow-sm transition-all" title="Click to update fulfillment stage">
+            <span>${status}</span>
+            <i class="fa-solid fa-pen-to-square text-[9px]"></i>
+          </button>
+        </td>
+        <td class="py-3 px-3 text-[11px]">
+          <span class="text-white block font-medium">${o.courier || 'BlueDart Express'}</span>
+          <span class="text-[10px] font-mono text-[#C59B27]">${o.awb ? 'AWB: ' + o.awb : 'AWB: Pending'}</span>
+        </td>
+        <td class="py-3 px-3">
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-950 text-green-300 border border-green-800">${o.paymentMethod || 'UPI'}</span>
+        </td>
+        <td class="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
+          <button onclick="openSuperOrderStatusModal('${o.id}')" class="p-1.5 rounded-lg bg-blue-600/80 text-white hover:bg-blue-500 font-bold" title="Update Fulfillment Status">
+            <i class="fa-solid fa-truck-fast"></i>
+          </button>
+          <button onclick="sendSuperWhatsAppOrderStatus('${o.id}')" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d]" title="WhatsApp Dispatch Alert">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openSuperOrderStatusModal(orderId) {
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
+  const order = allOrders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const modal = document.getElementById('super-order-status-modal');
+  if (!modal) return;
+
+  document.getElementById('super-status-order-id').value = order.id;
+  document.getElementById('super-status-modal-order-id-display').innerText = order.id;
+  document.getElementById('super-status-modal-customer-display').innerText = `${order.customer} (${order.phone})`;
+  document.getElementById('super-status-select-stage').value = order.status || 'Placed';
+  document.getElementById('super-status-input-courier').value = order.courier || 'BlueDart Air Express';
+  document.getElementById('super-status-input-awb').value = order.awb || '';
+  document.getElementById('super-status-input-note').value = order.dispatchNote || '';
+
+  modal.classList.remove('hidden');
+}
+
+function closeSuperOrderStatusModal() {
+  document.getElementById('super-order-status-modal')?.classList.add('hidden');
+}
+
+function handleSaveSuperOrderStatus(e) {
+  e.preventDefault();
+  const orderId = document.getElementById('super-status-order-id').value;
+  const stage = document.getElementById('super-status-select-stage').value;
+  const courier = document.getElementById('super-status-input-courier').value.trim();
+  const awb = document.getElementById('super-status-input-awb').value.trim();
+  const note = document.getElementById('super-status-input-note').value.trim();
+
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
+  const order = allOrders.find(o => o.id === orderId);
+  if (!order) return;
+
+  order.status = stage;
+  order.courier = courier;
+  order.awb = awb;
+  order.dispatchNote = note;
+  order.updatedAt = new Date().toISOString();
+
+  localStorage.setItem('perfumes_orders', JSON.stringify(allOrders));
+
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushOrder) {
+    MongoSync.pushOrder(order);
+  }
+
+  recordAudit(`Order #${order.id} status updated to: ${stage} (${courier || 'Standard'})`);
+  closeSuperOrderStatusModal();
+  renderSuperOrdersTable();
+  showToast(`Order #${order.id} status updated to "${stage}" & synced to cloud! 📦`, 'success');
+}
+
+function sendSuperWhatsAppOrderStatus(orderId) {
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
+  const order = allOrders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const phone = (order.phone || '').replace(/[\s\-\+]/g, '');
+  let msg = `*👑 PERFUME SHOPE - ORDER SHIPMENT UPDATE*\n`;
+  msg += `*Order Reference:* ${order.id}\n`;
+  msg += `*Dear ${order.customer},*\n\n`;
+  msg += `*Current Status:* ${order.status || 'Dispatched'}\n`;
+  if (order.courier) msg += `*Courier Partner:* ${order.courier}\n`;
+  if (order.awb) msg += `*Tracking AWB Number:* ${order.awb}\n`;
+  if (order.dispatchNote) msg += `*Dispatch Note:* ${order.dispatchNote}\n`;
+  msg += `*Delivery Destination:* ${order.address}\n\n`;
+  msg += `Track your luxury fragrance live anytime on our portal: https://perfume-shopee.pages.dev\n`;
+  msg += `Thank you for choosing Perfume Shope Pune Flagship Boutique! ✨`;
+
+  window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 // 1-Click UI Visual Style Switcher

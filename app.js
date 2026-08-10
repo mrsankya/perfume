@@ -806,7 +806,10 @@ function confirmUPIPaymentDone() {
   showToast('Payment verification received! Your order is being packed with genuine batch seal.', 'success');
 }
 
+let lastPlacedOrderId = null;
+
 function openOrderSuccessModal(orderData) {
+  lastPlacedOrderId = orderData.id;
   const modal = document.getElementById('order-success-modal');
   if (!modal) {
     showToast(`Order #${orderData.id} Confirmed!`, 'success');
@@ -820,6 +823,259 @@ function openOrderSuccessModal(orderData) {
 
 function closeOrderSuccessModal() {
   document.getElementById('order-success-modal')?.classList.add('hidden');
+}
+
+function trackNewlyPlacedOrder() {
+  closeOrderSuccessModal();
+  openOrderTrackingModal(lastPlacedOrderId);
+}
+
+// 4. LIVE ORDER TRACKING CONTROLLER
+function openOrderTrackingModal(prefillOrderId = '') {
+  const modal = document.getElementById('order-tracking-modal');
+  if (!modal) return;
+
+  const searchInput = document.getElementById('tracking-search-input');
+  if (searchInput) {
+    searchInput.value = prefillOrderId || (currentUser ? currentUser.phone : '');
+  }
+
+  modal.classList.remove('hidden');
+  if (prefillOrderId) {
+    lookupOrderTracking();
+  } else {
+    // Show most recent order if available
+    let allOrders = [];
+    try {
+      allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+    } catch (e) {}
+    if (allOrders.length > 0) {
+      renderTrackingDetails(allOrders[0]);
+    } else {
+      document.getElementById('tracking-result-container').innerHTML = `
+        <div class="p-8 text-center theme-bg-surface rounded-2xl border theme-border space-y-2">
+          <div class="w-10 h-10 rounded-full border theme-border flex items-center justify-center theme-accent mx-auto text-sm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <h4 class="font-heading text-sm font-bold theme-text-main uppercase">No Order Selected</h4>
+          <p class="text-xs theme-text-muted">Enter your Order ID (e.g. ORD-123456) or phone number to check live dispatch status.</p>
+        </div>
+      `;
+    }
+  }
+}
+
+function closeOrderTrackingModal() {
+  document.getElementById('order-tracking-modal')?.classList.add('hidden');
+}
+
+function lookupOrderTracking() {
+  const input = document.getElementById('tracking-search-input')?.value.trim();
+  const container = document.getElementById('tracking-result-container');
+  if (!container) return;
+
+  if (!input) {
+    showToast('Please enter an Order ID or Phone Number', 'error');
+    return;
+  }
+
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
+  const cleanQuery = input.toLowerCase().replace(/[\s\-\+]/g, '');
+  const matchedOrder = allOrders.find(o => {
+    const oId = String(o.id || '').toLowerCase().replace(/[\s\-\+]/g, '');
+    const oPhone = String(o.phone || '').toLowerCase().replace(/[\s\-\+]/g, '');
+    return oId.includes(cleanQuery) || oPhone.includes(cleanQuery);
+  });
+
+  if (!matchedOrder) {
+    container.innerHTML = `
+      <div class="p-8 text-center theme-bg-surface rounded-2xl border theme-border space-y-3">
+        <div class="w-12 h-12 rounded-full bg-amber-950/40 border border-amber-500/40 text-amber-400 flex items-center justify-center text-lg mx-auto">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h4 class="font-heading text-base font-bold theme-text-main uppercase">Order Not Found</h4>
+        <p class="text-xs theme-text-muted max-w-sm mx-auto">We couldn't find an active order matching "<strong class="theme-text-main">${input}</strong>". Please verify your Order ID or contact boutique support.</p>
+        <button onclick="window.open('https://wa.me/919579453006?text=${encodeURIComponent('Hello Perfume Shope, I need help tracking my order: ' + input)}', '_blank')" class="theme-btn-primary px-4 py-2 rounded-xl text-xs font-bold uppercase inline-flex items-center gap-1.5 shadow-md">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Ask on WhatsApp</span>
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  renderTrackingDetails(matchedOrder);
+}
+
+function renderTrackingDetails(order) {
+  const container = document.getElementById('tracking-result-container');
+  if (!container) return;
+
+  const status = (order.status || 'Placed').toLowerCase();
+  let stepIndex = 0;
+  let statusBadgeClass = 'bg-blue-950 text-blue-300 border-blue-700';
+  let statusIcon = 'fa-receipt';
+
+  if (status.includes('deliver')) {
+    stepIndex = 4;
+    statusBadgeClass = 'bg-green-950 text-green-300 border-green-700';
+    statusIcon = 'fa-circle-check';
+  } else if (status.includes('out')) {
+    stepIndex = 3;
+    statusBadgeClass = 'bg-purple-950 text-purple-300 border-purple-700';
+    statusIcon = 'fa-motorcycle';
+  } else if (status.includes('dispatch') || status.includes('transit') || status.includes('shipped')) {
+    stepIndex = 2;
+    statusBadgeClass = 'bg-amber-950 text-amber-300 border-amber-700';
+    statusIcon = 'fa-truck-fast';
+  } else if (status.includes('pack')) {
+    stepIndex = 1;
+    statusBadgeClass = 'bg-indigo-950 text-indigo-300 border-indigo-700';
+    statusIcon = 'fa-box-open';
+  } else {
+    stepIndex = 0;
+    statusBadgeClass = 'bg-blue-950 text-blue-300 border-blue-700';
+    statusIcon = 'fa-file-invoice-dollar';
+  }
+
+  const steps = [
+    {
+      title: 'Order Placed & Confirmed',
+      desc: `Verified payment via ${order.paymentMethod || 'UPI'}. Free 2ml tester vial assigned.`,
+      icon: 'fa-receipt'
+    },
+    {
+      title: 'Quality Check & Luxury Packaging',
+      desc: 'Authenticity hologram sealed. Velvet presentation box cushioning applied.',
+      icon: 'fa-box-open'
+    },
+    {
+      title: 'Dispatched / In Air Transit',
+      desc: order.courier ? `Handed over to ${order.courier} (AWB: ${order.awb || 'Generated'}).` : 'Assigned to BlueDart Air Express / Pune Speed Dispatch.',
+      icon: 'fa-plane-departure'
+    },
+    {
+      title: 'Out for Delivery',
+      desc: 'Delivery executive out for doorstep handoff. Please keep phone available.',
+      icon: 'fa-motorcycle'
+    },
+    {
+      title: 'Delivered & Scent Ready',
+      desc: 'Package delivered. Enjoy your luxury fragrance & Blind Buy guarantee!',
+      icon: 'fa-champagne-glasses'
+    }
+  ];
+
+  container.innerHTML = `
+    <!-- Top Order Card -->
+    <div class="p-4 sm:p-5 rounded-2xl theme-bg-surface border theme-border space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b theme-border pb-3">
+        <div>
+          <span class="text-[10px] uppercase font-bold theme-text-muted block">Order ID</span>
+          <span class="font-heading font-bold text-base theme-accent font-mono">${order.id}</span>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-1.5 ${statusBadgeClass}">
+          <i class="fa-solid ${statusIcon}"></i>
+          <span>${order.status || 'Confirmed & Processing'}</span>
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div>
+          <span class="text-[10px] uppercase theme-text-muted font-semibold block">Customer</span>
+          <span class="font-bold theme-text-main block">${order.customer}</span>
+          <span class="theme-text-muted text-[11px] font-mono">${order.phone}</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase theme-text-muted font-semibold block">Courier & AWB</span>
+          <span class="font-bold theme-text-main block">${order.courier || 'BlueDart Express'}</span>
+          <span class="theme-accent text-[11px] font-mono font-bold">${order.awb ? 'AWB: ' + order.awb : 'AWB: In Assignment'}</span>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase theme-text-muted font-semibold block">Order Total</span>
+          <span class="font-heading font-bold text-base theme-accent">${formatRupees(order.total)}</span>
+          <span class="text-[10px] text-green-600 dark:text-green-400 font-semibold block">✓ Paid via ${order.paymentMethod || 'UPI'}</span>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t theme-border text-xs">
+        <span class="text-[10px] uppercase theme-text-muted font-semibold block">Delivery Address:</span>
+        <p class="theme-text-secondary leading-relaxed">${order.address}</p>
+      </div>
+    </div>
+
+    <!-- Live Stepper -->
+    <div class="p-4 sm:p-5 rounded-2xl theme-card border theme-border space-y-4">
+      <span class="text-[10px] uppercase tracking-wider font-bold theme-accent block">Shipment Progress Stepper</span>
+      
+      <div class="space-y-4 pt-1">
+        ${steps.map((st, idx) => {
+          const isCompleted = idx < stepIndex;
+          const isActive = idx === stepIndex;
+          const stateClass = isCompleted ? 'completed' : (isActive ? 'active' : 'pending');
+
+          return `
+            <div class="tracking-stepper-step ${stateClass}">
+              ${idx < steps.length - 1 ? '<div class="tracking-stepper-line"></div>' : ''}
+              <div class="tracking-step-dot">
+                <i class="fa-solid ${isCompleted ? 'fa-check' : st.icon}"></i>
+              </div>
+              <div class="space-y-0.5 min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <h5 class="font-heading text-xs sm:text-sm font-bold ${isActive ? 'theme-accent' : (isCompleted ? 'text-green-500 dark:text-green-400' : 'theme-text-muted')} uppercase">
+                    ${st.title}
+                  </h5>
+                  ${isActive ? '<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse">Current Stage</span>' : ''}
+                </div>
+                <p class="text-[11px] ${isActive ? 'theme-text-secondary font-medium' : 'theme-text-muted'} leading-relaxed">
+                  ${st.desc}
+                </p>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- Items in Order -->
+    <div class="p-4 sm:p-5 rounded-2xl theme-bg-surface border theme-border space-y-3">
+      <span class="text-[10px] uppercase tracking-wider font-bold theme-accent block">Items In This Shipment (${order.items ? order.items.length : 0})</span>
+      <div class="divide-y theme-border">
+        ${order.items ? order.items.map(item => `
+          <div class="py-2.5 flex items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-3">
+              <img src="${item.image || 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=120&auto=format&fit=crop&q=80'}" alt="${item.name}" class="w-10 h-10 rounded-xl object-cover border theme-border shrink-0">
+              <div>
+                <span class="font-heading font-bold theme-text-main uppercase block truncate">${item.name}</span>
+                <span class="text-[10px] theme-text-muted">${item.brand || 'Luxury Extrait'} • Qty: ${item.qty || 1}</span>
+              </div>
+            </div>
+            <span class="font-heading font-bold theme-accent shrink-0">${formatRupees(item.price * (item.qty || 1))}</span>
+          </div>
+        `).join('') : '<p class="text-xs theme-text-muted">No item details available.</p>'}
+      </div>
+    </div>
+
+    <!-- Need Help Button -->
+    <div class="flex items-center justify-between gap-3 p-3.5 rounded-2xl theme-card border theme-border">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-green-950/60 border border-green-600 text-green-400 flex items-center justify-center text-sm">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold theme-text-main block">Questions regarding delivery?</span>
+          <span class="text-[10px] theme-text-muted">Chat with our FC Road Pune concierge team.</span>
+        </div>
+      </div>
+      <button onclick="window.open('https://wa.me/919579453006?text=${encodeURIComponent('Hi Perfume Shope team, I would like an update on my Order ' + order.id)}', '_blank')" class="theme-btn-primary px-3.5 py-2 rounded-xl text-xs font-bold uppercase shrink-0 flex items-center gap-1.5 shadow-md">
+        <span>Chat Now</span>
+      </button>
+    </div>
+  `;
 }
 
 // 4. CELEBRITY SCENT WARDROBES (ANIMATED LUXURY SLIDER)
