@@ -42,7 +42,9 @@
    - Indian Climate & Occasion suitability.
 3. **🛡️ Blind Buy Insurance**:
    - Every full 100ml bottle includes a **Free 2ml Mini Tester Vial** + 100% money-back / exchange guarantee.
-4. **🌟 Celebrity Scent Wardrobes (`#celebrity-wardrobe`)**:
+4. **🌟 Iconic Celebrity Scent Wardrobes (`#celebrity-wardrobe`)**:
+   - **Positioned directly below the Main Products Catalog section**.
+   - **Animated Luxury Slider & Carousel**: Smooth prev/next arrows, interactive dot pagination, touch swipe, and auto-scrolling (with pause on hover).
    - Shah Rukh Khan (SRK's Mysore Sandalwood + Turathi Leather Layering Duo).
    - Virat Kohli (Alpha Captain Tobacco Vanille + Aged Cambodian Oud Duo).
    - Deepika Padukone (Queen of Grace Haute Turkish Rose + Vanilla Extrait Duo).
@@ -51,14 +53,15 @@
 5. **🧪 Fragrance Layering Alchemy Lab (`#alchemy-lab`)**:
    - Interactive visual blender pairing Base Notes (Oud, Sandalwood, Birch) with Top Notes (Rose, Vanilla, Aqua).
    - Real-time 98% Royal Indian Synergy rating + 15% Duo Discount.
-6. **👑 The Scent Club — Community Feed & SOTD (`#scent-community`)**:
-   - Customer feed of compliment stories, longevity ratings, photos, and upvotes.
-   - Interactive "Post Your SOTD" form.
-   - 1-Click "Buy This Layering Duo" directly from user posts.
-7. **📅 In-Store VIP Scent Consultation Booking (`#book-consultation`)**:
+6. **👑 The Scent Club — Community SOTD Feed (`#scent-community`)**:
+   - **Animated Luxury Slider**: Auto-sliding customer compliment reviews, longevity ratings, bottle photographs, and upvotes.
+   - 1-Click "Buy This Layering Duo" with instant checkout discount.
+7. **✨ Luxury Live Broadcast Ticker Marquee**:
+   - Continuous smooth animated ticker under hero banners highlighting genuine imported batches, tester vials, laser engraving, and Pune boutique hours.
+8. **📅 In-Store VIP Scent Consultation Booking (`#book-consultation`)**:
    - Private tasting table reservations at FC Road Pune flagship boutique.
    - Generates instant VIP Pass via WhatsApp.
-8. **✨ Free Custom Laser Bottle Engraving**:
+9. **✨ Free Custom Laser Bottle Engraving**:
    - Checkbox toggle in cart with live preview of custom name engraved on bottle.
 9. **📄 1-Click GST Tax Invoice Generator (Admin Portal)**:
    - Itemized GST tax invoices (18% rate, HSN Code 33030090, CGST 9% + SGST 9%) with store header and batch seal for print/PDF export.

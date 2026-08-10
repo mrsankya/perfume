@@ -822,26 +822,29 @@ function closeOrderSuccessModal() {
   document.getElementById('order-success-modal')?.classList.add('hidden');
 }
 
-// 4. CELEBRITY SCENT WARDROBES
+// 4. CELEBRITY SCENT WARDROBES (ANIMATED LUXURY SLIDER)
+let celebritySliderIndex = 0;
+let celebritySliderInterval = null;
+
 function renderCelebrityWardrobes() {
-  const container = document.getElementById('celebrity-wardrobe-grid');
+  const container = document.getElementById('celebrity-wardrobe-slider-track') || document.getElementById('celebrity-wardrobe-grid');
   if (!container) return;
 
-  container.innerHTML = CELEBRITY_WARDROBES.map(c => `
-    <div class="celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4">
+  container.innerHTML = CELEBRITY_WARDROBES.map((c, idx) => `
+    <div class="luxury-slider-item four-col celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl transition-all duration-300">
       
       <div class="flex items-center gap-3.5">
-        <img src="${c.image}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border theme-border shadow-md">
-        <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block mb-1">
+        <img src="${c.image}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border theme-border shadow-md shrink-0">
+        <div class="min-w-0">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block mb-1 truncate">
             ${c.badge}
           </span>
-          <h3 class="font-heading text-base font-bold theme-text-main">${c.name}</h3>
+          <h3 class="font-heading text-base font-bold theme-text-main uppercase truncate">${c.name}</h3>
           <p class="text-[11px] theme-text-muted line-clamp-1">${c.tagline}</p>
         </div>
       </div>
 
-      <blockquote class="text-xs italic theme-text-secondary p-3 rounded-2xl theme-bg-surface border theme-border">
+      <blockquote class="text-xs italic theme-text-secondary p-3 rounded-2xl theme-bg-surface border theme-border leading-relaxed">
         ${c.quote}
       </blockquote>
 
@@ -851,7 +854,7 @@ function renderCelebrityWardrobes() {
           ${c.items.map(item => `
             <div class="p-2 rounded-xl theme-bg-surface border theme-border text-[11px]">
               <span class="font-bold theme-text-main block truncate uppercase">${item.name}</span>
-              <span class="theme-text-muted">${item.brand} • ${formatRupees(item.price)}</span>
+              <span class="theme-text-muted text-[10px]">${item.brand} • ${formatRupees(item.price)}</span>
             </div>
           `).join('')}
         </div>
@@ -864,7 +867,7 @@ function renderCelebrityWardrobes() {
           <span class="text-[9px] font-bold text-green-600 dark:text-green-400">Save ${formatRupees(c.savings)} Duo Combo</span>
         </div>
 
-        <button onclick="buyCelebrityDuo('${c.id}')" class="theme-btn-primary px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
+        <button onclick="buyCelebrityDuo('${c.id}')" class="theme-btn-primary px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 hover:scale-105 transition-transform">
           <i class="fa-solid fa-cart-plus"></i>
           <span>Add Duo</span>
         </button>
@@ -872,6 +875,62 @@ function renderCelebrityWardrobes() {
 
     </div>
   `).join('');
+
+  renderCelebritySliderDots();
+  initCelebritySliderAutoPlay();
+}
+
+function renderCelebritySliderDots() {
+  const dotsContainer = document.getElementById('celebrity-slider-dots');
+  if (!dotsContainer) return;
+
+  dotsContainer.innerHTML = CELEBRITY_WARDROBES.map((_, idx) => `
+    <button onclick="jumpToCelebritySlide(${idx})" class="slider-dot-btn ${idx === celebritySliderIndex ? 'active' : ''}" aria-label="Celebrity Slide ${idx + 1}"></button>
+  `).join('');
+}
+
+function slideCelebrityWardrobe(direction) {
+  const track = document.getElementById('celebrity-wardrobe-slider-track');
+  if (!track) return;
+
+  const cardWidth = track.firstElementChild ? track.firstElementChild.offsetWidth + 20 : 300;
+  track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+}
+
+function jumpToCelebritySlide(index) {
+  const track = document.getElementById('celebrity-wardrobe-slider-track');
+  if (!track) return;
+  const cardWidth = track.firstElementChild ? track.firstElementChild.offsetWidth + 20 : 300;
+  track.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+  celebritySliderIndex = index;
+  renderCelebritySliderDots();
+}
+
+function updateCelebritySliderDots() {
+  const track = document.getElementById('celebrity-wardrobe-slider-track');
+  if (!track || !track.firstElementChild) return;
+  const cardWidth = track.firstElementChild.offsetWidth + 20;
+  const currentIndex = Math.round(track.scrollLeft / cardWidth);
+  if (currentIndex !== celebritySliderIndex && currentIndex >= 0 && currentIndex < CELEBRITY_WARDROBES.length) {
+    celebritySliderIndex = currentIndex;
+    renderCelebritySliderDots();
+  }
+}
+
+function initCelebritySliderAutoPlay() {
+  clearInterval(celebritySliderInterval);
+  const track = document.getElementById('celebrity-wardrobe-slider-track');
+  if (!track) return;
+
+  celebritySliderInterval = setInterval(() => {
+    if (track.matches(':hover')) return;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (track.scrollLeft >= maxScroll - 15) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      slideCelebrityWardrobe(1);
+    }
+  }, 4500);
 }
 
 function buyCelebrityDuo(celebId) {
@@ -1078,16 +1137,19 @@ function addLayeringDuoToCart() {
   showToast(`Layering Duo Added! Saved ${formatRupees(savings)} with 15% Alchemy Discount 🧪`, 'success');
 }
 
-// 7. THE SCENT CLUB - COMMUNITY SOTD FEED
+// 7. THE SCENT CLUB - COMMUNITY SOTD FEED (ANIMATED LUXURY SLIDER)
+let communitySliderIndex = 0;
+let communitySliderInterval = null;
+
 function renderCommunityFeed() {
-  const container = document.getElementById('community-feed-grid');
+  const container = document.getElementById('community-slider-track') || document.getElementById('community-feed-grid');
   if (!container) return;
 
   container.innerHTML = communityPosts.map(post => `
-    <div class="rounded-3xl p-5 theme-card border theme-border space-y-3.5 shadow-sm">
+    <div class="luxury-slider-item three-col rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-3.5 shadow-sm hover:shadow-xl transition-all duration-300">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover border theme-border">
+          <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover border theme-border shrink-0">
           <div>
             <div class="flex items-center gap-1.5">
               <span class="font-bold text-xs theme-text-main">${post.author}</span>
@@ -1097,7 +1159,7 @@ function renderCommunityFeed() {
           </div>
         </div>
 
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold theme-badge">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold theme-badge shrink-0">
           ⚡ ${post.longevityRating}
         </span>
       </div>
@@ -1105,7 +1167,7 @@ function renderCommunityFeed() {
       <div class="p-3 rounded-2xl theme-bg-surface border theme-border space-y-1">
         <div class="flex items-center justify-between text-[11px]">
           <span class="theme-text-muted">Scent of the Day:</span>
-          <span class="font-heading font-bold theme-text-main uppercase">${post.sotd}</span>
+          <span class="font-heading font-bold theme-text-main uppercase truncate">${post.sotd}</span>
         </div>
       </div>
 
@@ -1120,18 +1182,73 @@ function renderCommunityFeed() {
       </p>
 
       <div class="pt-2 flex items-center justify-between border-t theme-border">
-        <button onclick="likeCommunityPost('${post.id}')" class="text-xs theme-text-muted hover:text-red-500 flex items-center gap-1.5">
+        <button onclick="likeCommunityPost('${post.id}')" class="text-xs theme-text-muted hover:text-red-500 flex items-center gap-1.5 transition-colors">
           <i class="fa-solid fa-heart text-red-500"></i>
           <span>${post.likes} Upvotes</span>
         </button>
 
         <button onclick="buyCommunityDuo(['${post.duoIds[0]}', '${post.duoIds[1]}'])" class="text-xs font-bold theme-accent hover:underline flex items-center gap-1">
-          <span>Buy This Layering Duo</span>
+          <span>Buy This Duo</span>
           <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
       </div>
     </div>
   `).join('');
+
+  renderCommunitySliderDots();
+  initCommunitySliderAutoPlay();
+}
+
+function renderCommunitySliderDots() {
+  const dotsContainer = document.getElementById('community-slider-dots');
+  if (!dotsContainer) return;
+
+  dotsContainer.innerHTML = communityPosts.map((_, idx) => `
+    <button onclick="jumpToCommunitySlide(${idx})" class="slider-dot-btn ${idx === communitySliderIndex ? 'active' : ''}" aria-label="Review ${idx + 1}"></button>
+  `).join('');
+}
+
+function slideCommunityFeed(direction) {
+  const track = document.getElementById('community-slider-track');
+  if (!track) return;
+  const cardWidth = track.firstElementChild ? track.firstElementChild.offsetWidth + 20 : 320;
+  track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+}
+
+function jumpToCommunitySlide(index) {
+  const track = document.getElementById('community-slider-track');
+  if (!track) return;
+  const cardWidth = track.firstElementChild ? track.firstElementChild.offsetWidth + 20 : 320;
+  track.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+  communitySliderIndex = index;
+  renderCommunitySliderDots();
+}
+
+function updateCommunitySliderDots() {
+  const track = document.getElementById('community-slider-track');
+  if (!track || !track.firstElementChild) return;
+  const cardWidth = track.firstElementChild.offsetWidth + 20;
+  const currentIndex = Math.round(track.scrollLeft / cardWidth);
+  if (currentIndex !== communitySliderIndex && currentIndex >= 0 && currentIndex < communityPosts.length) {
+    communitySliderIndex = currentIndex;
+    renderCommunitySliderDots();
+  }
+}
+
+function initCommunitySliderAutoPlay() {
+  clearInterval(communitySliderInterval);
+  const track = document.getElementById('community-slider-track');
+  if (!track) return;
+
+  communitySliderInterval = setInterval(() => {
+    if (track.matches(':hover')) return;
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    if (track.scrollLeft >= maxScroll - 15) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      slideCommunityFeed(1);
+    }
+  }, 5000);
 }
 
 function likeCommunityPost(postId) {

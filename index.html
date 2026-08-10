@@ -180,23 +180,40 @@
   </section>
 
   <!-- =========================================================================
-       SECTION 1: CELEBRITY SCENT WARDROBES (SRK, VIRAT, DEEPIKA, MARVEL)
+       LUXURY LIVE BROADCAST TICKER MARQUEE
        ========================================================================= -->
-  <section id="celebrity-wardrobe" class="py-12 sm:py-20 theme-bg-main">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="text-center max-w-xl mx-auto space-y-1.5">
-        <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🌟 ICONIC SCENT WARDROBES</span>
-        <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase">Wear Like a Legend</h2>
-        <p class="text-xs theme-text-muted">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
+  <div class="py-3 theme-bg-surface border-y theme-border overflow-hidden">
+    <div class="luxury-marquee text-xs font-semibold theme-text-secondary uppercase tracking-wider">
+      <div class="luxury-marquee-content">
+        <span>✨ 100% Authentic Genuine Batches • Direct UAE & French Imports</span>
+        <span>•</span>
+        <span>🛡️ Free 2ml Tester Vial + Blind Buy Money-Back Insurance</span>
+        <span>•</span>
+        <span>👑 Free Laser Bottle Engraving on Orders Above ₹2,999</span>
+        <span>•</span>
+        <span>📍 FC Road Pune Flagship Boutique Open Today (10:30 AM - 10:00 PM)</span>
+        <span>•</span>
+        <span>⚡ Same-Day Pune Courier & Express All-India Air Dispatch</span>
+        <span>•</span>
+        <span>🧪 Interactive Fragrance Layering Alchemy Lab with 15% Duo Savings</span>
+        <span>•</span>
       </div>
-
-      <div id="celebrity-wardrobe-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <!-- Rendered by app.js -->
+      <div class="luxury-marquee-content" aria-hidden="true">
+        <span>✨ 100% Authentic Genuine Batches • Direct UAE & French Imports</span>
+        <span>•</span>
+        <span>🛡️ Free 2ml Tester Vial + Blind Buy Money-Back Insurance</span>
+        <span>•</span>
+        <span>👑 Free Laser Bottle Engraving on Orders Above ₹2,999</span>
+        <span>•</span>
+        <span>📍 FC Road Pune Flagship Boutique Open Today (10:30 AM - 10:00 PM)</span>
+        <span>•</span>
+        <span>⚡ Same-Day Pune Courier & Express All-India Air Dispatch</span>
+        <span>•</span>
+        <span>🧪 Interactive Fragrance Layering Alchemy Lab with 15% Duo Savings</span>
+        <span>•</span>
       </div>
-
     </div>
-  </section>
+  </div>
 
   <!-- =========================================================================
        SECTION 2: CUSTOM 5-IN-1 DISCOVERY SAMPLE BOX BUILDER (₹999)
@@ -372,9 +389,48 @@
   </section>
 
   <!-- =========================================================================
-       SECTION 5: THE SCENT CLUB - COMMUNITY SOTD FEED
+       SECTION 5: ICONIC CELEBRITY SCENT WARDROBES (ANIMATED LUXURY SLIDER)
        ========================================================================= -->
-  <section id="scent-community" class="py-12 sm:py-20 theme-bg-main">
+  <section id="celebrity-wardrobe" class="py-12 sm:py-20 theme-bg-main border-t theme-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🌟 ICONIC SCENT WARDROBES</span>
+          <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Wear Like a Legend</h2>
+          <p class="text-xs theme-text-muted mt-1">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
+        </div>
+
+        <!-- Slider Navigation Controls -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="slideCelebrityWardrobe(-1)" aria-label="Previous Celebrity" class="slider-arrow-btn w-10 h-10 rounded-full flex items-center justify-center text-xs transition-all">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button onclick="slideCelebrityWardrobe(1)" aria-label="Next Celebrity" class="slider-arrow-btn w-10 h-10 rounded-full flex items-center justify-center text-xs transition-all">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Animated Slider Track Container -->
+      <div class="luxury-slider-container">
+        <div id="celebrity-wardrobe-slider-track" class="luxury-slider-track" onscroll="updateCelebritySliderDots()">
+          <!-- Rendered by app.js -->
+        </div>
+      </div>
+
+      <!-- Interactive Dot Indicators -->
+      <div id="celebrity-slider-dots" class="flex justify-center items-center gap-2 pt-2">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: THE SCENT CLUB - COMMUNITY SOTD FEED (ANIMATED SLIDER)
+       ========================================================================= -->
+  <section id="scent-community" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -384,13 +440,33 @@
           <p class="text-xs theme-text-muted mt-1">Real compliment stories, longevity ratings, and verified layering recipes from fragrance connoisseurs across India.</p>
         </div>
 
-        <button onclick="document.getElementById('post-sotd-modal')?.classList.remove('hidden')" class="theme-btn-primary px-4 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
-          <i class="fa-solid fa-feather"></i>
-          <span>Share Your SOTD</span>
-        </button>
+        <div class="flex items-center gap-3">
+          <!-- Slider Navigation Arrows -->
+          <div class="flex items-center gap-2">
+            <button onclick="slideCommunityFeed(-1)" aria-label="Previous SOTD" class="slider-arrow-btn w-9 h-9 rounded-full flex items-center justify-center text-xs transition-all">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="slideCommunityFeed(1)" aria-label="Next SOTD" class="slider-arrow-btn w-9 h-9 rounded-full flex items-center justify-center text-xs transition-all">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <button onclick="document.getElementById('post-sotd-modal')?.classList.remove('hidden')" class="theme-btn-primary px-4 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 shrink-0">
+            <i class="fa-solid fa-feather"></i>
+            <span>Share Your SOTD</span>
+          </button>
+        </div>
       </div>
 
-      <div id="community-feed-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Animated Community Slider Track -->
+      <div class="luxury-slider-container">
+        <div id="community-slider-track" class="luxury-slider-track" onscroll="updateCommunitySliderDots()">
+          <!-- Rendered by app.js -->
+        </div>
+      </div>
+
+      <!-- Community Slider Dots -->
+      <div id="community-slider-dots" class="flex justify-center items-center gap-2 pt-2">
         <!-- Rendered by app.js -->
       </div>
 

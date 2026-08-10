@@ -433,6 +433,106 @@ body {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 60%, var(--bg-main) 100%);
 }
 
+/* =========================================================================
+   ANIMATED LUXURY SLIDER & CAROUSEL ENGINE
+   ========================================================================= */
+.luxury-slider-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-slider-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0.5rem 0.25rem;
+}
+.luxury-slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.luxury-slider-item {
+  flex: 0 0 88%;
+  scroll-snap-align: start;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .luxury-slider-item {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .luxury-slider-item.four-col {
+    flex: 0 0 calc(25% - 1rem);
+  }
+  .luxury-slider-item.three-col {
+    flex: 0 0 calc(33.333% - 0.85rem);
+  }
+}
+
+/* Slider Nav Buttons */
+.slider-arrow-btn {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+}
+
+.slider-arrow-btn:hover {
+  background: var(--accent-primary);
+  color: #120D0A;
+  border-color: var(--accent-primary);
+  transform: scale(1.08);
+}
+
+.slider-dot-btn {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--border-color);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.slider-dot-btn.active {
+  width: 28px;
+  background: var(--accent-primary);
+}
+
+/* Luxury Marquee Broadcast Ticker */
+.luxury-marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 2rem;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.luxury-marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 2.5rem;
+  animation: scroll-marquee 32s linear infinite;
+}
+
+.luxury-marquee:hover .luxury-marquee-content {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - 2.5rem)); }
+}
+
 /* Longevity & Sillage Gauge Meter Bars */
 .meter-bar-fill {
   background: linear-gradient(90deg, #F5D77F, #C59B27, #9A7B1C) !important;
