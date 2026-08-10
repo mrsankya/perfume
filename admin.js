@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PERFUME SHOPE - ADMIN DASHBOARD & PROMOTIONAL CALLING ENGINE
+   PERFUME SHOPE - ADMIN DASHBOARD, PROMOTIONS & GST TAX INVOICE ENGINE
    ========================================================================== */
 
 const DEFAULT_ADMIN_PASSWORDS = ['admin', '9822725265'];
@@ -7,6 +7,7 @@ const DEFAULT_ADMIN_PASSWORDS = ['admin', '9822725265'];
 const DEFAULT_STORE_SETTINGS = {
   storeName: 'PERFUME SHOPE',
   tagline: 'Haute Parfumerie & Luxury Attars • India',
+  gstNumber: '27AAAAA0000A1Z5',
   whatsappNumber: '919579453006',
   supportPhone: '+91 95794 53006 / +91 98227 25265',
   supportEmail: 'contact@perfumeshope.in',
@@ -16,157 +17,11 @@ const DEFAULT_STORE_SETTINGS = {
   announcementActive: true
 };
 
-const DEFAULT_PRODUCTS = [
-  {
-    id: 'p1',
-    name: "KHAMRAH D'OR",
-    brand: 'Lattafa',
-    price: 2899,
-    gender: 'Unisex',
-    accord: 'Warm Vanilla & Kesar',
-    notes: 'Kashmiri Kesar, Cinnamon, Sweet Dates, Praline, Amber Vanilla',
-    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
-    badge: 'Bestseller 🇮🇳',
-    inStock: true
-  },
-  {
-    id: 'p2',
-    name: 'OUD SUPRÊME',
-    brand: 'Rasasi',
-    price: 3499,
-    gender: 'Unisex',
-    accord: 'Royal Dehn Al Oud',
-    notes: 'Pure Cambodian Oud, Mysore Sandalwood, Royal Cardamom, Amber',
-    image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
-    badge: 'Top Pick',
-    inStock: true
-  },
-  {
-    id: 'p3',
-    name: 'TURATHI BROWN',
-    brand: 'Afnan',
-    price: 3199,
-    gender: 'Men',
-    accord: 'Mysore Sandal & Woods',
-    notes: 'Ambergris, Rich Cedarwood, Patchouli, Pink Peppercorn',
-    image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Trending',
-    inStock: true
-  },
-  {
-    id: 'p4',
-    name: 'YARA BLUSH',
-    brand: 'Lattafa',
-    price: 2499,
-    gender: 'Women',
-    accord: 'Kashmiri Gulab & Rose',
-    notes: 'Kashmiri Rose Petals, Tropical Fruits, Vanilla Orchid, Sandalwood',
-    image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
-    badge: 'Viral Hit',
-    inStock: true
-  },
-  {
-    id: 'p5',
-    name: 'CLUB DE NUIT INTENSE',
-    brand: 'Armaf',
-    price: 3899,
-    gender: 'Men',
-    accord: 'Fresh Citrus & Monsoon Aqua',
-    notes: 'Smoky Birch, Italian Lemon, Pineapple, Blackcurrant, Ambergris',
-    image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Beast Mode',
-    inStock: true
-  },
-  {
-    id: 'p6',
-    name: 'AMIR ONE OUD',
-    brand: 'Ajmal',
-    price: 4999,
-    gender: 'Unisex',
-    accord: 'Royal Dehn Al Oud',
-    notes: 'Aged Dehn Al Oudh, Frankincense, Sandalwood, Damascene Rose',
-    image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
-    badge: 'Royal Blend',
-    inStock: true
-  },
-  {
-    id: 'p7',
-    name: 'DELINA EXCLUSIF',
-    brand: 'Parfums de Marly',
-    price: 8499,
-    gender: 'Women',
-    accord: 'Kashmiri Gulab & Rose',
-    notes: 'Turkish Rose, Incense, Lychee, Warm Amber, Bourbon Vanilla',
-    image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
-    badge: 'Haute Extrait',
-    inStock: true
-  },
-  {
-    id: 'p8',
-    name: 'HAWAS POUR HOMME',
-    brand: 'Rasasi',
-    price: 3699,
-    gender: 'Men',
-    accord: 'Fresh Citrus & Monsoon Aqua',
-    notes: 'Fresh Bergamot, Cinnamon, Orange Blossom, Aquatic Grey Amber',
-    image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
-    badge: 'All-Season',
-    inStock: true
-  },
-  {
-    id: 'p9',
-    name: 'MYSORE CHANDAN ROYALE',
-    brand: 'Perfume Shope Reserve',
-    price: 4200,
-    gender: 'Unisex',
-    accord: 'Mysore Sandal & Woods',
-    notes: 'Original Mysore Sandalwood Oil, Cardamom, White Musk, Cedar',
-    image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
-    badge: 'Artisanal',
-    inStock: true
-  },
-  {
-    id: 'p10',
-    name: 'NEBRAS GOURMAND',
-    brand: 'Lattafa Pride',
-    price: 2999,
-    gender: 'Women',
-    accord: 'Warm Vanilla & Kesar',
-    notes: 'Red Berries, Cocoa, Sugared Kesar Vanilla, Tonka, Soft Musk',
-    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
-    badge: 'Gourmand',
-    inStock: true
-  },
-  {
-    id: 'p11',
-    name: 'TOBACCO VANILLE',
-    brand: 'Tom Ford',
-    price: 11999,
-    gender: 'Unisex',
-    accord: 'Warm Vanilla & Kesar',
-    notes: 'Tobacco Leaf, Spiced Ginger, Cocoa, Tonka Bean, Wood Sap',
-    image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
-    badge: 'Luxury Niche',
-    inStock: true
-  },
-  {
-    id: 'p12',
-    name: 'AVENTUS NOIR',
-    brand: 'Creed',
-    price: 13499,
-    gender: 'Men',
-    accord: 'Mysore Sandal & Woods',
-    notes: 'Blackcurrant, Italian Bergamot, Birch, Oakmoss, Indian Vetiver',
-    image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Masterpiece',
-    inStock: true
-  }
-];
-
 let products = [];
 let reservations = [];
 let visitors = [];
 let orders = [];
+let consultations = [];
 let settings = {};
 let currentTab = 'inventory';
 let editingProductId = null;
@@ -184,67 +39,44 @@ function loadAdminData() {
   // Products
   const savedProducts = localStorage.getItem('perfumes_catalog');
   if (savedProducts) {
-    try { products = JSON.parse(savedProducts); } catch (e) { products = [...DEFAULT_PRODUCTS]; }
-  } else {
-    products = [...DEFAULT_PRODUCTS];
-    localStorage.setItem('perfumes_catalog', JSON.stringify(products));
+    try { products = JSON.parse(savedProducts); } catch (e) { products = []; }
   }
 
   // Reservations
   const savedReservations = localStorage.getItem('perfumes_reservations');
   if (savedReservations) {
     try { reservations = JSON.parse(savedReservations); } catch (e) { reservations = []; }
-  } else {
-    reservations = [];
   }
 
-  // Visitors & Promotional Calling Leads
+  // Visitors & Calling Leads
   const savedVisitors = localStorage.getItem('perfumes_visitors');
   if (savedVisitors) {
     try { visitors = JSON.parse(savedVisitors); } catch (e) { visitors = []; }
-  } else {
-    visitors = [
-      {
-        id: 'lead-1',
-        name: 'Sakshi Patil',
-        phone: '+91 98227 25265',
-        city: 'Pune',
-        source: 'Google Sign-In',
-        lastActive: new Date().toISOString(),
-        callStatus: 'Promotional Call Pending'
-      },
-      {
-        id: 'lead-2',
-        name: 'Amit Deshmukh',
-        phone: '+91 98901 23456',
-        city: 'Mumbai',
-        source: '₹500 Voucher Popup',
-        lastActive: new Date(Date.now() - 3600000 * 3).toISOString(),
-        callStatus: 'Called - Interested'
-      }
-    ];
-    localStorage.setItem('perfumes_visitors', JSON.stringify(visitors));
   }
 
   // Orders
   const savedOrders = localStorage.getItem('perfumes_orders');
   if (savedOrders) {
     try { orders = JSON.parse(savedOrders); } catch (e) { orders = []; }
+  }
+
+  // Consultations
+  const savedConsult = localStorage.getItem('perfumes_consultations');
+  if (savedConsult) {
+    try { consultations = JSON.parse(savedConsult); } catch (e) { consultations = []; }
   } else {
-    orders = [
+    consultations = [
       {
-        id: 'ORD-IN-109281',
-        timestamp: new Date().toISOString(),
-        customer: 'Sakshi Patil',
+        id: 'VIP-PUNE-1092',
+        name: 'Sakshi Patil',
         phone: '+91 98227 25265',
-        items: [{ name: "KHAMRAH D'OR", price: 2899, qty: 1 }],
-        total: 2399,
-        paymentMethod: 'UPI (GPay)',
-        address: 'FC Road Area, Pune, Maharashtra - 411004 (GPS: 18.5204, 73.8567)',
-        status: 'Confirmed'
+        date: '2026-08-15',
+        time: '06:30 PM (Evening Soirée)',
+        guests: '2',
+        preference: 'Wedding & Festive Attars',
+        timestamp: new Date().toISOString()
       }
     ];
-    localStorage.setItem('perfumes_orders', JSON.stringify(orders));
   }
 
   // Settings
@@ -257,7 +89,6 @@ function loadAdminData() {
   }
 }
 
-// Authentication
 function checkAuth() {
   const isAuth = sessionStorage.getItem('perfume_admin_logged_in') === 'true';
   const loginView = document.getElementById('login-view');
@@ -279,7 +110,6 @@ function handleLogin(e) {
   const errorMsg = document.getElementById('login-error');
   const enteredPass = passwordInput.value.trim();
 
-  // Check Staff accounts
   let validStaffPins = [];
   try {
     const staff = JSON.parse(localStorage.getItem('perfumes_staff')) || [];
@@ -307,7 +137,6 @@ function handleLogout() {
   showToast('Logged Out');
 }
 
-// Tabs
 function switchTab(tabId) {
   currentTab = tabId;
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -329,6 +158,7 @@ function switchTab(tabId) {
   if (tabId === 'inventory') renderInventoryTable();
   if (tabId === 'visitors') renderVisitorsTable();
   if (tabId === 'orders') renderOrdersTable();
+  if (tabId === 'consultations') renderConsultationsTable();
   if (tabId === 'reservations') renderReservationsTable();
   if (tabId === 'settings') renderSettingsForm();
 }
@@ -348,9 +178,7 @@ function renderStatsRibbon() {
   document.getElementById('stat-orders-count').innerText = `${orders.length} (${formatRupees(totalOrdersVal)})`;
 }
 
-// =========================================================================
-// 1. INVENTORY CRUD
-// =========================================================================
+// 1. INVENTORY TABLE
 function renderInventoryTable() {
   const tbody = document.getElementById('inventory-table-tbody');
   if (!tbody) return;
@@ -462,7 +290,7 @@ function deleteProduct(id) {
   const item = products.find(p => p.id === id);
   if (!item) return;
 
-  if (confirm(`Are you sure you want to delete '${item.name}'?`)) {
+  if (confirm(`Delete '${item.name}'?`)) {
     products = products.filter(p => p.id !== id);
     localStorage.setItem('perfumes_catalog', JSON.stringify(products));
     renderInventoryTable();
@@ -471,9 +299,7 @@ function deleteProduct(id) {
   }
 }
 
-// =========================================================================
-// 2. VISITOR LEADS & PROMOTIONAL CALLING LIST
-// =========================================================================
+// 2. VISITOR LEADS & PROMOTIONAL CALLING
 function renderVisitorsTable() {
   const tbody = document.getElementById('visitors-table-tbody');
   if (!tbody) return;
@@ -543,9 +369,7 @@ function exportVisitorsCSV() {
   showToast('Promotional Calling List Exported to CSV', 'success');
 }
 
-// =========================================================================
-// 3. ORDERS & CART CHECKOUTS
-// =========================================================================
+// 3. ORDERS & 1-CLICK GST TAX INVOICE
 function renderOrdersTable() {
   const tbody = document.getElementById('orders-table-tbody');
   if (!tbody) return;
@@ -563,7 +387,10 @@ function renderOrdersTable() {
       <td class="py-3 px-3">
         <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-950 text-green-300 border border-green-800">${o.paymentMethod || 'UPI'}</span>
       </td>
-      <td class="py-3 px-3 text-right">
+      <td class="py-3 px-3 text-right space-x-1.5 whitespace-nowrap">
+        <button onclick="generateGSTTaxInvoice('${o.id}')" class="p-1.5 rounded-lg bg-[#C59B27] text-[#18110E] hover:bg-[#AA771C] font-bold" title="Generate GST Tax Invoice">
+          <i class="fa-solid fa-file-invoice"></i>
+        </button>
         <button onclick="confirmOrderWhatsApp('${o.id}', '${o.phone}', '${o.total}')" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d]" title="WhatsApp Dispatch Confirmation">
           <i class="fa-brands fa-whatsapp"></i>
         </button>
@@ -572,15 +399,150 @@ function renderOrdersTable() {
   `).join('');
 }
 
+function generateGSTTaxInvoice(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  if (!order) return;
+
+  const total = Number(order.total || 0);
+  const taxableValue = Math.round(total / 1.18);
+  const totalGst = total - taxableValue;
+  const cgst = (totalGst / 2).toFixed(2);
+  const sgst = (totalGst / 2).toFixed(2);
+
+  const modal = document.getElementById('gst-invoice-modal');
+  const container = document.getElementById('gst-invoice-modal-content');
+  if (!modal || !container) return;
+
+  container.innerHTML = `
+    <div class="p-6 bg-white text-gray-900 font-sans space-y-5 rounded-2xl shadow-xl border border-gray-200">
+      
+      <!-- Invoice Header -->
+      <div class="flex justify-between items-start border-b border-gray-300 pb-4">
+        <div>
+          <h2 class="text-xl font-bold tracking-widest text-[#18110E] uppercase">${settings.storeName || 'PERFUME SHOPE'}</h2>
+          <p class="text-xs text-gray-600">${settings.tagline || 'Haute Parfumerie & Luxury Attars'}</p>
+          <p class="text-[11px] text-gray-500 mt-1">${settings.storeAddress || 'FC Road, Pune, Maharashtra - 411004'}</p>
+          <p class="text-[11px] text-gray-700 font-mono mt-0.5"><strong>GSTIN:</strong> ${settings.gstNumber || '27AAAAA0000A1Z5'} | <strong>HSN Code:</strong> 33030090</p>
+        </div>
+        <div class="text-right">
+          <span class="px-3 py-1 bg-yellow-100 border border-yellow-400 text-yellow-900 font-bold text-xs rounded-lg uppercase">TAX INVOICE</span>
+          <p class="text-xs font-mono font-bold mt-2">Invoice #: ${order.id}</p>
+          <p class="text-[11px] text-gray-500">Date: ${new Date(order.timestamp).toLocaleDateString('en-IN')}</p>
+        </div>
+      </div>
+
+      <!-- Billed To Customer -->
+      <div class="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-3 rounded-xl border border-gray-200">
+        <div>
+          <span class="text-gray-500 font-bold uppercase block text-[10px]">Billed To:</span>
+          <p class="font-bold text-gray-900">${order.customer}</p>
+          <p class="text-gray-600 font-mono">${order.phone}</p>
+          <p class="text-gray-600">${order.email || 'N/A'}</p>
+        </div>
+        <div>
+          <span class="text-gray-500 font-bold uppercase block text-[10px]">Delivery Address:</span>
+          <p class="text-gray-800">${order.address}</p>
+          <p class="text-gray-500 text-[10px] mt-1">Payment Method: <strong>${order.paymentMethod}</strong> (Paid)</p>
+        </div>
+      </div>
+
+      <!-- Itemized Table -->
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="bg-gray-100 border-b border-gray-300 text-gray-700 uppercase font-bold text-[10px]">
+            <th class="py-2 px-2">#</th>
+            <th class="py-2 px-2">Fragrance Item</th>
+            <th class="py-2 px-2">HSN</th>
+            <th class="py-2 px-2 text-center">Qty</th>
+            <th class="py-2 px-2 text-right">Taxable (₹)</th>
+            <th class="py-2 px-2 text-right">Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${order.items.map((item, idx) => `
+            <tr class="border-b border-gray-200">
+              <td class="py-2 px-2 text-gray-500">${idx + 1}</td>
+              <td class="py-2 px-2 font-bold text-gray-900">${item.name} <span class="text-[10px] font-normal text-gray-500">(${item.brand})</span></td>
+              <td class="py-2 px-2 font-mono text-[10px]">33030090</td>
+              <td class="py-2 px-2 text-center font-bold">${item.qty}</td>
+              <td class="py-2 px-2 text-right">${formatRupees(Math.round((item.price * item.qty) / 1.18))}</td>
+              <td class="py-2 px-2 text-right font-bold">${formatRupees(item.price * item.qty)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <!-- Calculation Breakdown -->
+      <div class="flex justify-end pt-2">
+        <div class="w-64 text-xs space-y-1">
+          <div class="flex justify-between text-gray-600"><span>Taxable Value:</span><span>${formatRupees(taxableValue)}</span></div>
+          <div class="flex justify-between text-gray-600"><span>CGST (9.0%):</span><span>₹${cgst}</span></div>
+          <div class="flex justify-between text-gray-600"><span>SGST (9.0%):</span><span>₹${sgst}</span></div>
+          ${order.discount > 0 ? `<div class="flex justify-between text-green-600 font-bold"><span>Discount:</span><span>-${formatRupees(order.discount)}</span></div>` : ''}
+          <div class="flex justify-between text-sm font-bold text-gray-900 pt-2 border-t border-gray-300">
+            <span>Total (Incl. GST):</span>
+            <span class="text-[#18110E]">${formatRupees(total)}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer & Batch Seal -->
+      <div class="pt-4 border-t border-gray-300 flex justify-between items-center text-[10px] text-gray-500">
+        <div>
+          <p>✓ 100% Genuine Importer Seal Verified</p>
+          <p>✓ Includes Free 2ml Tester Vial & Blind Buy Insurance</p>
+        </div>
+        <div class="text-right">
+          <p class="font-bold text-gray-900">For Perfume Shope</p>
+          <p class="italic text-gray-400">Authorized Signatory</p>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+}
+
+function closeGSTInvoiceModal() {
+  document.getElementById('gst-invoice-modal')?.classList.add('hidden');
+}
+
+function printGSTInvoice() {
+  window.print();
+}
+
 function confirmOrderWhatsApp(id, phone, total) {
   const cleanPhone = phone.replace(/[^0-9]/g, '');
   const msg = `Namaste! Your Perfume Shope order #${id} (₹${Number(total).toLocaleString('en-IN')}) is verified and being packed with genuine batch seal. Our courier / store concierge will update you shortly.`;
   window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// =========================================================================
-// 4. RESERVATIONS & SETTINGS
-// =========================================================================
+// 4. VIP CONSULTATIONS TABLE
+function renderConsultationsTable() {
+  const tbody = document.getElementById('consultations-table-tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = consultations.map(c => `
+    <tr class="border-b border-gray-800 hover:bg-[#231B17]/60 text-xs text-gray-300">
+      <td class="py-3 px-3 font-mono font-bold text-[#C59B27]">${c.id}</td>
+      <td class="py-3 px-3">
+        <span class="font-bold text-white block">${c.name}</span>
+        <span class="text-[10px] text-gray-500 font-mono">${c.phone}</span>
+      </td>
+      <td class="py-3 px-3 text-white font-semibold">${c.date} (${c.time})</td>
+      <td class="py-3 px-3 text-gray-300">${c.guests} Guest(s)</td>
+      <td class="py-3 px-3 text-gray-400">${c.preference}</td>
+      <td class="py-3 px-3 text-right">
+        <a href="https://wa.me/${c.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Namaste ${c.name}! We look forward to welcoming you at our FC Road Pune boutique on ${c.date} at ${c.time} for your private VIP scent consultation.`)}" target="_blank" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d] inline-block" title="Send WhatsApp VIP Confirmation">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// 5. RESERVATIONS & SETTINGS
 function renderReservationsTable() {
   const tbody = document.getElementById('reservations-table-tbody');
   if (!tbody) return;
@@ -602,6 +564,7 @@ function renderReservationsTable() {
 
 function renderSettingsForm() {
   document.getElementById('set-store-name').value = settings.storeName || '';
+  document.getElementById('set-gst-number').value = settings.gstNumber || '27AAAAA0000A1Z5';
   document.getElementById('set-whatsapp').value = settings.whatsappNumber || '';
   document.getElementById('set-phone').value = settings.supportPhone || '';
   document.getElementById('set-email').value = settings.supportEmail || '';
@@ -612,6 +575,7 @@ function renderSettingsForm() {
 function handleSettingsSubmit(e) {
   e.preventDefault();
   settings.storeName = document.getElementById('set-store-name').value.trim();
+  settings.gstNumber = document.getElementById('set-gst-number').value.trim();
   settings.whatsappNumber = document.getElementById('set-whatsapp').value.trim();
   settings.supportPhone = document.getElementById('set-phone').value.trim();
   settings.supportEmail = document.getElementById('set-email').value.trim();
@@ -626,16 +590,6 @@ function handleSettingsSubmit(e) {
 
   localStorage.setItem('perfumes_settings', JSON.stringify(settings));
   showToast('Settings saved successfully', 'success');
-}
-
-function resetToDefaultProducts() {
-  if (confirm('Reset catalog to the default 12 luxury Indian fragrances?')) {
-    products = [...DEFAULT_PRODUCTS];
-    localStorage.setItem('perfumes_catalog', JSON.stringify(products));
-    renderInventoryTable();
-    renderStatsRibbon();
-    showToast('Catalog restored to default Indian luxury perfumes', 'success');
-  }
 }
 
 function showToast(message, type = 'info') {

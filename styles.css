@@ -98,144 +98,143 @@ body {
 
 /* Dynamic Card & Container Theming */
 .theme-card {
-  background-color: var(--bg-card) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-main) !important;
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-main);
   box-shadow: var(--card-shadow);
   transition: all 0.3s ease;
 }
 
 .theme-card:hover {
-  background-color: var(--bg-card-hover) !important;
-  border-color: var(--border-focus) !important;
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
 }
 
 .theme-bg-main {
-  background-color: var(--bg-main) !important;
-  transition: background-color 0.4s ease;
+  background-color: var(--bg-main);
 }
 
 .theme-bg-secondary {
-  background-color: var(--bg-secondary) !important;
-  transition: background-color 0.4s ease;
-}
-
-.theme-text-main {
-  color: var(--text-main) !important;
-}
-
-.theme-text-secondary {
-  color: var(--text-secondary) !important;
-}
-
-.theme-text-muted {
-  color: var(--text-muted) !important;
+  background-color: var(--bg-secondary);
 }
 
 .theme-border {
-  border-color: var(--border-color) !important;
+  border-color: var(--border-color);
 }
 
-.theme-input {
-  background-color: var(--bg-secondary) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-main) !important;
+.theme-text-main {
+  color: var(--text-main);
 }
 
-.theme-input:focus {
-  border-color: var(--border-focus) !important;
+.theme-text-secondary {
+  color: var(--text-secondary);
 }
 
-/* Marvel Men Theme Specific Overrides */
-[data-theme="men"] .font-heading {
-  letter-spacing: 0.08em;
+.theme-text-muted {
+  color: var(--text-muted);
 }
 
-[data-theme="men"] .hero-slide img {
-  filter: contrast(1.15) brightness(0.85);
+.theme-accent {
+  color: var(--accent-theme);
 }
 
-[data-theme="men"] .accord-filter-btn.active {
-  background: linear-gradient(135deg, #E62429 0%, #B91C1C 100%) !important;
-  border-color: #E62429 !important;
-  box-shadow: 0 0 12px rgba(230, 36, 41, 0.4) !important;
+.theme-badge {
+  background-color: var(--accent-badge-bg);
+  color: var(--accent-badge-text);
+  border: 1px solid var(--border-gold);
 }
 
-[data-theme="men"] .theme-glow-hover:hover {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25) !important;
-  border-color: #38BDF8 !important;
-}
-
-/* Floating App Dock */
-.floating-app-dock {
-  position: fixed;
-  bottom: calc(1rem + var(--safe-bottom));
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
-  background: var(--dock-bg);
-  color: #FFFFFF;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--dock-border);
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+/* Mobile Bottom Dock */
+.mobile-bottom-dock {
+  background-color: var(--dock-bg);
+  border-color: var(--dock-border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: all 0.3s ease;
+  padding-bottom: var(--safe-bottom);
 }
 
-.dock-nav-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #9CA3AF;
-  transition: color 0.2s ease, transform 0.2s ease;
+/* Hero Carousel Dynamic Background */
+.hero-slider-bg {
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dock-nav-link.active,
-.dock-nav-link:hover {
-  color: var(--accent-gold);
-  transform: translateY(-2px);
+/* Scent Notes Tag */
+.scent-note-tag {
+  background: rgba(197, 155, 39, 0.08);
+  border: 1px solid rgba(197, 155, 39, 0.2);
+  color: var(--text-main);
+  transition: all 0.2s ease;
 }
 
-.dock-nav-link i {
-  font-size: 1.1rem;
-  margin-bottom: 0.2rem;
+[data-theme="men"] .scent-note-tag {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #F1F5F9;
 }
 
-/* Slider Overlays */
-.hero-slide {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.7s ease-in-out;
+/* Longevity & Sillage Meter Bars */
+.meter-bar-fill {
+  background: linear-gradient(90deg, #C59B27, #F59E0B, #10B981);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
-.hero-slide.active-slide {
-  opacity: 1;
-  pointer-events: auto;
+[data-theme="men"] .meter-bar-fill {
+  background: linear-gradient(90deg, #0284C7, #38BDF8, #E62429);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
-.slider-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
-  background-color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Velvet Discovery Box Slots */
+.velvet-slot {
+  background: radial-gradient(circle at center, #2B1D15 0%, #150E0A 100%);
+  border: 1.5px dashed rgba(197, 155, 39, 0.4);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slider-dot.active-dot {
-  width: 24px;
-  background-color: var(--accent-gold);
+.velvet-slot.filled {
+  background: radial-gradient(circle at center, #3D2B1F 0%, #1A120D 100%);
+  border: 1.5px solid #C59B27;
+  box-shadow: 0 4px 15px rgba(197, 155, 39, 0.25);
 }
 
-/* Pulse Animation */
+/* Alchemy Blender Fluid Pulse */
+@keyframes alchemyPulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.4)); }
+  50% { transform: scale(1.04); filter: drop-shadow(0 0 22px rgba(197, 155, 39, 0.8)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.4)); }
+}
+
+.alchemy-mixing-glow {
+  animation: alchemyPulse 3s infinite ease-in-out;
+}
+
+/* Laser Engraving Preview on Glass Bottle */
+.bottle-engraving-badge {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(197, 155, 39, 0.9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 12px rgba(197, 155, 39, 0.5);
+  font-weight: 700;
+}
+
+/* Celebrity Wardrobe Glow */
+.celebrity-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.celebrity-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* WhatsApp Floating Pulse */
 @keyframes waPulse {
   0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6); }
   70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
@@ -308,4 +307,23 @@ body {
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Printable GST Invoice */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #gst-invoice-modal-content, #gst-invoice-modal-content * {
+    visibility: visible;
+  }
+  #gst-invoice-modal-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: none !important;
+  }
 }

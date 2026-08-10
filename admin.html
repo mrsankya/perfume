@@ -37,10 +37,6 @@
        1. ADMIN AUTHENTICATION GATE
        ========================================================================= -->
   <div id="login-view" class="min-h-screen flex items-center justify-center p-4 bg-[#120D0A] relative overflow-hidden">
-    
-    <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#C59B27]/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-[#A67642]/10 rounded-full blur-3xl pointer-events-none"></div>
-
     <div class="max-w-md w-full bg-[#1C1511] border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 space-y-6 text-center">
       
       <div class="space-y-2">
@@ -183,39 +179,29 @@
         </button>
         <button onclick="switchTab('orders')" data-tab="orders" class="tab-btn px-4 py-2 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
           <i class="fa-solid fa-box-open"></i>
-          <span>Cart Orders & Deliveries</span>
+          <span>Cart Orders & GST Invoices</span>
         </button>
-        <button onclick="switchTab('reservations')" data-tab="reservations" class="tab-btn px-4 py-2 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
-          <i class="fa-brands fa-whatsapp text-green-400"></i>
-          <span>WhatsApp Inquiries</span>
+        <button onclick="switchTab('consultations')" data-tab="consultations" class="tab-btn px-4 py-2 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-calendar-check text-[#C59B27]"></i>
+          <span>VIP Pune Appointments</span>
         </button>
         <button onclick="switchTab('settings')" data-tab="settings" class="tab-btn px-4 py-2 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
           <i class="fa-solid fa-store"></i>
-          <span>Store Settings</span>
+          <span>Store Settings & GST</span>
         </button>
       </div>
 
-      <!-- =====================================================================
-           TAB 1: INVENTORY MANAGEMENT TABLE
-           ===================================================================== -->
+      <!-- TAB 1: INVENTORY -->
       <div id="tab-inventory" class="tab-content space-y-4">
-        
         <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
             <h3 class="font-heading text-base font-bold text-white">Perfume Inventory & Stock Management</h3>
-            <p class="text-xs text-gray-400">Manage catalog pricing in INR (₹), fragrance accords, and stock status.</p>
+            <p class="text-xs text-gray-400">Manage catalog pricing in INR (₹), accords, longevity ratings, and stock status.</p>
           </div>
-
-          <div class="flex items-center gap-2">
-            <button onclick="resetToDefaultProducts()" class="px-3 py-2 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 text-gray-300 hover:text-white transition-colors">
-              <i class="fa-solid fa-rotate-left mr-1"></i> Reset 12 Perfumes
-            </button>
-
-            <button onclick="openProductModal()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
-              <i class="fa-solid fa-plus"></i>
-              <span>Add Fragrance</span>
-            </button>
-          </div>
+          <button onclick="openProductModal()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Fragrance</span>
+          </button>
         </div>
 
         <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden shadow-sm">
@@ -230,29 +216,22 @@
                   <th class="py-3 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody id="inventory-table-tbody">
-                <!-- Rendered by admin.js -->
-              </tbody>
+              <tbody id="inventory-table-tbody"></tbody>
             </table>
           </div>
         </div>
-
       </div>
 
-      <!-- =====================================================================
-           TAB 2: VISITOR CALLING LIST & PROMOTIONAL OUTREACH
-           ===================================================================== -->
+      <!-- TAB 2: VISITOR LEADS -->
       <div id="tab-visitors" class="tab-content hidden space-y-4">
-        
         <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
             <h3 class="font-heading text-base font-bold text-white flex items-center gap-2">
               <i class="fa-solid fa-phone-volume text-green-400"></i>
-              <span>Promotional Calling List & Visitor Leads</span>
+              <span>Promotional Calling List & Leads</span>
             </h3>
             <p class="text-xs text-gray-400">Call interested visitors, send WhatsApp ₹500 discount vouchers, or export to CSV.</p>
           </div>
-
           <button onclick="exportVisitorsCSV()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md">
             <i class="fa-solid fa-file-csv"></i>
             <span>Export CSV</span>
@@ -272,22 +251,17 @@
                   <th class="py-3 px-3 text-right">Quick Contact</th>
                 </tr>
               </thead>
-              <tbody id="visitors-table-tbody">
-                <!-- Rendered by admin.js -->
-              </tbody>
+              <tbody id="visitors-table-tbody"></tbody>
             </table>
           </div>
         </div>
-
       </div>
 
-      <!-- =====================================================================
-           TAB 3: ORDERS & CART DELIVERIES
-           ===================================================================== -->
+      <!-- TAB 3: ORDERS & GST INVOICES -->
       <div id="tab-orders" class="tab-content hidden space-y-4">
         <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800">
-          <h3 class="font-heading text-base font-bold text-white">Online Cart Orders & Delivery Tracker</h3>
-          <p class="text-xs text-gray-400">Live feed of online orders with GPS verified delivery addresses.</p>
+          <h3 class="font-heading text-base font-bold text-white">Online Cart Orders & GST Tax Receipts</h3>
+          <p class="text-xs text-gray-400">Click the invoice icon (<i class="fa-solid fa-file-invoice text-[#C59B27]"></i>) on any order to generate and print a GST Tax Invoice.</p>
         </div>
 
         <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden shadow-sm">
@@ -298,27 +272,23 @@
                   <th class="py-3 px-3">Order ID</th>
                   <th class="py-3 px-3">Customer</th>
                   <th class="py-3 px-3">Items</th>
-                  <th class="py-3 px-3">Total Amount</th>
-                  <th class="py-3 px-3">Delivery Address (GPS)</th>
+                  <th class="py-3 px-3">Total (₹)</th>
+                  <th class="py-3 px-3">Delivery Address</th>
                   <th class="py-3 px-3">Payment</th>
-                  <th class="py-3 px-3 text-right">WhatsApp</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody id="orders-table-tbody">
-                <!-- Rendered by admin.js -->
-              </tbody>
+              <tbody id="orders-table-tbody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- =====================================================================
-           TAB 4: WHATSAPP INQUIRIES
-           ===================================================================== -->
-      <div id="tab-reservations" class="tab-content hidden space-y-4">
+      <!-- TAB 4: VIP CONSULTATIONS -->
+      <div id="tab-consultations" class="tab-content hidden space-y-4">
         <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800">
-          <h3 class="font-heading text-base font-bold text-white">WhatsApp Fragrance Reservations</h3>
-          <p class="text-xs text-gray-400">Customer reservations initiated through WhatsApp concierge.</p>
+          <h3 class="font-heading text-base font-bold text-white">In-Store VIP Scent Appointments</h3>
+          <p class="text-xs text-gray-400">Customer tasting table reservations at the FC Road Pune flagship boutique.</p>
         </div>
 
         <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden shadow-sm">
@@ -326,28 +296,25 @@
             <table class="w-full text-left border-collapse">
               <thead>
                 <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
-                  <th class="py-3 px-3">ID</th>
-                  <th class="py-3 px-3">Fragrance</th>
-                  <th class="py-3 px-3">Price</th>
-                  <th class="py-3 px-3">Date</th>
-                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3">Ref ID</th>
+                  <th class="py-3 px-3">Guest Name</th>
+                  <th class="py-3 px-3">Date & Slot</th>
+                  <th class="py-3 px-3">Party Size</th>
+                  <th class="py-3 px-3">Preference</th>
+                  <th class="py-3 px-3 text-right">WhatsApp Pass</th>
                 </tr>
               </thead>
-              <tbody id="reservations-table-tbody">
-                <!-- Rendered by admin.js -->
-              </tbody>
+              <tbody id="consultations-table-tbody"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- =====================================================================
-           TAB 5: STORE SETTINGS
-           ===================================================================== -->
+      <!-- TAB 5: STORE SETTINGS & GST -->
       <div id="tab-settings" class="tab-content hidden space-y-6">
         <div class="bg-[#1C1511] p-6 rounded-2xl border border-gray-800">
-          <h3 class="font-heading text-lg font-bold text-white mb-1">Store Information & Contacts</h3>
-          <p class="text-xs text-gray-400 mb-6">Manage boutique details, WhatsApp reservation number, and admin credentials.</p>
+          <h3 class="font-heading text-lg font-bold text-white mb-1">Store Information & GST Configuration</h3>
+          <p class="text-xs text-gray-400 mb-6">Manage boutique details, GSTIN number for tax invoices, and admin password.</p>
 
           <form onsubmit="handleSettingsSubmit(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -357,29 +324,24 @@
               </div>
 
               <div>
-                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">WhatsApp Reservation Phone</label>
-                <input type="text" id="set-whatsapp" required placeholder="e.g. 919579453006" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">GSTIN Tax Number</label>
+                <input type="text" id="set-gst-number" required placeholder="e.g. 27AAAAA0000A1Z5" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
               </div>
 
               <div>
-                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Customer Support Phone</label>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">WhatsApp Reservation Phone</label>
+                <input type="text" id="set-whatsapp" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Support Phone</label>
                 <input type="text" id="set-phone" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
               </div>
-
-              <div>
-                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Support Email</label>
-                <input type="email" id="set-email" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-              </div>
             </div>
 
             <div>
-              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Boutique Address</label>
+              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Boutique Address (Printed on Invoices)</label>
               <textarea id="set-address" rows="2" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-[#C59B27] focus:outline-none"></textarea>
-            </div>
-
-            <div>
-              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Top Announcement Ribbon</label>
-              <input type="text" id="set-announcement" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
             </div>
 
             <div class="pt-4 border-t border-gray-800">
@@ -399,72 +361,24 @@
     </main>
   </div>
 
-  <!-- FRAGRANCE ADD/EDIT MODAL -->
-  <div id="product-edit-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-lg w-full rounded-2xl border border-gray-700 p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <h3 id="modal-title" class="font-heading text-base font-bold text-white uppercase">Add Fragrance</h3>
-
-      <form id="product-edit-form" onsubmit="handleProductSubmit(event)" class="space-y-3">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Perfume Name</label>
-            <input type="text" id="inp-name" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-          </div>
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Brand</label>
-            <input type="text" id="inp-brand" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-          </div>
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Price (INR ₹)</label>
-            <input type="number" id="inp-price" required min="1" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-          </div>
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Gender</label>
-            <select id="inp-gender" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-              <option value="Unisex">Unisex</option>
-              <option value="Women">Women</option>
-              <option value="Men">Men</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Accord</label>
-            <select id="inp-accord" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-              <option value="Kashmiri Gulab & Rose">🌸 Kashmiri Gulab & Rose</option>
-              <option value="Royal Dehn Al Oud">🪵 Royal Dehn Al Oud</option>
-              <option value="Warm Vanilla & Kesar">🍦 Warm Vanilla & Kesar</option>
-              <option value="Mysore Sandal & Woods">🌲 Mysore Sandal & Woods</option>
-              <option value="Fresh Citrus & Monsoon Aqua">🍋 Fresh Citrus & Monsoon Aqua</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Badge</label>
-            <input type="text" id="inp-badge" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-          </div>
+  <!-- GST TAX INVOICE MODAL -->
+  <div id="gst-invoice-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-2xl w-full rounded-3xl p-6 relative shadow-2xl max-h-[95vh] overflow-y-auto space-y-4 text-gray-900">
+      
+      <div class="flex justify-between items-center no-print">
+        <h3 class="font-heading text-base font-bold text-gray-900 uppercase">GST Tax Invoice Preview</h3>
+        <div class="flex items-center gap-2">
+          <button onclick="printGSTInvoice()" class="bg-[#18110E] hover:bg-black text-[#C59B27] px-4 py-2 rounded-xl text-xs font-bold uppercase flex items-center gap-1.5">
+            <i class="fa-solid fa-print"></i> Print / PDF
+          </button>
+          <button onclick="closeGSTInvoiceModal()" class="text-gray-500 hover:text-black p-2">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
         </div>
+      </div>
 
-        <div>
-          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Olfactory Notes</label>
-          <input type="text" id="inp-notes" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-        </div>
+      <div id="gst-invoice-modal-content"></div>
 
-        <div>
-          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Image URL</label>
-          <input type="url" id="inp-image" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-        </div>
-
-        <div class="flex items-center gap-2 pt-2">
-          <input type="checkbox" id="inp-stock" checked class="w-4 h-4 text-[#C59B27] rounded">
-          <label for="inp-stock" class="text-xs font-bold text-white">In Stock & Ready for Store Pickup</label>
-        </div>
-
-        <div class="pt-3 flex justify-end gap-2">
-          <button type="button" onclick="closeProductModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
-          <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Fragrance</button>
-        </div>
-      </form>
     </div>
   </div>
 

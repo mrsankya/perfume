@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="all">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PERFUME SHOPE | India's Premier Luxury Parfumerie & Attar Boutique</title>
-  <meta name="description" content="India's curated luxury perfume store. Genuine imported fragrances, Arabic extraits, and pure Indian attars with instant WhatsApp booking and boutique pickup in INR.">
-  <meta name="theme-color" content="#231B17">
+  <title>PERFUME SHOPE | Haute Parfumerie & Luxury Attars • India</title>
+  <meta name="description" content="Discover 100% authentic Arabian extraits, designer perfumes & royal Indian attars. Shop custom 5-in-1 discovery boxes, celebrity scent wardrobes, and visit our flagship boutique in Pune, India.">
+  <meta name="theme-color" content="#18110E">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,9 +18,12 @@
             royalGold: '#C59B27',
             bronzeGold: '#A67642',
             espresso: '#18110E',
-            marvelRed: '#E62429',
-            arcBlue: '#38BDF8',
-            carbon: '#0B0F17'
+            parchment: '#FAF5EE'
+          },
+          fontFamily: {
+            heading: ['Cinzel', 'serif'],
+            body: ['Outfit', 'sans-serif'],
+            marvel: ['Teko', 'sans-serif']
           }
         }
       }
@@ -33,375 +36,501 @@
   <!-- Google Fonts CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- FontAwesome Icons CDN -->
+  <!-- FontAwesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body data-theme="all" class="selection:bg-[#C59B27] selection:text-black">
+<body class="selection:bg-[#C59B27] selection:text-black">
 
-  <!-- TOP LUXURY ANNOUNCEMENT BANNER -->
-  <aside class="bg-[#18110E] text-[#FAF5EE] text-[10px] sm:text-xs py-1.5 px-4 text-center border-b border-[#3A2D25] font-medium tracking-wide">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="hidden sm:flex items-center space-x-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-        <span>100% Genuine Batches &bull; Same-Day Pune Pickup</span>
-      </div>
-      <div class="mx-auto sm:mx-0 flex items-center gap-2">
-        <span>🎁 Use Code <strong class="text-[#C59B27]">ROYAL500</strong> for ₹500 OFF</span>
-        <button onclick="openLeadGiftModal()" class="underline text-[10px] text-[#C59B27] font-bold">Claim Gift &rarr;</button>
-      </div>
-      <div class="hidden lg:block text-[11px] text-gray-400">
-        <i class="fa-solid fa-phone text-[#C59B27] mr-1"></i> +91 95794 53006
-      </div>
-    </div>
-  </aside>
+  <!-- =========================================================================
+       TOP ANNOUNCEMENT BANNER
+       ========================================================================= -->
+  <div onclick="openLeadGiftModal()" class="cursor-pointer bg-[#18110E] text-gray-200 py-2 px-3 text-center border-b border-[#C59B27]/30 text-[11px] sm:text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-black transition-colors">
+    <span class="px-2 py-0.5 rounded-full bg-[#C59B27] text-[#18110E] font-bold text-[10px] uppercase">Royal Offer</span>
+    <span>🎁 First Order? Use Code <strong class="text-[#C59B27] font-mono">ROYAL500</strong> for ₹500 OFF + Free 5ml Attar Tester spray!</span>
+    <i class="fa-solid fa-arrow-right text-[10px] text-[#C59B27]"></i>
+  </div>
 
-  <!-- COMPACT HEADER WITH CART, GOOGLE AUTH & DUAL THEME SWITCHER -->
-  <header class="sticky top-0 z-40 glass-header-mobile">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 sm:h-20">
+  <!-- =========================================================================
+       HEADER NAVIGATION
+       ========================================================================= -->
+  <header class="glass-header-mobile sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full border border-[#C59B27] flex items-center justify-center bg-[#18110E] text-[#C59B27] shadow-md group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-crown text-sm sm:text-base"></i>
+        </div>
+        <div>
+          <span class="font-heading text-sm sm:text-xl font-bold tracking-widest theme-text-main block uppercase">PERFUME SHOPE</span>
+          <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#A67642] block -mt-0.5 font-semibold">Haute Parfumerie • Pune 🇮🇳</span>
+        </div>
+      </a>
+
+      <!-- Gender Theme Switcher (All / Women / Men Marvel) -->
+      <div class="flex items-center p-1 rounded-2xl bg-black/10 border theme-border">
+        <button onclick="switchGenderTheme('All')" data-gender="All" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-bold text-xs bg-[#C59B27] text-[#18110E] shadow-sm transition-all">
+          👑 All
+        </button>
+        <button onclick="switchGenderTheme('Women')" data-gender="Women" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-[#C59B27] transition-all">
+          🌸 Women
+        </button>
+        <button onclick="switchGenderTheme('Men')" data-gender="Men" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-[#C59B27] transition-all">
+          ⚡ Men
+        </button>
+      </div>
+
+      <!-- Right Header Actions (Search, Scent Club Profile, Cart Drawer) -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
         
-        <!-- Left: Brand Logo -->
-        <div class="flex items-center space-x-2.5 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-[#C59B27]/50 bg-[#18110E] flex items-center justify-center p-1 shadow-sm">
-            <i class="fa-solid fa-crown text-[#C59B27] text-xs sm:text-base"></i>
-          </div>
-          <div>
-            <span class="font-heading text-base sm:text-2xl font-bold tracking-widest theme-text-main block uppercase">PERFUME SHOPE</span>
-            <span id="brand-tagline-sub" class="text-[7px] sm:text-[9px] uppercase tracking-[0.25em] text-[#A67642] font-sans block -mt-1 font-semibold">Haute Parfumerie &bull; India</span>
-          </div>
-        </div>
-
-        <!-- Desktop Navigation Links -->
-        <nav class="hidden lg:flex items-center space-x-7 text-xs uppercase tracking-widest font-semibold">
-          <a href="#hero" class="theme-text-main hover:text-[#A67642] transition-colors">Home</a>
-          <a href="#catalog" class="theme-text-main hover:text-[#A67642] transition-colors">Catalogue (₹)</a>
-          <a href="#scent-experience" class="text-[#A67642] hover:text-[#7A5328] transition-colors flex items-center gap-1.5">
-            <i class="fa-solid fa-sparkles text-[11px] text-[#C59B27]"></i> Scent Finder
-          </a>
-          <a href="#store-locator" class="theme-text-main hover:text-[#A67642] transition-colors">Boutique Pickup</a>
-          <a href="admin.html" class="text-[#7A5328] hover:text-[#C59B27] transition-colors flex items-center gap-1 font-bold">
-            <i class="fa-solid fa-shield-halved text-[10px]"></i> Admin
-          </a>
-        </nav>
-
-        <!-- Right: Actions & Dual Theme Switcher -->
-        <div class="flex items-center space-x-1.5 sm:space-x-3">
-          
-          <!-- Gender & UI Theme Switcher -->
-          <div class="flex items-center bg-black/10 dark:bg-white/10 p-0.5 sm:p-1 rounded-full border theme-border text-[10px] sm:text-xs shadow-xs">
-            <button onclick="filterGender('All')" data-gender="All" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-bold bg-[#231B17] text-white shadow-xs transition-all flex items-center gap-1">
-              <span>👑 All</span>
-            </button>
-            <button onclick="filterGender('Women')" data-gender="Women" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1">
-              <span>🌸 Women</span>
-            </button>
-            <button onclick="filterGender('Men')" data-gender="Men" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1">
-              <span>⚡ Men</span>
-            </button>
-          </div>
-
-          <!-- User Profile / Google Sign-In Button -->
-          <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-1.5 sm:px-3 sm:py-1.5 rounded-full theme-card border flex items-center gap-1.5 text-xs shadow-xs">
-            <i class="fa-brands fa-google text-red-500"></i>
-            <span class="hidden md:inline font-semibold">Sign In</span>
-          </button>
-
-          <!-- Shopping Cart Drawer Trigger -->
-          <button onclick="openCartDrawer()" class="relative p-1.5 sm:p-2 rounded-full theme-card border text-xs sm:text-sm shadow-xs" title="Shopping Cart">
-            <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
-            <span class="cart-count-badge hidden absolute -top-1 -right-1 bg-[#E62429] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">0</span>
-          </button>
-
-          <!-- WhatsApp Direct Chat Button -->
-          <a href="https://wa.me/919579453006?text=Namaste%20Perfume%20Shope!%20I%20am%20inquiring%20about%20luxury%20perfumes." target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 bg-[#16a34a] hover:bg-[#15803d] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all wa-pulse">
-            <i class="fa-brands fa-whatsapp text-xs sm:text-sm"></i>
-            <span>WhatsApp</span>
-          </a>
-
-          <!-- Mobile Hamburger Drawer Trigger -->
-          <button onclick="toggleMobileMenu()" class="p-1.5 rounded-lg theme-card focus:outline-none lg:hidden">
-            <i class="fa-solid fa-bars text-base"></i>
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Mobile Slide-In Navigation Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden theme-bg-secondary border-b theme-border px-4 pt-3 pb-6 space-y-3 shadow-md">
-      <div class="flex items-center theme-input rounded-xl px-3 py-2 border shadow-xs">
-        <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2 text-xs"></i>
-        <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch(event)" placeholder="Search perfume, notes (Kesar, Oud, Rose, Sandalwood)..." class="bg-transparent border-none text-xs theme-text-main focus:outline-none w-full">
-      </div>
-
-      <!-- Mobile Theme Selector -->
-      <div class="flex items-center justify-between p-2 rounded-xl theme-card border">
-        <span class="text-[11px] font-bold theme-text-main">Vibe & Theme:</span>
-        <div class="flex items-center gap-1.5">
-          <button onclick="filterGender('All'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#231B17] text-white">👑 All</button>
-          <button onclick="filterGender('Women'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#A67642] text-white">🌸 Women</button>
-          <button onclick="filterGender('Men'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#E62429] text-white">⚡ Men</button>
-        </div>
-      </div>
-      
-      <a href="#hero" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Home</a>
-      <a href="#catalog" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Catalogue (INR ₹)</a>
-      <a href="#scent-experience" onclick="toggleMobileMenu()" class="block text-[#A67642] py-1 font-semibold text-xs uppercase tracking-wider"><i class="fa-solid fa-sparkles text-xs mr-1 text-[#C59B27]"></i> Scent Finder Quiz</a>
-      <a href="#store-locator" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Boutique Store Pickup</a>
-      <a href="admin.html" onclick="toggleMobileMenu()" class="block text-[#7A5328] hover:text-[#231B17] py-1 font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-xs mr-1"></i> Admin Portal</a>
-      
-      <div class="pt-2 grid grid-cols-2 gap-2">
-        <button onclick="openCartDrawer(); toggleMobileMenu();" class="bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm">
-          <i class="fa-solid fa-cart-shopping"></i> View Cart
+        <!-- Google User Profile / Login -->
+        <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl theme-card border flex items-center gap-2 text-xs font-semibold hover:border-[#C59B27] transition-colors">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span class="hidden md:inline theme-text-main">Sign In</span>
         </button>
-        <button onclick="openLeadGiftModal(); toggleMobileMenu();" class="bg-[#18110E] text-[#C59B27] border border-[#C59B27] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5">
-          🎁 ₹500 Coupon
+
+        <!-- Cart Drawer Button -->
+        <button onclick="openCartDrawer()" class="relative p-2.5 sm:px-4 sm:py-2 rounded-xl bg-[#C59B27] text-[#18110E] font-bold text-xs flex items-center gap-2 shadow-md hover:bg-[#AA771C] transition-all">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="hidden sm:inline uppercase tracking-wider">Cart</span>
+          <span class="cart-badge-count absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-mono font-bold shadow-sm hidden">0</span>
         </button>
+
       </div>
+
     </div>
   </header>
 
-  <!-- DYNAMIC HERO SLIDER -->
-  <section id="hero" class="relative w-full h-[72vh] md:h-[85vh] overflow-hidden rounded-none md:rounded-2xl bg-[#18110E]">
-    <div id="hero-slides-container" class="relative w-full h-full">
-      <!-- Injected dynamically by app.js based on theme -->
-    </div>
+  <!-- =========================================================================
+       HERO BANNER
+       ========================================================================= -->
+  <section id="hero-banner" class="hero-slider-bg relative min-h-[440px] sm:min-h-[520px] flex items-center justify-center text-center p-6 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-t from-[#120D0A] via-black/60 to-black/30 z-0"></div>
 
-    <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30">
-      <a href="#catalog" class="bg-[#18110E]/90 hover:bg-[#A67642] border border-[#C59B27]/70 text-white px-7 py-3 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all">
-        <span>EXPLORE CATALOGUE (₹)</span>
-        <i class="fa-solid fa-arrow-down text-xs"></i>
-      </a>
-    </div>
+    <div class="relative z-10 max-w-3xl mx-auto space-y-4">
+      <span id="hero-badge-text" class="px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#C59B27]/20 border border-[#C59B27] text-[#C59B27] inline-block shadow-sm">
+        👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS
+      </span>
 
-    <button onclick="prevSlide()" class="left-4 md:left-6 absolute top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md cursor-pointer transition-all" title="Previous Slide">
-      <i class="fa-solid fa-chevron-left text-sm"></i>
-    </button>
-    
-    <button onclick="nextSlide()" class="right-4 md:right-6 absolute top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md cursor-pointer transition-all" title="Next Slide">
-      <i class="fa-solid fa-chevron-right text-sm"></i>
-    </button>
+      <h1 id="hero-title-text" class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-wider leading-tight uppercase">
+        HAUTE PARFUMERIE • PUNE
+      </h1>
 
-    <div id="slider-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
-      <span onclick="goToSlide(0)" class="slider-dot active-dot"></span>
-      <span onclick="goToSlide(1)" class="slider-dot"></span>
-      <span onclick="goToSlide(2)" class="slider-dot"></span>
-      <span onclick="goToSlide(3)" class="slider-dot"></span>
-    </div>
-  </section>
+      <p id="hero-desc-text" class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">
+        Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup.
+      </p>
 
-  <!-- TRUST BADGES STRIP -->
-  <section class="theme-bg-secondary border-b theme-border py-3.5 px-4">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 text-center sm:text-left">
-      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
-        <i class="fa-solid fa-shield-halved text-[#C59B27] text-lg shrink-0"></i>
-        <div>
-          <h4 class="text-[11px] font-bold theme-text-main">100% Genuine Batches</h4>
-          <p class="text-[9px] theme-text-muted">Authentic importer sealed boxes</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
-        <i class="fa-solid fa-shop text-[#A67642] text-lg shrink-0"></i>
-        <div>
-          <h4 class="text-[11px] font-bold theme-text-main">Boutique Store Pickup</h4>
-          <p class="text-[9px] theme-text-muted">Test before you buy in store</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
-        <i class="fa-brands fa-whatsapp text-[#16a34a] text-lg shrink-0"></i>
-        <div>
-          <h4 class="text-[11px] font-bold theme-text-main">Quick WhatsApp Booking</h4>
-          <p class="text-[9px] theme-text-muted">Reserve in 30 seconds</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
-        <i class="fa-solid fa-qrcode text-[#C59B27] text-lg shrink-0"></i>
-        <div>
-          <h4 class="text-[11px] font-bold theme-text-main">UPI & Cards Accepted</h4>
-          <p class="text-[9px] theme-text-muted">GPay, PhonePe, Paytm & Cash</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a href="#discovery-box" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-6 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-gift"></i>
+          <span>Build Discovery Box (₹999)</span>
+        </a>
 
-  <!-- QUICK SWIPEABLE ACCORD BADGES -->
-  <section class="py-4 theme-bg-main border-b theme-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="accord-pills-container" class="flex items-center space-x-2 overflow-x-auto scrollbar-none snap-x py-1 text-xs">
-        <!-- Rendered dynamically by app.js based on theme -->
-      </div>
-    </div>
-  </section>
-
-  <!-- MAIN E-CATALOG SECTION -->
-  <section id="catalog" class="py-12 sm:py-20 theme-bg-main">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-xl mx-auto mb-8 sm:mb-12">
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">HAUTE INDIAN CATALOGUE</span>
-        <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main mt-1">Explore Authentic Luxury Perfumes</h2>
-        <p class="theme-text-secondary text-xs mt-1.5">Direct authentic imports from Dubai, Paris & India's royal distillers. Add to cart for instant online order or reserve for store pickup.</p>
-      </div>
-
-      <div class="theme-card p-3.5 sm:p-5 rounded-2xl mb-8 border shadow-sm space-y-3">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-          
-          <div class="relative w-full sm:w-96">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
-            <input 
-              type="text" 
-              id="catalog-search-input" 
-              onkeyup="handleSearch(event)" 
-              placeholder="Search by perfume, brand (Lattafa, Rasasi...), or notes..." 
-              class="w-full theme-input border rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none transition-colors"
-            >
-          </div>
-
-          <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 text-xs">
-            <span id="results-count-badge" class="text-[#A67642] font-bold text-[11px] sm:text-xs">Showing 12 Fragrances</span>
-            <button onclick="resetAllFilters()" class="theme-text-muted hover:theme-text-main flex items-center gap-1 text-[11px]">
-              <i class="fa-solid fa-rotate-right text-[10px]"></i> Reset Filters
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-6">
-        <!-- Rendered by JavaScript -->
-      </div>
-
-    </div>
-  </section>
-
-  <!-- INTERACTIVE SCENT FINDER QUIZ -->
-  <section id="scent-experience" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
-        
-        <!-- LEFT: SCENT FINDER WIZARD -->
-        <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6">
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-[10px] uppercase tracking-[0.25em] text-[#7A5328] font-bold bg-[#FAF1DC] px-2.5 py-1 rounded-full border border-[#C59B27]/40">👑 SCENT FINDER WIZARD</span>
-            </div>
-            <h2 class="font-heading text-xl sm:text-3xl font-semibold theme-text-main">Find Your Signature Fragrance</h2>
-            <p class="text-xs theme-text-muted mt-1">Select your occasion and preferred olfactory vibe to discover your personalized fragrance match.</p>
-          </div>
-
-          <div id="wizard-inputs-container" class="space-y-4">
-            <!-- Rendered by app.js based on selected gender theme -->
-          </div>
-
-          <div id="wizard-result-box" class="pt-4 border-t theme-border">
-            <!-- Rendered by JS on selection -->
-          </div>
-        </div>
-
-        <!-- RIGHT: STORE EXPERIENCE & TESTER CALLOUT -->
-        <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6 relative overflow-hidden">
-          <div class="relative h-52 sm:h-64 rounded-xl overflow-hidden border theme-border group">
-            <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1000&auto=format&fit=crop&q=80" alt="Physical Boutique Store Experience" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&auto=format&fit=crop&q=80';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <span class="absolute top-3 left-3 bg-[#18110E]/95 text-[#C59B27] text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest backdrop-blur-md border border-[#C59B27]/40 shadow-md">
-              🇮🇳 IN-STORE TESTER LOUNGE
-            </span>
-          </div>
-
-          <div class="space-y-3">
-            <h3 class="font-heading text-xl sm:text-2xl font-semibold theme-text-main">
-              Experience Fragrances In Person Before Buying
-            </h3>
-            <p class="text-xs sm:text-sm theme-text-secondary leading-relaxed">
-              Visit our boutique store to test over 100+ authentic imported designer & Arabic perfumes. Try before you buy and claim a complimentary sample tester spray on your visit.
-            </p>
-          </div>
-
-          <div>
-            <a href="#store-locator" class="bg-[#18110E] hover:bg-[#A67642] border border-[#C59B27]/50 text-white w-full py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md transition-all">
-              <span>GET STORE DIRECTIONS & TIMINGS →</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- STORE LOCATOR SECTION -->
-  <section id="store-locator" class="py-12 sm:py-20 theme-bg-main">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 border shadow-xs">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-          
-          <div class="lg:col-span-7 space-y-4">
-            <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">FLAGSHIP INDIAN BOUTIQUE</span>
-            <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main">
-              Store Pickup & Free Testing Available
-            </h2>
-            <p class="theme-text-secondary text-xs sm:text-sm leading-relaxed">
-              Reserve online or pick up directly at our physical boutique store. Inspect batch code, verify authenticity, test longevity, and enjoy personalized scent consultation.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div class="p-3.5 rounded-xl theme-bg-secondary border theme-border">
-                <span class="text-[#A67642] font-bold block mb-0.5">📍 Flagship Boutique Address</span>
-                <p class="theme-text-main font-medium">Shop No. 4, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004, India</p>
-              </div>
-
-              <div class="p-3.5 rounded-xl theme-bg-secondary border theme-border">
-                <span class="text-[#A67642] font-bold block mb-0.5">🕒 Store Hours</span>
-                <p class="theme-text-main font-medium">Mon - Sun: 10:30 AM - 10:00 PM (IST)</p>
-              </div>
-            </div>
-
-            <div class="p-3.5 rounded-xl bg-black/10 border theme-border text-xs">
-              <span class="text-[#A67642] font-bold block mb-1">💳 Accepted Payment Methods at Store:</span>
-              <p class="theme-text-main font-medium flex flex-wrap items-center gap-2">
-                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">UPI (Google Pay, PhonePe, Paytm)</span>
-                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">Credit & Debit Cards</span>
-                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">Cash on Pickup</span>
-              </p>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-3 pt-2">
-              <a href="https://maps.google.com/?q=FC+Road+Pune+Perfume+Boutique" target="_blank" class="bg-[#18110E] hover:bg-[#A67642] text-white px-5 py-3 rounded-xl text-xs uppercase tracking-wider flex items-center gap-2 shadow-xs transition-colors">
-                <i class="fa-solid fa-map-location-dot"></i>
-                <span>GET STORE DIRECTIONS</span>
-              </a>
-
-              <a href="https://wa.me/919579453006?text=Namaste!%20I%20am%20coming%20for%20store%20pickup." target="_blank" class="bg-[#16a34a] hover:bg-[#15803d] text-white px-5 py-3 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center gap-2 shadow-xs transition-colors">
-                <i class="fa-brands fa-whatsapp text-sm"></i>
-                <span>CHAT WITH STORE</span>
-              </a>
-            </div>
-
-          </div>
-
-          <div class="lg:col-span-5">
-            <div class="rounded-2xl overflow-hidden border theme-border shadow-xs">
-              <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1000&auto=format&fit=crop&q=80" alt="Perfume Shope Boutique India" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=800&auto=format&fit=crop&q=80';" class="w-full h-64 sm:h-80 object-cover">
-            </div>
-          </div>
-
-        </div>
+        <a href="#celebrity-wardrobe" class="bg-black/50 hover:bg-black/80 text-white border border-gray-600 hover:border-[#C59B27] px-5 py-3 rounded-2xl font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
+          <i class="fa-solid fa-star text-[#C59B27]"></i>
+          <span>Celebrity Vault</span>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- =========================================================================
-       SHOPPING CART SLIDE-OVER DRAWER WITH DUAL ADDRESS SELECTOR (GPS & MANUAL)
+       TRUST PILLARS (BLIND BUY INSURANCE, LONGEVITY & PUNE PICKUP)
        ========================================================================= -->
+  <section class="py-5 theme-bg-secondary border-y theme-border">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-center sm:text-left">
+      
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
+        <i class="fa-solid fa-shield-check text-[#16a34a] text-xl shrink-0"></i>
+        <div>
+          <h4 class="text-xs font-bold theme-text-main">Blind Buy Insurance 🛡️</h4>
+          <p class="text-[10px] theme-text-muted">Free 2ml tester vial with every full bottle</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
+        <i class="fa-solid fa-bolt text-[#38BDF8] text-xl shrink-0"></i>
+        <div>
+          <h4 class="text-xs font-bold theme-text-main">14+ Hr Beast Mode ⚡</h4>
+          <p class="text-[10px] theme-text-muted">Tested for Indian humidity & heat</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
+        <i class="fa-solid fa-wand-magic-sparkles text-[#C59B27] text-xl shrink-0"></i>
+        <div>
+          <h4 class="text-xs font-bold theme-text-main">Free Laser Engraving ✨</h4>
+          <p class="text-[10px] theme-text-muted">Custom name engraved on bottle</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
+        <i class="fa-solid fa-store text-[#A67642] text-xl shrink-0"></i>
+        <div>
+          <h4 class="text-xs font-bold theme-text-main">FC Road Pune Boutique 🏛️</h4>
+          <p class="text-[10px] theme-text-muted">Test before you buy or instant pickup</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 1: CELEBRITY SCENT WARDROBES (SRK, VIRAT, DEEPIKA, MARVEL)
+       ========================================================================= -->
+  <section id="celebrity-wardrobe" class="py-12 sm:py-20 theme-bg-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="text-center max-w-xl mx-auto space-y-1.5">
+        <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🌟 ICONIC SCENT WARDROBES</span>
+        <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase">Wear Like a Legend</h2>
+        <p class="text-xs text-gray-400">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
+      </div>
+
+      <div id="celebrity-wardrobe-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 2: CUSTOM 5-IN-1 DISCOVERY SAMPLE BOX BUILDER (₹999)
+       ========================================================================= -->
+  <section id="discovery-box" class="py-12 sm:py-20 theme-bg-secondary border-y theme-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🎁 LUXURY VELVET SAMPLER</span>
+          <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Build Your Custom Discovery Box</h2>
+          <p class="text-xs text-gray-400 mt-1">Pick your favorite 5ml luxury miniatures in our signature gold-embossed velvet box.</p>
+        </div>
+
+        <div class="flex items-center gap-2 bg-black/20 p-1.5 rounded-2xl border theme-border">
+          <button onclick="setDiscoveryBoxSize(3)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 3 ? 'bg-[#C59B27] text-[#18110E]' : 'theme-text-main hover:text-[#C59B27]'}">
+            3 Mini Set (₹699)
+          </button>
+          <button onclick="setDiscoveryBoxSize(5)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 5 ? 'bg-[#C59B27] text-[#18110E]' : 'theme-text-main hover:text-[#C59B27]'}">
+            5 Mini Set (₹999) 👑
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Velvet Box Interactive Visualizer -->
+        <div class="lg:col-span-5 rounded-3xl p-6 bg-[#18110E] border border-[#C59B27]/40 shadow-2xl space-y-5">
+          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <span class="font-heading text-sm font-bold text-white uppercase tracking-wider">Royal Velvet Gift Box</span>
+            <span id="discovery-price-display" class="font-heading text-lg font-bold text-[#C59B27]">₹999</span>
+          </div>
+
+          <div id="discovery-slots-container" class="grid grid-cols-3 gap-3">
+            <!-- Rendered by app.js -->
+          </div>
+
+          <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 text-[11px] text-gray-300 space-y-1">
+            <span class="text-[#C59B27] font-bold block">✨ Includes:</span>
+            <p>• 5ml Atomizer Vials • Handcrafted Velvet Gift Packaging • ₹500 Voucher for Full Bottle</p>
+          </div>
+
+          <button id="discovery-add-to-cart-btn" onclick="addDiscoveryBoxToCart()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+            <span>Add Velvet Box to Cart</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Mini Fragrance Selector Grid -->
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-bold uppercase tracking-wider theme-text-main block">Tap Miniatures to Add or Swap:</span>
+          <div id="discovery-selector-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[380px] overflow-y-auto pr-1">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 3: FRAGRANCE LAYERING ALCHEMY LAB
+       ========================================================================= -->
+  <section id="alchemy-lab" class="py-12 sm:py-20 theme-bg-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="text-center max-w-xl mx-auto space-y-1.5">
+        <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🧪 SCENT ALCHEMY LAB</span>
+        <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase">Interactive Scent Blender</h2>
+        <p class="text-xs text-gray-400">Layer authentic pure attar base notes with luxury designer top accords to create your one-of-a-kind royal Indian signature.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+        
+        <!-- Base Note Selector -->
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block">1. Select Base Note (Longevity 18h+):</span>
+          <div id="alchemy-base-grid" class="space-y-2">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- Center Visual Alchemy Blender -->
+        <div class="rounded-3xl p-6 bg-[#18110E] border border-[#C59B27] text-center space-y-4 shadow-2xl relative overflow-hidden">
+          <div class="alchemy-mixing-glow w-16 h-16 rounded-full bg-[#C59B27]/20 border border-[#C59B27] flex items-center justify-center text-2xl text-[#C59B27] mx-auto">
+            <i class="fa-solid fa-flask-vial"></i>
+          </div>
+
+          <div class="space-y-1">
+            <span class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">SYNERGY RECIPE</span>
+            <h4 class="font-heading text-sm font-bold text-white uppercase"><span id="alchemy-base-name">OUD SUPRÊME</span> + <span id="alchemy-top-name">KHAMRAH D'OR</span></h4>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 space-y-1.5 text-xs text-left">
+            <div class="flex justify-between"><span class="text-gray-400">Synergy Score:</span><span id="alchemy-synergy-score" class="font-bold text-green-400">98% Royal Match</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Performance:</span><span id="alchemy-projection-rating" class="font-bold text-[#C59B27]">18+ Hours Beast Mode</span></div>
+            <div class="flex justify-between pt-1 border-t border-gray-800"><span class="text-gray-400">Combo Price (15% OFF):</span><span id="alchemy-combo-price" class="font-heading font-bold text-white">₹5,438</span></div>
+          </div>
+
+          <button onclick="addLayeringDuoToCart()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md">
+            Buy Layering Duo (15% OFF)
+          </button>
+        </div>
+
+        <!-- Top Note Selector -->
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block">2. Select Top Note (Projection & Sillage):</span>
+          <div id="alchemy-top-grid" class="space-y-2">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 4: MAIN FRAGRANCE CATALOG & ACCORD FILTERS
+       ========================================================================= -->
+  <section id="catalog-section" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🇮🇳 LUXURY COLLECTION</span>
+          <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Authentic Parfums & Extraits</h2>
+          <p class="text-xs text-gray-400 mt-1">Each full bottle includes a Free 2ml Tester Vial + Blind Buy Money-Back Insurance.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-500 text-xs"></i>
+          <input 
+            type="text" 
+            id="search-input" 
+            oninput="handleSearch(this.value)" 
+            placeholder="Search perfumes, brands, notes..." 
+            class="w-full bg-[#18110E] border border-gray-700 text-white rounded-2xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:border-[#C59B27] transition-colors"
+          >
+        </div>
+      </div>
+
+      <!-- Accord Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
+        <button onclick="filterByAccord('All')" data-accord="All" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm transition-all shrink-0">
+          All Accords
+        </button>
+        <button onclick="filterByAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+          🍦 Warm Vanilla & Kesar
+        </button>
+        <button onclick="filterByAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+          🪵 Royal Dehn Al Oud
+        </button>
+        <button onclick="filterByAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+          🌲 Mysore Sandal & Woods
+        </button>
+        <button onclick="filterByAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+          🌸 Kashmiri Gulab & Rose
+        </button>
+        <button onclick="filterByAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+          🌊 Fresh Citrus & Monsoon Aqua
+        </button>
+      </div>
+
+      <!-- Products Grid with Longevity & Sillage Gauges -->
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 5: THE SCENT CLUB - COMMUNITY SOTD FEED
+       ========================================================================= -->
+  <section id="scent-community" class="py-12 sm:py-20 theme-bg-main">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">👑 THE SCENT CLUB</span>
+          <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Community Scent of the Day</h2>
+          <p class="text-xs text-gray-400 mt-1">Real compliment stories, longevity ratings, and verified layering recipes from fragrance connoisseurs across India.</p>
+        </div>
+
+        <button onclick="document.getElementById('post-sotd-modal')?.classList.remove('hidden')" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-4 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
+          <i class="fa-solid fa-feather"></i>
+          <span>Share Your SOTD</span>
+        </button>
+      </div>
+
+      <!-- Feed Grid -->
+      <div id="community-feed-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Rendered by app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 6: IN-STORE VIP SCENT CONSULTATION BOOKING (PUNE BOUTIQUE)
+       ========================================================================= -->
+  <section id="book-consultation" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="rounded-3xl p-6 sm:p-10 bg-[#18110E] border border-[#C59B27]/60 shadow-2xl space-y-6">
+        
+        <div class="text-center space-y-2">
+          <div class="w-12 h-12 rounded-2xl border border-[#C59B27] flex items-center justify-center text-[#C59B27] text-xl mx-auto">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">PUNE FLAGSHIP BOUTIQUE</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-white uppercase">Book In-Store VIP Scent Consultation</h2>
+          <p class="text-xs text-gray-400 max-w-lg mx-auto">Visit our FC Road boutique for a complimentary 15-minute private tasting table session with our master perfumer, complimentary attar coffee & sample vials.</p>
+        </div>
+
+        <form id="consultation-form" onsubmit="handleConsultationBooking(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Your Full Name</label>
+              <input type="text" id="consult-name" required placeholder="e.g. Rahul Patil" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">WhatsApp Phone Number</label>
+              <input type="tel" id="consult-phone" required placeholder="+91 98227 25265" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Appointment Date</label>
+              <input type="date" id="consult-date" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Preferred Time Slot</label>
+              <select id="consult-time" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+                <option value="11:30 AM (Morning Session)">11:30 AM (Morning Session)</option>
+                <option value="03:00 PM (Afternoon VIP)">03:00 PM (Afternoon VIP)</option>
+                <option value="06:30 PM (Evening Soirée)">06:30 PM (Evening Soirée)</option>
+                <option value="08:30 PM (Night Lounge)">08:30 PM (Night Lounge)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Number of Guests</label>
+              <select id="consult-guests" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+                <option value="1">1 Person (Private Session)</option>
+                <option value="2">2 Persons (Couple Consultation)</option>
+                <option value="3+">3+ Persons (Wedding Party)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Primary Preference</label>
+              <select id="consult-pref" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+                <option value="Wedding / Festive Fragrances">Wedding & Festive Attars</option>
+                <option value="Executive / Office Sillage">Executive Office & Boardroom Sillage</option>
+                <option value="Daily Compliment Beast Mode">Daily Compliment Beast Mode</option>
+                <option value="Pure Dehn Al Oud Connoisseur">Pure Dehn Al Oud & Sandalwood</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span>Confirm & Generate VIP WhatsApp Pass</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="bg-[#120D0A] text-gray-400 py-12 border-t border-gray-800 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-full border border-[#C59B27] flex items-center justify-center text-[#C59B27]">
+            <i class="fa-solid fa-crown text-xs"></i>
+          </div>
+          <span class="font-heading text-sm font-bold text-white uppercase tracking-wider">PERFUME SHOPE</span>
+        </div>
+        <p class="text-[11px] leading-relaxed text-gray-400">India's premier destination for authentic Arabian extraits, designer perfumes, and pure royal Indian attars.</p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Pune Flagship Boutique</h4>
+        <p class="text-[11px]">Shop No. 4, Ground Floor, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004</p>
+        <p class="text-[11px] text-[#C59B27] font-semibold">Open All 7 Days: 10:30 AM - 10:00 PM IST</p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Curated Collections</h4>
+        <ul class="space-y-1 text-[11px]">
+          <li><a href="#celebrity-wardrobe" class="hover:text-white">Celebrity Scent Vault</a></li>
+          <li><a href="#discovery-box" class="hover:text-white">Custom Discovery Boxes</a></li>
+          <li><a href="#alchemy-lab" class="hover:text-white">Scent Alchemy Blender</a></li>
+          <li><a href="#scent-community" class="hover:text-white">The Scent Club Community</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Concierge & Authenticity</h4>
+        <p class="text-[11px]">Support: +91 95794 53006 / +91 98227 25265</p>
+        <p class="text-[11px]">All items backed by 100% Genuine Importer Seal & Blind Buy Insurance.</p>
+      </div>
+
+    </div>
+    <div class="max-w-7xl mx-auto px-4 mt-8 pt-4 border-t border-gray-800/80 text-center text-[10px] text-gray-500">
+      © 2026 PERFUME SHOPE • All Rights Reserved. Prices listed in Indian Rupees (INR ₹).
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODALS & DRAWERS
+       ========================================================================= -->
+
+  <!-- 1. CART SLIDE-OVER DRAWER WITH ENGRAVING OPTION -->
   <div id="cart-drawer-overlay" class="fixed inset-0 z-50 cart-drawer-overlay hidden flex justify-end">
     <div onclick="closeCartDrawer()" class="absolute inset-0"></div>
 
     <div id="cart-drawer-panel" class="relative w-full max-w-md bg-[#18110E] text-gray-200 h-full flex flex-col shadow-2xl z-10 cart-drawer-panel border-l border-gray-800">
       
-      <!-- Drawer Header -->
+      <!-- Header -->
       <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-[#120D0A]">
         <div class="flex items-center gap-2">
           <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
@@ -412,103 +541,204 @@
         </button>
       </div>
 
-      <!-- Cart Items Scrollable List -->
+      <!-- Items List -->
       <div id="cart-items-list" class="flex-1 overflow-y-auto p-4 space-y-3">
         <!-- Rendered by app.js -->
       </div>
 
       <!-- Checkout & Delivery Section -->
-      <div class="p-4 border-t border-gray-800 bg-[#120D0A] space-y-3.5 max-h-[50vh] overflow-y-auto">
+      <div id="cart-footer-section" class="p-4 border-t border-gray-800 bg-[#120D0A] space-y-3.5 max-h-[55vh] overflow-y-auto">
         
+        <!-- FREE LASER BOTTLE ENGRAVING TOGGLE -->
+        <div class="p-3 rounded-2xl bg-black/40 border border-[#C59B27]/40 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="engraving-toggle" onchange="toggleBottleEngraving(this.checked)" class="w-4 h-4 text-[#C59B27] rounded">
+              <span>✨ Free Custom Laser Bottle Engraving</span>
+            </label>
+            <span class="text-[9px] font-bold text-[#C59B27] uppercase">Free</span>
+          </div>
+
+          <div id="engraving-input-container" class="hidden space-y-1 pt-1">
+            <input 
+              type="text" 
+              id="bottle-engraving-input" 
+              maxlength="24"
+              oninput="updateEngravingText(this.value)"
+              placeholder="Name or Message (e.g. Rahul S. / King 2026)" 
+              class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none"
+            >
+            <p class="text-[9px] text-gray-400">Laser engraved directly onto glass bottle surface.</p>
+          </div>
+        </div>
+
         <!-- Promo Coupon Code -->
         <div class="flex items-center gap-2">
           <input type="text" id="cart-coupon-input" placeholder="Promo code (e.g. ROYAL500)" class="flex-1 bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white uppercase focus:border-[#C59B27] focus:outline-none">
           <button onclick="applyPromoCode()" class="bg-[#C59B27] text-[#18110E] px-3.5 py-2 rounded-xl text-xs font-bold uppercase">Apply</button>
         </div>
 
-        <!-- 2 ADDRESS SELECTION BUTTONS: AUTOMATIC GPS PRECISE vs MANUAL -->
+        <!-- Address Mode: GPS vs Manual -->
         <div class="space-y-2 pt-1 border-t border-gray-800">
-          <label class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">Select Delivery Address Mode:</label>
-          
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">Delivery Address:</label>
           <div class="flex items-center gap-2">
-            <button id="addr-mode-gps-btn" onclick="setAddressMode('gps')" class="flex-1 py-2 rounded-xl text-xs font-medium theme-card flex items-center justify-center gap-1.5 transition-all">
+            <button id="addr-mode-gps-btn" onclick="setAddressMode('gps')" class="flex-1 py-2 rounded-xl text-xs font-medium theme-card flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-crosshairs text-green-400"></i>
               <span>Auto GPS Pin</span>
             </button>
-            <button id="addr-mode-manual-btn" onclick="setAddressMode('manual')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm flex items-center justify-center gap-1.5 transition-all">
+            <button id="addr-mode-manual-btn" onclick="setAddressMode('manual')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-pen-to-square"></i>
-              <span>Enter Manual</span>
+              <span>Manual Address</span>
             </button>
           </div>
 
-          <!-- GPS View -->
           <div id="addr-gps-view" class="hidden space-y-2 pt-1">
-            <div class="p-3 rounded-xl bg-[#18110E] border border-gray-800 space-y-1.5">
-              <div id="gps-status-text" class="text-xs text-gray-300">
-                <i class="fa-solid fa-location-crosshairs text-[#C59B27]"></i> Tap below to fetch high-precision GPS satellite location.
-              </div>
-              <p id="gps-coords-display" class="text-[10px] font-mono text-gray-500"></p>
-              <button onclick="fetchAutomaticGPSLocation()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-location-arrow"></i> Re-scan GPS Location
-              </button>
-            </div>
-            <div id="gps-address-result"></div>
+            <div id="gps-status-text" class="text-xs text-gray-300"></div>
+            <p id="gps-coords-display" class="text-[10px] font-mono text-gray-500"></p>
+            <button onclick="fetchAutomaticGPSLocation()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-location-arrow"></i> Re-scan Satellite Location
+            </button>
           </div>
 
-          <!-- Manual View -->
           <div id="addr-manual-view" class="space-y-2 pt-1">
-            <input type="text" id="man-addr-line1" placeholder="Flat, Building & Street Address" class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            <input type="text" id="man-addr-line1" placeholder="Flat, Building & Street Address" class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
             <div class="grid grid-cols-3 gap-2">
-              <input type="text" id="man-city" placeholder="City" value="Pune" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-              <input type="text" id="man-state" placeholder="State" value="Maharashtra" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
-              <input type="text" id="man-pincode" placeholder="PIN Code" value="411004" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <input type="text" id="man-city" value="Pune" placeholder="City" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+              <input type="text" id="man-state" value="Maharashtra" placeholder="State" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+              <input type="text" id="man-pincode" value="411004" placeholder="PIN Code" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
             </div>
           </div>
         </div>
 
         <!-- Bill Breakdown -->
-        <div class="space-y-1 pt-2 border-t border-gray-800 text-xs text-gray-400">
-          <div class="flex justify-between">
-            <span>Subtotal (Inclusive GST)</span>
-            <span id="cart-subtotal-val" class="text-white font-bold">₹0</span>
-          </div>
-          <div id="cart-discount-row" class="flex justify-between text-green-400 hidden font-bold">
-            <span>Royal Discount</span>
-            <span id="cart-discount-val">- ₹0</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Store Pickup / Standard Delivery</span>
-            <span class="text-green-400 font-bold">FREE</span>
-          </div>
-          <div class="flex justify-between text-sm font-extrabold text-white pt-1 border-t border-gray-800">
-            <span>Total Amount (INR)</span>
-            <span id="cart-total-val" class="text-[#C59B27] text-base">₹0</span>
-          </div>
+        <div class="space-y-1 pt-2 border-t border-gray-800 text-xs">
+          <div class="flex justify-between text-gray-400"><span>Subtotal:</span><span id="cart-subtotal-val" class="font-bold text-white">₹0</span></div>
+          <div id="cart-discount-row" class="flex justify-between text-green-400 hidden"><span>Discount:</span><span id="cart-discount-val">-₹0</span></div>
+          <div class="flex justify-between text-gray-400"><span>Delivery & Tester Vial:</span><span class="text-green-400 font-bold">FREE 🛡️</span></div>
+          <div class="flex justify-between text-sm font-bold text-white pt-1 border-t border-gray-800"><span>Total Payable:</span><span id="cart-total-val" class="text-[#C59B27]">₹0</span></div>
         </div>
 
-        <!-- Checkout Trigger Buttons -->
+        <!-- Checkout Buttons -->
         <div class="grid grid-cols-2 gap-2 pt-1">
-          <button onclick="handleCheckoutOrder('WhatsApp')" class="bg-[#16a34a] hover:bg-[#15803d] text-white py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm transition-all">
+          <button onclick="handleCheckoutOrder('WhatsApp')" class="bg-[#16a34a] hover:bg-[#15803d] text-white py-3 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md">
             <i class="fa-brands fa-whatsapp text-sm"></i>
-            <span>WhatsApp Order</span>
+            <span>WhatsApp Buy</span>
           </button>
-          
-          <button onclick="handleCheckoutOrder('UPI')" class="bg-gradient-to-r from-[#D4AF37] to-[#AA771C] hover:opacity-90 text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm transition-all">
-            <i class="fa-solid fa-qrcode"></i>
-            <span>Pay via UPI</span>
+          <button onclick="handleCheckoutOrder('UPI')" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md">
+            <i class="fa-solid fa-qrcode text-sm"></i>
+            <span>UPI Instant Pay</span>
           </button>
         </div>
 
       </div>
-
     </div>
   </div>
 
-  <!-- =========================================================================
-       VISITOR LEAD CAPTURE & PROMOTIONAL VOUCHER MODAL
-       ========================================================================= -->
+  <!-- 2. POST SOTD COMMUNITY MODAL -->
+  <div id="post-sotd-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
+      <button onclick="document.getElementById('post-sotd-modal')?.classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="font-heading text-lg font-bold text-white uppercase">Share Your Scent of the Day (SOTD)</h3>
+
+      <form id="community-post-form" onsubmit="handleCommunityPostSubmit(event)" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <input type="text" id="post-author-name" required placeholder="Your Name" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+          <input type="text" id="post-city-name" required placeholder="City (e.g. Pune)" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+        </div>
+        <input type="text" id="post-sotd-name" required placeholder="Fragrance Name or Layering Duo" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+        <select id="post-longevity-select" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+          <option value="16+ Hours (Beast Mode)">16+ Hours (Beast Mode)</option>
+          <option value="14 Hours (All Day)">14 Hours (All Day)</option>
+          <option value="12 Hours (Strong)">12 Hours (Strong)</option>
+        </select>
+        <textarea id="post-review-text" rows="3" required placeholder="How was the projection? What compliments did you receive?" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl p-3 text-xs text-white focus:outline-none"></textarea>
+        <button type="submit" class="w-full bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider">Publish Post</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. GOOGLE LOGIN MODAL -->
+  <div id="google-login-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeGoogleLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-full bg-white mx-auto flex items-center justify-center text-xl shadow-md">
+        <i class="fa-brands fa-google text-red-500"></i>
+      </div>
+
+      <div>
+        <h3 class="font-heading text-lg font-bold text-white uppercase">Sign In with Google</h3>
+        <p class="text-xs text-gray-400 mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
+      </div>
+
+      <!-- Official Google GSI Button Container -->
+      <div id="google-signin-btn-container" class="flex justify-center my-3 min-h-[44px]"></div>
+
+      <div class="relative flex py-1 items-center">
+        <div class="flex-grow border-t border-gray-700"></div>
+        <span class="flex-shrink mx-2 text-[10px] uppercase text-gray-500 font-bold">Or Quick Demo Profile</span>
+        <div class="flex-grow border-t border-gray-700"></div>
+      </div>
+
+      <div class="space-y-2 pt-1">
+        <button onclick="handleGoogleLoginSuccess('Sakshi Patil', 'sakshi.patil@gmail.com', '+91 98227 25265')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span>Continue as Sakshi Patil</span>
+        </button>
+
+        <button onclick="handleGoogleLoginSuccess('Sanket Patil', 'sanket.patil@gmail.com', '+91 95794 53006')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span>Continue as Sanket Patil</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. USER PROFILE MODAL -->
+  <div id="user-profile-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3.5">
+        <img id="prof-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-full object-cover border border-[#C59B27]">
+        <div>
+          <h3 id="prof-name" class="font-heading text-lg font-bold text-white">Sakshi Patil</h3>
+          <p id="prof-email" class="text-xs text-gray-400">sakshi.patil@gmail.com</p>
+          <span id="prof-vip-tier" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#C59B27]/20 text-[#C59B27] border border-[#C59B27]/40 inline-block mt-1">
+            Royal Attar Club 👑
+          </span>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-[#120D0A] border border-gray-800 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">Reward Balance</span>
+          <span id="prof-points" class="font-heading text-xl font-bold text-[#C59B27]">750 Royalty Points</span>
+        </div>
+        <span class="text-xs text-green-400 font-bold">Worth ₹750</span>
+      </div>
+
+      <div class="space-y-1 text-xs text-gray-300">
+        <p><strong>Registered Phone:</strong> <span id="prof-phone">+91 98227 25265</span></p>
+        <p><strong>Boutique Perks:</strong> Free laser engraving & priority store appointments.</p>
+      </div>
+
+      <button onclick="handleUserLogout()" class="w-full bg-red-950/60 hover:bg-red-900 text-red-300 py-2.5 rounded-xl text-xs font-semibold">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. LEAD GIFT ₹500 MODAL -->
   <div id="lead-gift-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-[#C59B27]/50 p-6 relative shadow-2xl text-center space-y-4">
+    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
       <button onclick="closeLeadGiftModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -546,269 +776,54 @@
     </div>
   </div>
 
-  <!-- =========================================================================
-       GOOGLE LOGIN MODAL
-       ========================================================================= -->
-  <div id="google-login-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl text-center space-y-4">
-      <button onclick="closeGoogleLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="w-12 h-12 rounded-full bg-white mx-auto flex items-center justify-center text-xl shadow-md">
-        <i class="fa-brands fa-google text-red-500"></i>
-      </div>
-
-      <div>
-        <h3 class="font-heading text-lg font-bold text-white uppercase">Sign In with Google</h3>
-        <p class="text-xs text-gray-400 mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
-      </div>
-
-      <!-- Official Google Identity Services OAuth Container -->
-      <div id="google-signin-btn-container" class="flex justify-center my-3 min-h-[44px]"></div>
-
-      <div class="relative flex py-1 items-center">
-        <div class="flex-grow border-t border-gray-700"></div>
-        <span class="flex-shrink mx-2 text-[10px] uppercase text-gray-500 font-bold">Or Quick Demo Profile</span>
-        <div class="flex-grow border-t border-gray-700"></div>
-      </div>
-
-      <div class="space-y-2 pt-1">
-        <button onclick="handleGoogleLoginSuccess('Sakshi Patil', 'sakshi.patil@gmail.com', '+91 98227 25265')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
-          <i class="fa-brands fa-google text-red-500"></i>
-          <span>Continue as Sakshi Patil</span>
-        </button>
-
-        <button onclick="handleGoogleLoginSuccess('Sanket Patil', 'sanket.patil@gmail.com', '+91 95794 53006')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
-          <i class="fa-brands fa-google text-red-500"></i>
-          <span>Continue as Sanket Patil</span>
-        </button>
-      </div>
-
-      <p class="text-[10px] text-gray-500">By continuing, you agree to Perfume Shope's Terms & Authenticity Guarantee.</p>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       USER PROFILE & REWARD POINTS MODAL
-       ========================================================================= -->
-  <div id="user-profile-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
-      <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="flex items-center gap-3 pb-3 border-b border-gray-800">
-        <div class="w-14 h-14 rounded-full border-2 border-[#C59B27] overflow-hidden bg-black/40">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar" class="w-full h-full object-cover">
-        </div>
-        <div>
-          <h3 id="prof-name" class="font-heading text-base font-bold text-white"></h3>
-          <span id="prof-tier" class="px-2 py-0.5 rounded-full bg-[#C59B27]/20 text-[#C59B27] text-[10px] font-bold inline-block mt-0.5"></span>
-          <p id="prof-email" class="text-xs text-gray-400"></p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-2 text-center text-xs">
-        <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800">
-          <span class="text-[10px] text-gray-500 uppercase block font-bold">Reward Balance</span>
-          <span id="prof-points" class="font-heading text-sm font-bold text-[#C59B27]">750 Points</span>
-        </div>
-        <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800">
-          <span class="text-[10px] text-gray-500 uppercase block font-bold">VIP Status</span>
-          <span class="font-heading text-sm font-bold text-green-400">Active VIP</span>
-        </div>
-      </div>
-
-      <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800 text-xs space-y-1">
-        <span class="text-[10px] text-gray-500 uppercase block font-bold">Registered Phone</span>
-        <p id="prof-phone" class="text-white font-medium"></p>
-      </div>
-
-      <div class="pt-2 flex gap-2">
-        <button onclick="openCartDrawer(); closeProfileModal();" class="flex-1 bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase">
-          Open Cart
-        </button>
-        <button onclick="handleUserLogout()" class="bg-red-950 text-red-300 border border-red-800 px-4 py-2.5 rounded-xl font-bold text-xs uppercase">
-          Logout
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       UPI QR PAYMENT MODAL
-       ========================================================================= -->
+  <!-- 6. UPI QR MODAL -->
   <div id="upi-payment-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27]/50 p-6 relative shadow-2xl text-center space-y-4">
+    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
       <button onclick="closeUPIModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <span class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">INSTANT UPI CHECKOUT</span>
-      <h3 class="font-heading text-lg font-bold text-white">Scan & Pay via UPI</h3>
+      <span class="text-[10px] font-bold uppercase tracking-wider text-[#C59B27] block">Scan & Pay via any UPI App</span>
+      <h3 class="font-heading text-lg font-bold text-white uppercase">Order Total: <span id="upi-amount-val" class="text-[#C59B27]">₹0</span></h3>
 
-      <!-- QR Code Simulation -->
-      <div class="p-4 bg-white rounded-2xl mx-auto w-48 h-48 flex items-center justify-center shadow-lg border-2 border-[#C59B27]">
-        <div class="text-center space-y-1">
-          <i class="fa-solid fa-qrcode text-7xl text-black"></i>
-          <span class="text-[9px] font-bold text-gray-800 block">GPay &bull; PhonePe &bull; Paytm</span>
-        </div>
+      <div class="bg-white p-3 rounded-2xl max-w-[200px] mx-auto shadow-md">
+        <img id="upi-qr-image" src="" alt="UPI QR Code" class="w-full h-auto">
       </div>
 
-      <div class="p-2.5 rounded-xl bg-[#120D0A] border border-gray-800 text-xs space-y-1">
-        <div class="flex justify-between text-gray-400">
-          <span>Order ID:</span>
-          <span id="upi-order-id" class="text-white font-mono font-bold"></span>
-        </div>
-        <div class="flex justify-between text-gray-400">
-          <span>Amount Payable:</span>
-          <span id="upi-amount-val" class="text-[#C59B27] font-bold text-sm"></span>
-        </div>
-        <div class="flex justify-between text-gray-400">
-          <span>UPI VPA:</span>
-          <span class="text-white font-mono">perfumeshope@upi</span>
-        </div>
+      <div class="text-[11px] text-gray-300 space-y-1">
+        <p>UPI VPA: <strong class="text-white font-mono">perfumeshope@upi</strong></p>
+        <p>Order ID: <strong id="upi-order-id" class="text-[#C59B27] font-mono">ORD-000000</strong></p>
       </div>
 
-      <button onclick="confirmUPIPaymentDone()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-colors">
-        I Have Paid Successfully &rarr;
+      <button onclick="confirmUPIPaymentDone()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">
+        I Have Made the Payment &rarr;
       </button>
     </div>
   </div>
 
-  <!-- =========================================================================
-       ORDER SUCCESS MODAL
-       ========================================================================= -->
+  <!-- 7. ORDER SUCCESS MODAL -->
   <div id="order-success-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-green-700 p-6 relative shadow-2xl text-center space-y-4">
-      <button onclick="closeOrderSuccessModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-
-      <div class="w-16 h-16 rounded-full bg-green-950/60 border border-green-600 text-green-400 mx-auto flex items-center justify-center text-2xl shadow-lg">
-        <i class="fa-solid fa-circle-check"></i>
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
+      <div class="w-14 h-14 rounded-full bg-green-950 border border-green-500 text-green-400 text-2xl mx-auto flex items-center justify-center shadow-lg">
+        <i class="fa-solid fa-check"></i>
       </div>
 
-      <div>
-        <h3 class="font-heading text-xl font-bold text-white uppercase">Order Confirmed!</h3>
-        <p class="text-xs text-gray-400 mt-1">Your order has been recorded and our boutique concierge is preparing your package.</p>
+      <h3 class="font-heading text-xl font-bold text-white uppercase">Order Confirmed!</h3>
+      <p class="text-xs text-gray-300">Your genuine batch sealed package with complimentary 2ml tester vial is being prepared.</p>
+
+      <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 text-left text-xs space-y-1 text-gray-300">
+        <p><strong>Order ID:</strong> <span id="success-order-id" class="text-[#C59B27] font-mono"></span></p>
+        <p><strong>Total Paid:</strong> <span id="success-total-val" class="text-white font-bold"></span></p>
+        <p><strong>Delivery Address:</strong> <span id="success-address-val" class="text-gray-400 text-[11px]"></span></p>
       </div>
 
-      <div class="p-3.5 rounded-xl bg-[#120D0A] border border-gray-800 text-xs text-left space-y-2">
-        <div class="flex justify-between">
-          <span class="text-gray-400">Order ID:</span>
-          <span id="success-order-id" class="text-white font-mono font-bold"></span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-gray-400">Total Paid:</span>
-          <span id="success-total-val" class="text-[#C59B27] font-bold"></span>
-        </div>
-        <div>
-          <span class="text-gray-400 block mb-0.5">Delivery Address:</span>
-          <p id="success-address-val" class="text-white font-medium text-[11px]"></p>
-        </div>
-      </div>
-
-      <button onclick="closeOrderSuccessModal()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-xl font-bold text-xs uppercase tracking-wider">
-        Continue Shopping
+      <button onclick="closeOrderSuccessModal()" class="w-full bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase">
+        Continue Exploring
       </button>
     </div>
   </div>
 
-  <!-- QUICK VIEW MODAL -->
-  <div id="product-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="theme-card max-w-xl w-full rounded-2xl border p-5 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-base">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <div id="modal-product-content"></div>
-    </div>
-  </div>
-
-  <!-- MOBILE-FIRST BOTTOM APP DOCK -->
-  <div class="floating-app-dock lg:hidden">
-    <a href="#hero" class="dock-nav-link active">
-      <i class="fa-solid fa-house"></i>
-      <span>Home</span>
-    </a>
-    <a href="#catalog" class="dock-nav-link">
-      <i class="fa-solid fa-spray-can-sparkles"></i>
-      <span>Shop</span>
-    </a>
-    <button onclick="openCartDrawer()" class="dock-nav-link relative">
-      <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
-      <span>Cart</span>
-      <span class="cart-count-badge hidden absolute -top-1 right-2 bg-[#E62429] text-white text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">0</span>
-    </button>
-    <a href="#scent-experience" class="dock-nav-link">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      <span>Quiz</span>
-    </a>
-    <button onclick="openGoogleLoginModal()" class="dock-nav-link">
-      <i class="fa-solid fa-user"></i>
-      <span>Profile</span>
-    </button>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#120D0A] text-[#FAF5EE] pt-16 pb-24 lg:pb-12 border-t border-gray-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-        
-        <div class="lg:col-span-2 space-y-4">
-          <div class="flex items-center space-x-2.5">
-            <div class="w-8 h-8 rounded-full border border-[#C59B27]/50 bg-[#18110E] flex items-center justify-center p-1">
-              <i class="fa-solid fa-crown text-[#C59B27] text-xs"></i>
-            </div>
-            <span class="font-heading text-lg font-bold tracking-widest text-white uppercase">PERFUME SHOPE</span>
-          </div>
-          <p class="text-[11px] text-gray-400 leading-relaxed">India's premier luxury parfumerie. Curated authentic imported fragrances, Arabic extraits, and pure Indian botanical attars.</p>
-          <div class="pt-1 flex items-center justify-center sm:justify-start gap-2 text-white">
-            <span class="px-2 py-0.5 rounded bg-[#231B17] border border-[#3A2D25] text-[10px]">🇮🇳 100% Genuine</span>
-            <span class="px-2 py-0.5 rounded bg-[#231B17] border border-[#3A2D25] text-[10px]">⚡ WhatsApp Booking</span>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="font-heading text-xs font-semibold text-white uppercase tracking-wider mb-3">QUICK LINKS</h4>
-          <ul class="space-y-2 text-[11px] text-gray-400">
-            <li><a href="#hero" class="hover:text-white transition-colors">Home</a></li>
-            <li><a href="#catalog" class="hover:text-white transition-colors">Perfume Catalogue (₹)</a></li>
-            <li><a href="#scent-experience" class="hover:text-white transition-colors">Scent Finder Quiz</a></li>
-            <li><a href="#store-locator" class="hover:text-white transition-colors">Flagship Store Pickup</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-heading text-xs font-semibold text-white uppercase tracking-wider mb-3">CUSTOMER CARE</h4>
-          <ul class="space-y-2 text-[11px] text-gray-400">
-            <li><a href="#store-locator" class="hover:text-white transition-colors">Store Directions & Timings</a></li>
-            <li><a href="#store-locator" class="hover:text-white transition-colors">Batch Code Verification</a></li>
-            <li><a href="https://wa.me/919579453006" target="_blank" class="hover:text-white transition-colors">WhatsApp Concierge</a></li>
-            <li><a href="admin.html" class="text-[#C59B27] hover:underline font-bold flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Admin Management Portal</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="font-heading text-xs font-semibold text-white uppercase tracking-wider mb-3">BOUTIQUE CONTACT</h4>
-          <div class="text-[11px] text-gray-400 space-y-1.5">
-            <p><i class="fa-solid fa-phone mr-1.5 text-[#C59B27]"></i> +91 95794 53006</p>
-            <p><i class="fa-brands fa-whatsapp mr-1.5 text-[#16a34a]"></i> +91 95794 53006 / +91 98227 25265</p>
-            <p><i class="fa-solid fa-envelope mr-1.5 text-[#A67642]"></i> contact@perfumeshope.in</p>
-            <p><i class="fa-solid fa-location-dot mr-1.5 text-[#C59B27]"></i> FC Road, Pune, Maharashtra - 411004</p>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="pt-8 border-t border-gray-800 text-center text-[10px] text-gray-500 space-y-1">
-        <p>&copy; 2026 PERFUME SHOPE INDIA. All Rights Reserved. (All prices in INR ₹ inclusive of applicable GST).</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Application Logic JS -->
+  <!-- Engine Script -->
   <script src="app.js"></script>
 </body>
 </html>
