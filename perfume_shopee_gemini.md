@@ -3,7 +3,7 @@
 ## Project Overview
 - **Project Name**: Perfume Shope (India's Premier Luxury Parfumerie & Attar Boutique)
 - **Repository**: Sakshi-patil48/perfume-shopee
-- **Tech Stack**: Vanilla HTML5, Tailwind CSS CDN, Vanilla JavaScript (ES6+), FontAwesome Icons, Google Fonts (Cinzel, Outfit)
+- **Tech Stack**: Vanilla HTML5, Tailwind CSS CDN, Vanilla JavaScript (ES6+), FontAwesome Icons, Google Fonts (Cinzel, Outfit, Teko)
 - **Currency**: Indian Rupees (INR ₹)
 - **Deployment Platform**: Cloudflare Pages
 - **Target Audience / Purpose**: Indian fragrance lovers looking for 100% authentic imported Arabian extraits, designer perfumes, and pure royal Indian attars (Dehn Al Oud, Mysore Sandalwood, Kashmiri Kesar, Kannauj Gulab) with physical boutique pickup in Pune, Maharashtra, and WhatsApp instant booking.
@@ -16,13 +16,25 @@
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
 
+## Dynamic Dual UI Themes (Women Luxe vs Men Marvel Titanium)
+1. **🌸 Women's Luxe Theme (`data-theme="women"`)**:
+   - Palette: Soft Rose Gold (`#C89B66`), Warm Nude Cream (`#FAF5EE`), Champagne (`#FDFBF7`), Dark Espresso (`#231B17`).
+   - Hero Slides: Delina & Kashmiri Rose Extrait, Warm Bourbon Vanilla & Kesar, Yara Blush Gourmand.
+   - Scent Quiz: Royal Weddings & Sangeet, Mehendi, Cafe Dates, Festive Pooja with Rose, Kesar, and Floral accords.
+2. **⚡ Men's Marvel Titanium Beast Mode Theme (`data-theme="men"`)**:
+   - Palette: Obsidian Carbon (`#0B0F17`), Tactical Slate (`#101624`), Marvel Crimson (`#E62429`), Arc Reactor Cyan (`#38BDF8`), Molten Gold (`#F59E0B`).
+   - Hero Slides: Creed Aventus Noir & Smoky Birch (14+ Hrs Projection), Royal Dehn Al Oud & Dark Leather, Rasasi Hawas Monsoon Aqua Beast.
+   - Scent Quiz: Gym & Alpha Daily, Boardroom & Executive, Night Out & Clubbing, Grand Weddings with Smoky Woods, Cambodian Oud, and Aquatic Sillage.
+3. **👑 All / Unisex Luxury Mode (`data-theme="all"`)**:
+   - Balanced Royal Indian Gold & Espresso luxury palette showcasing the entire curated collection.
+
 ## Role-Based Access Control (RBAC)
 
 ### 👑 Super Admin (Owner Level)
 - **Access Route**: Direct URL ONLY (`superadmin.html`). *No public button on website.*
 - **Master Passwords**: `superadmin` or `9822725265` (customizable in master settings)
 - **Super Admin Features**:
-  1. **👥 Staff & Admin Access Management**: Create, edit, and revoke staff / manager accounts with custom PINs.
+  1. **👥 Staff & Admin Access Management**: Create, edit, and revoke staff accounts with custom PINs.
   2. **📊 Financial & Sales Intelligence**: Catalog valuation in INR, WhatsApp inquiry pipeline, conversion rate, and brand breakdown.
   3. **📦 Master Inventory & Bulk Pricing**: Add / edit / delete fragrances and apply bulk discounts (-5%, -10%, etc.).
   4. **📋 Booking Leads Audit**: Complete log of customer WhatsApp reservations with status updates and export to CSV.

@@ -1,78 +1,75 @@
 /* ==========================================================================
-   PERFUME SHOPE - HERO CAROUSEL SLIDER ABSOLUTE OVERLAY SYSTEM
+   PERFUME SHOPE - DYNAMIC DUAL THEME ENGINE (WOMEN LUXE & MEN MARVEL TITANIUM)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
 
-:root {
-  --bg-cream: #FAF5EE;
-  --bg-cream-light: #FDFBF7;
-  --bg-powder: #F2E9DE;
+:root, [data-theme="all"], [data-theme="women"] {
+  --bg-main: #FAF5EE;
+  --bg-secondary: #FDFBF7;
   --bg-card: #FFFFFF;
-  --border-subtle: #EBE2D7;
-  --border-gold: rgba(197, 155, 39, 0.35);
+  --bg-card-hover: #FFFDF9;
+  --border-color: #EBE2D7;
+  --border-focus: #A67642;
+  --border-gold: rgba(197, 155, 39, 0.4);
   
-  --text-dark: #231B17;
-  --text-muted: #7A6F68;
-  --bronze-gold: #A67642;
-  --royal-gold: #C59B27;
-  --bronze-light: #C89B66;
-  --bronze-dark: #7A5328;
+  --text-main: #231B17;
+  --text-secondary: #5C524A;
+  --text-muted: #8C8077;
   
-  --dark-espresso: #18110E;
-  --wa-green: #16a34a;
+  --accent-gold: #C59B27;
+  --accent-bronze: #A67642;
+  --accent-theme: #C59B27;
+  --accent-badge-bg: #FAF1DC;
+  --accent-badge-text: #7A5328;
 
+  --card-shadow: 0 4px 20px rgba(35, 27, 23, 0.05);
+  --hero-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  --dock-bg: #231B17;
+  --dock-border: rgba(166, 118, 66, 0.4);
+  
   --font-heading: 'Cinzel', serif;
   --font-body: 'Outfit', sans-serif;
-
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.font-rupee {
-  font-family: 'Outfit', 'Cinzel', sans-serif;
-  font-weight: 700;
-}
+/* ==========================================================================
+   MEN'S MARVEL / TITANIUM BEAST MODE DARK THEME
+   ========================================================================== */
+[data-theme="men"] {
+  --bg-main: #0B0F17;
+  --bg-secondary: #101624;
+  --bg-card: #151D2D;
+  --bg-card-hover: #1B253A;
+  --border-color: #222F46;
+  --border-focus: #38BDF8;
+  --border-gold: rgba(56, 189, 248, 0.4);
+  
+  --text-main: #F1F5F9;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  
+  --accent-gold: #38BDF8; /* Arc Reactor Cyan Glow */
+  --accent-bronze: #E62429; /* Marvel Crimson */
+  --accent-theme: #38BDF8;
+  --accent-badge-bg: #0C2136;
+  --accent-badge-text: #38BDF8;
 
-.gold-gradient-text {
-  background: linear-gradient(135deg, #D4AF37 0%, #C59B27 50%, #AA771C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.indian-badge {
-  background: linear-gradient(135deg, #FFF9EB 0%, #FAF1DC 100%);
-  border: 1px solid rgba(197, 155, 39, 0.4);
-  color: #7A5328;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #FAF5EE;
-}
-::-webkit-scrollbar-thumb {
-  background: #DCD0C0;
-  border-radius: 4px;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
-.scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  --card-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.08);
+  --hero-gradient: linear-gradient(to top, rgba(11, 15, 23, 0.95) 0%, rgba(11, 15, 23, 0.5) 50%, transparent 100%);
+  --dock-bg: #101624;
+  --dock-border: rgba(56, 189, 248, 0.4);
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-cream);
-  color: var(--text-dark);
+  background-color: var(--bg-main);
+  color: var(--text-main);
   overflow-x: hidden;
   margin: 0;
   padding: 0;
   padding-bottom: calc(75px + var(--safe-bottom));
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @media (min-width: 1024px) {
@@ -85,118 +82,202 @@ body {
   font-family: var(--font-heading);
 }
 
-/* Mobile-First Floating App Dock */
+.font-rupee {
+  font-family: 'Outfit', 'Cinzel', sans-serif;
+  font-weight: 700;
+}
+
+/* Glass Headers */
+.glass-header-mobile {
+  background: var(--bg-main);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Dynamic Card & Container Theming */
+.theme-card {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+}
+
+.theme-card:hover {
+  background-color: var(--bg-card-hover) !important;
+  border-color: var(--border-focus) !important;
+}
+
+.theme-bg-main {
+  background-color: var(--bg-main) !important;
+  transition: background-color 0.4s ease;
+}
+
+.theme-bg-secondary {
+  background-color: var(--bg-secondary) !important;
+  transition: background-color 0.4s ease;
+}
+
+.theme-text-main {
+  color: var(--text-main) !important;
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.theme-text-muted {
+  color: var(--text-muted) !important;
+}
+
+.theme-border {
+  border-color: var(--border-color) !important;
+}
+
+.theme-input {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-main) !important;
+}
+
+.theme-input:focus {
+  border-color: var(--border-focus) !important;
+}
+
+/* Marvel Men Theme Specific Overrides */
+[data-theme="men"] .font-heading {
+  letter-spacing: 0.08em;
+}
+
+[data-theme="men"] .hero-slide img {
+  filter: contrast(1.15) brightness(0.85);
+}
+
+[data-theme="men"] .accord-filter-btn.active {
+  background: linear-gradient(135deg, #E62429 0%, #B91C1C 100%) !important;
+  border-color: #E62429 !important;
+  box-shadow: 0 0 12px rgba(230, 36, 41, 0.4) !important;
+}
+
+[data-theme="men"] .theme-glow-hover:hover {
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25) !important;
+  border-color: #38BDF8 !important;
+}
+
+[data-theme="men"] .gender-indicator-badge {
+  background: linear-gradient(135deg, #101624 0%, #151D2D 100%);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  color: #38BDF8;
+}
+
+/* Floating App Dock */
 .floating-app-dock {
   position: fixed;
   bottom: calc(1rem + var(--safe-bottom));
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
-  background: #231B17;
+  background: var(--dock-bg);
   color: #FFFFFF;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  box-shadow: 0 10px 30px rgba(35, 27, 23, 0.35);
-  border: 1px solid rgba(166, 118, 66, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--dock-border);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
 }
 
 .dock-nav-link {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #A0968E;
   font-size: 0.65rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-.dock-nav-link.active, .dock-nav-link:hover {
-  color: #A67642;
-  transform: translateY(-2px);
-}
-.dock-nav-link i {
-  font-size: 1.15rem;
-  margin-bottom: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9CA3AF;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* CAROUSEL SLIDER STYLING */
+.dock-nav-link.active,
+.dock-nav-link:hover {
+  color: var(--accent-gold);
+  transform: translateY(-2px);
+}
+
+.dock-nav-link i {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Slider Overlays */
 .hero-slide {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
   opacity: 0;
   pointer-events: none;
-  z-index: 0;
   transition: opacity 0.7s ease-in-out;
 }
 
 .hero-slide.active-slide {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  z-index: 10 !important;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* Pagination Dots */
 .slider-dot {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.4);
-  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
+  transition: all 0.3s ease;
 }
+
 .slider-dot.active-dot {
-  width: 28px;
-  background: #A67642;
-  box-shadow: 0 0 10px rgba(166, 118, 66, 0.6);
+  width: 24px;
+  background-color: var(--accent-gold);
 }
 
-/* Header */
-.glass-header-mobile {
-  background: rgba(250, 245, 238, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(235, 226, 215, 0.9);
-}
-
-/* Buttons */
-.btn-espresso {
-  background: #231B17;
-  color: #FFFFFF;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition: all 0.25s ease;
-}
-.btn-espresso:active, .btn-espresso:hover {
-  background: #A67642;
-  color: #FFFFFF;
-  box-shadow: 0 6px 20px rgba(166, 118, 66, 0.25);
-}
-
-.btn-whatsapp-hero {
-  background: #16a34a;
-  color: #FFFFFF;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition: all 0.25s ease;
-}
-
-/* WhatsApp Pulse Animation */
-@keyframes wa-glow {
+/* Pulse Animation */
+@keyframes waPulse {
   0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6); }
-  70% { box-shadow: 0 0 0 12px rgba(22, 163, 74, 0); }
+  70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
   100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
 }
+
 .wa-pulse {
-  animation: wa-glow 2.5s infinite;
+  animation: waPulse 2.5s infinite;
 }
 
+/* Modals */
 .modal-backdrop {
-  background: rgba(35, 27, 23, 0.7);
+  background-color: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(8px);
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

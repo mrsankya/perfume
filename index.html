@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Perfume Shope | India's Premier Luxury Parfumerie & Attars</title>
-  <meta name="description" content="Explore 100% Authentic Luxury Perfumes & Pure Dehn Al Oud in India. Brands: Lattafa, Rasasi, Afnan, Armaf, Ajmal, Creed, Tom Ford. Instant WhatsApp Store Pickup in INR (₹).">
-  <meta name="theme-color" content="#FAF5EE">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PERFUME SHOPE | India's Premier Luxury Parfumerie & Attar Boutique</title>
+  <meta name="description" content="India's curated luxury perfume store. Genuine imported fragrances, Arabic extraits, and pure Indian attars with instant WhatsApp booking and boutique pickup in INR.">
+  <meta name="theme-color" content="#231B17">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -15,34 +15,22 @@
       theme: {
         extend: {
           colors: {
-            nude: {
-              50: '#FDFBF7',
-              100: '#FAF5EE',
-              200: '#F4ECDF',
-              300: '#EBE2D7',
-            },
-            bronze: {
-              400: '#C89B66',
-              500: '#A67642',
-              600: '#7A5328',
-            },
-            gold: {
-              500: '#C59B27',
-              600: '#AA771C',
-            },
-            espresso: {
-              800: '#231B17',
-              900: '#18110E',
-            },
-            wagreen: {
-              600: '#16a34a',
-              700: '#15803d'
-            }
+            royalGold: '#C59B27',
+            bronzeGold: '#A67642',
+            espresso: '#18110E',
+            marvelRed: '#E62429',
+            arcBlue: '#38BDF8',
+            carbon: '#0B0F17'
           }
         }
       }
     }
   </script>
+
+  <!-- Google Fonts CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -50,34 +38,26 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#FAF5EE] text-[#231B17] antialiased selection:bg-[#A67642] selection:text-white">
+<body data-theme="all" class="selection:bg-[#C59B27] selection:text-black">
 
-  <!-- Top Indian Luxury Trust Ribbon -->
-  <div class="bg-[#231B17] text-[#FAF5EE] text-[10px] sm:text-xs py-1.5 px-3 border-b border-[#A67642]/30">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center space-x-2 mx-auto sm:mx-0">
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#C59B27] text-[#18110E] uppercase tracking-wider">🇮🇳 INDIA</span>
-        <span>100% Authentic Original Batches &bull; Same-Day Store Pickup &bull; WhatsApp Booking in INR (₹)</span>
-      </div>
-      <div class="hidden sm:flex items-center space-x-4 text-[11px] text-[#C89B66]">
-        <span><i class="fa-solid fa-store mr-1 text-xs"></i> Flagship Store: Pune, MH</span>
-        <span><i class="fa-brands fa-whatsapp mr-1 text-xs text-[#16a34a]"></i> +91 95794 53006</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Low Bandwidth Network Mode Banner -->
-  <div id="low-bandwidth-banner" class="bg-[#F4ECDF] border-b border-[#EBE2D7] text-[11px] py-1.5 px-3 text-center hidden flex items-center justify-between text-[#231B17] sticky top-0 z-50">
-    <div class="flex items-center gap-1.5 mx-auto">
+  <!-- TOP LUXURY ANNOUNCEMENT BANNER -->
+  <aside class="bg-[#18110E] text-[#FAF5EE] text-[10px] sm:text-xs py-1.5 px-4 text-center border-b border-[#3A2D25] font-medium tracking-wide">
+    <div class="max-w-7xl mx-auto flex items-center justify-center space-x-2">
       <span class="inline-block w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-      <span>Data Saver Mode Active &bull; Optimized for Mobile Networks</span>
+      <span>100% Authentic Original Batches &bull; Same-Day Store Pickup &bull; WhatsApp Booking in INR (₹)</span>
     </div>
+  </aside>
+
+  <!-- LOW-BANDWIDTH TOAST NOTIFICATION -->
+  <div id="low-bandwidth-banner" class="hidden bg-[#231B17] text-white text-xs py-1 px-4 text-center flex items-center justify-center space-x-2 border-b border-gray-700">
+    <i class="fa-solid fa-gauge-high text-[#C59B27]"></i>
+    <span>Data Saver Mode Active</span>
     <button onclick="toggleLowBandwidth(false)" class="text-[10px] underline font-semibold text-[#A67642]">Disable</button>
   </div>
 
-  <!-- COMPACT MOBILE HEADER -->
-  <header class="sticky top-0 z-40 glass-header-mobile transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- COMPACT HEADER WITH DUAL THEME SWITCHER -->
+  <header class="sticky top-0 z-40 glass-header-mobile">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-14 sm:h-20">
         
         <!-- Left: Brand Logo -->
@@ -86,37 +66,42 @@
             <i class="fa-solid fa-crown text-[#C59B27] text-xs sm:text-base"></i>
           </div>
           <div>
-            <span class="font-heading text-base sm:text-2xl font-bold tracking-widest text-[#231B17] block uppercase">PERFUME SHOPE</span>
-            <span class="text-[7px] sm:text-[9px] uppercase tracking-[0.25em] text-[#A67642] font-sans block -mt-1 font-semibold">Haute Parfumerie &bull; India</span>
+            <span class="font-heading text-base sm:text-2xl font-bold tracking-widest theme-text-main block uppercase">PERFUME SHOPE</span>
+            <span id="brand-tagline-sub" class="text-[7px] sm:text-[9px] uppercase tracking-[0.25em] text-[#A67642] font-sans block -mt-1 font-semibold">Haute Parfumerie &bull; India</span>
           </div>
         </div>
 
         <!-- Desktop Navigation Links -->
         <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold">
-          <a href="#hero" class="text-[#231B17] hover:text-[#A67642] transition-colors">Home</a>
-          <a href="#catalog" class="text-[#231B17] hover:text-[#A67642] transition-colors">Catalogue (₹)</a>
+          <a href="#hero" class="theme-text-main hover:text-[#A67642] transition-colors">Home</a>
+          <a href="#catalog" class="theme-text-main hover:text-[#A67642] transition-colors">Catalogue (₹)</a>
           <a href="#scent-experience" class="text-[#A67642] hover:text-[#7A5328] transition-colors flex items-center gap-1.5">
             <i class="fa-solid fa-sparkles text-[11px] text-[#C59B27]"></i> Scent Finder
           </a>
-          <a href="#store-locator" class="text-[#231B17] hover:text-[#A67642] transition-colors">Boutique Pickup</a>
+          <a href="#store-locator" class="theme-text-main hover:text-[#A67642] transition-colors">Boutique Pickup</a>
           <a href="admin.html" class="text-[#7A5328] hover:text-[#C59B27] transition-colors flex items-center gap-1 font-bold">
             <i class="fa-solid fa-shield-halved text-[10px]"></i> Admin
           </a>
         </nav>
 
-        <!-- Right: Compact Icon Bar -->
+        <!-- Right: Dual Theme Gender Switcher & Actions -->
         <div class="flex items-center space-x-1.5 sm:space-x-3">
           
-          <!-- Gender Shortcuts -->
-          <div class="flex items-center bg-white p-0.5 sm:p-1 rounded-full border border-[#EBE2D7] text-[10px] sm:text-xs shadow-xs">
-            <button onclick="filterGender('All')" data-gender="All" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-[#231B17] text-white shadow-xs transition-all">All</button>
-            <button onclick="filterGender('Women')" data-gender="Women" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all">Women</button>
-            <button onclick="filterGender('Men')" data-gender="Men" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all">Men</button>
-            <button onclick="filterGender('Unisex')" data-gender="Unisex" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all hidden sm:inline-block">Unisex</button>
+          <!-- Gender & UI Theme Switcher (All / Women Luxe / Men Marvel) -->
+          <div class="flex items-center bg-black/10 dark:bg-white/10 p-0.5 sm:p-1 rounded-full border theme-border text-[10px] sm:text-xs shadow-xs">
+            <button onclick="filterGender('All')" data-gender="All" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-bold bg-[#231B17] text-white shadow-xs transition-all flex items-center gap-1">
+              <span>👑 All</span>
+            </button>
+            <button onclick="filterGender('Women')" data-gender="Women" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1">
+              <span>🌸 Women</span>
+            </button>
+            <button onclick="filterGender('Men')" data-gender="Men" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1">
+              <span>⚡ Men</span>
+            </button>
           </div>
 
           <!-- Search Trigger Icon -->
-          <button onclick="focusSearch()" class="p-1.5 sm:p-2 rounded-full bg-white border border-[#EBE2D7] text-[#231B17] hover:text-[#A67642] transition-colors text-xs sm:text-sm shadow-xs" title="Search Fragrances">
+          <button onclick="focusSearch()" class="p-1.5 sm:p-2 rounded-full theme-card text-xs sm:text-sm shadow-xs" title="Search Fragrances">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
 
@@ -127,7 +112,7 @@
           </a>
 
           <!-- Mobile Hamburger Drawer Trigger -->
-          <button onclick="toggleMobileMenu()" class="p-1.5 rounded-lg bg-white border border-[#EBE2D7] text-[#231B17] focus:outline-none lg:hidden">
+          <button onclick="toggleMobileMenu()" class="p-1.5 rounded-lg theme-card focus:outline-none lg:hidden">
             <i class="fa-solid fa-bars text-base"></i>
           </button>
         </div>
@@ -136,16 +121,26 @@
     </div>
 
     <!-- Mobile Slide-In Navigation Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden bg-[#FDFBF7] border-b border-[#EBE2D7] px-4 pt-3 pb-6 space-y-3 shadow-md">
-      <div class="flex items-center bg-white border border-[#EBE2D7] rounded-xl px-3 py-2 shadow-xs">
+    <div id="mobile-menu" class="hidden lg:hidden theme-bg-secondary border-b theme-border px-4 pt-3 pb-6 space-y-3 shadow-md">
+      <div class="flex items-center theme-input rounded-xl px-3 py-2 border shadow-xs">
         <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2 text-xs"></i>
-        <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch(event)" placeholder="Search perfume, notes (Kesar, Oud, Rose, Sandalwood)..." class="bg-transparent border-none text-xs text-[#231B17] focus:outline-none w-full">
+        <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch(event)" placeholder="Search perfume, notes (Kesar, Oud, Rose, Sandalwood)..." class="bg-transparent border-none text-xs theme-text-main focus:outline-none w-full">
+      </div>
+
+      <!-- Mobile Theme Selector -->
+      <div class="flex items-center justify-between p-2 rounded-xl theme-card border">
+        <span class="text-[11px] font-bold theme-text-main">Vibe & Theme:</span>
+        <div class="flex items-center gap-1.5">
+          <button onclick="filterGender('All'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#231B17] text-white">👑 All</button>
+          <button onclick="filterGender('Women'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#A67642] text-white">🌸 Women</button>
+          <button onclick="filterGender('Men'); toggleMobileMenu();" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#E62429] text-white">⚡ Men</button>
+        </div>
       </div>
       
-      <a href="#hero" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Home</a>
-      <a href="#catalog" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Catalogue (INR ₹)</a>
+      <a href="#hero" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Home</a>
+      <a href="#catalog" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Catalogue (INR ₹)</a>
       <a href="#scent-experience" onclick="toggleMobileMenu()" class="block text-[#A67642] py-1 font-semibold text-xs uppercase tracking-wider"><i class="fa-solid fa-sparkles text-xs mr-1 text-[#C59B27]"></i> Scent Finder Quiz</a>
-      <a href="#store-locator" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Boutique Store Pickup</a>
+      <a href="#store-locator" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Boutique Store Pickup</a>
       <a href="admin.html" onclick="toggleMobileMenu()" class="block text-[#7A5328] hover:text-[#231B17] py-1 font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-xs mr-1"></i> Admin Portal</a>
       
       <a href="https://wa.me/919579453006?text=Namaste!%20I%20am%20interested%20in%20reserving%20a%20perfume%20for%20store%20pickup." target="_blank" class="flex items-center justify-center space-x-2 bg-[#16a34a] text-white w-full py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider mt-2 shadow-xs">
@@ -155,79 +150,14 @@
     </div>
   </header>
 
-  <!-- SINGLE VIEWPORT CONTAINER FOR FULL-WIDTH CINEMATIC HERO SLIDER -->
+  <!-- =========================================================================
+       DYNAMIC HERO CAROUSEL SLIDER (ADAPTS TO WOMEN LUXE OR MEN MARVEL)
+       ========================================================================= -->
   <section id="hero" class="relative w-full h-[72vh] md:h-[85vh] overflow-hidden rounded-none md:rounded-2xl bg-[#18110E]">
     
-    <!-- Slide 1: Royal Oud & Kashmiri Kesar Edition -->
-    <div class="hero-slide active-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-100 pointer-events-auto z-10">
-      <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1600&auto=format&fit=crop&q=80" alt="Royal Oud Collection" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&auto=format&fit=crop&q=80';" class="w-full h-full object-cover object-center">
-      <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent absolute inset-0 z-10"></div>
-      
-      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C59B27] font-bold block drop-shadow-sm">
-          👑 ROYAL OUD & KASHMIRI KESAR EDITION
-        </span>
-        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
-          Regal Sillage for Weddings & Festivities
-        </h1>
-        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto font-sans">
-          Pure Dehn Al Oud, Kashmiri Saffron & Mysore Sandalwood extraits crafted for royalty.
-        </p>
-      </div>
-    </div>
-
-    <!-- Slide 2: Arabian Luxury Extrait -->
-    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
-      <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&auto=format&fit=crop&q=80" alt="Arabian Luxury Perfumes" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&auto=format&fit=crop&q=80';" class="w-full h-full object-cover object-center">
-      <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent absolute inset-0 z-10"></div>
-      
-      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C59B27] font-bold block drop-shadow-sm">
-          ✨ ARABIAN & FRENCH EXTRAIT
-        </span>
-        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
-          Long-Lasting Beast Mode Fragrances
-        </h1>
-        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto font-sans">
-          Authentic imports from Lattafa, Rasasi, Afnan & Armaf with guaranteed 12+ hours projection.
-        </p>
-      </div>
-    </div>
-
-    <!-- Slide 3: Mysore Sandalwood & Kannauj Gulab -->
-    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
-      <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600&auto=format&fit=crop&q=80" alt="Mysore Sandalwood and Rose" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&auto=format&fit=crop&q=80';" class="w-full h-full object-cover object-center">
-      <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent absolute inset-0 z-10"></div>
-      
-      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C59B27] font-bold block drop-shadow-sm">
-          🌸 INDIAN BOTANICAL HERITAGE
-        </span>
-        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
-          Mysore Sandalwood & Kannauj Rose
-        </h1>
-        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto font-sans">
-          Centuries of pure Indian botanical essences refined into modern luxury EDPs.
-        </p>
-      </div>
-    </div>
-
-    <!-- Slide 4: Flagship Indian Boutique & Tester Lounge -->
-    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
-      <img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=1600&auto=format&fit=crop&q=80" alt="Perfume Shope Boutique India" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1200&auto=format&fit=crop&q=80';" class="w-full h-full object-cover object-center">
-      <div class="bg-gradient-to-t from-black/90 via-black/40 to-transparent absolute inset-0 z-10"></div>
-      
-      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
-        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C59B27] font-bold block drop-shadow-sm">
-          🏬 FLAGSHIP BOUTIQUE & TESTER LOUNGE
-        </span>
-        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
-          Visit In-Person & Try Free Tester Sprays
-        </h1>
-        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto font-sans">
-          Instant WhatsApp Reservation &bull; UPI / Cards Accepted &bull; 100% Genuine Batch Codes.
-        </p>
-      </div>
+    <!-- Slides rendered dynamically by JavaScript based on selected theme -->
+    <div id="hero-slides-container" class="relative w-full h-full">
+      <!-- Injected by app.js -->
     </div>
 
     <!-- Single Minimal CTA Button -->
@@ -258,78 +188,59 @@
   </section>
 
   <!-- TRUST BADGES STRIP (INDIAN SHOPPING ASSURANCE) -->
-  <section class="bg-white border-b border-[#EBE2D7] py-3.5 px-4">
+  <section class="theme-bg-secondary border-b theme-border py-3.5 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 text-center sm:text-left">
-      <div class="flex items-center gap-2.5 p-2 rounded-xl bg-[#FAF5EE]/60 border border-[#EBE2D7]">
+      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
         <i class="fa-solid fa-shield-halved text-[#C59B27] text-lg shrink-0"></i>
         <div>
-          <h4 class="text-[11px] font-bold text-[#231B17]">100% Genuine Batches</h4>
-          <p class="text-[9px] text-gray-500">Authentic importer sealed boxes</p>
+          <h4 class="text-[11px] font-bold theme-text-main">100% Genuine Batches</h4>
+          <p class="text-[9px] theme-text-muted">Authentic importer sealed boxes</p>
         </div>
       </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl bg-[#FAF5EE]/60 border border-[#EBE2D7]">
+      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
         <i class="fa-solid fa-shop text-[#A67642] text-lg shrink-0"></i>
         <div>
-          <h4 class="text-[11px] font-bold text-[#231B17]">Boutique Store Pickup</h4>
-          <p class="text-[9px] text-gray-500">Test before you buy in store</p>
+          <h4 class="text-[11px] font-bold theme-text-main">Boutique Store Pickup</h4>
+          <p class="text-[9px] theme-text-muted">Test before you buy in store</p>
         </div>
       </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl bg-[#FAF5EE]/60 border border-[#EBE2D7]">
+      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
         <i class="fa-brands fa-whatsapp text-[#16a34a] text-lg shrink-0"></i>
         <div>
-          <h4 class="text-[11px] font-bold text-[#231B17]">Quick WhatsApp Booking</h4>
-          <p class="text-[9px] text-gray-500">Reserve in 30 seconds</p>
+          <h4 class="text-[11px] font-bold theme-text-main">Quick WhatsApp Booking</h4>
+          <p class="text-[9px] theme-text-muted">Reserve in 30 seconds</p>
         </div>
       </div>
-      <div class="flex items-center gap-2.5 p-2 rounded-xl bg-[#FAF5EE]/60 border border-[#EBE2D7]">
-        <i class="fa-solid fa-qrcode text-[#231B17] text-lg shrink-0"></i>
+      <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
+        <i class="fa-solid fa-qrcode text-[#C59B27] text-lg shrink-0"></i>
         <div>
-          <h4 class="text-[11px] font-bold text-[#231B17]">UPI & Cards Accepted</h4>
-          <p class="text-[9px] text-gray-500">GPay, PhonePe, Paytm & Cash</p>
+          <h4 class="text-[11px] font-bold theme-text-main">UPI & Cards Accepted</h4>
+          <p class="text-[9px] theme-text-muted">GPay, PhonePe, Paytm & Cash</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- QUICK SWIPEABLE ACCORD BADGES -->
-  <section class="py-4 bg-[#FAF5EE] border-b border-[#EBE2D7]">
+  <section class="py-4 theme-bg-main border-b theme-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center space-x-2 overflow-x-auto scrollbar-none snap-x py-1 text-xs">
-        <span class="text-[#7A6F68] font-bold uppercase tracking-wider text-[10px] shrink-0 mr-1">Fragrance Accords:</span>
-        
-        <button onclick="filterAccord('All')" data-accord="All" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-[#231B17] text-white shadow-sm transition-all shrink-0">
-          ✨ All Accords
-        </button>
-        <button onclick="filterAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-white border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0 shadow-xs">
-          🌸 Kashmiri Gulab & Rose
-        </button>
-        <button onclick="filterAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-white border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0 shadow-xs">
-          🪵 Royal Dehn Al Oud
-        </button>
-        <button onclick="filterAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-white border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0 shadow-xs">
-          🍦 Warm Vanilla & Kesar
-        </button>
-        <button onclick="filterAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-white border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0 shadow-xs">
-          🌲 Mysore Sandal & Woods
-        </button>
-        <button onclick="filterAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-white border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0 shadow-xs">
-          🍋 Fresh Citrus & Aqua
-        </button>
+      <div id="accord-pills-container" class="flex items-center space-x-2 overflow-x-auto scrollbar-none snap-x py-1 text-xs">
+        <!-- Rendered dynamically by app.js based on theme -->
       </div>
     </div>
   </section>
 
   <!-- MAIN E-CATALOG & SEARCH FILTER SECTION -->
-  <section id="catalog" class="py-12 sm:py-20 bg-[#FAF5EE]">
+  <section id="catalog" class="py-12 sm:py-20 theme-bg-main">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-xl mx-auto mb-8 sm:mb-12">
         <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">HAUTE INDIAN CATALOGUE</span>
-        <h2 class="font-heading text-2xl sm:text-4xl font-semibold text-[#231B17] mt-1">Explore Authentic Luxury Perfumes</h2>
-        <p class="text-gray-600 text-xs mt-1.5">Direct authentic imports from Dubai, Paris & India's royal distillers. Prices in Indian Rupees (₹) with instant WhatsApp store pickup reservation.</p>
+        <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main mt-1">Explore Authentic Luxury Perfumes</h2>
+        <p class="theme-text-secondary text-xs mt-1.5">Direct authentic imports from Dubai, Paris & India's royal distillers. Prices in Indian Rupees (₹) with instant WhatsApp store pickup reservation.</p>
       </div>
 
-      <div class="bg-white p-3.5 sm:p-5 rounded-2xl mb-8 border border-[#EBE2D7] shadow-sm space-y-3">
+      <div class="theme-card p-3.5 sm:p-5 rounded-2xl mb-8 border shadow-sm space-y-3">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
           
           <div class="relative w-full sm:w-96">
@@ -339,13 +250,13 @@
               id="catalog-search-input" 
               onkeyup="handleSearch(event)" 
               placeholder="Search by perfume, brand (Lattafa, Rasasi...), or notes..." 
-              class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl pl-9 pr-4 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642] transition-colors"
+              class="w-full theme-input border rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none transition-colors"
             >
           </div>
 
           <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 text-xs">
             <span id="results-count-badge" class="text-[#A67642] font-bold text-[11px] sm:text-xs">Showing 12 Fragrances</span>
-            <button onclick="resetAllFilters()" class="text-gray-500 hover:text-[#231B17] flex items-center gap-1 text-[11px]">
+            <button onclick="resetAllFilters()" class="theme-text-muted hover:theme-text-main flex items-center gap-1 text-[11px]">
               <i class="fa-solid fa-rotate-right text-[10px]"></i> Reset Filters
             </button>
           </div>
@@ -361,66 +272,35 @@
   </section>
 
   <!-- INTERACTIVE "FIND YOUR SCENT" QUIZ & STORE EXPERIENCE SECTION -->
-  <section id="scent-experience" class="py-12 sm:py-20 bg-[#F4ECDF]/50 border-t border-[#EBE2D7]">
+  <section id="scent-experience" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
         
         <!-- LEFT COLUMN: INTERACTIVE "FIND YOUR SCENT" WIZARD CARD -->
-        <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-[#EBE2D7] flex flex-col justify-between space-y-6">
+        <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6">
           <div>
             <div class="flex items-center gap-2 mb-2">
               <span class="text-[10px] uppercase tracking-[0.25em] text-[#7A5328] font-bold bg-[#FAF1DC] px-2.5 py-1 rounded-full border border-[#C59B27]/40">👑 SCENT FINDER WIZARD</span>
             </div>
-            <h2 class="font-heading text-xl sm:text-3xl font-semibold text-[#231B17]">Find Your Signature Fragrance</h2>
-            <p class="text-xs text-gray-500 mt-1">Select your occasion, preferred note vibe, and gender to discover your perfect Indian scent match.</p>
+            <h2 class="font-heading text-xl sm:text-3xl font-semibold theme-text-main">Find Your Signature Fragrance</h2>
+            <p class="text-xs theme-text-muted mt-1">Select your occasion and preferred olfactory vibe to discover your personalized fragrance match.</p>
           </div>
 
-          <div class="space-y-4">
-            <!-- Step 1: Occasion -->
-            <div>
-              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">1. Occasion</label>
-              <div class="flex flex-wrap gap-2 text-xs">
-                <button onclick="setWizardOption('occasion', 'Indian Weddings & Sangeet', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#231B17] bg-[#231B17] text-white font-semibold shadow-xs">💍 Indian Weddings</button>
-                <button onclick="setWizardOption('occasion', 'Daily Office & College', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🏢 Daily Office / College</button>
-                <button onclick="setWizardOption('occasion', 'Evening Dawat & Parties', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🌙 Evening Parties</button>
-                <button onclick="setWizardOption('occasion', 'Festive Celebrations & Dates', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">☕ Dates & Festivals</button>
-              </div>
-            </div>
-
-            <!-- Step 2: Vibe/Notes -->
-            <div>
-              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">2. Fragrance Vibe</label>
-              <div class="flex flex-wrap gap-2 text-xs">
-                <button onclick="setWizardOption('vibe', 'Royal Oud & Spices', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#231B17] bg-[#231B17] text-white font-semibold shadow-xs">🪵 Royal Oud & Spices</button>
-                <button onclick="setWizardOption('vibe', 'Kashmiri Rose & Florals', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🌸 Kashmiri Rose</button>
-                <button onclick="setWizardOption('vibe', 'Fresh Citrus & Aquatic', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🍋 Fresh Aqua</button>
-                <button onclick="setWizardOption('vibe', 'Warm Vanilla & Kesar', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🍦 Kesar Vanilla</button>
-                <button onclick="setWizardOption('vibe', 'Mysore Sandal & Woods', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">🌲 Mysore Sandal</button>
-              </div>
-            </div>
-
-            <!-- Step 3: Gender -->
-            <div>
-              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">3. Gender Preference</label>
-              <div class="flex flex-wrap gap-2 text-xs">
-                <button onclick="setWizardOption('gender', 'Women', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#231B17] bg-[#231B17] text-white font-semibold shadow-xs">Women</button>
-                <button onclick="setWizardOption('gender', 'Men', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Men</button>
-                <button onclick="setWizardOption('gender', 'Unisex', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Unisex</button>
-              </div>
-            </div>
+          <div id="wizard-inputs-container" class="space-y-4">
+            <!-- Rendered by app.js based on selected gender theme -->
           </div>
 
           <!-- Result Container -->
-          <div id="wizard-result-box" class="pt-4 border-t border-[#EBE2D7]">
+          <div id="wizard-result-box" class="pt-4 border-t theme-border">
             <!-- Rendered by JS on selection -->
           </div>
 
         </div>
 
         <!-- RIGHT COLUMN: STORE EXPERIENCE & FREE TESTER CALLOUT -->
-        <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-[#EBE2D7] flex flex-col justify-between space-y-6 relative overflow-hidden">
+        <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6 relative overflow-hidden">
           
-          <div class="relative h-52 sm:h-64 rounded-xl overflow-hidden border border-[#EBE2D7] bg-[#FAF5EE] group">
+          <div class="relative h-52 sm:h-64 rounded-xl overflow-hidden border theme-border group">
             <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1000&auto=format&fit=crop&q=80" alt="Physical Boutique Store Experience" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&auto=format&fit=crop&q=80';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             
             <span class="absolute top-3 left-3 bg-[#18110E]/95 text-[#C59B27] text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest backdrop-blur-md border border-[#C59B27]/40 shadow-md">
@@ -429,17 +309,17 @@
           </div>
 
           <div class="space-y-3">
-            <h3 class="font-heading text-xl sm:text-2xl font-semibold text-[#231B17]">
+            <h3 class="font-heading text-xl sm:text-2xl font-semibold theme-text-main">
               Experience Fragrances In Person Before Buying
             </h3>
 
-            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+            <p class="text-xs sm:text-sm theme-text-secondary leading-relaxed">
               Visit our boutique store to test over 100+ authentic imported designer & Arabic perfumes. Try before you buy and claim a complimentary sample tester spray on your visit.
             </p>
           </div>
 
           <div>
-            <a href="#store-locator" class="btn-espresso w-full py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md">
+            <a href="#store-locator" class="bg-[#18110E] hover:bg-[#A67642] border border-[#C59B27]/50 text-white w-full py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md transition-all">
               <span>GET STORE DIRECTIONS & TIMINGS →</span>
             </a>
           </div>
@@ -451,46 +331,46 @@
   </section>
 
   <!-- STORE LOCATOR SECTION -->
-  <section id="store-locator" class="py-12 sm:py-20 bg-[#FAF5EE]">
+  <section id="store-locator" class="py-12 sm:py-20 theme-bg-main">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-12 border border-[#EBE2D7] shadow-xs">
+      <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 border shadow-xs">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
           <div class="lg:col-span-7 space-y-4">
             <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">FLAGSHIP INDIAN BOUTIQUE</span>
 
-            <h2 class="font-heading text-2xl sm:text-4xl font-semibold text-[#231B17]">
+            <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main">
               Store Pickup & Free Testing Available
             </h2>
 
-            <p class="text-gray-600 text-xs sm:text-sm leading-relaxed">
+            <p class="theme-text-secondary text-xs sm:text-sm leading-relaxed">
               Reserve online via WhatsApp and pick up your fragrance directly at our physical boutique store. Inspect batch code, verify authenticity, test longevity, and enjoy personalized scent consultation.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div class="p-3.5 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7]">
+              <div class="p-3.5 rounded-xl theme-bg-secondary border theme-border">
                 <span class="text-[#A67642] font-bold block mb-0.5">📍 Flagship Boutique Address</span>
-                <p class="text-gray-700 font-medium">Shop No. 4, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004, India</p>
+                <p class="theme-text-main font-medium">Shop No. 4, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004, India</p>
               </div>
 
-              <div class="p-3.5 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7]">
+              <div class="p-3.5 rounded-xl theme-bg-secondary border theme-border">
                 <span class="text-[#A67642] font-bold block mb-0.5">🕒 Store Hours</span>
-                <p class="text-gray-700 font-medium">Mon - Sun: 10:30 AM - 10:00 PM (IST)</p>
+                <p class="theme-text-main font-medium">Mon - Sun: 10:30 AM - 10:00 PM (IST)</p>
               </div>
             </div>
 
-            <div class="p-3.5 rounded-xl bg-[#FAF1DC]/50 border border-[#C59B27]/30 text-xs">
-              <span class="text-[#7A5328] font-bold block mb-1">💳 Accepted Payment Methods at Store:</span>
-              <p class="text-[#231B17] font-medium flex flex-wrap items-center gap-2">
-                <span class="bg-white px-2 py-0.5 rounded border border-[#EBE2D7] text-[11px]">UPI (Google Pay, PhonePe, Paytm)</span>
-                <span class="bg-white px-2 py-0.5 rounded border border-[#EBE2D7] text-[11px]">Credit & Debit Cards</span>
-                <span class="bg-white px-2 py-0.5 rounded border border-[#EBE2D7] text-[11px]">Cash on Pickup</span>
+            <div class="p-3.5 rounded-xl bg-black/10 border theme-border text-xs">
+              <span class="text-[#A67642] font-bold block mb-1">💳 Accepted Payment Methods at Store:</span>
+              <p class="theme-text-main font-medium flex flex-wrap items-center gap-2">
+                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">UPI (Google Pay, PhonePe, Paytm)</span>
+                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">Credit & Debit Cards</span>
+                <span class="theme-card px-2 py-0.5 rounded border text-[11px]">Cash on Pickup</span>
               </p>
             </div>
 
             <div class="flex flex-wrap items-center gap-3 pt-2">
-              <a href="https://maps.google.com/?q=FC+Road+Pune+Perfume+Boutique" target="_blank" class="btn-espresso px-5 py-3 rounded-xl text-xs uppercase tracking-wider flex items-center gap-2 shadow-xs">
+              <a href="https://maps.google.com/?q=FC+Road+Pune+Perfume+Boutique" target="_blank" class="bg-[#18110E] hover:bg-[#A67642] text-white px-5 py-3 rounded-xl text-xs uppercase tracking-wider flex items-center gap-2 shadow-xs transition-colors">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span>GET STORE DIRECTIONS</span>
               </a>
@@ -504,7 +384,7 @@
           </div>
 
           <div class="lg:col-span-5">
-            <div class="rounded-2xl overflow-hidden border border-[#EBE2D7] shadow-xs">
+            <div class="rounded-2xl overflow-hidden border theme-border shadow-xs">
               <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1000&auto=format&fit=crop&q=80" alt="Perfume Shope Boutique India" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=800&auto=format&fit=crop&q=80';" class="w-full h-64 sm:h-80 object-cover">
             </div>
           </div>
@@ -517,47 +397,48 @@
 
   <!-- QUICK VIEW MODAL -->
   <div id="product-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-white max-w-xl w-full rounded-2xl border border-[#EBE2D7] p-5 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-      <button onclick="closeProductModal()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FAF5EE] text-gray-600 flex items-center justify-center hover:bg-[#EBE2D7] transition-colors">
+    <div class="theme-card max-w-xl w-full rounded-2xl border p-5 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-base">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <div id="modal-product-content" class="space-y-4"></div>
+
+      <div id="modal-product-content">
+        <!-- Rendered by JS -->
+      </div>
     </div>
   </div>
 
-  <!-- FLOATING MOBILE BOTTOM NAVIGATION DOCK -->
-  <nav class="floating-app-dock lg:hidden flex items-center justify-between">
-    <a href="#hero" class="dock-nav-link active" title="Home">
+  <!-- MOBILE-FIRST BOTTOM APP DOCK -->
+  <div class="floating-app-dock lg:hidden">
+    <a href="#hero" class="dock-nav-link active">
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="#catalog" class="dock-nav-link" title="Catalog">
-      <i class="fa-solid fa-bottle-droplet"></i>
-      <span>Catalogue</span>
+    <a href="#catalog" class="dock-nav-link">
+      <i class="fa-solid fa-spray-can-sparkles"></i>
+      <span>Shop (₹)</span>
     </a>
-    <a href="#scent-experience" class="dock-nav-link" title="Scent Finder">
-      <i class="fa-solid fa-sparkles text-[#C59B27]"></i>
-      <span>Quiz</span>
+    <a href="#scent-experience" class="dock-nav-link">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <span>Finder</span>
     </a>
-    <a href="#store-locator" class="dock-nav-link" title="Store Pickup">
-      <i class="fa-solid fa-location-dot"></i>
-      <span>Store</span>
+    <a href="#store-locator" class="dock-nav-link">
+      <i class="fa-solid fa-store"></i>
+      <span>Pickup</span>
     </a>
-    <a href="https://wa.me/919579453006?text=Namaste%20Perfume%20Shope!" target="_blank" class="dock-nav-link text-[#16a34a]" title="WhatsApp Chat">
-      <i class="fa-brands fa-whatsapp"></i>
-      <span>Reserve</span>
-    </a>
-  </nav>
+  </div>
 
   <!-- FOOTER -->
-  <footer class="bg-[#18110E] text-gray-400 py-12 text-xs border-t border-[#3A2D25]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left space-y-8 sm:space-y-0">
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-8">
+  <footer class="bg-[#120D0A] text-[#FAF5EE] pt-16 pb-24 lg:pb-12 border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
         
-        <div class="space-y-3">
-          <div class="flex items-center justify-center sm:justify-start space-x-2">
-            <i class="fa-solid fa-crown text-[#C59B27] text-sm"></i>
-            <span class="font-heading text-base font-bold text-white tracking-widest">PERFUME SHOPE</span>
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-full border border-[#C59B27]/50 bg-[#18110E] flex items-center justify-center p-1">
+              <i class="fa-solid fa-crown text-[#C59B27] text-xs"></i>
+            </div>
+            <span class="font-heading text-lg font-bold tracking-widest text-white uppercase">PERFUME SHOPE</span>
           </div>
           <p class="text-[11px] text-gray-400 leading-relaxed">India's premier luxury parfumerie. Curated authentic imported fragrances, Arabic extraits, and pure Indian botanical attars.</p>
           <div class="pt-1 flex items-center justify-center sm:justify-start gap-2 text-white">
