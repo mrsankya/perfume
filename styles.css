@@ -265,44 +265,90 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* 5. HANDCRAFTED ARTISAN MINIMAL (CLEAN, NATURAL, HUMAN-DESIGNED BOUTIQUE) */
+/* 5. HANDCRAFTED ARTISAN MINIMAL (CLEAN SKIN / LINEN / OFF-WHITE LUXURY BOUTIQUE) */
+[data-style="artisan-minimal"],
 [data-style="artisan-minimal"] body {
-  background-color: #F8F6F1 !important;
-  color: #24201D !important;
+  background-color: #FAF8F5 !important;
+  color: #14110E !important;
   background-image: none !important;
 }
 
-[data-style="artisan-minimal"] .theme-text-main {
-  color: #1A1715 !important;
+[data-style="artisan-minimal"] .theme-bg-main {
+  background-color: #FAF8F5 !important;
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] .theme-bg-secondary {
+  background-color: #F4EFEB !important; /* Soft warm skin / linen tone */
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] .theme-bg-surface {
+  background-color: #ECE5DA !important;
+  border-color: #DFD7CB !important;
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] .theme-border {
+  border-color: #E2D9CC !important;
+}
+
+[data-style="artisan-minimal"] .theme-text-main,
+[data-style="artisan-minimal"] h1,
+[data-style="artisan-minimal"] h2,
+[data-style="artisan-minimal"] h3,
+[data-style="artisan-minimal"] h4 {
+  color: #14110E !important; /* Deep crisp charcoal black */
 }
 
 [data-style="artisan-minimal"] .theme-text-secondary {
-  color: #4A443F !important;
+  color: #38312A !important;
 }
 
 [data-style="artisan-minimal"] .theme-text-muted {
-  color: #7A726A !important;
+  color: #5C5247 !important; /* Warm slate with high readability */
+}
+
+[data-style="artisan-minimal"] .theme-accent {
+  color: #8C6627 !important; /* Rich antique gold */
+  text-shadow: none !important;
 }
 
 [data-style="artisan-minimal"] .theme-card {
   background-color: #FFFFFF !important;
-  border: 1px solid #E8E3DC !important;
-  box-shadow: 0 4px 18px rgba(35, 30, 27, 0.05) !important;
-  border-radius: 1rem !important;
-  color: #1A1715 !important;
+  border: 1px solid #E5DFD5 !important;
+  box-shadow: 0 4px 20px rgba(45, 35, 25, 0.05) !important;
+  border-radius: 1.25rem !important;
+  color: #14110E !important;
 }
 
-[data-style="artisan-minimal"] .theme-bg-surface {
-  background-color: #F2EFE9 !important;
-  border-color: #E8E3DC !important;
+[data-style="artisan-minimal"] .theme-card:hover {
+  background-color: #FFFFFF !important;
+  border-color: #8C6627 !important;
+  box-shadow: 0 10px 30px rgba(45, 35, 25, 0.08) !important;
+}
+
+[data-style="artisan-minimal"] .theme-input {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #DCD5C9 !important;
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] .theme-input::placeholder {
+  color: #8F867C !important;
+}
+
+[data-style="artisan-minimal"] .theme-input:focus {
+  border-color: #8C6627 !important;
+  box-shadow: 0 0 0 3px rgba(140, 102, 39, 0.15) !important;
 }
 
 [data-style="artisan-minimal"] .theme-btn-primary {
   background: #1C1917 !important;
-  color: #FDFBF7 !important;
+  color: #FAF8F5 !important;
   border: 1px solid #1C1917 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-  border-radius: 0.75rem !important;
+  box-shadow: 0 4px 14px rgba(28, 25, 23, 0.18) !important;
+  border-radius: 0.875rem !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em !important;
 }
@@ -310,23 +356,46 @@ body {
 [data-style="artisan-minimal"] .theme-btn-primary:hover {
   background: #38322E !important;
   border-color: #38322E !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
 }
 
 [data-style="artisan-minimal"] .theme-badge {
-  background: #EFECE5 !important;
-  color: #4A443F !important;
-  border: 1px solid #DDD7CD !important;
+  background: #ECE6DC !important;
+  color: #483F35 !important;
+  border: 1px solid #DDD5C7 !important;
+  font-weight: 700 !important;
 }
 
-[data-style="artisan-minimal"] .theme-accent {
-  color: #8C6D38 !important;
-  text-shadow: none !important;
+[data-style="artisan-minimal"] .slider-arrow-btn {
+  background: #FFFFFF !important;
+  border: 1px solid #DCD5C9 !important;
+  color: #1C1917 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-style="artisan-minimal"] .slider-arrow-btn:hover {
+  background: #1C1917 !important;
+  color: #FFFFFF !important;
+  border-color: #1C1917 !important;
+}
+
+[data-style="artisan-minimal"] .slider-dot-btn {
+  background: #D8D0C2 !important;
+}
+
+[data-style="artisan-minimal"] .slider-dot-btn.active {
+  background: #8C6627 !important;
 }
 
 [data-style="artisan-minimal"] .floating-bottom-nav {
-  background: rgba(255, 255, 255, 0.94) !important;
-  border: 1px solid #E5E0D6 !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #E5DFD5 !important;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-style="artisan-minimal"] .luxury-marquee {
+  color: #483F35 !important;
 }
 
 /* Theme Elements */
@@ -373,6 +442,16 @@ body {
 
 .theme-accent {
   color: var(--accent-primary) !important;
+}
+
+/* Explicit Section Header Contrast Protection */
+.font-heading {
+  font-family: var(--font-heading), 'Cinzel', serif;
+  letter-spacing: 0.02em;
+}
+
+section h2 {
+  color: var(--text-main);
 }
 
 .theme-badge {
