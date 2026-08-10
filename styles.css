@@ -265,6 +265,70 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
+/* 5. HANDCRAFTED ARTISAN MINIMAL (CLEAN, NATURAL, HUMAN-DESIGNED BOUTIQUE) */
+[data-style="artisan-minimal"] body {
+  background-color: #F8F6F1 !important;
+  color: #24201D !important;
+  background-image: none !important;
+}
+
+[data-style="artisan-minimal"] .theme-text-main {
+  color: #1A1715 !important;
+}
+
+[data-style="artisan-minimal"] .theme-text-secondary {
+  color: #4A443F !important;
+}
+
+[data-style="artisan-minimal"] .theme-text-muted {
+  color: #7A726A !important;
+}
+
+[data-style="artisan-minimal"] .theme-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E8E3DC !important;
+  box-shadow: 0 4px 18px rgba(35, 30, 27, 0.05) !important;
+  border-radius: 1rem !important;
+  color: #1A1715 !important;
+}
+
+[data-style="artisan-minimal"] .theme-bg-surface {
+  background-color: #F2EFE9 !important;
+  border-color: #E8E3DC !important;
+}
+
+[data-style="artisan-minimal"] .theme-btn-primary {
+  background: #1C1917 !important;
+  color: #FDFBF7 !important;
+  border: 1px solid #1C1917 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+}
+
+[data-style="artisan-minimal"] .theme-btn-primary:hover {
+  background: #38322E !important;
+  border-color: #38322E !important;
+}
+
+[data-style="artisan-minimal"] .theme-badge {
+  background: #EFECE5 !important;
+  color: #4A443F !important;
+  border: 1px solid #DDD7CD !important;
+}
+
+[data-style="artisan-minimal"] .theme-accent {
+  color: #8C6D38 !important;
+  text-shadow: none !important;
+}
+
+[data-style="artisan-minimal"] .floating-bottom-nav {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid #E5E0D6 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
 /* Theme Elements */
 .theme-card {
   background-color: var(--bg-card);
@@ -369,14 +433,27 @@ body {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 60%, var(--bg-main) 100%);
 }
 
+/* Longevity & Sillage Gauge Meter Bars */
+.meter-bar-fill {
+  background: linear-gradient(90deg, #F5D77F, #C59B27, #9A7B1C) !important;
+  box-shadow: 0 0 8px rgba(197, 155, 39, 0.45);
+  display: block !important;
+  height: 100% !important;
+}
+
 [data-theme="women"] .meter-bar-fill {
-  background: linear-gradient(90deg, #E07A93, #D45D79, #9F1D49);
-  box-shadow: 0 0 8px rgba(212, 93, 121, 0.4);
+  background: linear-gradient(90deg, #E07A93, #D45D79, #9F1D49) !important;
+  box-shadow: 0 0 8px rgba(212, 93, 121, 0.45) !important;
 }
 
 [data-theme="men"] .meter-bar-fill {
-  background: linear-gradient(90deg, #0284C7, #38BDF8, #EF4444);
-  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+  background: linear-gradient(90deg, #0284C7, #38BDF8, #EF4444) !important;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5) !important;
+}
+
+[data-style="artisan-minimal"] .meter-bar-fill {
+  background: linear-gradient(90deg, #B89B6C, #8C6D38, #5A4420) !important;
+  box-shadow: none !important;
 }
 
 /* Velvet Discovery Box */

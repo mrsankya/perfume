@@ -496,14 +496,15 @@ function renderThemeStyles() {
     'glassmorphism': 'Liquid Glassmorphism',
     'royal-heritage': 'Royal Indian Heritage',
     'cyberpunk': 'Cyberpunk Titanium',
-    'minimal-luxe': 'Minimalist Scandinavian Luxe'
+    'minimal-luxe': 'Minimalist Luxe',
+    'artisan-minimal': 'Artisan Minimal'
   };
 
   if (badgeEl) {
     badgeEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Active: ${names[currentStyle] || currentStyle}`;
   }
 
-  ['glassmorphism', 'royal-heritage', 'cyberpunk', 'minimal-luxe'].forEach(st => {
+  ['glassmorphism', 'royal-heritage', 'cyberpunk', 'minimal-luxe', 'artisan-minimal'].forEach(st => {
     const btn = document.getElementById(`btn-style-${st}`);
     if (btn) {
       if (st === currentStyle) {

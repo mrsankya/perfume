@@ -68,6 +68,7 @@
    - **Royal Indian Heritage**: Saffron gold filigree borders, rich velvet depth, and opulent flacon framing (`data-style="royal-heritage"`).
    - **Cyberpunk / Neon Titanium**: Arc reactor cyan glow, titanium carbon chassis, and electric neons (`data-style="cyberpunk"`).
    - **Minimalist Scandinavian Luxe**: Clean modernism, hairline borders, and champagne typography (`data-style="minimal-luxe"`).
+   - **Handcrafted Artisan Minimal (Studio Organic)**: Clean, human-designed bespoke luxury. Warm linen paper tones, earthy contrasts, natural typography, zero artificial glow (`data-style="artisan-minimal"`).
    - Persists in `perfumes_site_style` and applies seamlessly across the storefront.
 
 2. **🖼️ Dynamic Hero Perfume Banners Manager**:
