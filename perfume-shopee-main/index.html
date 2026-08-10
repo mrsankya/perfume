@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Perfume Shope | Mobile Luxury Parfumerie</title>
+  <meta name="description" content="Explore 100% Authentic Luxury Perfumes from NEXAWEB, Lattafa, Afnan, Creed, Rasasi, Tom Ford, Chanel & Dior. Instant WhatsApp Store Pickup Reservations.">
+  <meta name="theme-color" content="#FAF5EE">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nude: {
+              50: '#FDFBF7',
+              100: '#FAF5EE',
+              200: '#F4ECDF',
+              300: '#EBE2D7',
+            },
+            bronze: {
+              400: '#C89B66',
+              500: '#A67642',
+              600: '#7A5328',
+            },
+            espresso: {
+              800: '#231B17',
+              900: '#18110E',
+            },
+            wagreen: {
+              600: '#16a34a',
+              700: '#15803d'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#FAF5EE] text-[#231B17] antialiased selection:bg-[#A67642] selection:text-white">
+
+  <!-- Low Bandwidth Network Mode Banner -->
+  <div id="low-bandwidth-banner" class="bg-[#F4ECDF] border-b border-[#EBE2D7] text-[11px] py-1.5 px-3 text-center hidden flex items-center justify-between text-[#231B17] sticky top-0 z-50">
+    <div class="flex items-center gap-1.5 mx-auto">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
+      <span>Low Bandwidth Mode Active &bull; Data Savings Enabled</span>
+    </div>
+    <button onclick="toggleLowBandwidth(false)" class="text-[10px] underline font-semibold text-[#A67642]">Disable</button>
+  </div>
+
+  <!-- COMPACT MOBILE HEADER -->
+  <header class="sticky top-0 z-40 glass-header-mobile transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 sm:h-20">
+        
+        <!-- Left: Brand Logo -->
+        <div class="flex items-center space-x-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-[#A67642]/40 bg-white flex items-center justify-center p-1 shadow-xs">
+            <i class="fa-solid fa-crown text-[#A67642] text-xs sm:text-base"></i>
+          </div>
+          <div>
+            <span class="font-heading text-base sm:text-2xl font-bold tracking-widest text-[#231B17] block uppercase">PERFUME SHOPE</span>
+            <span class="text-[7px] sm:text-[9px] uppercase tracking-[0.25em] text-[#A67642] font-sans block -mt-1 font-medium hidden sm:block">Haute Parfumerie</span>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-medium">
+          <a href="#hero" class="text-[#231B17] hover:text-[#A67642] transition-colors">Home</a>
+          <a href="#catalog" class="text-[#231B17] hover:text-[#A67642] transition-colors">Catalog</a>
+          <a href="#scent-experience" class="text-[#A67642] hover:text-[#7A5328] transition-colors flex items-center gap-1">
+            <i class="fa-solid fa-sparkles text-[10px]"></i> Find Your Scent
+          </a>
+          <a href="#store-locator" class="text-[#231B17] hover:text-[#A67642] transition-colors">Store Pickup</a>
+        </nav>
+
+        <!-- Right: Compact Icon Bar -->
+        <div class="flex items-center space-x-1.5 sm:space-x-3">
+          
+          <!-- Gender Shortcuts -->
+          <div class="flex items-center bg-white p-0.5 sm:p-1 rounded-full border border-[#EBE2D7] text-[10px] sm:text-xs shadow-xs">
+            <button onclick="filterGender('All')" data-gender="All" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-[#231B17] text-white shadow-xs transition-all">All</button>
+            <button onclick="filterGender('Women')" data-gender="Women" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all">Women</button>
+            <button onclick="filterGender('Men')" data-gender="Men" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all">Men</button>
+            <button onclick="filterGender('Unisex')" data-gender="Unisex" class="gender-filter-btn px-2 sm:px-3 py-1 rounded-full font-semibold bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] transition-all hidden sm:inline-block">Unisex</button>
+          </div>
+
+          <!-- Search Trigger Icon -->
+          <button onclick="focusSearch()" class="p-1.5 sm:p-2 rounded-full bg-white border border-[#EBE2D7] text-[#231B17] hover:text-[#A67642] transition-colors text-xs sm:text-sm shadow-xs">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+
+          <!-- WhatsApp Direct Chat Button -->
+          <a href="https://wa.me/919579453006?text=Hello%20Perfume%20Shope!%20I%20inquire%20about%20your%20luxury%20perfumes." target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1 bg-[#16a34a] hover:bg-[#15803d] text-white px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all wa-pulse">
+            <i class="fa-brands fa-whatsapp text-xs sm:text-sm"></i>
+            <span class="hidden sm:inline">Quick Chat</span>
+          </a>
+
+          <!-- Mobile Hamburger Drawer Trigger -->
+          <button onclick="toggleMobileMenu()" class="p-1.5 rounded-lg bg-white border border-[#EBE2D7] text-[#231B17] focus:outline-none lg:hidden">
+            <i class="fa-solid fa-bars text-base"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Slide-In Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#FDFBF7] border-b border-[#EBE2D7] px-4 pt-3 pb-6 space-y-3 shadow-md">
+      <div class="flex items-center bg-white border border-[#EBE2D7] rounded-xl px-3 py-2 shadow-xs">
+        <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2 text-xs"></i>
+        <input type="text" id="mobile-search-input" onkeyup="handleMobileSearch(event)" placeholder="Search perfume name, brand, or notes..." class="bg-transparent border-none text-xs text-[#231B17] focus:outline-none w-full">
+      </div>
+      
+      <a href="#hero" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Home</a>
+      <a href="#catalog" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Catalog</a>
+      <a href="#scent-experience" onclick="toggleMobileMenu()" class="block text-[#A67642] py-1 font-semibold text-xs uppercase tracking-wider"><i class="fa-solid fa-sparkles text-xs mr-1"></i> Find Your Scent</a>
+      <a href="#store-locator" onclick="toggleMobileMenu()" class="block text-[#231B17] hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Store Pickup</a>
+      
+      <a href="https://wa.me/919579453006?text=Hi!%20I%20am%20interested%20in%20reserving%20a%20perfume." target="_blank" class="flex items-center justify-center space-x-2 bg-[#16a34a] text-white w-full py-2.5 rounded-xl font-medium text-xs uppercase tracking-wider mt-2 shadow-xs">
+        <i class="fa-brands fa-whatsapp text-base"></i>
+        <span>Reserve via WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- SINGLE VIEWPORT CONTAINER FOR FULL-WIDTH CINEMATIC HERO SLIDER -->
+  <section id="hero" class="relative w-full h-[70vh] md:h-[85vh] overflow-hidden rounded-none md:rounded-2xl bg-[#18110E]">
+    
+    <!-- Slide 1: Sora Dora Style -->
+    <div class="hero-slide active-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-100 pointer-events-auto z-10">
+      <img src="assets/images/slide1.jpg" alt="Sora Dora Collection" class="w-full h-full object-cover object-center">
+      <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute inset-0 z-10"></div>
+      
+      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C89B66] font-semibold block drop-shadow-sm">
+          SORA DORA EDITION
+        </span>
+        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
+          Scents That Leave a Lasting Impression
+        </h1>
+      </div>
+    </div>
+
+    <!-- Slide 2: Marc-Antoine Barrois Style -->
+    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
+      <img src="assets/images/slide2.jpg" alt="Marc-Antoine Barrois Collection" class="w-full h-full object-cover object-center">
+      <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute inset-0 z-10"></div>
+      
+      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C89B66] font-semibold block drop-shadow-sm">
+          MARC-ANTOINE BARROIS
+        </span>
+        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
+          Smoky Amber & Mineral Sillage
+        </h1>
+      </div>
+    </div>
+
+    <!-- Slide 3: Fragrance Du Bois Style -->
+    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
+      <img src="assets/images/slide3.jpg" alt="Fragrance Du Bois Collection" class="w-full h-full object-cover object-center">
+      <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute inset-0 z-10"></div>
+      
+      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C89B66] font-semibold block drop-shadow-sm">
+          FRAGRANCE DU BOIS
+        </span>
+        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
+          Royal Extrait de Parfum
+        </h1>
+      </div>
+    </div>
+
+    <!-- Slide 4: Perfume Shope Editorial -->
+    <div class="hero-slide absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none z-0">
+      <img src="assets/images/slide4.jpg" alt="Perfume Shope Haute Parfumerie" class="w-full h-full object-cover object-center">
+      <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute inset-0 z-10"></div>
+      
+      <div class="absolute bottom-16 sm:bottom-20 inset-x-0 z-20 text-center px-4 max-w-3xl mx-auto space-y-2.5">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#C89B66] font-semibold block drop-shadow-sm">
+          PERFUME SHOPE &bull; HAUTE PARFUMERIE
+        </span>
+        <h1 class="font-heading text-2xl sm:text-5xl font-semibold tracking-tight text-white uppercase drop-shadow-md">
+          Authentic Imports & Store Pickup
+        </h1>
+      </div>
+    </div>
+
+    <!-- Single Minimal CTA Button -->
+    <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30">
+      <a href="#catalog" class="bg-[#231B17]/90 hover:bg-[#A67642] border border-[#A67642]/60 text-white px-7 py-3 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all">
+        <span>EXPLORE COLLECTION</span>
+        <i class="fa-solid fa-arrow-down text-xs"></i>
+      </a>
+    </div>
+
+    <!-- Left & Right Side Navigation Arrows (Side Cursors) -->
+    <button onclick="prevSlide()" class="left-4 md:left-6 absolute top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md cursor-pointer transition-all" title="Previous Slide">
+      <i class="fa-solid fa-chevron-left text-sm"></i>
+    </button>
+    
+    <button onclick="nextSlide()" class="right-4 md:right-6 absolute top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md cursor-pointer transition-all" title="Next Slide">
+      <i class="fa-solid fa-chevron-right text-sm"></i>
+    </button>
+
+    <!-- Bottom Pagination Dots -->
+    <div id="slider-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+      <span onclick="goToSlide(0)" class="slider-dot active-dot"></span>
+      <span onclick="goToSlide(1)" class="slider-dot"></span>
+      <span onclick="goToSlide(2)" class="slider-dot"></span>
+      <span onclick="goToSlide(3)" class="slider-dot"></span>
+    </div>
+
+  </section>
+
+  <!-- QUICK SWIPEABLE ACCORD BADGES -->
+  <section class="py-4 bg-white border-y border-[#EBE2D7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center space-x-2 overflow-x-auto scrollbar-none snap-x py-1 text-xs">
+        <span class="text-gray-400 font-medium uppercase tracking-wider text-[10px] shrink-0 mr-1">Accords:</span>
+        
+        <button onclick="filterAccord('All')" data-accord="All" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-semibold bg-[#231B17] text-white shadow-sm transition-all shrink-0">
+          ✨ All Accords
+        </button>
+        <button onclick="filterAccord('Floral & Rose')" data-accord="Floral & Rose" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-[#FAF5EE] border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0">
+          🌸 Floral & Rose
+        </button>
+        <button onclick="filterAccord('Royal Oud')" data-accord="Royal Oud" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-[#FAF5EE] border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0">
+          🪵 Royal Oud
+        </button>
+        <button onclick="filterAccord('Warm Vanilla')" data-accord="Warm Vanilla" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-[#FAF5EE] border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0">
+          🍦 Warm Vanilla
+        </button>
+        <button onclick="filterAccord('Smoky Woods')" data-accord="Smoky Woods" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-[#FAF5EE] border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0">
+          🪵 Smoky Woods
+        </button>
+        <button onclick="filterAccord('Fresh Citrus')" data-accord="Fresh Citrus" class="accord-filter-btn snap-start px-3.5 py-1.5 rounded-full text-[11px] font-medium bg-[#FAF5EE] border border-[#EBE2D7] text-[#231B17] hover:border-[#A67642] hover:text-[#A67642] transition-all shrink-0">
+          🍋 Fresh Citrus
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN E-CATALOG & SEARCH FILTER SECTION -->
+  <section id="catalog" class="py-12 sm:py-20 bg-[#FAF5EE]">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-xl mx-auto mb-8 sm:mb-12">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-semibold block">HAUTE CATALOGUE</span>
+        <h2 class="font-heading text-2xl sm:text-4xl font-semibold text-[#231B17] mt-1">Explore Authentic Scents</h2>
+        <p class="text-gray-600 text-xs mt-1">Direct imports from top international perfumers. Reserve instantly for physical store pickup.</p>
+      </div>
+
+      <div class="bg-white p-3.5 sm:p-5 rounded-2xl mb-8 border border-[#EBE2D7] shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+          
+          <div class="relative w-full sm:w-96">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
+            <input 
+              type="text" 
+              id="catalog-search-input" 
+              onkeyup="handleSearch(event)" 
+              placeholder="Search by perfume name, brand, or notes..." 
+              class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl pl-9 pr-4 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642] transition-colors"
+            >
+          </div>
+
+          <div class="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4 text-xs">
+            <span id="results-count-badge" class="text-[#A67642] font-semibold text-[11px] sm:text-xs">Showing 8 Fragrances</span>
+            <button onclick="resetAllFilters()" class="text-gray-500 hover:text-[#231B17] flex items-center gap-1 text-[11px]">
+              <i class="fa-solid fa-rotate-right text-[10px]"></i> Reset Filters
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-6">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INTERACTIVE "FIND YOUR SCENT" QUIZ & STORE EXPERIENCE SECTION (REPLACES OLD STATIC OUR STORY) -->
+  <section id="scent-experience" class="py-12 sm:py-20 bg-[#F4ECDF]/50 border-t border-[#EBE2D7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+        
+        <!-- LEFT COLUMN: INTERACTIVE "FIND YOUR SCENT" WIZARD CARD -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-[#EBE2D7] flex flex-col justify-between space-y-6">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] uppercase tracking-[0.25em] text-[#A67642] font-semibold bg-[#FAF5EE] px-2.5 py-1 rounded-full border border-[#EBE2D7]">SCENT FINDER</span>
+            </div>
+            <h2 class="font-heading text-xl sm:text-3xl font-semibold text-[#231B17]">Find Your Perfect Fragrance Match</h2>
+            <p class="text-xs text-gray-500 mt-1">Select your occasion, vibe, and gender to discover your signature sillage.</p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Step 1: Occasion -->
+            <div>
+              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">1. Occasion</label>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setWizardOption('occasion', 'Daily Wear', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Daily Wear</button>
+                <button onclick="setWizardOption('occasion', 'Evening Party', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Evening Party</button>
+                <button onclick="setWizardOption('occasion', 'Office & Work', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Office & Work</button>
+                <button onclick="setWizardOption('occasion', 'Special Date', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Special Date</button>
+              </div>
+            </div>
+
+            <!-- Step 2: Vibe/Notes -->
+            <div>
+              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">2. Fragrance Vibe</label>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setWizardOption('vibe', 'Woody & Oud', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Woody & Oud</button>
+                <button onclick="setWizardOption('vibe', 'Floral & Soft', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Floral & Soft</button>
+                <button onclick="setWizardOption('vibe', 'Fresh Citrus', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Fresh Citrus</button>
+                <button onclick="setWizardOption('vibe', 'Warm Vanilla', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Warm Vanilla</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Gender -->
+            <div>
+              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-2">3. Gender Preference</label>
+              <div class="flex flex-wrap gap-2 text-xs">
+                <button onclick="setWizardOption('gender', 'Women', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Women</button>
+                <button onclick="setWizardOption('gender', 'Men', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Men</button>
+                <button onclick="setWizardOption('gender', 'Unisex', this)" class="wizard-btn px-3 py-1.5 rounded-full border border-[#EBE2D7] bg-[#FAF5EE] text-[#231B17] font-medium hover:border-[#A67642] transition-all">Unisex</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Container -->
+          <div id="wizard-result-box" class="pt-4 border-t border-[#EBE2D7]">
+            <!-- Rendered by JS on selection -->
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: STORE EXPERIENCE & FREE TESTER CALLOUT -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border border-[#EBE2D7] flex flex-col justify-between space-y-6 relative overflow-hidden">
+          
+          <div class="relative h-52 sm:h-64 rounded-xl overflow-hidden border border-[#EBE2D7] bg-[#FAF5EE] group">
+            <img src="assets/images/story_banner.jpg" alt="Physical Boutique Store Experience" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <span class="absolute top-3 left-3 bg-[#231B17]/90 text-[#C89B66] text-[10px] px-3 py-1 rounded-full font-semibold uppercase tracking-widest backdrop-blur-md border border-[#A67642]/40 shadow-md">
+              PHYSICAL STORE EXCLUSIVE
+            </span>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="font-heading text-xl sm:text-2xl font-semibold text-[#231B17]">
+              Experience Fragrances In Person Before Buying
+            </h3>
+
+            <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Visit our shop to test our entire 100% authentic collection. Claim a free sample spray on your first visit.
+            </p>
+          </div>
+
+          <div>
+            <a href="#store-locator" class="btn-espresso w-full py-3.5 rounded-full text-xs font-semibold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md">
+              <span>GET STORE DIRECTIONS & TIMINGS →</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE LOCATOR SECTION -->
+  <section id="store-locator" class="py-12 sm:py-20 bg-[#FAF5EE]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-12 border border-[#EBE2D7] shadow-xs">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          
+          <div class="lg:col-span-7 space-y-4">
+            <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-semibold block">FLAGSHIP BOUTIQUE</span>
+
+            <h2 class="font-heading text-2xl sm:text-4xl font-semibold text-[#231B17]">
+              Store Pickup Available
+            </h2>
+
+            <p class="text-gray-600 text-xs sm:text-sm leading-relaxed">
+              Reserve online via WhatsApp and pick up your fragrance directly at our physical boutique store. Inspect batch code, verify authenticity, and enjoy personalized scent consultation.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7]">
+                <span class="text-[#A67642] font-semibold block mb-0.5">📍 Address</span>
+                <p class="text-gray-700">123 Fragrance Lane, New York, NY 10001</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7]">
+                <span class="text-[#A67642] font-semibold block mb-0.5">🕒 Hours</span>
+                <p class="text-gray-700">Mon - Sat: 10:00 AM - 9:30 PM</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="https://maps.google.com/?q=Luxury+Perfume+Boutique" target="_blank" class="btn-espresso px-5 py-3 rounded-xl text-xs uppercase tracking-wider flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>GET DIRECTIONS</span>
+              </a>
+            </div>
+
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="rounded-xl overflow-hidden border border-[#EBE2D7] shadow-xs">
+              <img src="assets/images/hero_nude.jpg" alt="Perfume Shope Boutique" class="w-full h-56 sm:h-72 object-cover">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- QUICK VIEW MODAL -->
+  <div id="product-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-xl w-full rounded-2xl border border-[#EBE2D7] p-5 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductModal()" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-[#FAF5EE] text-gray-600 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="modal-product-content" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING MOBILE BOTTOM NAVIGATION DOCK -->
+  <nav class="floating-app-dock lg:hidden flex items-center justify-between">
+    <a href="#hero" class="dock-nav-link active" title="Home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="#catalog" class="dock-nav-link" title="Catalog">
+      <i class="fa-solid fa-bottle-droplet"></i>
+      <span>Catalog</span>
+    </a>
+    <a href="#scent-experience" class="dock-nav-link" title="Scent Finder">
+      <i class="fa-solid fa-sparkles text-[#A67642]"></i>
+      <span>Quiz</span>
+    </a>
+    <a href="#store-locator" class="dock-nav-link" title="Store Pickup">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Store</span>
+    </a>
+    <a href="https://wa.me/919579453006?text=Hello%20Perfume%20Shope!" target="_blank" class="dock-nav-link text-[#16a34a]" title="WhatsApp Chat">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>Reserve</span>
+    </a>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#18110E] text-gray-400 py-10 text-xs border-t border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left space-y-6 sm:space-y-0">
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+        
+        <div class="space-y-3">
+          <span class="font-heading text-base font-bold text-white tracking-widest block">PERFUME SHOPE</span>
+          <p class="text-[11px] text-gray-400">Luxury fragrances crafted to elevate your everyday moments.</p>
+        </div>
+
+        <div>
+          <h4 class="font-heading text-xs font-semibold text-white uppercase mb-2">QUICK LINKS</h4>
+          <ul class="space-y-1.5 text-[11px] text-gray-400">
+            <li><a href="#hero" class="hover:text-white">Home</a></li>
+            <li><a href="#catalog" class="hover:text-white">Catalog</a></li>
+            <li><a href="#scent-experience" class="hover:text-white">Scent Quiz</a></li>
+            <li><a href="#store-locator" class="hover:text-white">Store Pickup</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-heading text-xs font-semibold text-white uppercase mb-2">CUSTOMER CARE</h4>
+          <ul class="space-y-1.5 text-[11px] text-gray-400">
+            <li><a href="#" class="hover:text-white">Shipping & Delivery</a></li>
+            <li><a href="#" class="hover:text-white">Returns & Store Pickup</a></li>
+            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-heading text-xs font-semibold text-white uppercase mb-2">CONTACT</h4>
+          <div class="text-[11px] text-gray-400 space-y-1">
+            <p>+1 (234) 567-8900</p>
+            <p>hello@nexaweb.com</p>
+            <p>123 Fragrance Lane, NY 10001</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 border-t border-gray-800 text-center text-[10px] text-gray-500">
+        <p>&copy; 2026 NEXAWEB / PERFUME SHOPE. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic JS -->
+  <script src="app.js"></script>
+</body>
+</html>
