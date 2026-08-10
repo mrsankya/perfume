@@ -63,25 +63,25 @@
    - Generates instant VIP Pass via WhatsApp.
 9. **✨ Free Custom Laser Bottle Engraving**:
    - Checkbox toggle in cart with live preview of custom name engraved on bottle.
-9. **📄 1-Click GST Tax Invoice Generator (Admin Portal)**:
-   - Itemized GST tax invoices (18% rate, HSN Code 33030090, CGST 9% + SGST 9%) with store header and batch seal for print/PDF export.
-10. **🔍 Interactive Product Detail Quickview Modal (`#product-detail-modal`)**:
-   - High-resolution perfume flacon with interactive **Zoom Controls (+ / - / Reset)** and mouse loupe pan.
-   - Olfactory pyramid breakdown, Beast Mode longevity & sillage projection meters, Season badge, Blind Buy Insurance seal.
-   - Verified Customer Reviews & compliment ratings.
-   - Quantity counter, 1-Click "Add to Cart", and "Buy Now".
-11. **🧭 Restored Floating Bottom Navigation Pill Bar**:
+10. **📄 1-Click GST Tax Invoice Generator & High-Fidelity PDF Export**:
+    - Itemized GST tax invoices (18% rate, HSN Code 33030090, CGST 9% + SGST 9%) with store header, batch hologram seal, and isolated print iframe engine for clean paper & PDF printing. Available in both Staff Admin & Super Admin.
+11. **🔍 Interactive Product Detail Quickview Modal (`#product-detail-modal`)**:
+    - High-resolution perfume flacon with interactive **Zoom Controls (+ / - / Reset)** and mouse loupe pan.
+    - Olfactory pyramid breakdown, Beast Mode longevity & sillage projection meters, Season badge, Blind Buy Insurance seal.
+    - Verified Customer Reviews & compliment ratings.
+    - Quantity counter, 1-Click "Add to Cart", and "Buy Now".
+12. **🧭 Restored Floating Bottom Navigation Pill Bar**:
     - High-contrast frosted dock with glowing golden icons (`#E5BE72` / `#C59B27`), distinct item labels, and elevation shadow for quick one-tap jumping to **Home**, **Shop Catalog**, **Discovery Box**, **Alchemy Lab**, **The Scent Club**, and **Cart Drawer** with live item count badge.
-12. **📦 Live Customer Order Tracking Portal (`#order-tracking-modal`)**:
+13. **📦 Live Customer Order Tracking Portal (`#order-tracking-modal`)**:
     - Accessible via header "Track Order" button, floating shortcuts, and order confirmation modal.
     - Search by Order ID or phone number.
     - Interactive 5-stage shipment stepper: **Order Placed & Confirmed** -> **Quality Checked & Velvet Box Sealed** -> **Dispatched / In Air Transit** -> **Out for Delivery** -> **Delivered Successfully**.
     - Displays Courier Partner (e.g., *BlueDart Air Express / Delhivery*), Tracking AWB Number, itemized bottle manifest, destination address, and 1-click WhatsApp Concierge assistance.
-13. **🚚 Staff & Super Admin Order Fulfillment Management**:
+14. **🚚 Staff & Super Admin Order Fulfillment Management**:
     - Dedicated fulfillment desk with status update modal (`Placed`, `Packed`, `Dispatched`, `Out for Delivery`, `Delivered`, `Cancelled`).
     - Editable Courier Name, Tracking AWB number, and dispatch remarks with automatic cloud synchronization to MongoDB Atlas (`db-sync.js`).
     - 1-Click WhatsApp customer dispatch alert with pre-filled tracking links.
-14. **🎠 Left-to-Right Animated Category Product Sliders**:
+15. **🎠 Left-to-Right Animated Category Product Sliders**:
     - Replaced static layout with dedicated **horizontal animated carousels for each fragrance category / accord**:
       1. 🔥 **Trending Bestsellers & Top Rated** (Top picks & flagship extraits).
       2. 🍦 **Warm Vanilla & Kashmiri Kesar** (Gourmand saffron & amber extraits).
@@ -91,7 +91,7 @@
       6. 🌊 **Fresh Citrus & Monsoon Aqua Sillage** (Marine bergamot beast mode fresh).
     - Smooth horizontal scroll-snap, glowing left/right navigation arrow buttons, touch swiping, and automated gentle left-to-right auto-play with pause-on-hover.
     - Integrated **View Mode Switcher**: 1-click toggle between **Animated Sliders 🎠** and **Grid View 🔲**.
-15. **⚡ Invisible Seamless Navigation Shortcuts**:
+16. **⚡ Invisible Seamless Navigation Shortcuts**:
     - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines
