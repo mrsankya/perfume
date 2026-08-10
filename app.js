@@ -316,6 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
       openLeadGiftModal();
     }
   }, 4000);
+
+  window.addEventListener('load', () => {
+    setTimeout(initGoogleSignIn, 800);
+  });
 });
 
 // =========================================================================
@@ -740,8 +744,88 @@ function updateUserUI() {
   }
 }
 
+const GOOGLE_CLIENT_ID = '269277017328-r3olvtqb8nf91rbqifpmchbpflkceves.apps.googleusercontent.com';
+
+function decodeJwtPayload(token) {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error('Error decoding Google JWT token', e);
+    return null;
+  }
+}
+
+function handleGoogleCredentialResponse(response) {
+  if (!response || !response.credential) return;
+  const payload = decodeJwtPayload(response.credential);
+  if (!payload) return;
+
+  const name = payload.name || payload.given_name || 'Google User';
+  const email = payload.email || '';
+  const avatar = payload.picture || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80';
+
+  currentUser = {
+    id: payload.sub || ('usr-' + Date.now().toString().slice(-5)),
+    name: name,
+    email: email,
+    phone: localStorage.getItem('visitor_phone') || '+91 98227 25265',
+    avatar: avatar,
+    points: 750,
+    vipTier: 'Royal Attar Club 👑'
+  };
+
+  localStorage.setItem('perfume_user', JSON.stringify(currentUser));
+  
+  // Record Visitor Lead for Promotional Calling
+  recordVisitorLead({
+    name: currentUser.name,
+    phone: currentUser.phone,
+    email: currentUser.email,
+    city: 'Pune, Maharashtra',
+    source: 'Google Verified OAuth'
+  });
+
+  closeGoogleLoginModal();
+  updateUserUI();
+  showToast(`Welcome ${name}! Google Sign-In Verified`, 'success');
+}
+
+function initGoogleSignIn() {
+  if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleGoogleCredentialResponse,
+      auto_select: false,
+      cancel_on_tap_outside: true
+    });
+
+    const googleBtnEl = document.getElementById('google-signin-btn-container');
+    if (googleBtnEl) {
+      google.accounts.id.renderButton(googleBtnEl, {
+        theme: 'filled_black',
+        size: 'large',
+        type: 'standard',
+        shape: 'pill',
+        text: 'signin_with',
+        logo_alignment: 'left',
+        width: 260
+      });
+    }
+
+    if (!currentUser) {
+      google.accounts.id.prompt();
+    }
+  }
+}
+
 function openGoogleLoginModal() {
   document.getElementById('google-login-modal')?.classList.remove('hidden');
+  initGoogleSignIn();
 }
 
 function closeGoogleLoginModal() {

@@ -3,7 +3,7 @@
 ## Project Overview
 - **Project Name**: Perfume Shope (India's Premier Luxury Parfumerie & Attar Boutique)
 - **Repository**: Sakshi-patil48/perfume-shopee
-- **Tech Stack**: Vanilla HTML5, Tailwind CSS CDN, Vanilla JavaScript (ES6+), FontAwesome Icons, Google Fonts (Cinzel, Outfit, Teko)
+- **Tech Stack**: Vanilla HTML5, Tailwind CSS CDN, Vanilla JavaScript (ES6+), Google Identity Services (GSI), FontAwesome Icons, Google Fonts (Cinzel, Outfit, Teko)
 - **Currency**: Indian Rupees (INR ₹)
 - **Deployment Platform**: Cloudflare Pages
 - **Target Audience / Purpose**: Indian fragrance lovers looking for 100% authentic imported Arabian extraits, designer perfumes, and pure royal Indian attars (Dehn Al Oud, Mysore Sandalwood, Kashmiri Kesar, Kannauj Gulab) with physical boutique pickup in Pune, Maharashtra, and WhatsApp instant booking.
@@ -16,6 +16,12 @@
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
 
+## Google OAuth & Identity Services Integration
+- **Client ID**: `269277017328-r3olvtqb8nf91rbqifpmchbpflkceves.apps.googleusercontent.com`
+- **Project ID**: `gen-lang-client-0813461738`
+- **Authorized Javascript Origins**: `https://perfume-shopee.pages.dev`
+- **Google SDK**: Google Identity Services (`https://accounts.google.com/gsi/client`) with JWT ID token decoder, One-Tap prompt, and rendered Google Sign-In button.
+
 ## E-Commerce & Customer Features
 1. **🛒 Shopping Cart & Slide-Over Drawer**:
    - Add to Cart, Buy Now, Quantity controls (+ / - / delete).
@@ -25,7 +31,7 @@
    - **Automatic Precise GPS Address**: Pinpoint accuracy using browser Geolocation API & Reverse Geocoding to auto-fill Pin Code, City, State, and exact deliverable coordinates.
    - **Manual Address Entry**: Flat, Building, Street, City, State, and 6-digit PIN Code.
 3. **🔑 User Profile & Google Login**:
-   - One-Tap Google Sign-In simulation with user avatar, name, and email.
+   - Verified Google Sign-In (OAuth 2.0 Client ID) with user avatar, name, and email.
    - VIP Royalty Points (750 Points Balance) & Attar Club Membership tier.
 4. **📞 Visitor Tracking & Admin Promotional Calling List**:
    - **Welcome Lead Gift Popup**: Unlocks ₹500 discount voucher on first order in exchange for customer Name, WhatsApp number, and City.

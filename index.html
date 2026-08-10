@@ -27,6 +27,9 @@
     }
   </script>
 
+  <!-- Google Identity Services (GSI) OAuth Client -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <!-- Google Fonts CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -561,13 +564,22 @@
         <p class="text-xs text-gray-400 mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
       </div>
 
-      <div class="space-y-2 pt-2">
-        <button onclick="handleGoogleLoginSuccess('Sakshi Patil', 'sakshi.patil@gmail.com', '+91 98227 25265')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+      <!-- Official Google Identity Services OAuth Container -->
+      <div id="google-signin-btn-container" class="flex justify-center my-3 min-h-[44px]"></div>
+
+      <div class="relative flex py-1 items-center">
+        <div class="flex-grow border-t border-gray-700"></div>
+        <span class="flex-shrink mx-2 text-[10px] uppercase text-gray-500 font-bold">Or Quick Demo Profile</span>
+        <div class="flex-grow border-t border-gray-700"></div>
+      </div>
+
+      <div class="space-y-2 pt-1">
+        <button onclick="handleGoogleLoginSuccess('Sakshi Patil', 'sakshi.patil@gmail.com', '+91 98227 25265')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
           <i class="fa-brands fa-google text-red-500"></i>
           <span>Continue as Sakshi Patil</span>
         </button>
 
-        <button onclick="handleGoogleLoginSuccess('Sanket Patil', 'sanket.patil@gmail.com', '+91 95794 53006')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+        <button onclick="handleGoogleLoginSuccess('Sanket Patil', 'sanket.patil@gmail.com', '+91 95794 53006')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
           <i class="fa-brands fa-google text-red-500"></i>
           <span>Continue as Sanket Patil</span>
         </button>
