@@ -598,6 +598,128 @@ function renderHeroBannersManager() {
   `).join('');
 }
 
+// =========================================================================
+// IMAGE UPLOAD & CANVAS COMPRESSION ENGINE
+// =========================================================================
+function processImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      return reject(new Error('Please select a valid image file (JPG, PNG, WebP)'));
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve({
+          dataUrl,
+          width,
+          height,
+          originalSize: file.size,
+          compressedSize: Math.round(dataUrl.length * 0.75)
+        });
+      };
+      img.onerror = () => reject(new Error('Failed to load image file'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// Super Product Image Handlers
+async function handleSuperProductFileUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    showToast('Compressing & loading image...', 'info');
+    const result = await processImageFile(file, 1000, 1000, 0.85);
+    document.getElementById('sp-image').value = result.dataUrl;
+    previewSuperProductImage(result.dataUrl, file.name);
+    showToast('Photo uploaded & ready for catalog! 📸', 'success');
+  } catch (err) {
+    showToast(err.message || 'Image upload failed', 'error');
+  }
+}
+
+function previewSuperProductImage(url, filename = '') {
+  const previewBox = document.getElementById('sp-image-preview-box');
+  const previewImg = document.getElementById('sp-preview-img');
+  const previewTitle = document.getElementById('sp-preview-title');
+  if (!previewBox || !previewImg) return;
+
+  if (url && url.trim().length > 0) {
+    previewImg.src = url.trim();
+    if (previewTitle) previewTitle.innerText = filename || 'Perfume Bottle Photo';
+    previewBox.classList.remove('hidden');
+  } else {
+    previewBox.classList.add('hidden');
+  }
+}
+
+function clearSuperProductImage() {
+  document.getElementById('sp-image').value = '';
+  const fileInp = document.getElementById('sp-image-file');
+  if (fileInp) fileInp.value = '';
+  document.getElementById('sp-image-preview-box')?.classList.add('hidden');
+}
+
+// Hero Banner Image Handlers
+async function handleHeroBannerFileUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    showToast('Compressing & loading banner...', 'info');
+    const result = await processImageFile(file, 1600, 900, 0.85);
+    document.getElementById('hb-image').value = result.dataUrl;
+    previewHeroBannerImage(result.dataUrl, file.name);
+    showToast('Banner image uploaded & ready! 🖼️', 'success');
+  } catch (err) {
+    showToast(err.message || 'Banner upload failed', 'error');
+  }
+}
+
+function previewHeroBannerImage(url, filename = '') {
+  const previewBox = document.getElementById('hb-image-preview-box');
+  const previewImg = document.getElementById('hb-preview-img');
+  const previewTitle = document.getElementById('hb-preview-title');
+  if (!previewBox || !previewImg) return;
+
+  if (url && url.trim().length > 0) {
+    previewImg.src = url.trim();
+    if (previewTitle) previewTitle.innerText = filename || 'Hero Banner Background';
+    previewBox.classList.remove('hidden');
+  } else {
+    previewBox.classList.add('hidden');
+  }
+}
+
+function clearHeroBannerImage() {
+  document.getElementById('hb-image').value = '';
+  const fileInp = document.getElementById('hb-image-file');
+  if (fileInp) fileInp.value = '';
+  document.getElementById('hb-image-preview-box')?.classList.add('hidden');
+}
+
 function openHeroBannerModal(index = -1) {
   const modal = document.getElementById('hero-banner-modal');
   if (!modal) return;
@@ -612,10 +734,12 @@ function openHeroBannerModal(index = -1) {
     document.getElementById('hb-badge').value = slide.badge;
     document.getElementById('hb-title').value = slide.title;
     document.getElementById('hb-desc').value = slide.desc;
+    previewHeroBannerImage(slide.image, `Slide #${index + 1}`);
   } else {
     document.getElementById('hero-banner-modal-title').innerText = 'Add Hero Banner Slide';
     document.getElementById('hero-banner-form').reset();
     document.getElementById('hb-section').value = activeBannerSection;
+    clearHeroBannerImage();
   }
 
   modal.classList.remove('hidden');
@@ -785,12 +909,14 @@ function openSuperProductModal(id = null) {
       document.getElementById('sp-notes').value = item.notes;
       document.getElementById('sp-image').value = item.image;
       document.getElementById('sp-stock').checked = item.inStock !== false;
+      previewSuperProductImage(item.image, item.name);
     }
   } else {
     title.innerText = 'Add New Luxury Fragrance';
     form.reset();
     document.getElementById('sp-stock').checked = true;
     document.getElementById('sp-badge').value = 'New Arrival';
+    clearSuperProductImage();
   }
 
   modal.classList.remove('hidden');

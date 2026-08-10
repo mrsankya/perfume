@@ -255,6 +255,90 @@ function toggleProductStock(id) {
   showToast(`Stock updated for ${item.name}`);
 }
 
+// =========================================================================
+// IMAGE UPLOAD & CANVAS COMPRESSION ENGINE
+// =========================================================================
+function processImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      return reject(new Error('Please select a valid image file (JPG, PNG, WebP)'));
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve({
+          dataUrl,
+          width,
+          height,
+          originalSize: file.size,
+          compressedSize: Math.round(dataUrl.length * 0.75)
+        });
+      };
+      img.onerror = () => reject(new Error('Failed to load image file'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleProductFileUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    showToast('Compressing & loading image...', 'info');
+    const result = await processImageFile(file, 1000, 1000, 0.85);
+    document.getElementById('inp-image').value = result.dataUrl;
+    previewProductImage(result.dataUrl, file.name);
+    showToast('Photo uploaded & ready for catalog! 📸', 'success');
+  } catch (err) {
+    showToast(err.message || 'Image upload failed', 'error');
+  }
+}
+
+function previewProductImage(url, filename = '') {
+  const previewBox = document.getElementById('inp-image-preview-box');
+  const previewImg = document.getElementById('inp-preview-img');
+  const previewTitle = document.getElementById('inp-preview-title');
+  if (!previewBox || !previewImg) return;
+
+  if (url && url.trim().length > 0) {
+    previewImg.src = url.trim();
+    if (previewTitle) previewTitle.innerText = filename || 'Perfume Bottle Photo';
+    previewBox.classList.remove('hidden');
+  } else {
+    previewBox.classList.add('hidden');
+  }
+}
+
+function clearProductImage() {
+  document.getElementById('inp-image').value = '';
+  const fileInp = document.getElementById('inp-image-file');
+  if (fileInp) fileInp.value = '';
+  document.getElementById('inp-image-preview-box')?.classList.add('hidden');
+}
+
 function openProductModal(id = null) {
   editingProductId = id;
   const modal = document.getElementById('product-edit-modal');
@@ -274,11 +358,13 @@ function openProductModal(id = null) {
       document.getElementById('inp-notes').value = item.notes;
       document.getElementById('inp-image').value = item.image;
       document.getElementById('inp-stock').checked = item.inStock !== false;
+      previewProductImage(item.image, item.name);
     }
   } else {
     title.innerText = 'Add New Fragrance';
     form.reset();
     document.getElementById('inp-stock').checked = true;
+    clearProductImage();
   }
 
   modal.classList.remove('hidden');

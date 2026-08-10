@@ -361,6 +361,105 @@
     </main>
   </div>
 
+  <!-- FRAGRANCE PRODUCT ADD / EDIT MODAL -->
+  <div id="product-edit-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-xl w-full rounded-2xl border border-gray-700 p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 id="modal-title" class="font-heading text-base font-bold text-white uppercase">Add Fragrance</h3>
+
+      <form id="product-edit-form" onsubmit="handleProductSubmit(event)" class="space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Perfume Name</label>
+            <input type="text" id="inp-name" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Brand</label>
+            <input type="text" id="inp-brand" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Price (INR ₹)</label>
+            <input type="number" id="inp-price" required min="1" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Gender</label>
+            <select id="inp-gender" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <option value="Unisex">Unisex</option>
+              <option value="Women">Women</option>
+              <option value="Men">Men</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Accord</label>
+            <select id="inp-accord" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <option value="Kashmiri Gulab & Rose">🌸 Kashmiri Gulab & Rose</option>
+              <option value="Royal Dehn Al Oud">🪵 Royal Dehn Al Oud</option>
+              <option value="Warm Vanilla & Kesar">🍦 Warm Vanilla & Kesar</option>
+              <option value="Mysore Sandal & Woods">🌲 Mysore Sandal & Woods</option>
+              <option value="Fresh Citrus & Monsoon Aqua">🍋 Fresh Citrus & Monsoon Aqua</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Badge</label>
+            <input type="text" id="inp-badge" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Olfactory Notes</label>
+          <input type="text" id="inp-notes" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase">Perfume Bottle Photograph</label>
+            <span class="text-[10px] text-gray-400">Web URL or File Upload</span>
+          </div>
+          <div class="space-y-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <input type="url" id="inp-image" oninput="previewProductImage(this.value)" placeholder="https://images.unsplash.com/..." class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+              <div>
+                <label class="w-full bg-[#120D0A] hover:bg-[#231B17] border border-dashed border-gray-600 hover:border-[#C59B27] rounded-xl px-3 py-2 text-xs text-gray-300 flex items-center justify-center gap-2 cursor-pointer transition-colors">
+                  <i class="fa-solid fa-cloud-arrow-up text-[#C59B27]"></i>
+                  <span id="inp-file-label" class="truncate">Upload Image File</span>
+                  <input type="file" id="inp-image-file" accept="image/*" onchange="handleProductFileUpload(event)" class="hidden">
+                </label>
+              </div>
+            </div>
+
+            <!-- Live Thumbnail Preview -->
+            <div id="inp-image-preview-box" class="hidden p-2 rounded-xl bg-[#120D0A] border border-gray-800 flex items-center gap-2.5">
+              <img id="inp-preview-img" src="" class="w-10 h-10 rounded-lg object-cover border border-gray-700 shrink-0">
+              <div class="flex-grow min-w-0">
+                <span class="text-[11px] font-bold text-white block truncate" id="inp-preview-title">Image Loaded</span>
+                <span class="text-[9px] text-green-400 flex items-center gap-1" id="inp-preview-info">
+                  <i class="fa-solid fa-circle-check"></i> Ready for catalog
+                </span>
+              </div>
+              <button type="button" onclick="clearProductImage()" class="text-xs text-gray-400 hover:text-red-400 p-1 rounded-lg bg-gray-800/80">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <input type="checkbox" id="inp-stock" checked class="w-4 h-4 text-[#C59B27] rounded">
+          <label for="inp-stock" class="text-xs font-bold text-white">In Stock & Ready for Store Pickup</label>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeProductModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Fragrance</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- GST TAX INVOICE MODAL -->
   <div id="gst-invoice-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
     <div class="bg-white max-w-2xl w-full rounded-3xl p-6 relative shadow-2xl max-h-[95vh] overflow-y-auto space-y-4 text-gray-900">

@@ -86,6 +86,12 @@
    - Dynamic auto-sliding carousel (every 5 seconds) with interactive indicator dots.
    - Stored in `perfumes_hero_banners` with live storefront synchronization and JSON backup/restore support.
 
+3. **📸 Dual Image Upload & Client-Side Compression Engine**:
+   - Dual Input Modes: **Web URL** or **Local File Upload** (Drag & Drop / File Picker).
+   - High-performance HTML5 Canvas compression auto-resizes high-res phone/camera photos down to lightweight JPEG DataURLs without loss of sharpness.
+   - Live interactive thumbnail & banner previews with 1-click removal.
+   - Integrated across **Super Admin Products**, **Super Admin Hero Banners**, **Staff Admin Products**, and **Customer SOTD Community Posts**.
+
 ## Enterprise Security & Anti-Tamper Shield
 1. **🛡️ Client-Side Anti-Inspect & DevTools Shield (`security.js`)**:
    - Disabled right-click context menu & developer shortcuts (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, `Ctrl+S`, `Cmd+Option+I/J/C/U`) for **regular customer sessions**.

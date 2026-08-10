@@ -1107,11 +1107,13 @@ function renderCommunityFeed() {
           <span class="theme-text-muted">Scent of the Day:</span>
           <span class="font-heading font-bold theme-text-main uppercase">${post.sotd}</span>
         </div>
-        <div class="flex items-center justify-between text-[11px]">
-          <span class="theme-text-muted">Occasion:</span>
-          <span class="theme-text-secondary font-medium">${post.occasion}</span>
-        </div>
       </div>
+
+      ${post.image ? `
+        <div class="rounded-2xl overflow-hidden border theme-border max-h-48">
+          <img src="${post.image}" alt="${post.sotd}" class="w-full h-36 object-cover hover:scale-105 transition-transform duration-500">
+        </div>
+      ` : ''}
 
       <p class="text-xs theme-text-secondary italic leading-relaxed">
         "${post.text}"
@@ -1148,7 +1150,7 @@ function buyCommunityDuo(duoIds) {
     if (prod) {
       const existing = cart.find(i => i.id === prod.id);
       if (existing) existing.qty += 1;
-      else cart.push({ id: prod.id, name: prod.name, brand: prod.brand, price: prod.price, image: prod.image, accord: prod.accord, qty: 1 });
+      else cart.push({ ...prod, qty: 1 });
     }
   });
 
@@ -1156,6 +1158,88 @@ function buyCommunityDuo(duoIds) {
   saveCartToStorage();
   openCartDrawer();
   showToast('Community Layering Combo Added with ₹600 Discount! 👑', 'success');
+}
+
+// SOTD Community Post Image Handlers
+function processImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      return reject(new Error('Please select a valid image file (JPG, PNG, WebP)'));
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve({
+          dataUrl,
+          width,
+          height,
+          originalSize: file.size,
+          compressedSize: Math.round(dataUrl.length * 0.75)
+        });
+      };
+      img.onerror = () => reject(new Error('Failed to load image file'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleSotdFileUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    showToast('Loading & compressing photo...', 'info');
+    const result = await processImageFile(file, 800, 800, 0.85);
+    document.getElementById('post-sotd-image').value = result.dataUrl;
+    previewSotdImage(result.dataUrl, file.name);
+    showToast('Bottle photo attached to post! 📸', 'success');
+  } catch (err) {
+    showToast(err.message || 'Photo upload failed', 'error');
+  }
+}
+
+function previewSotdImage(url, filename = '') {
+  const previewBox = document.getElementById('post-image-preview-box');
+  const previewImg = document.getElementById('post-preview-img');
+  const previewTitle = document.getElementById('post-preview-title');
+  if (!previewBox || !previewImg) return;
+
+  if (url && url.trim().length > 0) {
+    previewImg.src = url.trim();
+    if (previewTitle) previewTitle.innerText = filename || 'Attached Bottle Photo';
+    previewBox.classList.remove('hidden');
+  } else {
+    previewBox.classList.add('hidden');
+  }
+}
+
+function clearSotdImage() {
+  document.getElementById('post-sotd-image').value = '';
+  const fileInp = document.getElementById('post-image-file');
+  if (fileInp) fileInp.value = '';
+  document.getElementById('post-image-preview-box')?.classList.add('hidden');
 }
 
 function handleCommunityPostSubmit(e) {
@@ -1166,6 +1250,7 @@ function handleCommunityPostSubmit(e) {
   const sotd = clean(document.getElementById('post-sotd-name').value);
   const text = clean(document.getElementById('post-review-text').value);
   const longevity = document.getElementById('post-longevity-select').value;
+  const image = document.getElementById('post-sotd-image')?.value.trim() || '';
 
   const newPost = {
     id: 'sotd-' + Date.now(),
@@ -1174,6 +1259,7 @@ function handleCommunityPostSubmit(e) {
     date: 'Just now',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
     sotd: sotd,
+    image: image,
     occasion: 'Special Occasion',
     compliments: 5,
     longevityRating: longevity,
@@ -1186,6 +1272,7 @@ function handleCommunityPostSubmit(e) {
   communityPosts.unshift(newPost);
   renderCommunityFeed();
   document.getElementById('community-post-form').reset();
+  clearSotdImage();
   document.getElementById('post-sotd-modal')?.classList.add('hidden');
   showToast('Your Scent of the Day post is live on The Scent Club! 🎉', 'success');
 }
