@@ -10,11 +10,12 @@
   --bg-powder: #F2E9DE;
   --bg-card: #FFFFFF;
   --border-subtle: #EBE2D7;
-  --border-gold: rgba(166, 118, 66, 0.25);
+  --border-gold: rgba(197, 155, 39, 0.35);
   
   --text-dark: #231B17;
   --text-muted: #7A6F68;
   --bronze-gold: #A67642;
+  --royal-gold: #C59B27;
   --bronze-light: #C89B66;
   --bronze-dark: #7A5328;
   
@@ -25,6 +26,23 @@
   --font-body: 'Outfit', sans-serif;
 
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.font-rupee {
+  font-family: 'Outfit', 'Cinzel', sans-serif;
+  font-weight: 700;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #C59B27 50%, #AA771C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.indian-badge {
+  background: linear-gradient(135deg, #FFF9EB 0%, #FAF1DC 100%);
+  border: 1px solid rgba(197, 155, 39, 0.4);
+  color: #7A5328;
 }
 
 /* Custom Scrollbars */
