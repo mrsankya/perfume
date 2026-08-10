@@ -914,3 +914,99 @@ section h2 {
     border: none !important;
   }
 }
+
+/* =========================================================================
+   LEFT-TO-RIGHT ANIMATED CATEGORY PRODUCT SLIDERS
+   ========================================================================= */
+.category-slider-section {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.category-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.category-slider-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem 0.25rem 1rem 0.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-slider-card {
+  flex: 0 0 calc(80vw - 20px);
+  min-width: calc(80vw - 20px);
+  max-width: 320px;
+  scroll-snap-align: start;
+  border-radius: 1.5rem;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+@media (min-width: 640px) {
+  .category-slider-card {
+    flex: 0 0 280px;
+    min-width: 280px;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .category-slider-card {
+    flex: 0 0 290px;
+    min-width: 290px;
+    max-width: 290px;
+  }
+}
+
+.category-slider-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), 0 0 20px rgba(197, 155, 39, 0.15);
+}
+
+.category-slider-nav-btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  box-shadow: var(--card-shadow);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.category-slider-nav-btn:hover {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--accent-primary);
+  transform: scale(1.08);
+}
+
+.category-slider-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.category-slider-indicator-bar {
+  width: 100%;
+  height: 3px;
+  background: var(--border-color);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.category-slider-indicator-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}

@@ -81,7 +81,17 @@
     - Dedicated fulfillment desk with status update modal (`Placed`, `Packed`, `Dispatched`, `Out for Delivery`, `Delivered`, `Cancelled`).
     - Editable Courier Name, Tracking AWB number, and dispatch remarks with automatic cloud synchronization to MongoDB Atlas (`db-sync.js`).
     - 1-Click WhatsApp customer dispatch alert with pre-filled tracking links.
-14. **⚡ Invisible Seamless Navigation Shortcuts**:
+14. **🎠 Left-to-Right Animated Category Product Sliders**:
+    - Replaced static layout with dedicated **horizontal animated carousels for each fragrance category / accord**:
+      1. 🔥 **Trending Bestsellers & Top Rated** (Top picks & flagship extraits).
+      2. 🍦 **Warm Vanilla & Kashmiri Kesar** (Gourmand saffron & amber extraits).
+      3. 🪵 **Royal Dehn Al Oud & Arabian Musk** (Aged Cambodian & pure oud blends).
+      4. 🌲 **Mysore Sandalwood & Earthy Woods** (Heritage Chandan & cedar blends).
+      5. 🌸 **Kashmiri Gulab & Haute Florals** (Damascene rose & haute couture florals).
+      6. 🌊 **Fresh Citrus & Monsoon Aqua Sillage** (Marine bergamot beast mode fresh).
+    - Smooth horizontal scroll-snap, glowing left/right navigation arrow buttons, touch swiping, and automated gentle left-to-right auto-play with pause-on-hover.
+    - Integrated **View Mode Switcher**: 1-click toggle between **Animated Sliders 🎠** and **Grid View 🔲**.
+15. **⚡ Invisible Seamless Navigation Shortcuts**:
     - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines

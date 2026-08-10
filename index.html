@@ -364,31 +364,48 @@
         </div>
       </div>
 
-      <!-- Accord Pills -->
-      <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
-        <button onclick="filterByAccord('All')" data-accord="All" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold theme-btn-primary shadow-sm transition-all shrink-0">
-          All Accords
-        </button>
-        <button onclick="filterByAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
-          🍦 Warm Vanilla & Kesar
-        </button>
-        <button onclick="filterByAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
-          🪵 Royal Dehn Al Oud
-        </button>
-        <button onclick="filterByAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
-          🌲 Mysore Sandal & Woods
-        </button>
-        <button onclick="filterByAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
-          🌸 Kashmiri Gulab & Rose
-        </button>
-        <button onclick="filterByAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
-          🌊 Fresh Citrus & Monsoon Aqua
-        </button>
+      <!-- Catalog Controls: Accord Pills & View Switcher -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b theme-border pb-3">
+        <!-- Accord Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1 w-full sm:w-auto">
+          <button onclick="filterByAccord('All')" data-accord="All" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold theme-btn-primary shadow-sm transition-all shrink-0">
+            All Collections
+          </button>
+          <button onclick="filterByAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
+            🍦 Warm Vanilla & Kesar
+          </button>
+          <button onclick="filterByAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
+            🪵 Royal Dehn Al Oud
+          </button>
+          <button onclick="filterByAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
+            🌲 Mysore Sandal & Woods
+          </button>
+          <button onclick="filterByAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
+            🌸 Kashmiri Gulab & Rose
+          </button>
+          <button onclick="filterByAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
+            🌊 Fresh Citrus & Monsoon Aqua
+          </button>
+        </div>
+
+        <!-- View Mode Switcher: Animated Sliders vs Grid -->
+        <div class="flex items-center gap-1 theme-bg-surface p-1 rounded-2xl border theme-border shrink-0">
+          <button onclick="setCatalogViewMode('slider')" id="btn-view-slider" class="px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary shadow-sm flex items-center gap-1.5 transition-all" title="Left-to-Right Animated Category Sliders">
+            <i class="fa-solid fa-film"></i>
+            <span>Animated Sliders</span>
+          </button>
+          <button onclick="setCatalogViewMode('grid')" id="btn-view-grid" class="px-3 py-1.5 rounded-xl text-xs font-semibold theme-text-muted hover:theme-text-main flex items-center gap-1.5 transition-all" title="Grid Layout">
+            <i class="fa-solid fa-table-cells"></i>
+            <span>Grid View</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Products Grid -->
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-        <!-- Rendered by app.js -->
+      <!-- Products Display Container (Dynamically rendered by app.js: categorized sliders or unified grid) -->
+      <div id="products-catalog-container" class="space-y-10">
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <!-- Rendered by app.js -->
+        </div>
       </div>
 
     </div>

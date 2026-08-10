@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
   switchGenderTheme(savedGender, false);
   
   initHeroSlider();
-  renderProducts();
+  setCatalogViewMode(catalogViewMode);
   renderWizard();
   renderCelebrityWardrobes();
   renderDiscoveryBoxBuilder();
@@ -1939,31 +1939,65 @@ function recordVisitorLead(leadData) {
   }
 }
 
-// 11. CATALOG PRODUCT RENDERING & GAUGE METERS
-function renderProducts() {
-  const grid = document.getElementById('products-grid');
-  if (!grid) return;
+// 11. CATALOG PRODUCT RENDERING & CATEGORY-BASED ANIMATED SLIDERS
+let catalogViewMode = localStorage.getItem('perfumes_catalog_view_mode') || 'slider';
+let categorySliderIntervals = {};
 
-  const products = getStoredProducts();
-  const filtered = products.filter(p => {
-    const matchGender = currentGenderTheme === 'All' || p.gender === currentGenderTheme || p.gender === 'Unisex';
-    const matchAccord = selectedAccord === 'All' || p.accord === selectedAccord;
-    const matchSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery) || p.notes.toLowerCase().includes(searchQuery);
-    return matchGender && matchAccord && matchSearch;
-  });
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `
-      <div class="col-span-full py-12 text-center space-y-2">
-        <p class="font-heading text-lg theme-text-main">No fragrances match your filter</p>
-        <button onclick="resetFilters()" class="text-xs theme-accent font-bold underline">Reset All Filters</button>
-      </div>
-    `;
-    return;
+const CATEGORY_DEFINITIONS = [
+  {
+    id: 'cat-trending',
+    title: 'Trending Bestsellers & Top Rated',
+    subtitle: 'Signature masterpieces with verified Beast Mode performance & highest customer compliment ratings.',
+    icon: '🔥',
+    badgeText: '👑 FLAGSHIP TOP PICKS',
+    accord: null,
+    filterFn: (p) => p.badge && (p.badge.toLowerCase().includes('bestseller') || p.badge.toLowerCase().includes('top') || p.badge.toLowerCase().includes('signature'))
+  },
+  {
+    id: 'cat-vanilla',
+    accord: 'Warm Vanilla & Kesar',
+    title: 'Warm Vanilla & Kashmiri Kesar Accords',
+    subtitle: 'Decadent bourbon vanilla, Kashmiri saffron, sweet medjool dates, praline, and warm golden amber.',
+    icon: '🍦',
+    badgeText: 'GOURMAND & AMBER'
+  },
+  {
+    id: 'cat-oud',
+    accord: 'Royal Dehn Al Oud',
+    title: 'Royal Dehn Al Oud & Arabian Musk',
+    subtitle: 'Aged Cambodian agarwood, pure Dehn Al Oud, Mysore sandalwood, and royal oriental incense.',
+    icon: '🪵',
+    badgeText: 'ORIENTAL EXTRAITS'
+  },
+  {
+    id: 'cat-sandal',
+    accord: 'Mysore Sandal & Woods',
+    title: 'Mysore Sandalwood & Earthy Woods',
+    subtitle: 'Creamy authentic Chandan, atlas cedarwood, earthy patchouli, and warm ambergris.',
+    icon: '🌲',
+    badgeText: 'HERITAGE WOODS'
+  },
+  {
+    id: 'cat-rose',
+    accord: 'Kashmiri Gulab & Rose',
+    title: 'Kashmiri Gulab & Haute Florals',
+    subtitle: 'Pure Kannauj Damascene rose, night-blooming jasmine sambac, and delicate powdery musks.',
+    icon: '🌸',
+    badgeText: 'FLORAL ELEGANCE'
+  },
+  {
+    id: 'cat-citrus',
+    accord: 'Fresh Citrus & Monsoon Aqua',
+    title: 'Fresh Citrus & Monsoon Aqua Sillage',
+    subtitle: 'Sparkling Italian bergamot, fresh marine sea breeze, vetiver, and cooling aromatic woods.',
+    icon: '🌊',
+    badgeText: 'HIGH SILLAGE FRESH'
   }
+];
 
-  grid.innerHTML = filtered.map(p => `
-    <div onclick="openProductModal('${p.id}')" class="theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all cursor-pointer">
+function generateProductCardHTML(p, isSliderCard = false) {
+  return `
+    <div onclick="openProductModal('${p.id}')" class="${isSliderCard ? 'category-slider-card' : ''} theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all cursor-pointer">
       
       <!-- Image & Badges -->
       <div class="relative rounded-2xl overflow-hidden aspect-square bg-black/20">
@@ -1979,14 +2013,16 @@ function renderProducts() {
       </div>
 
       <!-- Details -->
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between">
-          <span class="text-[10px] font-bold uppercase tracking-widest theme-text-muted">${p.brand}</span>
-          <span class="text-[10px] font-semibold theme-text-muted">${p.accord}</span>
-        </div>
+      <div class="space-y-1.5 flex-1 flex flex-col justify-between">
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-widest theme-text-muted">${p.brand}</span>
+            <span class="text-[10px] font-semibold theme-text-muted truncate max-w-[120px]">${p.accord}</span>
+          </div>
 
-        <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase tracking-wide truncate">${p.name}</h3>
-        <p class="text-[11px] theme-text-muted line-clamp-2 leading-relaxed">${p.notes}</p>
+          <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase tracking-wide truncate">${p.name}</h3>
+          <p class="text-[11px] theme-text-muted line-clamp-2 leading-relaxed">${p.notes}</p>
+        </div>
 
         <!-- Performance Gauges -->
         <div class="p-2.5 rounded-xl theme-bg-surface border theme-border space-y-1.5 mt-2">
@@ -1998,7 +2034,7 @@ function renderProducts() {
             <div class="meter-bar-fill h-1.5 rounded-full" style="width: 92%"></div>
           </div>
 
-          <div class="flex items-center justify-between text-[10px] pt-1">
+          <div class="flex items-center justify-between text-[10px] pt-0.5">
             <span class="theme-text-muted flex items-center gap-1"><i class="fa-solid fa-wind theme-accent"></i> Sillage:</span>
             <span class="font-bold theme-text-main">${p.sillage || 'Room Filler 💨'}</span>
           </div>
@@ -2023,7 +2059,205 @@ function renderProducts() {
       </div>
 
     </div>
-  `).join('');
+  `;
+}
+
+function slideCategoryTrack(trackId, direction) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  const scrollAmount = track.clientWidth * 0.75 * direction;
+  track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+}
+
+function initCategorySliders() {
+  Object.values(categorySliderIntervals).forEach(int => clearInterval(int));
+  categorySliderIntervals = {};
+
+  const tracks = document.querySelectorAll('.category-slider-track');
+  tracks.forEach((track, idx) => {
+    const trackId = track.id;
+    if (!trackId) return;
+
+    let isPaused = false;
+    track.addEventListener('mouseenter', () => isPaused = true);
+    track.addEventListener('mouseleave', () => isPaused = false);
+    track.addEventListener('touchstart', () => isPaused = true, { passive: true });
+    track.addEventListener('touchend', () => {
+      setTimeout(() => isPaused = false, 3000);
+    });
+
+    const intervalTime = 4500 + (idx * 700);
+    categorySliderIntervals[trackId] = setInterval(() => {
+      if (isPaused) return;
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: 300, behavior: 'smooth' });
+      }
+    }, intervalTime);
+  });
+}
+
+function setCatalogViewMode(mode) {
+  catalogViewMode = mode;
+  localStorage.setItem('perfumes_catalog_view_mode', mode);
+
+  const btnSlider = document.getElementById('btn-view-slider');
+  const btnGrid = document.getElementById('btn-view-grid');
+
+  if (btnSlider && btnGrid) {
+    if (mode === 'slider') {
+      btnSlider.className = 'px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary shadow-sm flex items-center gap-1.5 transition-all';
+      btnGrid.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold theme-text-muted hover:theme-text-main flex items-center gap-1.5 transition-all';
+    } else {
+      btnGrid.className = 'px-3 py-1.5 rounded-xl text-xs font-bold theme-btn-primary shadow-sm flex items-center gap-1.5 transition-all';
+      btnSlider.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold theme-text-muted hover:theme-text-main flex items-center gap-1.5 transition-all';
+    }
+  }
+
+  renderProducts();
+}
+
+function renderProducts() {
+  const container = document.getElementById('products-catalog-container') || document.getElementById('products-grid');
+  if (!container) return;
+
+  const products = getStoredProducts();
+
+  // Filter based on gender
+  const genderFiltered = products.filter(p => {
+    return currentGenderTheme === 'All' || p.gender === currentGenderTheme || p.gender === 'Unisex';
+  });
+
+  // If search query is active or user selected Grid View, render grid
+  if (searchQuery) {
+    const searchResults = genderFiltered.filter(p => {
+      const matchAccord = selectedAccord === 'All' || p.accord === selectedAccord;
+      const matchSearch = p.name.toLowerCase().includes(searchQuery) || p.brand.toLowerCase().includes(searchQuery) || p.notes.toLowerCase().includes(searchQuery);
+      return matchAccord && matchSearch;
+    });
+
+    if (searchResults.length === 0) {
+      container.innerHTML = `
+        <div class="py-12 text-center space-y-2">
+          <p class="font-heading text-lg theme-text-main">No fragrances match "${searchQuery}"</p>
+          <button onclick="resetFilters()" class="text-xs theme-accent font-bold underline">Reset All Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold theme-accent uppercase tracking-wider">Search Results (${searchResults.length} Extrait${searchResults.length > 1 ? 's' : ''})</span>
+          <button onclick="resetFilters()" class="text-xs theme-text-muted hover:theme-text-main underline">Clear Search</button>
+        </div>
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          ${searchResults.map(p => generateProductCardHTML(p, false)).join('')}
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // If user explicitly chose Grid View
+  if (catalogViewMode === 'grid') {
+    const filtered = genderFiltered.filter(p => {
+      return selectedAccord === 'All' || p.accord === selectedAccord;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="py-12 text-center space-y-2">
+          <p class="font-heading text-lg theme-text-main">No fragrances match your filter</p>
+          <button onclick="resetFilters()" class="text-xs theme-accent font-bold underline">Reset All Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        ${filtered.map(p => generateProductCardHTML(p, false)).join('')}
+      </div>
+    `;
+    return;
+  }
+
+  // =========================================================================
+  // LEFT-TO-RIGHT ANIMATED SLIDERS BY CATEGORY (DEFAULT LUXURY EXPERIENCE)
+  // =========================================================================
+  let categoriesToRender = CATEGORY_DEFINITIONS;
+
+  if (selectedAccord !== 'All') {
+    categoriesToRender = CATEGORY_DEFINITIONS.filter(c => c.accord === selectedAccord);
+  }
+
+  const categoryBlocks = categoriesToRender.map(cat => {
+    let catProducts = [];
+    if (cat.filterFn) {
+      catProducts = genderFiltered.filter(cat.filterFn);
+    } else if (cat.accord) {
+      catProducts = genderFiltered.filter(p => p.accord === cat.accord);
+    }
+
+    if (catProducts.length === 0) return '';
+
+    const trackId = `slider-track-${cat.id}`;
+
+    return `
+      <div class="category-slider-section space-y-4 pt-6 border-t theme-border first:border-t-0 first:pt-0">
+        <!-- Category Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div class="space-y-0.5 max-w-2xl">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">${cat.icon}</span>
+              <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold">${cat.badgeText || 'LUXURY COLLECTION'} • ${catProducts.length} EXTRAIT${catProducts.length > 1 ? 'S' : ''}</span>
+            </div>
+            <h3 class="font-heading text-xl sm:text-2xl font-bold theme-text-main uppercase">${cat.title}</h3>
+            <p class="text-xs theme-text-muted leading-relaxed">${cat.subtitle}</p>
+          </div>
+
+          <!-- Slider Navigation Arrows -->
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <button onclick="slideCategoryTrack('${trackId}', -1)" aria-label="Previous Fragrance in ${cat.title}" class="category-slider-nav-btn" title="Slide Left">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="slideCategoryTrack('${trackId}', 1)" aria-label="Next Fragrance in ${cat.title}" class="category-slider-nav-btn" title="Slide Right">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Left-to-Right Animated Slider Track -->
+        <div class="category-slider-wrapper">
+          <div id="${trackId}" class="category-slider-track scrollbar-none">
+            ${catProducts.map(p => generateProductCardHTML(p, true)).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }).filter(Boolean);
+
+  if (categoryBlocks.length === 0) {
+    container.innerHTML = `
+      <div class="py-12 text-center space-y-2">
+        <p class="font-heading text-lg theme-text-main">No fragrances match your category selection</p>
+        <button onclick="resetFilters()" class="text-xs theme-accent font-bold underline">Reset All Collections</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="space-y-10">
+      ${categoryBlocks.join('')}
+    </div>
+  `;
+
+  // Initialize auto-sliding intervals with hover pause
+  setTimeout(initCategorySliders, 100);
 }
 
 function switchGenderTheme(gender, updateUrl = true) {
@@ -2067,7 +2301,8 @@ function handleSearch(query) {
 function resetFilters() {
   selectedAccord = 'All';
   searchQuery = '';
-  document.getElementById('search-input')?.setAttribute('value', '');
+  const searchInput = document.getElementById('search-input');
+  if (searchInput) searchInput.value = '';
   filterByAccord('All');
 }
 
