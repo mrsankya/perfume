@@ -93,7 +93,7 @@ const PERFUMES_DATABASE = [
   }
 ];
 
-const WHATSAPP_PHONE_NUMBER = '9822725265';
+const WHATSAPP_PHONE_NUMBER = '919579453006';
 
 let catalogState = {
   searchQuery: '',
