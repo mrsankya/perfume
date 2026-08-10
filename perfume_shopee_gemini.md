@@ -16,6 +16,16 @@
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
 
+## MongoDB Atlas Cloud Database Integration
+- **Cluster**: `cluster0.uw1rkyw.mongodb.net`
+- **Database Name**: `perfumeshope`
+- **Database User**: `bhendesanket21_db_user`
+- **Driver**: Official `mongodb` Node.js driver + `mongoose`
+- **REST API Backend**: `server.js` (Express on port 5000)
+- **Database Seeder**: `seed_db.js` (`npm run seed`)
+- **Frontend Sync Layer**: `db-sync.js` (Auto-syncs catalog, orders, visitors, and consultations with resilient localStorage fallback)
+- **Collections**: `products`, `orders`, `visitors`, `consultations`, `settings`, `hero_banners`
+
 ## Google OAuth & Identity Services Integration
 - **Client ID**: `269277017328-r3olvtqb8nf91rbqifpmchbpflkceves.apps.googleusercontent.com`
 - **Project ID**: `gen-lang-client-0813461738`

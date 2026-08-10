@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Perfume shop demo project",
   "scripts": {
-    "start": "http-server -p 3000",
+    "start": "node server.js",
+    "seed": "node seed_db.js",
+    "server": "node server.js",
     "dev": "http-server -c-1 -p 3000",
     "deploy": "wrangler pages deploy . --project-name perfume-shopee --branch main --commit-dirty=true"
   },
@@ -11,5 +13,12 @@
     "http-server": "^14.1.1"
   },
   "author": "Sakshi-patil48",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0",
+    "mongoose": "^9.9.1"
+  }
 }

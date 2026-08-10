@@ -748,6 +748,10 @@ function handleCheckoutOrder(paymentMethod) {
   allOrders.unshift(orderData);
   localStorage.setItem('perfumes_orders', JSON.stringify(allOrders));
 
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushOrder) {
+    MongoSync.pushOrder(orderData);
+  }
+
   if (paymentMethod === 'WhatsApp') {
     const waNumber = getWhatsAppNumber();
     let msg = `*🛍️ NEW ORDER - PERFUME SHOPE INDIA*\n`;
@@ -1218,6 +1222,10 @@ function handleConsultationBooking(e) {
   allBookings.unshift(bookingData);
   localStorage.setItem('perfumes_consultations', JSON.stringify(allBookings));
 
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushConsultation) {
+    MongoSync.pushConsultation(bookingData);
+  }
+
   const waNumber = getWhatsAppNumber();
   let msg = `*👑 VIP IN-STORE SCENT CONSULTATION PASS*\n`;
   msg += `*Booking Ref:* ${bookingId}\n`;
@@ -1465,6 +1473,10 @@ function recordVisitorLead(leadData) {
   allVisitors = allVisitors.filter(v => v.phone !== newLead.phone);
   allVisitors.unshift(newLead);
   localStorage.setItem('perfumes_visitors', JSON.stringify(allVisitors));
+
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushVisitor) {
+    MongoSync.pushVisitor(newLead);
+  }
 }
 
 // 11. CATALOG PRODUCT RENDERING & GAUGE METERS

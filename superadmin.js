@@ -522,6 +522,9 @@ function setSiteVisualStyle(styleName) {
   localStorage.setItem('perfumes_site_style', styleName);
   document.documentElement.setAttribute('data-style', styleName);
   document.body.setAttribute('data-style', styleName);
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushStyle) {
+    MongoSync.pushStyle(styleName);
+  }
   recordAudit(`Global UI Visual Style Changed to: ${styleName}`);
   renderThemeStyles();
   showToast(`Storefront Visual Style switched to: ${styleName}! 🎨`, 'success');

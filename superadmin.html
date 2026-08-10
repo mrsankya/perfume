@@ -116,6 +116,10 @@
         </div>
 
         <div class="flex items-center space-x-2 sm:space-x-3">
+          <span id="mongo-atlas-badge" class="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-[#120D0A] border border-gray-700 text-gray-300 flex items-center gap-1.5 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span class="hidden md:inline">MongoDB Atlas 🍃</span>
+          </span>
           <button onclick="toggleDevMode()" title="Toggle Inspect & Right-Click Privileges" class="bg-[#120D0A] hover:bg-black text-gray-300 border border-gray-700 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors">
             <i class="fa-solid fa-code text-[#C59B27] text-[11px]"></i>
             <span class="hidden sm:inline">Inspect Mode</span>
@@ -809,6 +813,8 @@
 
   <!-- Security & Anti-Tamper Shield -->
   <script src="security.js"></script>
+  <!-- MongoDB Atlas Cloud Sync -->
+  <script src="db-sync.js"></script>
   <!-- Engine Script -->
   <script src="superadmin.js"></script>
 </body>
