@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Super Admin Console | Perfume Shope Owner Portal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#120D0A">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              300: '#E6CA65',
+              400: '#D4AF37',
+              500: '#C59B27',
+              600: '#AA771C',
+            },
+            obsidian: {
+              800: '#231B17',
+              900: '#18110E',
+              950: '#120D0A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#120D0A] text-gray-200 min-h-screen antialiased selection:bg-[#C59B27] selection:text-black">
+
+  <!-- =========================================================================
+       1. SUPER ADMIN SECRET LOGIN GATE
+       ========================================================================= -->
+  <div id="superadmin-login-view" class="min-h-screen flex items-center justify-center p-4 bg-[#120D0A] relative overflow-hidden">
+    
+    <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#C59B27]/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-[#AA771C]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-md w-full bg-[#1C1511] border border-[#C59B27]/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 space-y-6 text-center">
+      
+      <div class="space-y-2">
+        <div class="w-16 h-16 rounded-2xl border border-[#C59B27] bg-[#120D0A] mx-auto flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-crown text-[#C59B27] text-2xl"></i>
+        </div>
+        <span class="inline-block px-2.5 py-0.5 rounded-full bg-[#C59B27]/20 border border-[#C59B27]/40 text-[#C59B27] text-[10px] font-bold tracking-widest uppercase mt-1">
+          MASTER OWNER ACCESS
+        </span>
+        <h1 class="font-heading text-xl sm:text-2xl font-bold tracking-widest text-white uppercase block">PERFUME SHOPE</h1>
+        <p class="text-xs text-gray-400">Super Admin Command Center</p>
+      </div>
+
+      <form onsubmit="handleSuperAdminLogin(event)" class="space-y-4 text-left">
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Super Admin Master Key</label>
+          <div class="relative">
+            <i class="fa-solid fa-key absolute left-3.5 top-3.5 text-[#C59B27] text-xs"></i>
+            <input 
+              type="password" 
+              id="superadmin-password" 
+              placeholder="Enter master key..." 
+              required
+              class="w-full bg-[#120D0A] border border-gray-700 text-white rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:border-[#C59B27] transition-colors"
+            >
+          </div>
+          <p id="superadmin-login-error" class="text-red-400 text-[11px] mt-1.5 hidden flex items-center gap-1">
+            <i class="fa-solid fa-triangle-exclamation"></i> Invalid Master Key. Access Denied.
+          </p>
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-[#D4AF37] via-[#C59B27] to-[#AA771C] hover:opacity-90 text-[#120D0A] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Authenticate Master Session</span>
+        </button>
+      </form>
+
+      <div class="p-3 rounded-xl bg-[#120D0A]/70 border border-gray-800 text-[11px] text-gray-400 space-y-1">
+        <span class="text-[#C59B27] font-semibold block">Default Master Passwords:</span>
+        <code class="text-white font-mono bg-black/50 px-2 py-0.5 rounded border border-gray-700">superadmin</code> or <code class="text-white font-mono bg-black/50 px-2 py-0.5 rounded border border-gray-700">9822725265</code>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. SUPER ADMIN CONSOLE DASHBOARD
+       ========================================================================= -->
+  <div id="superadmin-dashboard-view" class="hidden min-h-screen flex flex-col bg-[#120D0A]">
+    
+    <!-- Top Executive Header -->
+    <header class="bg-[#1C1511] border-b border-[#C59B27]/30 sticky top-0 z-40 shadow-xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-xl border border-[#C59B27] bg-[#120D0A] flex items-center justify-center">
+            <i class="fa-solid fa-crown text-[#C59B27] text-sm"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-heading text-sm sm:text-base font-bold tracking-widest text-white uppercase">PERFUME SHOPE</span>
+              <span class="bg-[#C59B27] text-[#120D0A] font-bold text-[9px] px-1.5 py-0.2 rounded uppercase tracking-wider">SUPER ADMIN</span>
+            </div>
+            <span class="text-[9px] uppercase tracking-widest text-gray-400 block -mt-0.5">Master Owner Console</span>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <a href="index.html" target="_blank" class="bg-[#120D0A] hover:bg-black text-[#C59B27] border border-[#C59B27]/40 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <span class="hidden sm:inline">Live Store</span>
+          </a>
+          <button onclick="handleSuperAdminLogout()" class="bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-power-off text-[10px]"></i>
+            <span class="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Console Main Content -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
+
+      <!-- MASTER NAVIGATION TABS -->
+      <div class="flex items-center space-x-2 border-b border-gray-800 pb-3 overflow-x-auto scrollbar-none">
+        <button onclick="switchSuperTab('analytics')" data-tab="analytics" class="super-tab-btn px-4 py-2.5 rounded-xl font-bold text-xs bg-[#C59B27] text-[#18110E] shadow-sm flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Financial Intelligence</span>
+        </button>
+        <button onclick="switchSuperTab('inventory')" data-tab="inventory" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Master Inventory & Pricing</span>
+        </button>
+        <button onclick="switchSuperTab('staff')" data-tab="staff" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-users-gear"></i>
+          <span>Admin & Staff Access</span>
+        </button>
+        <button onclick="switchSuperTab('reservations')" data-tab="reservations" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>Booking Leads</span>
+        </button>
+        <button onclick="switchSuperTab('settings')" data-tab="settings" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-gears"></i>
+          <span>Store & Payment Config</span>
+        </button>
+        <button onclick="switchSuperTab('backup')" data-tab="backup" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-database"></i>
+          <span>Backup & Database</span>
+        </button>
+        <button onclick="switchSuperTab('audit')" data-tab="audit" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Audit Logs</span>
+        </button>
+      </div>
+
+      <!-- =========================================================================
+           TAB 1: FINANCIAL & REVENUE INTELLIGENCE
+           ========================================================================= -->
+      <div id="super-tab-analytics" class="super-tab-content space-y-6">
+        
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 shadow-sm">
+            <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">Total Catalog Valuation</span>
+            <span id="an-valuation" class="font-heading text-lg sm:text-2xl font-bold text-[#C59B27]">₹0</span>
+            <span class="text-[10px] text-gray-500 block mt-1">Sum of all current retail inventory</span>
+          </div>
+
+          <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 shadow-sm">
+            <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">WhatsApp Inquiry Pipeline</span>
+            <span id="an-pipeline" class="font-heading text-lg sm:text-2xl font-bold text-green-400">₹0</span>
+            <span class="text-[10px] text-gray-500 block mt-1">Total revenue in booking leads</span>
+          </div>
+
+          <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 shadow-sm">
+            <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">Average Fragrance Price</span>
+            <span id="an-avg-price" class="font-heading text-lg sm:text-2xl font-bold text-white">₹0</span>
+            <span class="text-[10px] text-gray-500 block mt-1">Average ticket price per bottle</span>
+          </div>
+
+          <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 shadow-sm">
+            <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">Lead Conversion Rate</span>
+            <span id="an-conversion" class="font-heading text-lg sm:text-2xl font-bold text-blue-400">0%</span>
+            <span class="text-[10px] text-gray-500 block mt-1">Confirmed / Picked Up vs Inquiries</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3">
+            <h3 class="font-heading text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-crown text-[#C59B27]"></i> Catalog Valuation by Brand
+            </h3>
+            <div id="brand-breakdown-list" class="space-y-2">
+              <!-- Rendered by superadmin.js -->
+            </div>
+          </div>
+
+          <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3">
+            <h3 class="font-heading text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-tags text-[#C59B27]"></i> Olfactory Accords Breakdown
+            </h3>
+            <div id="accord-breakdown-list" class="space-y-2">
+              <!-- Rendered by superadmin.js -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 2: MASTER INVENTORY & BULK PRICING
+           ========================================================================= -->
+      <div id="super-tab-inventory" class="super-tab-content hidden space-y-4">
+        
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div>
+            <h3 class="font-heading text-base font-bold text-white">Master Inventory & Bulk Pricing Engine</h3>
+            <p class="text-xs text-gray-400">Adjust catalog pricing in bulk or manage individual listings.</p>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="applyBulkDiscount(10)" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 hover:border-[#C59B27] text-[#C59B27]">
+              -10% Festive Sale
+            </button>
+            <button onclick="applyBulkDiscount(5)" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 hover:border-[#C59B27] text-[#C59B27]">
+              -5% Discount
+            </button>
+            <button onclick="openSuperProductModal()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-plus"></i> Add Fragrance
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
+                  <th class="py-3 px-3">Fragrance</th>
+                  <th class="py-3 px-3">Accord</th>
+                  <th class="py-3 px-3">Gender</th>
+                  <th class="py-3 px-3">Price (INR)</th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="master-inventory-tbody">
+                <!-- Rendered by superadmin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 3: STAFF & ADMIN ACCESS MANAGEMENT
+           ========================================================================= -->
+      <div id="super-tab-staff" class="super-tab-content hidden space-y-4">
+        
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800 flex items-center justify-between">
+          <div>
+            <h3 class="font-heading text-base font-bold text-white">Admin & Staff Access Accounts</h3>
+            <p class="text-xs text-gray-400">Create, manage, or revoke access for store staff and managers.</p>
+          </div>
+          <button onclick="openStaffModal()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-user-plus"></i> Add Staff Account
+          </button>
+        </div>
+
+        <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
+                  <th class="py-3 px-3">Name</th>
+                  <th class="py-3 px-3">Role</th>
+                  <th class="py-3 px-3">Email</th>
+                  <th class="py-3 px-3">PIN / Key</th>
+                  <th class="py-3 px-3">Status</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staff-table-tbody">
+                <!-- Rendered by superadmin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 4: BOOKING LEADS AUDIT
+           ========================================================================= -->
+      <div id="super-tab-reservations" class="super-tab-content hidden space-y-4">
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800">
+          <h3 class="font-heading text-base font-bold text-white">All WhatsApp Booking Leads</h3>
+          <p class="text-xs text-gray-400">Complete historical log of customer reservation inquiries.</p>
+        </div>
+
+        <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
+                  <th class="py-3 px-3">Lead ID</th>
+                  <th class="py-3 px-3">Fragrance</th>
+                  <th class="py-3 px-3">Price</th>
+                  <th class="py-3 px-3">Inquiry Date</th>
+                  <th class="py-3 px-3">Status</th>
+                </tr>
+              </thead>
+              <tbody id="super-reservations-tbody">
+                <!-- Rendered by superadmin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           TAB 5: MASTER STORE & PAYMENT CONFIGURATION
+           ========================================================================= -->
+      <div id="super-tab-settings" class="super-tab-content hidden space-y-6">
+        <div class="bg-[#1C1511] p-6 rounded-2xl border border-gray-800">
+          <h3 class="font-heading text-lg font-bold text-white mb-1">Master Store & Payment Configuration</h3>
+          <p class="text-xs text-gray-400 mb-6">Configure UPI VPA, WhatsApp booking endpoint, GST compliance, and master keys.</p>
+
+          <form onsubmit="handleSuperSettingsSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Store Name</label>
+                <input type="text" id="su-store-name" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Tagline</label>
+                <input type="text" id="su-tagline" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">WhatsApp Reservation Number</label>
+                <input type="text" id="su-whatsapp" required placeholder="e.g. 919579453006" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">UPI VPA ID (GPay / PhonePe / Paytm)</label>
+                <input type="text" id="su-upi" placeholder="e.g. perfumeshope@upi" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">GST Registration Number</label>
+                <input type="text" id="su-gst" placeholder="e.g. 27AABCP9822F1Z4" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Support Phone</label>
+                <input type="text" id="su-phone" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Support Email</label>
+                <input type="email" id="su-email" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Store Hours</label>
+                <input type="text" id="su-hours" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Physical Flagship Address</label>
+              <textarea id="su-address" rows="2" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-[#C59B27] focus:outline-none"></textarea>
+            </div>
+
+            <div>
+              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Top Announcement Ribbon</label>
+              <input type="text" id="su-announcement" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+              <label class="flex items-center gap-2 text-xs text-gray-300">
+                <input type="checkbox" id="su-announcement-active" class="w-4 h-4 text-[#C59B27] rounded">
+                <span>Display Announcement Ribbon</span>
+              </label>
+
+              <label class="flex items-center gap-2 text-xs text-red-400 font-semibold">
+                <input type="checkbox" id="su-maintenance" class="w-4 h-4 text-red-500 rounded">
+                <span>Maintenance Mode</span>
+              </label>
+            </div>
+
+            <div class="pt-4 border-t border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Change Super Admin Master Key</label>
+                <input type="password" id="su-new-password" placeholder="Leave blank to keep current master key" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg transition-colors">
+                Save Master Settings
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           TAB 6: DATABASE BACKUP & RESTORE
+           ========================================================================= -->
+      <div id="super-tab-backup" class="super-tab-content hidden space-y-6">
+        <div class="bg-[#1C1511] p-6 rounded-2xl border border-gray-800 space-y-4">
+          <h3 class="font-heading text-lg font-bold text-white">Full Database Backup, Export & Restore</h3>
+          <p id="backup-summary-stats" class="text-xs text-[#C59B27] font-semibold"></p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            
+            <div class="p-4 rounded-xl bg-[#120D0A] border border-gray-800 space-y-3">
+              <h4 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-file-export text-[#C59B27]"></i> Download Complete Backup
+              </h4>
+              <p class="text-[11px] text-gray-400">Exports all products, leads, staff accounts, settings, and logs into a single JSON file.</p>
+              <button onclick="exportFullDatabaseJSON()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-colors">
+                Download JSON Backup
+              </button>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#120D0A] border border-gray-800 space-y-3">
+              <h4 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-file-import text-blue-400"></i> Restore from JSON Backup
+              </h4>
+              <p class="text-[11px] text-gray-400">Upload a previously exported JSON backup file to restore complete store data.</p>
+              <input type="file" id="import-json-file" accept=".json" onchange="handleImportDatabaseJSON(event)" class="text-xs text-gray-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700">
+            </div>
+
+          </div>
+
+          <div class="pt-6 border-t border-gray-800">
+            <h4 class="text-xs font-bold text-red-400 uppercase tracking-wider mb-1">Danger Zone</h4>
+            <p class="text-[11px] text-gray-500 mb-3">Reset the store to initial factory defaults.</p>
+            <button onclick="hardResetStore()" class="bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i> Factory Hard Reset Store
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================================
+           TAB 7: AUDIT LOGS
+           ========================================================================= -->
+      <div id="super-tab-audit" class="super-tab-content hidden space-y-4">
+        <div class="bg-[#1C1511] p-4 rounded-2xl border border-gray-800">
+          <h3 class="font-heading text-base font-bold text-white">System Security & Activity Audit Trail</h3>
+          <p class="text-xs text-gray-400">Real-time log of administrative events and security operations.</p>
+        </div>
+
+        <div class="bg-[#1C1511] rounded-2xl border border-gray-800 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#120D0A] border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400">
+                  <th class="py-2.5 px-3">Event ID</th>
+                  <th class="py-2.5 px-3">Action Description</th>
+                  <th class="py-2.5 px-3">User</th>
+                  <th class="py-2.5 px-3">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-tbody">
+                <!-- Rendered by superadmin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       STAFF ACCOUNT MODAL
+       ========================================================================= -->
+  <div id="staff-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-2xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeStaffModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 id="staff-modal-title" class="font-heading text-base font-bold text-white uppercase">Add Staff Account</h3>
+
+      <form id="staff-form" onsubmit="handleStaffSubmit(event)" class="space-y-3">
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Staff Member Name</label>
+          <input type="text" id="st-name" required placeholder="e.g. Rahul Sharma" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Role Assigned</label>
+          <select id="st-role" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            <option value="Store Manager">Store Manager (Full Admin)</option>
+            <option value="Inventory Staff">Inventory Staff (Stock & Products)</option>
+            <option value="Sales Associate">Sales Associate (Leads & Orders)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Email Address</label>
+          <input type="email" id="st-email" required placeholder="staff@perfumeshope.in" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Login PIN / Password</label>
+          <input type="text" id="st-pin" required placeholder="e.g. admin123" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeStaffModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SUPER PRODUCT EDIT MODAL
+       ========================================================================= -->
+  <div id="super-product-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-xl w-full rounded-2xl border border-gray-700 p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
+      <button onclick="closeSuperProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 id="super-modal-title" class="font-heading text-base font-bold text-white uppercase">Add Fragrance</h3>
+
+      <form id="super-product-form" onsubmit="handleSuperProductSubmit(event)" class="space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Perfume Name</label>
+            <input type="text" id="sp-name" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Brand</label>
+            <input type="text" id="sp-brand" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Price (INR ₹)</label>
+            <input type="number" id="sp-price" required min="1" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Gender</label>
+            <select id="sp-gender" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <option value="Unisex">Unisex</option>
+              <option value="Women">Women</option>
+              <option value="Men">Men</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Accord</label>
+            <select id="sp-accord" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <option value="Kashmiri Gulab & Rose">🌸 Kashmiri Gulab & Rose</option>
+              <option value="Royal Dehn Al Oud">🪵 Royal Dehn Al Oud</option>
+              <option value="Warm Vanilla & Kesar">🍦 Warm Vanilla & Kesar</option>
+              <option value="Mysore Sandal & Woods">🌲 Mysore Sandal & Woods</option>
+              <option value="Fresh Citrus & Monsoon Aqua">🍋 Fresh Citrus & Monsoon Aqua</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Badge</label>
+            <input type="text" id="sp-badge" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Olfactory Notes</label>
+          <input type="text" id="sp-notes" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Image URL</label>
+          <input type="url" id="sp-image" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <input type="checkbox" id="sp-stock" checked class="w-4 h-4 text-[#C59B27] rounded">
+          <label for="sp-stock" class="text-xs font-bold text-white">In Stock & Ready for Store Pickup</label>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeSuperProductModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Fragrance</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Engine Script -->
+  <script src="superadmin.js"></script>
+</body>
+</html>

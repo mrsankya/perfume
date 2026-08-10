@@ -10,32 +10,30 @@
 
 ## Live Deployment Links
 - **Storefront URL**: [https://perfume-shopee.pages.dev](https://perfume-shopee.pages.dev)
-- **Admin Panel URL**: [https://perfume-shopee.pages.dev/admin.html](https://perfume-shopee.pages.dev/admin.html)
+- **Regular Admin URL**: [https://perfume-shopee.pages.dev/admin.html](https://perfume-shopee.pages.dev/admin.html)
+- **Super Admin URL (Hidden / URL-Only Navigation)**: [https://perfume-shopee.pages.dev/superadmin.html](https://perfume-shopee.pages.dev/superadmin.html)
 - **Cloudflare Account ID**: `0fbadd932cb4ec64fe049a68da13c315`
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
 
-## Admin Panel Details
-- **Access Route**: [`admin.html`](file:///C:/Users/sanke/perfume-shopee-main/admin.html) (or click "Admin" in header/footer)
-- **Default Passwords**: `admin` or `9822725265` (customizable in store settings)
-- **Key Admin Features**:
-  1. **📦 Fragrance Inventory (CRUD)**: Add, edit, delete fragrances, update notes, accords, badges, image URLs, prices in ₹ INR, and 1-click toggle In-Stock / Out-of-Stock status.
-  2. **📋 WhatsApp Leads / Inquiries Tracker**: Real-time log of customer reservations with customer name, brand, price, timestamp, and interactive status selector (Pending, Confirmed, Picked Up, Cancelled) + Export to CSV.
-  3. **⚙️ Boutique & Store Settings**: Manage store name, tagline, WhatsApp booking number, support phone/email, address, store hours, top announcement banner, and admin password change.
-  4. **🔄 Reset to Defaults**: 1-click restore to original 12 luxury perfumes.
+## Role-Based Access Control (RBAC)
 
-## Indian Features & Architecture
-1. **Indian Currency (₹)**: All prices formatted dynamically in INR (e.g. ₹2,899, ₹3,499, ₹13,499) with Indian numbering format.
-2. **Indian Fragrance Catalog**: Curated luxury perfumes popular in India (Lattafa Khamrah, Rasasi Hawas & Oud Suprême, Afnan Turathi, Armaf Club De Nuit Intense, Ajmal Amir One Oud, Delina Exclusif, Mysore Chandan Royale, Tom Ford, Creed).
-3. **Indian Olfactory Accords**:
-   - 🌸 Kashmiri Gulab & Rose
-   - 🪵 Royal Dehn Al Oud
-   - 🍦 Warm Vanilla & Kesar
-   - 🌲 Mysore Sandal & Woods
-   - 🍋 Fresh Citrus & Monsoon Aqua
-4. **Indian Occasion Scent Quiz**: Tailored for Indian Weddings & Sangeet, Daily Office/College, Evening Dawat & Parties, Festive Celebrations.
-5. **WhatsApp Reservation Engine**: Pre-fills messages in Indian context ("Namaste Perfume Shope!...") with Rupee pricing and store pickup confirmation.
-6. **Flagship Indian Boutique**: FC Road, Pune, Maharashtra with UPI (GPay, PhonePe, Paytm), Card & Cash on Pickup options.
+### 👑 Super Admin (Owner Level)
+- **Access Route**: Direct URL ONLY (`superadmin.html`). *No public button on website.*
+- **Master Passwords**: `superadmin` or `9822725265` (customizable in master settings)
+- **Super Admin Features**:
+  1. **👥 Staff & Admin Access Management**: Create, edit, and revoke staff / manager accounts with custom PINs.
+  2. **📊 Financial & Sales Intelligence**: Catalog valuation in INR, WhatsApp inquiry pipeline, conversion rate, and brand breakdown.
+  3. **📦 Master Inventory & Bulk Pricing**: Add / edit / delete fragrances and apply bulk discounts (-5%, -10%, etc.).
+  4. **📋 Booking Leads Audit**: Complete log of customer WhatsApp reservations with status updates and export to CSV.
+  5. **⚙️ Master Store Configuration**: WhatsApp API endpoint, UPI VPA ID, GST compliance, store address/timings, and maintenance mode toggle.
+  6. **💾 Full Database Backup & Restore**: One-click JSON export of complete store data, JSON file import / restore, and factory hard reset.
+  7. **📜 Security Audit Logs**: Real-time trail of all administrative and master operations.
+
+### 👔 Regular Admin (Staff / Boutique Manager)
+- **Access Route**: `admin.html` (or link in footer)
+- **Staff Passwords**: `admin` or staff PINs created by Super Admin
+- **Staff Features**: Daily inventory management, stock status toggle (In Stock / Out of Stock), WhatsApp lead processing.
 
 ## 1-Click Deployment Files
 - **[`deploy.bat`](file:///C:/Users/sanke/perfume-shopee-main/deploy.bat)**: Double-click to instantly deploy any local changes to Cloudflare Pages.
