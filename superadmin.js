@@ -727,12 +727,21 @@ function renderBackupView() {
 }
 
 function exportFullDatabaseJSON() {
+  let visitors = [];
+  let orders = [];
+  try {
+    visitors = JSON.parse(localStorage.getItem('perfumes_visitors')) || [];
+    orders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
   const dbSnapshot = {
-    version: '2.0-superadmin',
+    version: '3.0-superadmin',
     exportedAt: new Date().toISOString(),
     store: settings.storeName,
     products: products,
     reservations: reservations,
+    visitors: visitors,
+    orders: orders,
     staff: staffList,
     settings: settings,
     auditLogs: auditLogs
@@ -743,12 +752,12 @@ function exportFullDatabaseJSON() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `perfume_shope_backup_${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `perfume_shope_master_backup_${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
 
-  recordAudit('Full Database Backup Exported');
+  recordAudit('Full Database Backup Exported (with Visitors & Orders)');
   showToast('Database backup downloaded successfully', 'success');
 }
 
@@ -767,6 +776,12 @@ function handleImportDatabaseJSON(event) {
       if (data.reservations && Array.isArray(data.reservations)) {
         reservations = data.reservations;
         localStorage.setItem('perfumes_reservations', JSON.stringify(reservations));
+      }
+      if (data.visitors && Array.isArray(data.visitors)) {
+        localStorage.setItem('perfumes_visitors', JSON.stringify(data.visitors));
+      }
+      if (data.orders && Array.isArray(data.orders)) {
+        localStorage.setItem('perfumes_orders', JSON.stringify(data.orders));
       }
       if (data.staff && Array.isArray(data.staff)) {
         staffList = data.staff;

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PERFUME SHOPE - DYNAMIC DUAL THEME ENGINE (WOMEN LUXE & MEN MARVEL TITANIUM)
+   PERFUME SHOPE - DYNAMIC DUAL THEME ENGINE & E-COMMERCE CART SYSTEM
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
@@ -166,12 +166,6 @@ body {
   border-color: #38BDF8 !important;
 }
 
-[data-theme="men"] .gender-indicator-badge {
-  background: linear-gradient(135deg, #101624 0%, #151D2D 100%);
-  border: 1px solid rgba(56, 189, 248, 0.5);
-  color: #38BDF8;
-}
-
 /* Floating App Dock */
 .floating-app-dock {
   position: fixed;
@@ -250,6 +244,40 @@ body {
 
 .wa-pulse {
   animation: waPulse 2.5s infinite;
+}
+
+/* GPS Radar Pulse */
+@keyframes gpsRadar {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.gps-radar {
+  position: relative;
+}
+.gps-radar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid var(--accent-gold);
+  animation: gpsRadar 1.8s infinite;
+}
+
+/* Cart Slide-Over Drawer */
+.cart-drawer-overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease;
+}
+
+.cart-drawer-panel {
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-drawer-panel.open {
+  transform: translateX(0);
 }
 
 /* Modals */

@@ -42,20 +42,22 @@
 
   <!-- TOP LUXURY ANNOUNCEMENT BANNER -->
   <aside class="bg-[#18110E] text-[#FAF5EE] text-[10px] sm:text-xs py-1.5 px-4 text-center border-b border-[#3A2D25] font-medium tracking-wide">
-    <div class="max-w-7xl mx-auto flex items-center justify-center space-x-2">
-      <span class="inline-block w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
-      <span>100% Authentic Original Batches &bull; Same-Day Store Pickup &bull; WhatsApp Booking in INR (₹)</span>
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="hidden sm:flex items-center space-x-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#16a34a] animate-pulse"></span>
+        <span>100% Genuine Batches &bull; Same-Day Pune Pickup</span>
+      </div>
+      <div class="mx-auto sm:mx-0 flex items-center gap-2">
+        <span>🎁 Use Code <strong class="text-[#C59B27]">ROYAL500</strong> for ₹500 OFF</span>
+        <button onclick="openLeadGiftModal()" class="underline text-[10px] text-[#C59B27] font-bold">Claim Gift &rarr;</button>
+      </div>
+      <div class="hidden lg:block text-[11px] text-gray-400">
+        <i class="fa-solid fa-phone text-[#C59B27] mr-1"></i> +91 95794 53006
+      </div>
     </div>
   </aside>
 
-  <!-- LOW-BANDWIDTH TOAST NOTIFICATION -->
-  <div id="low-bandwidth-banner" class="hidden bg-[#231B17] text-white text-xs py-1 px-4 text-center flex items-center justify-center space-x-2 border-b border-gray-700">
-    <i class="fa-solid fa-gauge-high text-[#C59B27]"></i>
-    <span>Data Saver Mode Active</span>
-    <button onclick="toggleLowBandwidth(false)" class="text-[10px] underline font-semibold text-[#A67642]">Disable</button>
-  </div>
-
-  <!-- COMPACT HEADER WITH DUAL THEME SWITCHER -->
+  <!-- COMPACT HEADER WITH CART, GOOGLE AUTH & DUAL THEME SWITCHER -->
   <header class="sticky top-0 z-40 glass-header-mobile">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-14 sm:h-20">
@@ -72,7 +74,7 @@
         </div>
 
         <!-- Desktop Navigation Links -->
-        <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold">
+        <nav class="hidden lg:flex items-center space-x-7 text-xs uppercase tracking-widest font-semibold">
           <a href="#hero" class="theme-text-main hover:text-[#A67642] transition-colors">Home</a>
           <a href="#catalog" class="theme-text-main hover:text-[#A67642] transition-colors">Catalogue (₹)</a>
           <a href="#scent-experience" class="text-[#A67642] hover:text-[#7A5328] transition-colors flex items-center gap-1.5">
@@ -84,10 +86,10 @@
           </a>
         </nav>
 
-        <!-- Right: Dual Theme Gender Switcher & Actions -->
+        <!-- Right: Actions & Dual Theme Switcher -->
         <div class="flex items-center space-x-1.5 sm:space-x-3">
           
-          <!-- Gender & UI Theme Switcher (All / Women Luxe / Men Marvel) -->
+          <!-- Gender & UI Theme Switcher -->
           <div class="flex items-center bg-black/10 dark:bg-white/10 p-0.5 sm:p-1 rounded-full border theme-border text-[10px] sm:text-xs shadow-xs">
             <button onclick="filterGender('All')" data-gender="All" class="gender-filter-btn px-2.5 sm:px-3 py-1 rounded-full font-bold bg-[#231B17] text-white shadow-xs transition-all flex items-center gap-1">
               <span>👑 All</span>
@@ -100,15 +102,22 @@
             </button>
           </div>
 
-          <!-- Search Trigger Icon -->
-          <button onclick="focusSearch()" class="p-1.5 sm:p-2 rounded-full theme-card text-xs sm:text-sm shadow-xs" title="Search Fragrances">
-            <i class="fa-solid fa-magnifying-glass"></i>
+          <!-- User Profile / Google Sign-In Button -->
+          <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-1.5 sm:px-3 sm:py-1.5 rounded-full theme-card border flex items-center gap-1.5 text-xs shadow-xs">
+            <i class="fa-brands fa-google text-red-500"></i>
+            <span class="hidden md:inline font-semibold">Sign In</span>
+          </button>
+
+          <!-- Shopping Cart Drawer Trigger -->
+          <button onclick="openCartDrawer()" class="relative p-1.5 sm:p-2 rounded-full theme-card border text-xs sm:text-sm shadow-xs" title="Shopping Cart">
+            <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
+            <span class="cart-count-badge hidden absolute -top-1 -right-1 bg-[#E62429] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">0</span>
           </button>
 
           <!-- WhatsApp Direct Chat Button -->
-          <a href="https://wa.me/919579453006?text=Namaste%20Perfume%20Shope!%20I%20am%20inquiring%20about%20luxury%20perfumes." target="_blank" rel="noopener noreferrer" class="flex items-center space-x-1.5 bg-[#16a34a] hover:bg-[#15803d] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all wa-pulse">
+          <a href="https://wa.me/919579453006?text=Namaste%20Perfume%20Shope!%20I%20am%20inquiring%20about%20luxury%20perfumes." target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 bg-[#16a34a] hover:bg-[#15803d] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all wa-pulse">
             <i class="fa-brands fa-whatsapp text-xs sm:text-sm"></i>
-            <span class="hidden sm:inline">WhatsApp Booking</span>
+            <span>WhatsApp</span>
           </a>
 
           <!-- Mobile Hamburger Drawer Trigger -->
@@ -143,24 +152,23 @@
       <a href="#store-locator" onclick="toggleMobileMenu()" class="block theme-text-main hover:text-[#A67642] py-1 font-medium text-xs uppercase tracking-wider">Boutique Store Pickup</a>
       <a href="admin.html" onclick="toggleMobileMenu()" class="block text-[#7A5328] hover:text-[#231B17] py-1 font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-shield-halved text-xs mr-1"></i> Admin Portal</a>
       
-      <a href="https://wa.me/919579453006?text=Namaste!%20I%20am%20interested%20in%20reserving%20a%20perfume%20for%20store%20pickup." target="_blank" class="flex items-center justify-center space-x-2 bg-[#16a34a] text-white w-full py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider mt-2 shadow-xs">
-        <i class="fa-brands fa-whatsapp text-base"></i>
-        <span>Reserve on WhatsApp</span>
-      </a>
+      <div class="pt-2 grid grid-cols-2 gap-2">
+        <button onclick="openCartDrawer(); toggleMobileMenu();" class="bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-cart-shopping"></i> View Cart
+        </button>
+        <button onclick="openLeadGiftModal(); toggleMobileMenu();" class="bg-[#18110E] text-[#C59B27] border border-[#C59B27] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5">
+          🎁 ₹500 Coupon
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- =========================================================================
-       DYNAMIC HERO CAROUSEL SLIDER (ADAPTS TO WOMEN LUXE OR MEN MARVEL)
-       ========================================================================= -->
+  <!-- DYNAMIC HERO SLIDER -->
   <section id="hero" class="relative w-full h-[72vh] md:h-[85vh] overflow-hidden rounded-none md:rounded-2xl bg-[#18110E]">
-    
-    <!-- Slides rendered dynamically by JavaScript based on selected theme -->
     <div id="hero-slides-container" class="relative w-full h-full">
-      <!-- Injected by app.js -->
+      <!-- Injected dynamically by app.js based on theme -->
     </div>
 
-    <!-- Single Minimal CTA Button -->
     <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-30">
       <a href="#catalog" class="bg-[#18110E]/90 hover:bg-[#A67642] border border-[#C59B27]/70 text-white px-7 py-3 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center gap-2 shadow-2xl backdrop-blur-md transition-all">
         <span>EXPLORE CATALOGUE (₹)</span>
@@ -168,7 +176,6 @@
       </a>
     </div>
 
-    <!-- Left & Right Side Navigation Arrows -->
     <button onclick="prevSlide()" class="left-4 md:left-6 absolute top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-black/40 hover:bg-black/70 text-white rounded-full flex items-center justify-center backdrop-blur-md cursor-pointer transition-all" title="Previous Slide">
       <i class="fa-solid fa-chevron-left text-sm"></i>
     </button>
@@ -177,17 +184,15 @@
       <i class="fa-solid fa-chevron-right text-sm"></i>
     </button>
 
-    <!-- Bottom Pagination Dots -->
     <div id="slider-dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
       <span onclick="goToSlide(0)" class="slider-dot active-dot"></span>
       <span onclick="goToSlide(1)" class="slider-dot"></span>
       <span onclick="goToSlide(2)" class="slider-dot"></span>
       <span onclick="goToSlide(3)" class="slider-dot"></span>
     </div>
-
   </section>
 
-  <!-- TRUST BADGES STRIP (INDIAN SHOPPING ASSURANCE) -->
+  <!-- TRUST BADGES STRIP -->
   <section class="theme-bg-secondary border-b theme-border py-3.5 px-4">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-3 text-center sm:text-left">
       <div class="flex items-center gap-2.5 p-2 rounded-xl theme-card border">
@@ -230,14 +235,14 @@
     </div>
   </section>
 
-  <!-- MAIN E-CATALOG & SEARCH FILTER SECTION -->
+  <!-- MAIN E-CATALOG SECTION -->
   <section id="catalog" class="py-12 sm:py-20 theme-bg-main">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-xl mx-auto mb-8 sm:mb-12">
         <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">HAUTE INDIAN CATALOGUE</span>
         <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main mt-1">Explore Authentic Luxury Perfumes</h2>
-        <p class="theme-text-secondary text-xs mt-1.5">Direct authentic imports from Dubai, Paris & India's royal distillers. Prices in Indian Rupees (₹) with instant WhatsApp store pickup reservation.</p>
+        <p class="theme-text-secondary text-xs mt-1.5">Direct authentic imports from Dubai, Paris & India's royal distillers. Add to cart for instant online order or reserve for store pickup.</p>
       </div>
 
       <div class="theme-card p-3.5 sm:p-5 rounded-2xl mb-8 border shadow-sm space-y-3">
@@ -271,12 +276,12 @@
     </div>
   </section>
 
-  <!-- INTERACTIVE "FIND YOUR SCENT" QUIZ & STORE EXPERIENCE SECTION -->
+  <!-- INTERACTIVE SCENT FINDER QUIZ -->
   <section id="scent-experience" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
         
-        <!-- LEFT COLUMN: INTERACTIVE "FIND YOUR SCENT" WIZARD CARD -->
+        <!-- LEFT: SCENT FINDER WIZARD -->
         <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6">
           <div>
             <div class="flex items-center gap-2 mb-2">
@@ -290,19 +295,15 @@
             <!-- Rendered by app.js based on selected gender theme -->
           </div>
 
-          <!-- Result Container -->
           <div id="wizard-result-box" class="pt-4 border-t theme-border">
             <!-- Rendered by JS on selection -->
           </div>
-
         </div>
 
-        <!-- RIGHT COLUMN: STORE EXPERIENCE & FREE TESTER CALLOUT -->
+        <!-- RIGHT: STORE EXPERIENCE & TESTER CALLOUT -->
         <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm border flex flex-col justify-between space-y-6 relative overflow-hidden">
-          
           <div class="relative h-52 sm:h-64 rounded-xl overflow-hidden border theme-border group">
             <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1000&auto=format&fit=crop&q=80" alt="Physical Boutique Store Experience" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=800&auto=format&fit=crop&q=80';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            
             <span class="absolute top-3 left-3 bg-[#18110E]/95 text-[#C59B27] text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest backdrop-blur-md border border-[#C59B27]/40 shadow-md">
               🇮🇳 IN-STORE TESTER LOUNGE
             </span>
@@ -312,7 +313,6 @@
             <h3 class="font-heading text-xl sm:text-2xl font-semibold theme-text-main">
               Experience Fragrances In Person Before Buying
             </h3>
-
             <p class="text-xs sm:text-sm theme-text-secondary leading-relaxed">
               Visit our boutique store to test over 100+ authentic imported designer & Arabic perfumes. Try before you buy and claim a complimentary sample tester spray on your visit.
             </p>
@@ -323,7 +323,6 @@
               <span>GET STORE DIRECTIONS & TIMINGS →</span>
             </a>
           </div>
-
         </div>
 
       </div>
@@ -333,19 +332,16 @@
   <!-- STORE LOCATOR SECTION -->
   <section id="store-locator" class="py-12 sm:py-20 theme-bg-main">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
       <div class="theme-card rounded-2xl sm:rounded-3xl p-6 sm:p-12 border shadow-xs">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
           <div class="lg:col-span-7 space-y-4">
             <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#A67642] font-bold block">FLAGSHIP INDIAN BOUTIQUE</span>
-
             <h2 class="font-heading text-2xl sm:text-4xl font-semibold theme-text-main">
               Store Pickup & Free Testing Available
             </h2>
-
             <p class="theme-text-secondary text-xs sm:text-sm leading-relaxed">
-              Reserve online via WhatsApp and pick up your fragrance directly at our physical boutique store. Inspect batch code, verify authenticity, test longevity, and enjoy personalized scent consultation.
+              Reserve online or pick up directly at our physical boutique store. Inspect batch code, verify authenticity, test longevity, and enjoy personalized scent consultation.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -391,9 +387,322 @@
 
         </div>
       </div>
-
     </div>
   </section>
+
+  <!-- =========================================================================
+       SHOPPING CART SLIDE-OVER DRAWER WITH DUAL ADDRESS SELECTOR (GPS & MANUAL)
+       ========================================================================= -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 z-50 cart-drawer-overlay hidden flex justify-end">
+    <div onclick="closeCartDrawer()" class="absolute inset-0"></div>
+
+    <div id="cart-drawer-panel" class="relative w-full max-w-md bg-[#18110E] text-gray-200 h-full flex flex-col shadow-2xl z-10 cart-drawer-panel border-l border-gray-800">
+      
+      <!-- Drawer Header -->
+      <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-[#120D0A]">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
+          <h3 class="font-heading text-sm font-bold text-white uppercase tracking-wider">Your Shopping Cart</h3>
+        </div>
+        <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+
+      <!-- Cart Items Scrollable List -->
+      <div id="cart-items-list" class="flex-1 overflow-y-auto p-4 space-y-3">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <!-- Checkout & Delivery Section -->
+      <div class="p-4 border-t border-gray-800 bg-[#120D0A] space-y-3.5 max-h-[50vh] overflow-y-auto">
+        
+        <!-- Promo Coupon Code -->
+        <div class="flex items-center gap-2">
+          <input type="text" id="cart-coupon-input" placeholder="Promo code (e.g. ROYAL500)" class="flex-1 bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white uppercase focus:border-[#C59B27] focus:outline-none">
+          <button onclick="applyPromoCode()" class="bg-[#C59B27] text-[#18110E] px-3.5 py-2 rounded-xl text-xs font-bold uppercase">Apply</button>
+        </div>
+
+        <!-- 2 ADDRESS SELECTION BUTTONS: AUTOMATIC GPS PRECISE vs MANUAL -->
+        <div class="space-y-2 pt-1 border-t border-gray-800">
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">Select Delivery Address Mode:</label>
+          
+          <div class="flex items-center gap-2">
+            <button id="addr-mode-gps-btn" onclick="setAddressMode('gps')" class="flex-1 py-2 rounded-xl text-xs font-medium theme-card flex items-center justify-center gap-1.5 transition-all">
+              <i class="fa-solid fa-crosshairs text-green-400"></i>
+              <span>Auto GPS Pin</span>
+            </button>
+            <button id="addr-mode-manual-btn" onclick="setAddressMode('manual')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm flex items-center justify-center gap-1.5 transition-all">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Enter Manual</span>
+            </button>
+          </div>
+
+          <!-- GPS View -->
+          <div id="addr-gps-view" class="hidden space-y-2 pt-1">
+            <div class="p-3 rounded-xl bg-[#18110E] border border-gray-800 space-y-1.5">
+              <div id="gps-status-text" class="text-xs text-gray-300">
+                <i class="fa-solid fa-location-crosshairs text-[#C59B27]"></i> Tap below to fetch high-precision GPS satellite location.
+              </div>
+              <p id="gps-coords-display" class="text-[10px] font-mono text-gray-500"></p>
+              <button onclick="fetchAutomaticGPSLocation()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-location-arrow"></i> Re-scan GPS Location
+              </button>
+            </div>
+            <div id="gps-address-result"></div>
+          </div>
+
+          <!-- Manual View -->
+          <div id="addr-manual-view" class="space-y-2 pt-1">
+            <input type="text" id="man-addr-line1" placeholder="Flat, Building & Street Address" class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            <div class="grid grid-cols-3 gap-2">
+              <input type="text" id="man-city" placeholder="City" value="Pune" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <input type="text" id="man-state" placeholder="State" value="Maharashtra" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <input type="text" id="man-pincode" placeholder="PIN Code" value="411004" class="bg-[#18110E] border border-gray-700 rounded-xl px-2.5 py-1.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Bill Breakdown -->
+        <div class="space-y-1 pt-2 border-t border-gray-800 text-xs text-gray-400">
+          <div class="flex justify-between">
+            <span>Subtotal (Inclusive GST)</span>
+            <span id="cart-subtotal-val" class="text-white font-bold">₹0</span>
+          </div>
+          <div id="cart-discount-row" class="flex justify-between text-green-400 hidden font-bold">
+            <span>Royal Discount</span>
+            <span id="cart-discount-val">- ₹0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Store Pickup / Standard Delivery</span>
+            <span class="text-green-400 font-bold">FREE</span>
+          </div>
+          <div class="flex justify-between text-sm font-extrabold text-white pt-1 border-t border-gray-800">
+            <span>Total Amount (INR)</span>
+            <span id="cart-total-val" class="text-[#C59B27] text-base">₹0</span>
+          </div>
+        </div>
+
+        <!-- Checkout Trigger Buttons -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button onclick="handleCheckoutOrder('WhatsApp')" class="bg-[#16a34a] hover:bg-[#15803d] text-white py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm transition-all">
+            <i class="fa-brands fa-whatsapp text-sm"></i>
+            <span>WhatsApp Order</span>
+          </button>
+          
+          <button onclick="handleCheckoutOrder('UPI')" class="bg-gradient-to-r from-[#D4AF37] to-[#AA771C] hover:opacity-90 text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase flex items-center justify-center gap-1.5 shadow-sm transition-all">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>Pay via UPI</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VISITOR LEAD CAPTURE & PROMOTIONAL VOUCHER MODAL
+       ========================================================================= -->
+  <div id="lead-gift-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-[#C59B27]/50 p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeLeadGiftModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-14 h-14 rounded-2xl bg-[#120D0A] border border-[#C59B27] mx-auto flex items-center justify-center text-[#C59B27] text-2xl shadow-lg">
+        <i class="fa-solid fa-gift animate-bounce"></i>
+      </div>
+
+      <div>
+        <span class="text-[9px] uppercase tracking-widest text-[#C59B27] font-bold block">ROYAL WELCOME GIFT</span>
+        <h3 class="font-heading text-xl font-bold text-white uppercase mt-0.5">Unlock ₹500 OFF Your Order</h3>
+        <p class="text-xs text-gray-400 mt-1">Enter your details to receive instant VIP discount coupon & complimentary 5ml Attar Tester spray.</p>
+      </div>
+
+      <form onsubmit="handleLeadGiftSubmit(event)" class="space-y-3 text-left">
+        <div>
+          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">Your Full Name</label>
+          <input type="text" id="lead-name-input" required placeholder="e.g. Rahul Sharma" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">WhatsApp Phone Number</label>
+          <input type="tel" id="lead-phone-input" required placeholder="+91 98227 25265" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">City</label>
+          <input type="text" id="lead-city-input" placeholder="Pune / Mumbai" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <button type="submit" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2">
+          <span>Claim ₹500 Voucher & Tester &rarr;</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       GOOGLE LOGIN MODAL
+       ========================================================================= -->
+  <div id="google-login-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeGoogleLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-12 h-12 rounded-full bg-white mx-auto flex items-center justify-center text-xl shadow-md">
+        <i class="fa-brands fa-google text-red-500"></i>
+      </div>
+
+      <div>
+        <h3 class="font-heading text-lg font-bold text-white uppercase">Sign In with Google</h3>
+        <p class="text-xs text-gray-400 mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <button onclick="handleGoogleLoginSuccess('Sakshi Patil', 'sakshi.patil@gmail.com', '+91 98227 25265')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span>Continue as Sakshi Patil</span>
+        </button>
+
+        <button onclick="handleGoogleLoginSuccess('Sanket Patil', 'sanket.patil@gmail.com', '+91 95794 53006')" class="w-full bg-white hover:bg-gray-100 text-gray-800 py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-3 border shadow-sm transition-all">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span>Continue as Sanket Patil</span>
+        </button>
+      </div>
+
+      <p class="text-[10px] text-gray-500">By continuing, you agree to Perfume Shope's Terms & Authenticity Guarantee.</p>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       USER PROFILE & REWARD POINTS MODAL
+       ========================================================================= -->
+  <div id="user-profile-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3 pb-3 border-b border-gray-800">
+        <div class="w-14 h-14 rounded-full border-2 border-[#C59B27] overflow-hidden bg-black/40">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h3 id="prof-name" class="font-heading text-base font-bold text-white"></h3>
+          <span id="prof-tier" class="px-2 py-0.5 rounded-full bg-[#C59B27]/20 text-[#C59B27] text-[10px] font-bold inline-block mt-0.5"></span>
+          <p id="prof-email" class="text-xs text-gray-400"></p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 text-center text-xs">
+        <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800">
+          <span class="text-[10px] text-gray-500 uppercase block font-bold">Reward Balance</span>
+          <span id="prof-points" class="font-heading text-sm font-bold text-[#C59B27]">750 Points</span>
+        </div>
+        <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800">
+          <span class="text-[10px] text-gray-500 uppercase block font-bold">VIP Status</span>
+          <span class="font-heading text-sm font-bold text-green-400">Active VIP</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800 text-xs space-y-1">
+        <span class="text-[10px] text-gray-500 uppercase block font-bold">Registered Phone</span>
+        <p id="prof-phone" class="text-white font-medium"></p>
+      </div>
+
+      <div class="pt-2 flex gap-2">
+        <button onclick="openCartDrawer(); closeProfileModal();" class="flex-1 bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase">
+          Open Cart
+        </button>
+        <button onclick="handleUserLogout()" class="bg-red-950 text-red-300 border border-red-800 px-4 py-2.5 rounded-xl font-bold text-xs uppercase">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       UPI QR PAYMENT MODAL
+       ========================================================================= -->
+  <div id="upi-payment-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27]/50 p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeUPIModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <span class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">INSTANT UPI CHECKOUT</span>
+      <h3 class="font-heading text-lg font-bold text-white">Scan & Pay via UPI</h3>
+
+      <!-- QR Code Simulation -->
+      <div class="p-4 bg-white rounded-2xl mx-auto w-48 h-48 flex items-center justify-center shadow-lg border-2 border-[#C59B27]">
+        <div class="text-center space-y-1">
+          <i class="fa-solid fa-qrcode text-7xl text-black"></i>
+          <span class="text-[9px] font-bold text-gray-800 block">GPay &bull; PhonePe &bull; Paytm</span>
+        </div>
+      </div>
+
+      <div class="p-2.5 rounded-xl bg-[#120D0A] border border-gray-800 text-xs space-y-1">
+        <div class="flex justify-between text-gray-400">
+          <span>Order ID:</span>
+          <span id="upi-order-id" class="text-white font-mono font-bold"></span>
+        </div>
+        <div class="flex justify-between text-gray-400">
+          <span>Amount Payable:</span>
+          <span id="upi-amount-val" class="text-[#C59B27] font-bold text-sm"></span>
+        </div>
+        <div class="flex justify-between text-gray-400">
+          <span>UPI VPA:</span>
+          <span class="text-white font-mono">perfumeshope@upi</span>
+        </div>
+      </div>
+
+      <button onclick="confirmUPIPaymentDone()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-colors">
+        I Have Paid Successfully &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       ORDER SUCCESS MODAL
+       ========================================================================= -->
+  <div id="order-success-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-green-700 p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeOrderSuccessModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="w-16 h-16 rounded-full bg-green-950/60 border border-green-600 text-green-400 mx-auto flex items-center justify-center text-2xl shadow-lg">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+
+      <div>
+        <h3 class="font-heading text-xl font-bold text-white uppercase">Order Confirmed!</h3>
+        <p class="text-xs text-gray-400 mt-1">Your order has been recorded and our boutique concierge is preparing your package.</p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[#120D0A] border border-gray-800 text-xs text-left space-y-2">
+        <div class="flex justify-between">
+          <span class="text-gray-400">Order ID:</span>
+          <span id="success-order-id" class="text-white font-mono font-bold"></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Total Paid:</span>
+          <span id="success-total-val" class="text-[#C59B27] font-bold"></span>
+        </div>
+        <div>
+          <span class="text-gray-400 block mb-0.5">Delivery Address:</span>
+          <p id="success-address-val" class="text-white font-medium text-[11px]"></p>
+        </div>
+      </div>
+
+      <button onclick="closeOrderSuccessModal()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-xl font-bold text-xs uppercase tracking-wider">
+        Continue Shopping
+      </button>
+    </div>
+  </div>
 
   <!-- QUICK VIEW MODAL -->
   <div id="product-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
@@ -401,10 +710,7 @@
       <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-2 text-base">
         <i class="fa-solid fa-xmark"></i>
       </button>
-
-      <div id="modal-product-content">
-        <!-- Rendered by JS -->
-      </div>
+      <div id="modal-product-content"></div>
     </div>
   </div>
 
@@ -416,16 +722,21 @@
     </a>
     <a href="#catalog" class="dock-nav-link">
       <i class="fa-solid fa-spray-can-sparkles"></i>
-      <span>Shop (₹)</span>
+      <span>Shop</span>
     </a>
+    <button onclick="openCartDrawer()" class="dock-nav-link relative">
+      <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
+      <span>Cart</span>
+      <span class="cart-count-badge hidden absolute -top-1 right-2 bg-[#E62429] text-white text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center">0</span>
+    </button>
     <a href="#scent-experience" class="dock-nav-link">
       <i class="fa-solid fa-wand-magic-sparkles"></i>
-      <span>Finder</span>
+      <span>Quiz</span>
     </a>
-    <a href="#store-locator" class="dock-nav-link">
-      <i class="fa-solid fa-store"></i>
-      <span>Pickup</span>
-    </a>
+    <button onclick="openGoogleLoginModal()" class="dock-nav-link">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </button>
   </div>
 
   <!-- FOOTER -->
