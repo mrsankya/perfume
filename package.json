@@ -1,0 +1,14 @@
+{
+  "name": "perfume-shopee",
+  "version": "1.0.0",
+  "description": "Perfume shop demo project",
+  "scripts": {
+    "start": "http-server -p 3000",
+    "dev": "http-server -c-1 -p 3000"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "author": "Sakshi-patil48",
+  "license": "MIT"
+}
