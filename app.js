@@ -11,7 +11,7 @@ const PERFUMES_DATABASE = [
     gender: 'Women',
     accord: 'Floral & Rose',
     notes: 'Damask Rose, Blackcurrant, Oud',
-    image: 'assets/images/rose_noir.jpg',
+    image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
     badge: 'Bestseller'
   },
   {
@@ -22,7 +22,7 @@ const PERFUMES_DATABASE = [
     gender: 'Unisex',
     accord: 'Royal Oud',
     notes: 'Rare Oud, Sandalwood, Cardamom',
-    image: 'assets/images/oud_supreme.jpg',
+    image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
     badge: 'Top Pick'
   },
   {
@@ -33,7 +33,7 @@ const PERFUMES_DATABASE = [
     gender: 'Women',
     accord: 'Warm Vanilla',
     notes: 'Bourbon Vanilla, Orchid, Cashmere',
-    image: 'assets/images/belle_eclat.jpg',
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
     badge: 'Trending'
   },
   {
@@ -44,7 +44,7 @@ const PERFUMES_DATABASE = [
     gender: 'Unisex',
     accord: 'Fresh Citrus',
     notes: 'Calabrian Bergamot, Pink Pepper, Ambroxan',
-    image: 'assets/images/lumiere.jpg',
+    image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
     badge: 'Fresh'
   },
   {
@@ -55,7 +55,7 @@ const PERFUMES_DATABASE = [
     gender: 'Men',
     accord: 'Smoky Woods',
     notes: 'White Iris, Crisp Cotton, Cedarwood',
-    image: 'assets/images/eternal_blanc.jpg',
+    image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
     badge: 'Classic'
   },
   {
@@ -66,7 +66,7 @@ const PERFUMES_DATABASE = [
     gender: 'Unisex',
     accord: 'Smoky Woods',
     notes: 'Smoky Vetiver, Guaiac Wood, Dark Amber',
-    image: 'assets/images/wood_intense.jpg',
+    image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
     badge: 'Exclusive'
   },
   {
@@ -77,7 +77,7 @@ const PERFUMES_DATABASE = [
     gender: 'Women',
     accord: 'Floral & Rose',
     notes: 'Centifolia Rose, Bulgarian Rose, Amberwood',
-    image: 'assets/images/rose_velvet.jpg',
+    image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
     badge: 'Extrait'
   },
   {
@@ -88,7 +88,7 @@ const PERFUMES_DATABASE = [
     gender: 'Men',
     accord: 'Fresh Citrus',
     notes: 'Grapefruit, Bergamot, Sea Salt',
-    image: 'assets/images/citrus_amber.jpg',
+    image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
     badge: 'Summer'
   }
 ];

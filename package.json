@@ -4,7 +4,8 @@
   "description": "Perfume shop demo project",
   "scripts": {
     "start": "http-server -p 3000",
-    "dev": "http-server -c-1 -p 3000"
+    "dev": "http-server -c-1 -p 3000",
+    "deploy": "wrangler pages deploy . --project-name perfume-shopee --branch main --commit-dirty=true"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
