@@ -1579,27 +1579,114 @@ function resetFilters() {
   filterByAccord('All');
 }
 
-// 12. HERO SLIDER & QUIZ
-function initHeroSlider() {
-  const heroEl = document.getElementById('hero-banner');
-  if (!heroEl) return;
+// 12. DYNAMIC HERO SLIDER CAROUSEL (ALL / WOMEN / MEN)
+const HERO_SLIDES = {
+  All: [
+    {
+      image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+      badge: '👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS',
+      title: 'HAUTE PARFUMERIE • PUNE',
+      desc: 'Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1600&auto=format&fit=crop&q=80',
+      badge: '🪵 ROYAL DEHN AL OUD & MYSORE SANDALWOOD',
+      title: 'PURE HERITAGE EXTRAITS',
+      desc: 'Aged Cambodian Oud, Pure Mysore Sandalwood Oil & Kashmiri Kesar distilled for eternal longevity.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=1600&auto=format&fit=crop&q=80',
+      badge: '✨ BESPOKE CONNOISSEUR RESERVE',
+      title: 'ARTISANAL LUXURY FLACONS',
+      desc: 'Hand-blown crystal flacons, high-concentration oils, and complimentary custom laser bottle engraving.'
+    }
+  ],
+  Women: [
+    {
+      image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1600&auto=format&fit=crop&q=80',
+      badge: '🌸 WOMEN’S HAUTE COUTURE & ROSE GOLD ATTARS',
+      title: 'ETHEREAL PEONY & DAMASCENE LUXE',
+      desc: 'Turkish Rose Petals, Kashmiri Kesar Vanilla & Sugared Gourmand Extraits with enchanting sillage.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1600&auto=format&fit=crop&q=80',
+      badge: '🍓 VIRAL GOURMAND & SWEET BERRY ESSENCE',
+      title: 'YARA BLUSH & ROSE PETALS',
+      desc: 'Soft powdery vanilla orchid, tropical red berries, and creamy sandalwood for daily glamour.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+      badge: '💖 BRIDAL SANGEET & DATE NIGHT SIGNATURE',
+      title: 'ROYAL KESAR GOURMAND',
+      desc: 'Sweet dates, praline, cinnamon, and warm amber vanilla crafted for memorable celebrations.'
+    }
+  ],
+  Men: [
+    {
+      image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&auto=format&fit=crop&q=80',
+      badge: '⚡ MEN’S TITANIUM & MARVEL BEAST MODE COLLECTION',
+      title: 'UNLEASH ALPHA SILLAGE',
+      desc: '16+ Hour Longevity in Pune Summer Heat. Smoky Birch, Mysore Sandalwood & Arabian Grey Amber.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=1600&auto=format&fit=crop&q=80',
+      badge: '🌊 AQUATIC MONSOON & HIGH VOLTAGE PROJECTION',
+      title: 'HAWAS POUR HOMME BEAST',
+      desc: 'Italian Bergamot, Cinnamon spice, and Crisp Grey Amber for intense all-day projection.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600&auto=format&fit=crop&q=80',
+      badge: '🔥 18-HOUR COMPLIMENT MONSTER',
+      title: 'CLUB DE NUIT INTENSE',
+      desc: 'Smoky birchwood, crisp blackcurrant, and magnetic ambergris engineered for alpha presence.'
+    }
+  ]
+};
 
-  if (currentGenderTheme === 'Men') {
-    heroEl.style.backgroundImage = `url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&auto=format&fit=crop&q=80')`;
-    document.getElementById('hero-badge-text').innerText = '⚡ MEN’S TITANIUM & MARVEL BEAST MODE COLLECTION';
-    document.getElementById('hero-title-text').innerText = 'UNLEASH ALPHA SILLAGE';
-    document.getElementById('hero-desc-text').innerText = '16+ Hour Longevity in Pune Summer Heat. Smoky Birch, Mysore Sandalwood & Arabian Grey Amber.';
-  } else if (currentGenderTheme === 'Women') {
-    heroEl.style.backgroundImage = `url('https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1600&auto=format&fit=crop&q=80')`;
-    document.getElementById('hero-badge-text').innerText = '🌸 WOMEN’S HAUTE COUTURE & ROSE GOLD ATTARS';
-    document.getElementById('hero-title-text').innerText = 'ETHEREAL PEONY & DAMASCENE LUXE';
-    document.getElementById('hero-desc-text').innerText = 'Turkish Rose Petals, Kashmiri Kesar Vanilla & Sugared Gourmand Extraits.';
-  } else {
-    heroEl.style.backgroundImage = `url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80')`;
-    document.getElementById('hero-badge-text').innerText = '👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS';
-    document.getElementById('hero-title-text').innerText = 'HAUTE PARFUMERIE • PUNE';
-    document.getElementById('hero-desc-text').innerText = 'Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee.';
+let currentHeroSlideIndex = 0;
+let heroSliderInterval = null;
+
+function setHeroSlide(index) {
+  const slides = HERO_SLIDES[currentGenderTheme] || HERO_SLIDES.All;
+  currentHeroSlideIndex = (index + slides.length) % slides.length;
+  const slide = slides[currentHeroSlideIndex];
+
+  const heroEl = document.getElementById('hero-banner');
+  if (heroEl) {
+    heroEl.style.backgroundImage = `url('${slide.image}')`;
   }
+  const badgeEl = document.getElementById('hero-badge-text');
+  const titleEl = document.getElementById('hero-title-text');
+  const descEl = document.getElementById('hero-desc-text');
+
+  if (badgeEl) badgeEl.innerText = slide.badge;
+  if (titleEl) titleEl.innerText = slide.title;
+  if (descEl) descEl.innerText = slide.desc;
+
+  renderHeroDots();
+}
+
+function renderHeroDots() {
+  const dotsContainer = document.getElementById('hero-dots-container');
+  if (!dotsContainer) return;
+  const slides = HERO_SLIDES[currentGenderTheme] || HERO_SLIDES.All;
+
+  dotsContainer.innerHTML = slides.map((_, i) => `
+    <button onclick="setHeroSlide(${i})" class="h-2 rounded-full transition-all ${i === currentHeroSlideIndex ? 'w-8 bg-white shadow-md' : 'w-2 bg-white/40 hover:bg-white/70'}" title="Slide ${i + 1}"></button>
+  `).join('');
+}
+
+function startHeroAutoSlide() {
+  if (heroSliderInterval) clearInterval(heroSliderInterval);
+  heroSliderInterval = setInterval(() => {
+    setHeroSlide(currentHeroSlideIndex + 1);
+  }, 5000);
+}
+
+function initHeroSlider() {
+  currentHeroSlideIndex = 0;
+  setHeroSlide(0);
+  startHeroAutoSlide();
 }
 
 const QUIZ_QUESTIONS = [

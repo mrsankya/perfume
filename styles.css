@@ -235,10 +235,16 @@ body {
   transition: all 0.2s ease;
 }
 
-/* Performance Gauges */
-.meter-bar-fill {
-  background: linear-gradient(90deg, #C59B27, #F59E0B, #10B981);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+/* Hero Banner Background & Overlay */
+.hero-slider-bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 60%, var(--bg-main) 100%);
 }
 
 [data-theme="women"] .meter-bar-fill {
