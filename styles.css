@@ -389,9 +389,23 @@ body {
 }
 
 [data-style="artisan-minimal"] .floating-bottom-nav {
-  background: rgba(255, 255, 255, 0.96) !important;
-  border: 1px solid #E5DFD5 !important;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1) !important;
+  background: #1C1917 !important;
+  border: 1.5px solid #38312A !important;
+  box-shadow: 0 12px 40px rgba(28, 25, 23, 0.35), 0 2px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-style="artisan-minimal"] .floating-nav-item {
+  color: #DDD6CD !important;
+}
+
+[data-style="artisan-minimal"] .floating-nav-item i {
+  color: #E5BE72 !important;
+}
+
+[data-style="artisan-minimal"] .floating-nav-item:hover,
+[data-style="artisan-minimal"] .floating-nav-item.active {
+  color: #FFFFFF !important;
+  background: #332C26 !important;
 }
 
 [data-style="artisan-minimal"] .luxury-marquee {
@@ -683,13 +697,13 @@ section h2 {
   left: 50%;
   transform: translateX(-50%);
   z-index: 45;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background: rgba(26, 18, 14, 0.96);
+  border: 1.5px solid rgba(197, 155, 39, 0.55);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 155, 39, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2);
   border-radius: 9999px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -698,15 +712,15 @@ section h2 {
 }
 
 [data-theme="women"] .floating-bottom-nav {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(212, 93, 121, 0.35);
-  box-shadow: 0 10px 35px rgba(212, 93, 121, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(212, 93, 121, 0.5);
+  box-shadow: 0 12px 40px rgba(212, 93, 121, 0.3), 0 4px 15px rgba(54, 19, 30, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.9);
 }
 
 [data-theme="men"] .floating-bottom-nav {
-  background: rgba(18, 26, 46, 0.85);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), inset 0 0 12px rgba(56, 189, 248, 0.15);
+  background: rgba(13, 19, 34, 0.96);
+  border: 1.5px solid rgba(56, 189, 248, 0.55);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(56, 189, 248, 0.25), inset 0 0 12px rgba(56, 189, 248, 0.2);
 }
 
 .floating-nav-item {
@@ -714,7 +728,7 @@ section h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 9999px;
   color: var(--text-secondary);
   font-size: 10px;
@@ -725,9 +739,20 @@ section h2 {
   white-space: nowrap;
 }
 
+.floating-nav-item i {
+  color: var(--accent-primary);
+  font-size: 13px;
+  margin-bottom: 2px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
 .floating-nav-item:hover, .floating-nav-item.active {
   color: var(--text-main);
   background: var(--bg-surface-elevated);
+}
+
+.floating-nav-item:hover i {
+  transform: translateY(-2px) scale(1.15);
 }
 
 /* Product Zoom Viewport */

@@ -71,9 +71,9 @@
    - Verified Customer Reviews & compliment ratings.
    - Quantity counter, 1-Click "Add to Cart", and "Buy Now".
 11. **🧭 Restored Floating Bottom Navigation Pill Bar**:
-   - Frosted glassmorphic bottom bar for quick one-tap jumping to **Home**, **Shop Catalog**, **Discovery Box**, **Alchemy Lab**, **The Scent Club**, and **Cart Drawer** with live item count badge.
+    - High-contrast frosted dock with glowing golden icons (`#E5BE72` / `#C59B27`), distinct item labels, and elevation shadow for quick one-tap jumping to **Home**, **Shop Catalog**, **Discovery Box**, **Alchemy Lab**, **The Scent Club**, and **Cart Drawer** with live item count badge.
 12. **⚡ Invisible Seamless Navigation Shortcuts**:
-   - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
+    - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:
