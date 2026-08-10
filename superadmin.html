@@ -138,6 +138,14 @@
           <i class="fa-solid fa-chart-line"></i>
           <span>Financial Intelligence</span>
         </button>
+        <button onclick="switchSuperTab('themes')" data-tab="themes" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-wand-magic-sparkles text-[#C59B27]"></i>
+          <span>🎨 UI Visual Styles (1-Click)</span>
+        </button>
+        <button onclick="switchSuperTab('banners')" data-tab="banners" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-images text-[#C59B27]"></i>
+          <span>🖼️ Hero Banners Manager</span>
+        </button>
         <button onclick="switchSuperTab('inventory')" data-tab="inventory" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
           <i class="fa-solid fa-boxes-stacked"></i>
           <span>Master Inventory & Pricing</span>
@@ -213,6 +221,134 @@
               <!-- Rendered by superadmin.js -->
             </div>
           </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB: UI VISUAL THEMES & LOOKS (1-CLICK SWITCHER)
+           ========================================================================= -->
+      <div id="super-tab-themes" class="super-tab-content hidden space-y-6">
+        
+        <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold block">1-CLICK STOREFRONT TRANSFORMATION</span>
+            <h3 class="font-heading text-lg font-bold text-white uppercase mt-0.5">Global UI Visual Styles & Aesthetics</h3>
+            <p class="text-xs text-gray-400">Switch the entire website's visual styling, card textures, borders, and shadows instantly.</p>
+          </div>
+          <span id="current-active-style-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[#C59B27]/20 border border-[#C59B27] text-[#C59B27] flex items-center gap-1.5">
+            <i class="fa-solid fa-circle-check"></i> Active: Liquid Glassmorphism
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <!-- 1. Liquid Glassmorphism -->
+          <div class="bg-[#1C1511] rounded-3xl border border-gray-800 p-5 space-y-4 flex flex-col justify-between hover:border-[#C59B27] transition-all relative overflow-hidden group">
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md flex items-center justify-center text-xl text-[#C59B27]">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <h4 class="font-heading text-base font-bold text-white uppercase">Liquid Glassmorphism</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Frosted glass blur (24px saturate), translucent depth, and glowing highlights.</p>
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg text-[11px] text-gray-300">
+                ✨ Translucent Cards • Frosted Blur • Luminous Glow
+              </div>
+            </div>
+            <button onclick="setSiteVisualStyle('glassmorphism')" id="btn-style-glassmorphism" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#C59B27] text-[#120D0A] hover:bg-[#AA771C] transition-all flex items-center justify-center gap-2">
+              <span>Apply Glassmorphism</span>
+            </button>
+          </div>
+
+          <!-- 2. Royal Indian Heritage -->
+          <div class="bg-[#1C1511] rounded-3xl border border-gray-800 p-5 space-y-4 flex flex-col justify-between hover:border-[#C59B27] transition-all relative overflow-hidden group">
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-[#C59B27]/20 border border-[#C59B27]/40 flex items-center justify-center text-xl text-[#C59B27]">
+                <i class="fa-solid fa-crown"></i>
+              </div>
+              <h4 class="font-heading text-base font-bold text-white uppercase">Royal Indian Heritage</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Saffron gold filigree borders, rich velvet depth, and opulent royal packaging aesthetic.</p>
+              <div class="p-3 rounded-xl bg-[#231B17] border border-[#C59B27]/30 text-[11px] text-[#E6CA65]">
+                👑 Saffron Gold Borders • Velvet Shadow • Flacon Framing
+              </div>
+            </div>
+            <button onclick="setSiteVisualStyle('royal-heritage')" id="btn-style-royal-heritage" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#231B17] border border-gray-700 text-white hover:border-[#C59B27] transition-all flex items-center justify-center gap-2">
+              <span>Apply Royal Heritage</span>
+            </button>
+          </div>
+
+          <!-- 3. Cyberpunk Titanium -->
+          <div class="bg-[#1C1511] rounded-3xl border border-gray-800 p-5 space-y-4 flex flex-col justify-between hover:border-[#38BDF8] transition-all relative overflow-hidden group">
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-cyan-950/40 border border-[#38BDF8]/40 flex items-center justify-center text-xl text-[#38BDF8]">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+              <h4 class="font-heading text-base font-bold text-white uppercase">Cyberpunk Titanium</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Arc reactor cyan glow, titanium carbon chassis, and high-voltage modern tech edges.</p>
+              <div class="p-3 rounded-xl bg-[#070B12] border border-[#38BDF8]/40 text-[11px] text-cyan-300">
+                ⚡ Arc Cyan Glow • Carbon Obsidian • High-Voltage Pulse
+              </div>
+            </div>
+            <button onclick="setSiteVisualStyle('cyberpunk')" id="btn-style-cyberpunk" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#231B17] border border-gray-700 text-white hover:border-[#38BDF8] transition-all flex items-center justify-center gap-2">
+              <span>Apply Cyberpunk</span>
+            </button>
+          </div>
+
+          <!-- 4. Minimalist Scandinavian Luxe -->
+          <div class="bg-[#1C1511] rounded-3xl border border-gray-800 p-5 space-y-4 flex flex-col justify-between hover:border-[#C59B27] transition-all relative overflow-hidden group">
+            <div class="space-y-2">
+              <div class="w-12 h-12 rounded-2xl bg-gray-800/40 border border-gray-700 flex items-center justify-center text-xl text-gray-300">
+                <i class="fa-solid fa-gem"></i>
+              </div>
+              <h4 class="font-heading text-base font-bold text-white uppercase">Minimalist Luxe</h4>
+              <p class="text-xs text-gray-400 leading-relaxed">Clean aesthetic, hairline borders, ultra-fine typography, and modern understated elegance.</p>
+              <div class="p-3 rounded-xl bg-gray-900 border border-gray-800 text-[11px] text-gray-300">
+                💎 Hairline Borders • Champagne Space • Clean Modernism
+              </div>
+            </div>
+            <button onclick="setSiteVisualStyle('minimal-luxe')" id="btn-style-minimal-luxe" class="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#231B17] border border-gray-700 text-white hover:border-[#C59B27] transition-all flex items-center justify-center gap-2">
+              <span>Apply Minimal Luxe</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB: DYNAMIC HERO BANNERS & SLIDER MANAGER
+           ========================================================================= -->
+      <div id="super-tab-banners" class="super-tab-content hidden space-y-6">
+        
+        <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold block">LIVE STOREFRONT CAROUSEL</span>
+            <h3 class="font-heading text-lg font-bold text-white uppercase mt-0.5">Dynamic Hero Perfume Banners</h3>
+            <p class="text-xs text-gray-400">Add, edit, or remove background perfume photography, titles, and promotional badges.</p>
+          </div>
+
+          <button onclick="openHeroBannerModal()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Banner Slide</span>
+          </button>
+        </div>
+
+        <!-- Gender Section Filter for Banners -->
+        <div class="flex items-center gap-2">
+          <button onclick="switchBannerManagerSection('All')" id="banner-sec-all-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#120D0A] shadow-sm">
+            👑 All / Unisex Banners
+          </button>
+          <button onclick="switchBannerManagerSection('Women')" id="banner-sec-women-btn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 text-gray-300 hover:text-white">
+            🌸 Women's Banners
+          </button>
+          <button onclick="switchBannerManagerSection('Men')" id="banner-sec-men-btn" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 text-gray-300 hover:text-white">
+            ⚡ Men's Titanium Banners
+          </button>
+        </div>
+
+        <!-- Banner Slides List Grid -->
+        <div id="hero-banners-list-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Rendered by superadmin.js -->
         </div>
 
       </div>
@@ -594,6 +730,57 @@
         <div class="pt-3 flex justify-end gap-2">
           <button type="button" onclick="closeSuperProductModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
           <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Fragrance</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       HERO BANNER EDIT / CREATE MODAL
+       ========================================================================= -->
+  <div id="hero-banner-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-[#1C1511] max-w-lg w-full rounded-2xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeHeroBannerModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h3 id="hero-banner-modal-title" class="font-heading text-base font-bold text-white uppercase">Add Hero Banner Slide</h3>
+
+      <form id="hero-banner-form" onsubmit="handleHeroBannerSubmit(event)" class="space-y-3">
+        <input type="hidden" id="hb-edit-index" value="-1">
+        
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Target Gender Collection</label>
+          <select id="hb-section" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+            <option value="All">👑 All / Unisex Collection</option>
+            <option value="Women">🌸 Women's Haute Rose Collection</option>
+            <option value="Men">⚡ Men's Titanium Beast Mode</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Perfume Background Image URL</label>
+          <input type="url" id="hb-image" required placeholder="https://images.unsplash.com/..." class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          <p class="text-[9px] text-gray-400 mt-1">High-resolution horizontal perfume bottle photograph (1600x900 recommended).</p>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Badge Tagline Text</label>
+          <input type="text" id="hb-badge" required placeholder="e.g. 👑 100% ORIGINAL IMPORTED EXTRAITS" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Main Heading Title</label>
+          <input type="text" id="hb-title" required placeholder="e.g. HAUTE PARFUMERIE • PUNE" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Subtitle / Description</label>
+          <textarea id="hb-desc" required rows="2" placeholder="e.g. Curated Arabian Masterpieces & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup." class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeHeroBannerModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Cancel</button>
+          <button type="submit" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2 rounded-xl text-xs font-bold uppercase">Save Banner Slide</button>
         </div>
       </form>
     </div>

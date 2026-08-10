@@ -172,6 +172,69 @@ const DEFAULT_PRODUCTS = [
   }
 ];
 
+const DEFAULT_HERO_BANNERS = {
+  All: [
+    {
+      image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+      badge: '👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS',
+      title: 'HAUTE PARFUMERIE • PUNE',
+      desc: 'Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1600&auto=format&fit=crop&q=80',
+      badge: '🪵 ROYAL DEHN AL OUD & MYSORE SANDALWOOD',
+      title: 'PURE HERITAGE EXTRAITS',
+      desc: 'Aged Cambodian Oud, Pure Mysore Sandalwood Oil & Kashmiri Kesar distilled for eternal longevity.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=1600&auto=format&fit=crop&q=80',
+      badge: '✨ BESPOKE CONNOISSEUR RESERVE',
+      title: 'ARTISANAL LUXURY FLACONS',
+      desc: 'Hand-blown crystal flacons, high-concentration oils, and complimentary custom laser bottle engraving.'
+    }
+  ],
+  Women: [
+    {
+      image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1600&auto=format&fit=crop&q=80',
+      badge: '🌸 WOMEN’S HAUTE COUTURE & ROSE GOLD ATTARS',
+      title: 'ETHEREAL PEONY & DAMASCENE LUXE',
+      desc: 'Turkish Rose Petals, Kashmiri Kesar Vanilla & Sugared Gourmand Extraits with enchanting sillage.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1600&auto=format&fit=crop&q=80',
+      badge: '🍓 VIRAL GOURMAND & SWEET BERRY ESSENCE',
+      title: 'YARA BLUSH & ROSE PETALS',
+      desc: 'Soft powdery vanilla orchid, tropical red berries, and creamy sandalwood for daily glamour.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+      badge: '💖 BRIDAL SANGEET & DATE NIGHT SIGNATURE',
+      title: 'ROYAL KESAR GOURMAND',
+      desc: 'Sweet dates, praline, cinnamon, and warm amber vanilla crafted for memorable celebrations.'
+    }
+  ],
+  Men: [
+    {
+      image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&auto=format&fit=crop&q=80',
+      badge: '⚡ MEN’S TITANIUM & MARVEL BEAST MODE COLLECTION',
+      title: 'UNLEASH ALPHA SILLAGE',
+      desc: '16+ Hour Longevity in Pune Summer Heat. Smoky Birch, Mysore Sandalwood & Arabian Grey Amber.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=1600&auto=format&fit=crop&q=80',
+      badge: '🌊 AQUATIC MONSOON & HIGH VOLTAGE PROJECTION',
+      title: 'HAWAS POUR HOMME BEAST',
+      desc: 'Italian Bergamot, Cinnamon spice, and Crisp Grey Amber for intense all-day projection.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600&auto=format&fit=crop&q=80',
+      badge: '🔥 18-HOUR COMPLIMENT MONSTER',
+      title: 'CLUB DE NUIT INTENSE',
+      desc: 'Smoky birchwood, crisp blackcurrant, and magnetic ambergris engineered for alpha presence.'
+    }
+  ]
+};
+
 const DEFAULT_STORE_SETTINGS = {
   storeName: 'PERFUME SHOPE',
   tagline: 'Haute Parfumerie & Luxury Attars • India',
@@ -193,6 +256,8 @@ let reservations = [];
 let staffList = [];
 let settings = {};
 let auditLogs = [];
+let heroBanners = { ...DEFAULT_HERO_BANNERS };
+let activeBannerSection = 'All';
 let currentTab = 'analytics';
 let editingProductId = null;
 let editingStaffId = null;
@@ -215,6 +280,24 @@ function loadSuperAdminData() {
   } else {
     products = [...DEFAULT_PRODUCTS];
     localStorage.setItem('perfumes_catalog', JSON.stringify(products));
+  }
+
+  // Hero Banners
+  const savedBanners = localStorage.getItem('perfumes_hero_banners');
+  if (savedBanners) {
+    try {
+      const parsed = JSON.parse(savedBanners);
+      if (parsed && Array.isArray(parsed.All) && Array.isArray(parsed.Women) && Array.isArray(parsed.Men)) {
+        heroBanners = parsed;
+      } else {
+        heroBanners = JSON.parse(JSON.stringify(DEFAULT_HERO_BANNERS));
+      }
+    } catch (e) {
+      heroBanners = JSON.parse(JSON.stringify(DEFAULT_HERO_BANNERS));
+    }
+  } else {
+    heroBanners = JSON.parse(JSON.stringify(DEFAULT_HERO_BANNERS));
+    localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
   }
 
   // Reservations
@@ -359,12 +442,176 @@ function switchSuperTab(tabId) {
   });
 
   if (tabId === 'analytics') renderAnalytics();
+  if (tabId === 'themes') renderThemeStyles();
+  if (tabId === 'banners') renderHeroBannersManager();
   if (tabId === 'inventory') renderMasterInventory();
   if (tabId === 'staff') renderStaffList();
   if (tabId === 'reservations') renderSuperReservations();
   if (tabId === 'settings') renderSuperSettings();
   if (tabId === 'backup') renderBackupView();
   if (tabId === 'audit') renderAuditLogs();
+}
+
+// 1-Click UI Visual Style Switcher
+function renderThemeStyles() {
+  const currentStyle = localStorage.getItem('perfumes_site_style') || 'glassmorphism';
+  const badgeEl = document.getElementById('current-active-style-badge');
+
+  const names = {
+    'glassmorphism': 'Liquid Glassmorphism',
+    'royal-heritage': 'Royal Indian Heritage',
+    'cyberpunk': 'Cyberpunk Titanium',
+    'minimal-luxe': 'Minimalist Scandinavian Luxe'
+  };
+
+  if (badgeEl) {
+    badgeEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> Active: ${names[currentStyle] || currentStyle}`;
+  }
+
+  ['glassmorphism', 'royal-heritage', 'cyberpunk', 'minimal-luxe'].forEach(st => {
+    const btn = document.getElementById(`btn-style-${st}`);
+    if (btn) {
+      if (st === currentStyle) {
+        btn.className = 'w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#C59B27] text-[#120D0A] flex items-center justify-center gap-2 shadow-md';
+        btn.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>Current Active Look</span>`;
+      } else {
+        btn.className = 'w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#231B17] border border-gray-700 text-gray-300 hover:border-[#C59B27] hover:text-white transition-all flex items-center justify-center gap-2';
+        btn.innerHTML = `<span>Apply ${names[st]}</span>`;
+      }
+    }
+  });
+}
+
+function setSiteVisualStyle(styleName) {
+  localStorage.setItem('perfumes_site_style', styleName);
+  recordAudit(`Global UI Visual Style Changed to: ${styleName}`);
+  renderThemeStyles();
+  showToast(`Storefront Visual Style switched to: ${styleName}! 🎨`, 'success');
+}
+
+// Dynamic Hero Banners Manager
+function switchBannerManagerSection(section) {
+  activeBannerSection = section;
+  ['all', 'women', 'men'].forEach(sec => {
+    const btn = document.getElementById(`banner-sec-${sec}-btn`);
+    if (btn) {
+      if (sec === section.toLowerCase()) {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#120D0A] shadow-sm';
+      } else {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 text-gray-300 hover:text-white';
+      }
+    }
+  });
+  renderHeroBannersManager();
+}
+
+function renderHeroBannersManager() {
+  const container = document.getElementById('hero-banners-list-grid');
+  if (!container) return;
+
+  const slides = heroBanners[activeBannerSection] || [];
+  if (slides.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-12 text-center space-y-2 bg-[#1C1511] rounded-2xl border border-gray-800 p-6">
+        <p class="text-sm text-gray-400">No slides configured for ${activeBannerSection} section.</p>
+        <button onclick="openHeroBannerModal()" class="bg-[#C59B27] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase">Add First Slide</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = slides.map((slide, idx) => `
+    <div class="bg-[#1C1511] rounded-3xl border border-gray-800 overflow-hidden space-y-3 flex flex-col justify-between shadow-md">
+      <div class="relative aspect-video w-full bg-black/40 overflow-hidden">
+        <img src="${slide.image}" alt="${slide.title}" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/80 text-[#C59B27] border border-[#C59B27]/40 shadow-sm">
+          Slide #${idx + 1} (${activeBannerSection})
+        </span>
+      </div>
+
+      <div class="p-4 space-y-2 flex-1">
+        <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-[#231B17] border border-gray-700 text-gray-300 inline-block truncate max-w-full">
+          ${slide.badge}
+        </span>
+        <h4 class="font-heading text-sm font-bold text-white uppercase">${slide.title}</h4>
+        <p class="text-[11px] text-gray-400 line-clamp-2 leading-relaxed">${slide.desc}</p>
+      </div>
+
+      <div class="p-4 pt-0 flex items-center justify-between border-t border-gray-800/80">
+        <button onclick="openHeroBannerModal(${idx})" class="text-xs text-[#C59B27] font-semibold hover:underline flex items-center gap-1">
+          <i class="fa-solid fa-pen-to-square text-[10px]"></i> Edit Slide
+        </button>
+        <button onclick="deleteHeroBannerSlide('${activeBannerSection}', ${idx})" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
+          <i class="fa-solid fa-trash text-[10px]"></i> Delete
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openHeroBannerModal(index = -1) {
+  const modal = document.getElementById('hero-banner-modal');
+  if (!modal) return;
+
+  document.getElementById('hb-edit-index').value = index;
+  document.getElementById('hb-section').value = activeBannerSection;
+
+  if (index >= 0) {
+    const slide = heroBanners[activeBannerSection][index];
+    document.getElementById('hero-banner-modal-title').innerText = 'Edit Hero Banner Slide';
+    document.getElementById('hb-image').value = slide.image;
+    document.getElementById('hb-badge').value = slide.badge;
+    document.getElementById('hb-title').value = slide.title;
+    document.getElementById('hb-desc').value = slide.desc;
+  } else {
+    document.getElementById('hero-banner-modal-title').innerText = 'Add Hero Banner Slide';
+    document.getElementById('hero-banner-form').reset();
+    document.getElementById('hb-section').value = activeBannerSection;
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeHeroBannerModal() {
+  document.getElementById('hero-banner-modal')?.classList.add('hidden');
+}
+
+function handleHeroBannerSubmit(e) {
+  e.preventDefault();
+  const section = document.getElementById('hb-section').value;
+  const image = document.getElementById('hb-image').value.trim();
+  const badge = document.getElementById('hb-badge').value.trim();
+  const title = document.getElementById('hb-title').value.trim();
+  const desc = document.getElementById('hb-desc').value.trim();
+  const editIndex = parseInt(document.getElementById('hb-edit-index').value, 10);
+
+  if (!heroBanners[section]) heroBanners[section] = [];
+
+  const slideData = { image, badge, title, desc };
+
+  if (editIndex >= 0 && editIndex < heroBanners[section].length) {
+    heroBanners[section][editIndex] = slideData;
+    recordAudit(`Updated Hero Banner Slide #${editIndex + 1} in ${section}`);
+    showToast(`Banner Slide #${editIndex + 1} updated!`, 'success');
+  } else {
+    heroBanners[section].push(slideData);
+    recordAudit(`Added New Hero Banner Slide to ${section}`);
+    showToast(`New Banner Slide added to ${section} section!`, 'success');
+  }
+
+  localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
+  closeHeroBannerModal();
+  switchBannerManagerSection(section);
+}
+
+function deleteHeroBannerSlide(section, index) {
+  if (confirm(`Delete Slide #${index + 1} from ${section} section?`)) {
+    heroBanners[section].splice(index, 1);
+    localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
+    recordAudit(`Deleted Slide #${index + 1} from ${section}`);
+    renderHeroBannersManager();
+    showToast(`Banner Slide removed`, 'info');
+  }
 }
 
 // 1. Analytics & Financial Intelligence
@@ -735,9 +982,11 @@ function exportFullDatabaseJSON() {
   } catch (e) {}
 
   const dbSnapshot = {
-    version: '3.0-superadmin',
+    version: '4.0-superadmin',
     exportedAt: new Date().toISOString(),
     store: settings.storeName,
+    siteStyle: localStorage.getItem('perfumes_site_style') || 'glassmorphism',
+    heroBanners: heroBanners,
     products: products,
     reservations: reservations,
     visitors: visitors,
@@ -757,7 +1006,7 @@ function exportFullDatabaseJSON() {
   a.click();
   document.body.removeChild(a);
 
-  recordAudit('Full Database Backup Exported (with Visitors & Orders)');
+  recordAudit('Full Database Backup Exported (with Hero Banners & Site Styles)');
   showToast('Database backup downloaded successfully', 'success');
 }
 
@@ -769,6 +1018,13 @@ function handleImportDatabaseJSON(event) {
   reader.onload = function(e) {
     try {
       const data = JSON.parse(e.target.result);
+      if (data.siteStyle) {
+        localStorage.setItem('perfumes_site_style', data.siteStyle);
+      }
+      if (data.heroBanners) {
+        heroBanners = data.heroBanners;
+        localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
+      }
       if (data.products && Array.isArray(data.products)) {
         products = data.products;
         localStorage.setItem('perfumes_catalog', JSON.stringify(products));

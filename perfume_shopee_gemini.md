@@ -53,6 +53,19 @@
 9. **📄 1-Click GST Tax Invoice Generator (Admin Portal)**:
    - Itemized GST tax invoices (18% rate, HSN Code 33030090, CGST 9% + SGST 9%) with store header and batch seal for print/PDF export.
 
+## Super Admin 1-Click Control Engines
+1. **🎨 1-Click Global UI Visual Styles Switcher**:
+   - **Liquid Glassmorphism**: Frosted glass blur (24px saturate), translucent depth, and glowing highlights (`data-style="glassmorphism"`).
+   - **Royal Indian Heritage**: Saffron gold filigree borders, rich velvet depth, and opulent flacon framing (`data-style="royal-heritage"`).
+   - **Cyberpunk / Neon Titanium**: Arc reactor cyan glow, titanium carbon chassis, and electric neons (`data-style="cyberpunk"`).
+   - **Minimalist Scandinavian Luxe**: Clean modernism, hairline borders, and champagne typography (`data-style="minimal-luxe"`).
+   - Persists in `perfumes_site_style` and applies seamlessly across the storefront.
+
+2. **🖼️ Dynamic Hero Perfume Banners Manager**:
+   - Full CRUD management of hero banner slides for **All / Unisex**, **Women's Haute Rose**, and **Men's Titanium Beast Mode** sections.
+   - Dynamic auto-sliding carousel (every 5 seconds) with interactive indicator dots.
+   - Stored in `perfumes_hero_banners` with live storefront synchronization and JSON backup/restore support.
+
 ## Role-Based Access Control (RBAC)
 - **👑 Super Admin (Direct URL Only)**: `superadmin.html` (Passwords: `superadmin` or `9822725265`)
 - **👔 Regular Staff Admin**: `admin.html` (Password: `admin` or `9822725265`)

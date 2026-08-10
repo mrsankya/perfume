@@ -134,13 +134,57 @@ body {
   font-weight: 700;
 }
 
-/* Glass Header */
-.glass-header-mobile {
-  background: var(--bg-main);
-  border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: background-color 0.4s ease, border-color 0.4s ease;
+/* ==========================================================================
+   GLOBAL UI VISUAL STYLES (GLASSMORPHISM, ROYAL HERITAGE, CYBERPUNK, MINIMAL LUXE)
+   ========================================================================== */
+
+/* 1. GLASSMORPHISM (LIQUID FROSTED GLASS & LUMINOUS GLOW) */
+[data-style="glassmorphism"] .theme-card {
+  background: rgba(30, 22, 17, 0.55) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-style="glassmorphism"][data-theme="women"] .theme-card {
+  background: rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(224, 122, 147, 0.35) !important;
+  box-shadow: 0 12px 40px 0 rgba(212, 93, 121, 0.18), inset 0 1px 2px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-style="glassmorphism"][data-theme="men"] .theme-card {
+  background: rgba(18, 26, 46, 0.65) !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.12) !important;
+}
+
+/* 2. ROYAL INDIAN HERITAGE (VELVET SILK & GOLD FILIGREE) */
+[data-style="royal-heritage"] .theme-card {
+  border: 1.5px solid rgba(197, 155, 39, 0.6) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(197, 155, 39, 0.08) !important;
+}
+
+[data-style="royal-heritage"][data-theme="women"] .theme-card {
+  border: 1.5px solid rgba(212, 93, 121, 0.6) !important;
+  box-shadow: 0 10px 30px rgba(212, 93, 121, 0.15), inset 0 0 20px rgba(212, 93, 121, 0.05) !important;
+}
+
+/* 3. CYBERPUNK / NEON TITANIUM (ULTRA-NEON GLOW) */
+[data-style="cyberpunk"] .theme-card {
+  border: 1.5px solid #38BDF8 !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 0 15px rgba(56, 189, 248, 0.1) !important;
+}
+
+[data-style="cyberpunk"][data-theme="women"] .theme-card {
+  border: 1.5px solid #E07A93 !important;
+  box-shadow: 0 0 20px rgba(224, 122, 147, 0.4), inset 0 0 15px rgba(224, 122, 147, 0.1) !important;
+}
+
+/* 4. MINIMALIST SCANDINAVIAN LUXE (HAIRLINE ELEGANCE) */
+[data-style="minimal-luxe"] .theme-card {
+  border: 1px solid rgba(160, 140, 120, 0.25) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Theme Elements */

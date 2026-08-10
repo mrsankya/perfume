@@ -379,6 +379,7 @@ function getWhatsAppNumber() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadSiteVisualStyles();
   loadCartFromStorage();
   loadUserFromStorage();
   initVisitorTracker();
@@ -405,6 +406,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(initGoogleSignIn, 800);
   });
 });
+
+function loadSiteVisualStyles() {
+  const style = localStorage.getItem('perfumes_site_style') || 'glassmorphism';
+  document.documentElement.setAttribute('data-style', style);
+  document.body.setAttribute('data-style', style);
+}
 
 // 1. SHOPPING CART & ENGRAVING
 function loadCartFromStorage() {
@@ -1580,7 +1587,7 @@ function resetFilters() {
 }
 
 // 12. DYNAMIC HERO SLIDER CAROUSEL (ALL / WOMEN / MEN)
-const HERO_SLIDES = {
+const DEFAULT_HERO_SLIDES = {
   All: [
     {
       image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
@@ -1643,11 +1650,25 @@ const HERO_SLIDES = {
   ]
 };
 
+function getStoredHeroBanners() {
+  const saved = localStorage.getItem('perfumes_hero_banners');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed && Array.isArray(parsed.All) && Array.isArray(parsed.Women) && Array.isArray(parsed.Men)) {
+        return parsed;
+      }
+    } catch (e) {}
+  }
+  return DEFAULT_HERO_SLIDES;
+}
+
 let currentHeroSlideIndex = 0;
 let heroSliderInterval = null;
 
 function setHeroSlide(index) {
-  const slides = HERO_SLIDES[currentGenderTheme] || HERO_SLIDES.All;
+  const allBanners = getStoredHeroBanners();
+  const slides = allBanners[currentGenderTheme] || allBanners.All;
   currentHeroSlideIndex = (index + slides.length) % slides.length;
   const slide = slides[currentHeroSlideIndex];
 
@@ -1669,7 +1690,8 @@ function setHeroSlide(index) {
 function renderHeroDots() {
   const dotsContainer = document.getElementById('hero-dots-container');
   if (!dotsContainer) return;
-  const slides = HERO_SLIDES[currentGenderTheme] || HERO_SLIDES.All;
+  const allBanners = getStoredHeroBanners();
+  const slides = allBanners[currentGenderTheme] || allBanners.All;
 
   dotsContainer.innerHTML = slides.map((_, i) => `
     <button onclick="setHeroSlide(${i})" class="h-2 rounded-full transition-all ${i === currentHeroSlideIndex ? 'w-8 bg-white shadow-md' : 'w-2 bg-white/40 hover:bg-white/70'}" title="Slide ${i + 1}"></button>
