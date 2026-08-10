@@ -52,6 +52,15 @@
    - Checkbox toggle in cart with live preview of custom name engraved on bottle.
 9. **📄 1-Click GST Tax Invoice Generator (Admin Portal)**:
    - Itemized GST tax invoices (18% rate, HSN Code 33030090, CGST 9% + SGST 9%) with store header and batch seal for print/PDF export.
+10. **🔍 Interactive Product Detail Quickview Modal (`#product-detail-modal`)**:
+   - High-resolution perfume flacon with interactive **Zoom Controls (+ / - / Reset)** and mouse loupe pan.
+   - Olfactory pyramid breakdown, Beast Mode longevity & sillage projection meters, Season badge, Blind Buy Insurance seal.
+   - Verified Customer Reviews & compliment ratings.
+   - Quantity counter, 1-Click "Add to Cart", and "Buy Now".
+11. **🧭 Restored Floating Bottom Navigation Pill Bar**:
+   - Frosted glassmorphic bottom bar for quick one-tap jumping to **Home**, **Shop Catalog**, **Discovery Box**, **Alchemy Lab**, **The Scent Club**, and **Cart Drawer** with live item count badge.
+12. **⚡ Invisible Seamless Navigation Shortcuts**:
+   - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:
@@ -65,6 +74,24 @@
    - Full CRUD management of hero banner slides for **All / Unisex**, **Women's Haute Rose**, and **Men's Titanium Beast Mode** sections.
    - Dynamic auto-sliding carousel (every 5 seconds) with interactive indicator dots.
    - Stored in `perfumes_hero_banners` with live storefront synchronization and JSON backup/restore support.
+
+## Enterprise Security & Anti-Tamper Shield
+1. **🛡️ Client-Side Anti-Inspect & DevTools Shield (`security.js`)**:
+   - Disabled right-click context menu (`contextmenu` preventDefault).
+   - Disabled keyboard shortcuts: `F12`, `Ctrl+Shift+I`, `Ctrl+Shift+J`, `Ctrl+Shift+C`, `Ctrl+U`, `Ctrl+S`, `Cmd+Option+I/J/C/U`.
+   - Continuous DevTools open detection and security toast warning banner.
+   - Console auto-clearing and security monitoring warning prompt.
+   - XSS sanitization helper (`sanitizeInput`) across all user form inputs.
+2. **🔐 Brute-Force Rate Limiting & Cryptographic Protection**:
+   - `RateLimiter` enforces a max of 5 failed attempts -> 5-minute exponential lockout cooldown.
+   - SHA-256 password hashing helper (`computeSha256`) using Web Crypto API.
+   - Inactivity session auto-logout (15 minutes) for Admin & Super Admin.
+3. **🔒 Cloudflare HTTP Security Headers (`_headers`)**:
+   - `Content-Security-Policy`: Restricts scripts, frames, and styles to authorized origins.
+   - `X-Frame-Options: SAMEORIGIN` (prevents clickjacking).
+   - `X-Content-Type-Options: nosniff`.
+   - `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`.
+   - `Permissions-Policy: camera=(), microphone=(), geolocation=(self)`.
 
 ## Role-Based Access Control (RBAC)
 - **👑 Super Admin (Direct URL Only)**: `superadmin.html` (Passwords: `superadmin` or `9822725265`)

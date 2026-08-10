@@ -516,7 +516,7 @@ function toggleBottleEngraving(enabled) {
 }
 
 function updateEngravingText(text) {
-  bottleEngravingText = text.trim();
+  bottleEngravingText = typeof sanitizeInput === 'function' ? sanitizeInput(text.trim()) : text.trim();
   renderCartDrawer();
 }
 
@@ -1146,16 +1146,17 @@ function buyCommunityDuo(duoIds) {
 
 function handleCommunityPostSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('post-author-name').value.trim();
-  const city = document.getElementById('post-city-name').value.trim();
-  const sotd = document.getElementById('post-sotd-name').value.trim();
-  const text = document.getElementById('post-review-text').value.trim();
+  const clean = (val) => typeof sanitizeInput === 'function' ? sanitizeInput(val.trim()) : val.trim();
+  const name = clean(document.getElementById('post-author-name').value);
+  const city = clean(document.getElementById('post-city-name').value) || 'Pune';
+  const sotd = clean(document.getElementById('post-sotd-name').value);
+  const text = clean(document.getElementById('post-review-text').value);
   const longevity = document.getElementById('post-longevity-select').value;
 
   const newPost = {
     id: 'sotd-' + Date.now(),
     author: name,
-    city: city || 'Pune',
+    city: city,
     date: 'Just now',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80',
     sotd: sotd,
@@ -1178,8 +1179,9 @@ function handleCommunityPostSubmit(e) {
 // 8. IN-STORE VIP SCENT CONSULTATION BOOKING
 function handleConsultationBooking(e) {
   e.preventDefault();
-  const name = document.getElementById('consult-name').value.trim();
-  const phone = document.getElementById('consult-phone').value.trim();
+  const clean = (val) => typeof sanitizeInput === 'function' ? sanitizeInput(val.trim()) : val.trim();
+  const name = clean(document.getElementById('consult-name').value);
+  const phone = clean(document.getElementById('consult-phone').value);
   const date = document.getElementById('consult-date').value;
   const time = document.getElementById('consult-time').value;
   const guests = document.getElementById('consult-guests').value;
@@ -1408,9 +1410,10 @@ function closeLeadGiftModal() {
 
 function handleLeadGiftSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('lead-name-input').value.trim();
-  const phone = document.getElementById('lead-phone-input').value.trim();
-  const city = document.getElementById('lead-city-input').value.trim() || 'Pune';
+  const clean = (val) => typeof sanitizeInput === 'function' ? sanitizeInput(val.trim()) : val.trim();
+  const name = clean(document.getElementById('lead-name-input').value);
+  const phone = clean(document.getElementById('lead-phone-input').value);
+  const city = clean(document.getElementById('lead-city-input').value) || 'Pune';
 
   localStorage.setItem('visitor_name', name);
   localStorage.setItem('visitor_phone', phone);
@@ -1478,7 +1481,7 @@ function renderProducts() {
   }
 
   grid.innerHTML = filtered.map(p => `
-    <div class="theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all">
+    <div onclick="openProductModal('${p.id}')" class="theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all cursor-pointer">
       
       <!-- Image & Badges -->
       <div class="relative rounded-2xl overflow-hidden aspect-square bg-black/20">
@@ -1521,7 +1524,7 @@ function renderProducts() {
       </div>
 
       <!-- Pricing & Buy -->
-      <div class="pt-2 border-t theme-border flex items-center justify-between gap-2">
+      <div class="pt-2 border-t theme-border flex items-center justify-between gap-2" onclick="event.stopPropagation()">
         <div>
           <span class="text-[9px] uppercase tracking-wider theme-text-muted block font-bold">Boutique Price</span>
           <span class="font-heading text-base sm:text-lg font-bold theme-accent">${formatRupees(p.price)}</span>
@@ -1754,7 +1757,7 @@ function showToast(message, type = 'info') {
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'site-toast';
-    toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 theme-card border theme-border px-4 py-2.5 rounded-2xl text-xs shadow-2xl flex items-center gap-2 transition-all duration-300 translate-y-10 opacity-0';
+    toast.className = 'fixed bottom-24 left-1/2 transform -translate-x-1/2 z-50 theme-card border theme-border px-4 py-2.5 rounded-2xl text-xs shadow-2xl flex items-center gap-2 transition-all duration-300 translate-y-10 opacity-0';
     document.body.appendChild(toast);
   }
 
@@ -1765,4 +1768,187 @@ function showToast(message, type = 'info') {
   setTimeout(() => {
     toast.classList.add('translate-y-10', 'opacity-0');
   }, 3500);
+}
+
+// =========================================================================
+// 13. PRODUCT DETAIL QUICKVIEW MODAL WITH INTERACTIVE ZOOM & REVIEWS
+// =========================================================================
+let activeModalProduct = null;
+let currentDetailZoom = 1.0;
+let currentDetailQty = 1;
+
+const DEFAULT_REVIEWS = [
+  {
+    author: 'Aarav Mehta',
+    city: 'Pune (FC Road Boutique Regular)',
+    rating: 5,
+    title: 'Unbelievable 18-Hour Performance in Heat!',
+    comment: 'Sprayed at 8 AM for an executive meeting and was still receiving compliments during a dinner gala at 11 PM. The complimentary 2ml tester gave complete peace of mind!',
+    date: '2 days ago',
+    verified: true
+  },
+  {
+    author: 'Simran Kaur',
+    city: 'Mumbai',
+    rating: 5,
+    title: 'Pure Luxury & Compliment Magnet',
+    comment: 'The scent pyramid transition is hypnotic. Smooth blend of rich accords that projects beautifully without being harsh. Will definitely repurchase.',
+    date: '1 week ago',
+    verified: true
+  },
+  {
+    author: 'Kunal Deshmukh',
+    city: 'Bengaluru',
+    rating: 5,
+    title: 'Authentic Batch & Free Laser Engraving is Amazing',
+    comment: 'Got my name engraved on the flacon—looks like a high-end French boutique custom bottle. 10/10 presentation and authentic import seal.',
+    date: '2 weeks ago',
+    verified: true
+  }
+];
+
+function openProductModal(productId) {
+  const products = getStoredProducts();
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  activeModalProduct = product;
+  currentDetailZoom = 1.0;
+  currentDetailQty = 1;
+
+  const imgEl = document.getElementById('detail-product-img');
+  const badgeEl = document.getElementById('detail-badge');
+  const brandEl = document.getElementById('detail-brand');
+  const genderEl = document.getElementById('detail-gender-tag');
+  const nameEl = document.getElementById('detail-name');
+  const accordEl = document.getElementById('detail-accord');
+  const longevityEl = document.getElementById('detail-longevity');
+  const sillageEl = document.getElementById('detail-sillage');
+  const seasonEl = document.getElementById('detail-season');
+  const notesEl = document.getElementById('detail-notes');
+  const priceEl = document.getElementById('detail-price');
+  const qtyEl = document.getElementById('detail-qty-val');
+
+  if (imgEl) imgEl.src = product.image;
+  if (badgeEl) badgeEl.innerText = product.badge || 'Haute Extrait';
+  if (brandEl) brandEl.innerText = product.brand;
+  if (genderEl) genderEl.innerText = product.gender;
+  if (nameEl) nameEl.innerText = product.name;
+  if (accordEl) accordEl.innerText = product.accord;
+  if (longevityEl) longevityEl.innerText = product.longevity || '16+ Hours (Beast Mode ⚡)';
+  if (sillageEl) sillageEl.innerText = product.sillage || 'Room Filler (3.5m 💨)';
+  if (seasonEl) seasonEl.innerText = product.season || 'All-Season Signature Wear 👑';
+  if (notesEl) notesEl.innerText = product.notes;
+  if (priceEl) priceEl.innerText = formatRupees(product.price);
+  if (qtyEl) qtyEl.innerText = '1';
+
+  resetDetailZoom();
+  renderDetailReviews();
+
+  document.getElementById('product-detail-modal')?.classList.remove('hidden');
+}
+
+function closeProductModal() {
+  document.getElementById('product-detail-modal')?.classList.add('hidden');
+  resetDetailZoom();
+}
+
+function renderDetailReviews() {
+  const container = document.getElementById('detail-reviews-list');
+  if (!container) return;
+
+  container.innerHTML = DEFAULT_REVIEWS.map(r => `
+    <div class="p-3 rounded-2xl theme-bg-surface border theme-border space-y-1.5 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="font-bold theme-text-main">${r.author}</span>
+          <span class="text-[10px] theme-text-muted">(${r.city})</span>
+          ${r.verified ? '<span class="text-[9px] font-bold text-green-600 dark:text-green-400">✓ Verified Buyer</span>' : ''}
+        </div>
+        <div class="flex items-center text-yellow-500 text-[10px]">
+          ${'★'.repeat(r.rating)}
+        </div>
+      </div>
+      <h5 class="font-bold text-[11px] theme-text-main">${r.title}</h5>
+      <p class="text-xs theme-text-secondary italic leading-relaxed">"${r.comment}"</p>
+      <span class="text-[9px] theme-text-muted block pt-0.5">${r.date}</span>
+    </div>
+  `).join('');
+}
+
+// Interactive Zoom Handlers
+function adjustDetailZoom(change) {
+  currentDetailZoom = Math.min(2.5, Math.max(0.8, Number((currentDetailZoom + change).toFixed(2))));
+  applyDetailZoom();
+}
+
+function resetDetailZoom() {
+  currentDetailZoom = 1.0;
+  applyDetailZoom();
+  resetZoomPan();
+}
+
+function applyDetailZoom() {
+  const img = document.getElementById('detail-product-img');
+  const levelText = document.getElementById('detail-zoom-level-text');
+  if (img) {
+    img.style.transform = `scale(${currentDetailZoom})`;
+  }
+  if (levelText) {
+    levelText.innerText = `${Math.round(currentDetailZoom * 100)}%`;
+  }
+}
+
+function handleZoomPan(e) {
+  if (currentDetailZoom <= 1.0) return;
+  const container = document.getElementById('zoom-viewport-container');
+  const img = document.getElementById('detail-product-img');
+  if (!container || !img) return;
+
+  const rect = container.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+  img.style.transformOrigin = `${x}% ${y}%`;
+}
+
+function resetZoomPan() {
+  const img = document.getElementById('detail-product-img');
+  if (img) {
+    img.style.transformOrigin = 'center center';
+  }
+}
+
+function adjustDetailQty(change) {
+  currentDetailQty = Math.max(1, currentDetailQty + change);
+  const qtyEl = document.getElementById('detail-qty-val');
+  if (qtyEl) qtyEl.innerText = currentDetailQty;
+}
+
+function handleDetailAddToCart() {
+  if (!activeModalProduct) return;
+  for (let i = 0; i < currentDetailQty; i++) {
+    addToCart(activeModalProduct.id);
+  }
+  closeProductModal();
+  openCartDrawer();
+}
+
+function handleDetailBuyNow() {
+  if (!activeModalProduct) return;
+  addToCart(activeModalProduct.id);
+  closeProductModal();
+  openCartDrawer();
+}
+
+// 14. SMOOTH NAVIGATION & INVISIBLE SHORTCUTS
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToSection(sectionId) {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
 }

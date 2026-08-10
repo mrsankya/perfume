@@ -342,11 +342,68 @@ body {
   100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3)); }
 }
 
-.alchemy-mixing-glow {
-  animation: alchemyPulse 3s infinite ease-in-out;
+/* Floating Bottom Navigation Pill Bar */
+.floating-bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100vw - 32px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Celebrity Wardrobe Glow */
+[data-theme="women"] .floating-bottom-nav {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(212, 93, 121, 0.35);
+  box-shadow: 0 10px 35px rgba(212, 93, 121, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="men"] .floating-bottom-nav {
+  background: rgba(18, 26, 46, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), inset 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.floating-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.floating-nav-item:hover, .floating-nav-item.active {
+  color: var(--text-main);
+  background: var(--bg-surface-elevated);
+}
+
+/* Product Zoom Viewport */
+.product-zoom-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 1.25rem;
+  cursor: zoom-in;
+}
+
 .celebrity-card {
   position: relative;
   overflow: hidden;
