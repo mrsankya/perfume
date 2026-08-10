@@ -197,14 +197,19 @@ const PERFUMES_DEFAULT_DB = [
   }
 ];
 
-const CELEBRITY_WARDROBES = [
+const DEFAULT_CELEBRITY_WARDROBES = [
   {
     id: 'celeb-srk',
     name: 'Shah Rukh Khan',
     tagline: 'The King of Bollywood Signature Layering',
     subtitle: 'SRK’s iconic blend of smoky Mysore Sandalwood + spicy Woody Amber',
     badge: '👑 King Khan’s Scent Signature',
+    rating: '5.0',
+    ratingCount: '2.4k+ Fans • 99% Compliments',
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'MYSORE CHANDAN ROYALE + TURATHI BROWN',
+    perfumeBrand: 'Reserve & Afnan Duo',
     quote: '"I always layer two fragrances: a rich woody oriental base with a fresh peppery leather top note."',
     items: [
       { id: 'p9', name: 'MYSORE CHANDAN ROYALE', brand: 'Reserve', price: 4200 },
@@ -220,7 +225,12 @@ const CELEBRITY_WARDROBES = [
     tagline: 'The Alpha Captain Beast-Mode Signature',
     subtitle: 'Intense Spiced Tobacco Vanilla layered with Royal Dehn Al Oud',
     badge: '🏏 Alpha Champion Sillage',
+    rating: '4.9',
+    ratingCount: '1.9k+ Fans • 98% Longevity',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: "KHAMRAH D'OR + OUD SUPRÊME",
+    perfumeBrand: 'Lattafa & Rasasi Duo',
     quote: '"For me, performance is everything. My scent has to project for 16+ hours even in extreme heat."',
     items: [
       { id: 'p1', name: "KHAMRAH D'OR", brand: 'Lattafa', price: 2899 },
@@ -236,7 +246,12 @@ const CELEBRITY_WARDROBES = [
     tagline: 'Royal Grace & Haute Rose Extrait',
     subtitle: 'Kashmiri Damascene Rose Petals blended with Bourbon Vanilla Gourmand',
     badge: '🌸 Queen of Grace Wardrobe',
+    rating: '5.0',
+    ratingCount: '3.1k+ Fans • 100% Sillage Trail',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'DELINA EXCLUSIF + YARA BLUSH',
+    perfumeBrand: 'Parfums de Marly & Lattafa',
     quote: '"A fragrance should be like a silk saree—ethereal, lasting, and leaving an unforgettable floral trail."',
     items: [
       { id: 'p7', name: 'DELINA EXCLUSIF', brand: 'Parfums de Marly', price: 8499 },
@@ -252,7 +267,12 @@ const CELEBRITY_WARDROBES = [
     tagline: 'Billionaire Tech & High-Voltage Sillage',
     subtitle: 'Smoky Birch Creed Aventus paired with Aquatic Grey Amber Beast Mode',
     badge: '⚡ Titanium Arc Reactor Duo',
+    rating: '4.9',
+    ratingCount: '2.8k+ Fans • Beast Mode Projection',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'CLUB DE NUIT INTENSE + HAWAS',
+    perfumeBrand: 'Armaf & Rasasi Duo',
     quote: '"Jarvis, set sillage projection to maximum overload. Unapologetic power."',
     items: [
       { id: 'p5', name: 'CLUB DE NUIT INTENSE', brand: 'Armaf', price: 3899 },
@@ -263,6 +283,17 @@ const CELEBRITY_WARDROBES = [
     savings: 800
   }
 ];
+
+function getStoredCelebrityWardrobes() {
+  try {
+    const saved = localStorage.getItem('perfumes_celebrity_wardrobes');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return DEFAULT_CELEBRITY_WARDROBES;
+}
 
 const INITIAL_COMMUNITY_POSTS = [
   {
@@ -1086,51 +1117,88 @@ function renderCelebrityWardrobes() {
   const container = document.getElementById('celebrity-wardrobe-slider-track') || document.getElementById('celebrity-wardrobe-grid');
   if (!container) return;
 
-  container.innerHTML = CELEBRITY_WARDROBES.map((c, idx) => `
+  const wardrobes = getStoredCelebrityWardrobes();
+
+  container.innerHTML = wardrobes.map((c, idx) => {
+    const starCount = Math.floor(Number(c.rating || 5));
+    const starsHtml = '★'.repeat(starCount) + (starCount < 5 ? '☆'.repeat(5 - starCount) : '');
+
+    return `
     <div class="luxury-slider-item four-col celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl transition-all duration-300">
       
-      <div class="flex items-center gap-3.5">
-        <img src="${c.image}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border theme-border shadow-md shrink-0">
-        <div class="min-w-0">
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block mb-1 truncate">
-            ${c.badge}
-          </span>
-          <h3 class="font-heading text-base font-bold theme-text-main uppercase truncate">${c.name}</h3>
-          <p class="text-[11px] theme-text-muted line-clamp-1">${c.tagline}</p>
+      <!-- Top Header: Celebrity Photo & Perfume Flacon Photo -->
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="relative shrink-0">
+            <img src="${c.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600'}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-[#C59B27] shadow-md">
+            <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#C59B27] text-[#120D0A] flex items-center justify-center text-[10px] font-bold shadow-sm">
+              <i class="fa-solid fa-crown text-[8px]"></i>
+            </span>
+          </div>
+          <div class="min-w-0">
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold theme-badge inline-block mb-1 truncate max-w-full">
+              ${c.badge || '🌟 Iconic Signature'}
+            </span>
+            <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase truncate">${c.name}</h3>
+            <p class="text-[11px] theme-text-muted truncate">${c.tagline || ''}</p>
+          </div>
         </div>
+
+        ${c.perfumeImage ? `
+          <div class="shrink-0 relative group" title="Signature Perfume with Celeb">
+            <img src="${c.perfumeImage}" alt="${c.perfumeName || 'Perfume Flacon'}" class="w-14 h-14 rounded-2xl object-cover border theme-border shadow-sm p-0.5 bg-white/5 group-hover:scale-105 transition-transform">
+            <span class="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 bg-amber-500 text-black font-extrabold text-[8px] rounded-full uppercase tracking-tighter">Duo</span>
+          </div>
+        ` : ''}
       </div>
 
-      <blockquote class="text-xs italic theme-text-secondary p-3 rounded-2xl theme-bg-surface border theme-border leading-relaxed">
-        ${c.quote}
+      <!-- Star Rating & Compliments Badge -->
+      <div class="flex items-center justify-between px-3 py-1.5 rounded-xl theme-bg-surface border theme-border text-xs">
+        <div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+          <span>${starsHtml}</span>
+          <span class="text-xs font-mono theme-text-main font-bold ml-1">${c.rating || '5.0'}</span>
+        </div>
+        <span class="text-[10px] text-green-600 dark:text-green-400 font-semibold flex items-center gap-1">
+          <i class="fa-solid fa-sparkles text-[9px]"></i>
+          <span>${c.ratingCount || '99% Compliment Magnet'}</span>
+        </span>
+      </div>
+
+      <!-- Celebrity Quote / Story -->
+      <blockquote class="text-xs italic theme-text-secondary p-3 rounded-2xl theme-bg-surface border theme-border leading-relaxed relative">
+        <i class="fa-solid fa-quote-left text-[9px] text-[#C59B27] mr-1 opacity-70"></i>
+        ${c.quote || 'A timeless, magnetic scent combination that commands elegance.'}
       </blockquote>
 
-      <div class="space-y-2 pt-1 border-t theme-border">
-        <span class="text-[10px] font-bold theme-accent uppercase tracking-wider block">Signature Scent Duo:</span>
-        <div class="grid grid-cols-2 gap-2">
-          ${c.items.map(item => `
-            <div class="p-2 rounded-xl theme-bg-surface border theme-border text-[11px]">
-              <span class="font-bold theme-text-main block truncate uppercase">${item.name}</span>
-              <span class="theme-text-muted text-[10px]">${item.brand} • ${formatRupees(item.price)}</span>
-            </div>
-          `).join('')}
+      <!-- Perfume Duo Breakdown -->
+      <div class="space-y-1.5 pt-1 border-t theme-border">
+        <div class="flex justify-between items-center text-[10px]">
+          <span class="font-bold theme-accent uppercase tracking-wider">Layering Composition:</span>
+          <span class="text-[9px] theme-text-muted font-mono">${c.perfumeBrand || 'Haute Duo'}</span>
+        </div>
+        <div class="p-2.5 rounded-xl theme-bg-surface border theme-border text-[11px] space-y-1">
+          <span class="font-bold theme-text-main block uppercase text-xs truncate">${c.perfumeName || (c.items ? c.items.map(i => i.name).join(' + ') : 'Signature Fragrance')}</span>
+          <p class="text-[10px] theme-text-muted truncate">${c.subtitle || 'Custom blended for high-longevity sillage'}</p>
         </div>
       </div>
 
+      <!-- Pricing & Add Duo to Cart -->
       <div class="pt-2 flex items-center justify-between border-t theme-border">
         <div>
-          <span class="text-[10px] theme-text-muted line-through">${formatRupees(c.regularPrice)}</span>
-          <span class="font-heading text-base font-bold theme-accent block">${formatRupees(c.comboPrice)}</span>
-          <span class="text-[9px] font-bold text-green-600 dark:text-green-400">Save ${formatRupees(c.savings)} Duo Combo</span>
+          <span class="text-[10px] theme-text-muted line-through">${formatRupees(c.regularPrice || 7999)}</span>
+          <span class="font-heading text-base sm:text-lg font-bold theme-accent block">${formatRupees(c.comboPrice || 6999)}</span>
+          <span class="text-[9px] font-bold text-green-600 dark:text-green-400">Save ${formatRupees(c.savings || 800)} Combo</span>
         </div>
 
-        <button onclick="buyCelebrityDuo('${c.id}')" class="theme-btn-primary px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 hover:scale-105 transition-transform">
+        <button onclick="buyCelebrityDuo('${c.id}')" class="theme-btn-primary px-3.5 sm:px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 hover:scale-105 transition-transform">
           <i class="fa-solid fa-cart-plus"></i>
           <span>Add Duo</span>
         </button>
       </div>
 
     </div>
-  `).join('');
+    `;
+  }).join('');
 
   renderCelebritySliderDots();
   initCelebritySliderAutoPlay();
@@ -1140,7 +1208,9 @@ function renderCelebritySliderDots() {
   const dotsContainer = document.getElementById('celebrity-slider-dots');
   if (!dotsContainer) return;
 
-  dotsContainer.innerHTML = CELEBRITY_WARDROBES.map((_, idx) => `
+  const wardrobes = getStoredCelebrityWardrobes();
+
+  dotsContainer.innerHTML = wardrobes.map((_, idx) => `
     <button onclick="jumpToCelebritySlide(${idx})" class="slider-dot-btn ${idx === celebritySliderIndex ? 'active' : ''}" aria-label="Celebrity Slide ${idx + 1}"></button>
   `).join('');
 }
@@ -1167,7 +1237,8 @@ function updateCelebritySliderDots() {
   if (!track || !track.firstElementChild) return;
   const cardWidth = track.firstElementChild.offsetWidth + 20;
   const currentIndex = Math.round(track.scrollLeft / cardWidth);
-  if (currentIndex !== celebritySliderIndex && currentIndex >= 0 && currentIndex < CELEBRITY_WARDROBES.length) {
+  const wardrobes = getStoredCelebrityWardrobes();
+  if (currentIndex !== celebritySliderIndex && currentIndex >= 0 && currentIndex < wardrobes.length) {
     celebritySliderIndex = currentIndex;
     renderCelebritySliderDots();
   }
@@ -1190,23 +1261,42 @@ function initCelebritySliderAutoPlay() {
 }
 
 function buyCelebrityDuo(celebId) {
-  const celeb = CELEBRITY_WARDROBES.find(c => c.id === celebId);
+  const wardrobes = getStoredCelebrityWardrobes();
+  const celeb = wardrobes.find(c => c.id === celebId);
   if (!celeb) return;
 
   const products = getStoredProducts();
-  celeb.items.forEach(cItem => {
-    const prod = products.find(p => p.id === cItem.id);
-    if (prod) {
-      const existing = cart.find(i => i.id === prod.id);
-      if (existing) existing.qty += 1;
-      else cart.push({ id: prod.id, name: prod.name, brand: prod.brand, price: prod.price, image: prod.image, accord: prod.accord, qty: 1 });
-    }
-  });
 
-  discountCoupon = { code: 'CELEBDUO', amount: celeb.savings };
+  if (celeb.items && Array.isArray(celeb.items) && celeb.items.length > 0) {
+    celeb.items.forEach(cItem => {
+      const prod = products.find(p => p.id === cItem.id);
+      if (prod) {
+        const existing = cart.find(i => i.id === prod.id);
+        if (existing) existing.qty += 1;
+        else cart.push({ id: prod.id, name: prod.name, brand: prod.brand, price: prod.price, image: prod.image, accord: prod.accord, qty: 1 });
+      } else {
+        const existing = cart.find(i => i.name === cItem.name);
+        if (existing) existing.qty += 1;
+        else cart.push({ id: 'celeb-item-' + Date.now() + Math.random(), name: cItem.name, brand: cItem.brand || 'Luxury Extrait', price: cItem.price || Math.round(celeb.comboPrice / 2), image: celeb.perfumeImage || celeb.image, accord: 'Celebrity Choice', qty: 1 });
+      }
+    });
+  } else {
+    // Custom single/duo combo item
+    cart.push({
+      id: 'celeb-combo-' + celeb.id,
+      name: `${celeb.name} Signature Wardrobe (${celeb.perfumeName || 'Luxury Duo'})`,
+      brand: celeb.perfumeBrand || 'Haute Duo Extrait',
+      price: celeb.comboPrice || 5999,
+      image: celeb.perfumeImage || celeb.image,
+      accord: 'Celebrity Wardrobe',
+      qty: 1
+    });
+  }
+
+  discountCoupon = { code: 'CELEBDUO', amount: celeb.savings || 800 };
   saveCartToStorage();
   openCartDrawer();
-  showToast(`Added ${celeb.name}'s Wardrobe Duo (Saved ${formatRupees(celeb.savings)})! 👑`, 'success');
+  showToast(`Added ${celeb.name}'s Wardrobe Duo (Saved ${formatRupees(celeb.savings || 800)})! 👑`, 'success');
 }
 
 // 5. DISCOVERY SAMPLE BOX BUILDER

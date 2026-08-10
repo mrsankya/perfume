@@ -91,7 +91,12 @@
       6. 🌊 **Fresh Citrus & Monsoon Aqua Sillage** (Marine bergamot beast mode fresh).
     - Smooth horizontal scroll-snap, glowing left/right navigation arrow buttons, touch swiping, and automated gentle left-to-right auto-play with pause-on-hover.
     - Integrated **View Mode Switcher**: 1-click toggle between **Animated Sliders 🎠** and **Grid View 🔲**.
-16. **⚡ Invisible Seamless Navigation Shortcuts**:
+16. **🌟 Fully Editable Celebrity Scent Wardrobes & Recommendations**:
+    - Manageable via both **Super Admin (`superadmin.html`)** and **Staff Admin (`admin.html`)**.
+    - Dual Image Uploads: Upload **Celebrity Portrait Photo** + **Perfume Bottle with Celeb Photo** (via URL or local image file with Canvas compression).
+    - Customizable Star Ratings (1-5 stars), Fan Compliment Score, Scent Accords Subtitle, Celebrity Quote/Story, and Layering Duo Combo Pricing with instant savings badge.
+    - Synchronized with MongoDB Atlas Cloud (`db-sync.js`) and auto-rendered on the live storefront luxury carousel.
+17. **⚡ Invisible Seamless Navigation Shortcuts**:
     - Header brand logo & subtitle, footer crown & shop name, and footer copyright bar smoothly scroll to top of page without page refreshes.
 
 ## Super Admin 1-Click Control Engines
@@ -108,11 +113,14 @@
    - Dynamic auto-sliding carousel (every 5 seconds) with interactive indicator dots.
    - Stored in `perfumes_hero_banners` with live storefront synchronization and JSON backup/restore support.
 
-3. **📸 Dual Image Upload & Client-Side Compression Engine**:
+3. **🌟 Celebrity Scent Wardrobes & Recommendations Manager**:
+   - Add, edit, reprice, or remove celebrity layering recommendations with dual photo uploads, custom star ratings, and quotes.
+
+4. **📸 Dual Image Upload & Client-Side Compression Engine**:
    - Dual Input Modes: **Web URL** or **Local File Upload** (Drag & Drop / File Picker).
    - High-performance HTML5 Canvas compression auto-resizes high-res phone/camera photos down to lightweight JPEG DataURLs without loss of sharpness.
    - Live interactive thumbnail & banner previews with 1-click removal.
-   - Integrated across **Super Admin Products**, **Super Admin Hero Banners**, **Staff Admin Products**, and **Customer SOTD Community Posts**.
+   - Integrated across **Super Admin Products**, **Super Admin Hero Banners**, **Super Admin & Staff Celebrity Wardrobes**, **Staff Admin Products**, and **Customer SOTD Community Posts**.
 
 ## Enterprise Security & Anti-Tamper Shield
 1. **🛡️ Client-Side Anti-Inspect & DevTools Shield (`security.js`)**:

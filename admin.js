@@ -191,6 +191,7 @@ function switchTab(tabId) {
   if (tabId === 'inventory') renderInventoryTable();
   if (tabId === 'visitors') renderVisitorsTable();
   if (tabId === 'orders') renderOrdersTable();
+  if (tabId === 'celebrities') renderAdminCelebrityWardrobes();
   if (tabId === 'consultations') renderConsultationsTable();
   if (tabId === 'reservations') renderReservationsTable();
   if (tabId === 'settings') renderSettingsForm();
@@ -755,43 +756,95 @@ function generateGSTTaxInvoice(orderId) {
   modal.classList.remove('hidden');
 }
 
+function getInvoiceFilename(order) {
+  const rawCustomer = (order && order.customer ? order.customer : 'Valued_Customer').trim();
+  const cleanName = rawCustomer.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_');
+  const cleanId = String(order && order.id ? order.id : 'ORD').replace(/[^a-zA-Z0-9]/g, '');
+  return `Tax_Invoice_${cleanName}_${cleanId}.pdf`;
+}
+
+function convertNumberToWords(amount) {
+  const num = Math.round(Number(amount) || 0);
+  if (num === 0) return 'Zero Rupees Only';
+
+  const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+    'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  function toWords(n) {
+    if (n < 20) return ones[n];
+    if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');
+    if (n < 1000) return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 ? ' and ' + toWords(n % 100) : '');
+    if (n < 100000) return toWords(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 ? ' ' + toWords(n % 1000) : '');
+    if (n < 10000000) return toWords(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 ? ' ' + toWords(n % 100000) : '');
+    return toWords(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 ? ' ' + toWords(n % 10000000) : '');
+  }
+
+  return toWords(num) + ' Rupees Only';
+}
+
 function closeGSTInvoiceModal() {
   document.getElementById('gst-invoice-modal')?.classList.add('hidden');
 }
 
-function printGSTInvoice() {
-  const container = document.getElementById('printable-gst-document') || document.getElementById('gst-invoice-modal-content');
-  if (!container) return;
-
-  const contentHtml = container.innerHTML;
-
-  let printFrame = document.getElementById('gst-print-iframe');
-  if (printFrame) {
-    printFrame.remove();
+function downloadGSTInvoicePDF() {
+  if (!currentActiveInvoiceOrder) {
+    showToast('No active order selected for invoice download', 'error');
+    return;
   }
 
-  printFrame = document.createElement('iframe');
-  printFrame.id = 'gst-print-iframe';
-  printFrame.style.position = 'fixed';
-  printFrame.style.right = '0';
-  printFrame.style.bottom = '0';
-  printFrame.style.width = '0';
-  printFrame.style.height = '0';
-  printFrame.style.border = 'none';
-  document.body.appendChild(printFrame);
+  const element = document.getElementById('printable-gst-document');
+  if (!element) return;
 
-  const doc = printFrame.contentWindow.document;
-  doc.open();
-  doc.write(`
+  const filename = getInvoiceFilename(currentActiveInvoiceOrder);
+
+  if (typeof html2pdf !== 'undefined') {
+    const opt = {
+      margin: [8, 10, 8, 10],
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2.5, useCORS: true, letterRendering: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+    showToast(`Downloading Tax Invoice for ${currentActiveInvoiceOrder.customer}... 📥`, 'success');
+  } else {
+    printGSTInvoice();
+  }
+}
+
+function printGSTInvoice() {
+  if (!currentActiveInvoiceOrder) return;
+  const originalTitle = document.title;
+  const filenameNoExt = getInvoiceFilename(currentActiveInvoiceOrder).replace('.pdf', '');
+
+  // Change page title so Chrome/Edge default save-as name matches Customer Name
+  document.title = filenameNoExt;
+
+  const container = document.getElementById('printable-gst-document');
+  if (!container) {
+    document.title = originalTitle;
+    return;
+  }
+
+  const printWin = window.open('', '_blank', 'width=880,height=960');
+  if (!printWin) {
+    window.print();
+    setTimeout(() => { document.title = originalTitle; }, 1000);
+    return;
+  }
+
+  printWin.document.open();
+  printWin.document.write(`
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <title>Tax Invoice - ${currentActiveInvoiceOrder ? currentActiveInvoiceOrder.id : 'Perfume Shope'}</title>
+      <title>${filenameNoExt}</title>
       <style>
         @page {
           size: A4 portrait;
-          margin: 12mm 15mm;
+          margin: 10mm 12mm;
         }
         * {
           box-sizing: border-box;
@@ -803,23 +856,14 @@ function printGSTInvoice() {
           background: #ffffff !important;
           color: #111827 !important;
           margin: 0;
-          padding: 10px;
+          padding: 8px;
           font-size: 12px;
           line-height: 1.4;
-        }
-        .invoice-wrapper {
-          width: 100%;
-          max-width: 800px;
-          margin: 0 auto;
-          background: #ffffff;
-          padding: 24px;
-          border: 1.5px solid #d1d5db;
-          border-radius: 12px;
         }
         table {
           width: 100%;
           border-collapse: collapse;
-          margin: 16px 0;
+          margin: 12px 0;
         }
         th, td {
           padding: 8px 10px;
@@ -836,19 +880,16 @@ function printGSTInvoice() {
         }
       </style>
     </head>
-    <body>
-      <div class="invoice-wrapper">
-        ${contentHtml}
-      </div>
+    <body onload="window.focus(); window.print(); window.close();">
+      ${container.outerHTML}
     </body>
     </html>
   `);
-  doc.close();
+  printWin.document.close();
 
   setTimeout(() => {
-    printFrame.contentWindow.focus();
-    printFrame.contentWindow.print();
-  }, 300);
+    document.title = originalTitle;
+  }, 1500);
 }
 
 function confirmOrderWhatsApp(id, phone, total) {
@@ -947,4 +988,395 @@ function showToast(message, type = 'info') {
   setTimeout(() => {
     toast.classList.add('translate-y-10', 'opacity-0');
   }, 3000);
+}
+
+// =========================================================================
+// CELEBRITY SCENT WARDROBES CONTROLLER (STAFF ADMIN)
+// =========================================================================
+const DEFAULT_STAFF_CELEBRITY_WARDROBES = [
+  {
+    id: 'celeb-srk',
+    name: 'Shah Rukh Khan',
+    tagline: 'The King of Bollywood Signature Layering',
+    subtitle: 'SRK’s iconic blend of smoky Mysore Sandalwood + spicy Woody Amber',
+    badge: '👑 King Khan’s Scent Signature',
+    rating: '5.0',
+    ratingCount: '2.4k+ Fans • 99% Compliments',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'MYSORE CHANDAN ROYALE + TURATHI BROWN',
+    perfumeBrand: 'Reserve & Afnan Duo',
+    quote: '"I always layer two fragrances: a rich woody oriental base with a fresh peppery leather top note."',
+    regularPrice: 7399,
+    comboPrice: 6599,
+    savings: 800
+  },
+  {
+    id: 'celeb-virat',
+    name: 'Virat Kohli',
+    tagline: 'The Alpha Captain Beast-Mode Signature',
+    subtitle: 'Intense Spiced Tobacco Vanilla layered with Royal Dehn Al Oud',
+    badge: '🏏 Alpha Champion Sillage',
+    rating: '4.9',
+    ratingCount: '1.9k+ Fans • 98% Longevity',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: "KHAMRAH D'OR + OUD SUPRÊME",
+    perfumeBrand: 'Lattafa & Rasasi Duo',
+    quote: '"For me, performance is everything. My scent has to project for 16+ hours even in extreme heat."',
+    regularPrice: 6398,
+    comboPrice: 5598,
+    savings: 800
+  },
+  {
+    id: 'celeb-deepika',
+    name: 'Deepika Padukone',
+    tagline: 'Royal Grace & Haute Rose Extrait',
+    subtitle: 'Kashmiri Damascene Rose Petals blended with Bourbon Vanilla Gourmand',
+    badge: '🌸 Queen of Grace Wardrobe',
+    rating: '5.0',
+    ratingCount: '3.1k+ Fans • 100% Sillage Trail',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'DELINA EXCLUSIF + YARA BLUSH',
+    perfumeBrand: 'Parfums de Marly & Lattafa',
+    quote: '"A fragrance should be like a silk saree—ethereal, lasting, and leaving an unforgettable floral trail."',
+    regularPrice: 10998,
+    comboPrice: 10198,
+    savings: 800
+  },
+  {
+    id: 'celeb-tony',
+    name: 'Marvel Titan / Tony Stark',
+    tagline: 'Billionaire Tech & High-Voltage Sillage',
+    subtitle: 'Smoky Birch Creed Aventus paired with Aquatic Grey Amber Beast Mode',
+    badge: '⚡ Titanium Arc Reactor Duo',
+    rating: '4.9',
+    ratingCount: '2.8k+ Fans • Beast Mode Projection',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'CLUB DE NUIT INTENSE + HAWAS',
+    perfumeBrand: 'Armaf & Rasasi Duo',
+    quote: '"Jarvis, set sillage projection to maximum overload. Unapologetic power."',
+    regularPrice: 7598,
+    comboPrice: 6798,
+    savings: 800
+  }
+];
+
+function getAdminCelebrityWardrobes() {
+  try {
+    const saved = localStorage.getItem('perfumes_celebrity_wardrobes');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return DEFAULT_STAFF_CELEBRITY_WARDROBES;
+}
+
+function saveAdminCelebrityWardrobes(list) {
+  localStorage.setItem('perfumes_celebrity_wardrobes', JSON.stringify(list));
+  if (typeof syncToAtlasCloud === 'function') {
+    syncToAtlasCloud('celebrities', list);
+  }
+}
+
+function renderAdminCelebrityWardrobes() {
+  const container = document.getElementById('admin-celebrity-wardrobes-grid');
+  if (!container) return;
+
+  const wardrobes = getAdminCelebrityWardrobes();
+
+  container.innerHTML = wardrobes.map((c, idx) => {
+    const starCount = Math.floor(Number(c.rating || 5));
+    const stars = '★'.repeat(starCount) + (starCount < 5 ? '☆'.repeat(5 - starCount) : '');
+
+    return `
+      <div class="bg-[#1C1511] border border-gray-800 rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:border-[#C59B27]/60 transition-all shadow-md group">
+        
+        <!-- Header with Photos -->
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="relative shrink-0">
+              <img src="${c.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600'}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-[#C59B27] shadow-md">
+              <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#C59B27] text-[#120D0A] flex items-center justify-center text-[10px] font-bold">
+                <i class="fa-solid fa-crown text-[8px]"></i>
+              </span>
+            </div>
+            <div class="min-w-0">
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#C59B27]/20 text-[#C59B27] border border-[#C59B27]/30 inline-block mb-1 truncate">
+                ${c.badge || '🌟 Scent Signature'}
+              </span>
+              <h4 class="font-heading text-base font-bold text-white uppercase truncate">${c.name}</h4>
+              <p class="text-xs text-gray-400 truncate">${c.tagline || ''}</p>
+            </div>
+          </div>
+
+          <div class="shrink-0 text-right">
+            ${c.perfumeImage ? `
+              <img src="${c.perfumeImage}" alt="Perfume with Celeb" class="w-14 h-14 rounded-2xl object-cover border border-gray-700 shadow-sm p-0.5 bg-black/40" title="Perfume Flacon">
+            ` : `
+              <div class="w-14 h-14 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-600 text-xs">
+                <i class="fa-solid fa-bottle-droplet"></i>
+              </div>
+            `}
+          </div>
+        </div>
+
+        <!-- Rating & Compliments -->
+        <div class="flex items-center justify-between px-3 py-2 rounded-xl bg-[#120D0A] border border-gray-800 text-xs">
+          <div class="flex items-center gap-1 text-amber-400 font-bold">
+            <span>${stars}</span>
+            <span class="text-white font-mono ml-1">${c.rating || '5.0'}</span>
+          </div>
+          <span class="text-[10px] text-green-400 font-semibold">${c.ratingCount || '99% Compliment Magnet'}</span>
+        </div>
+
+        <!-- Quote -->
+        <blockquote class="text-xs italic text-gray-300 p-3 rounded-2xl bg-[#120D0A] border border-gray-800/80 leading-relaxed">
+          <i class="fa-solid fa-quote-left text-[9px] text-[#C59B27] mr-1"></i>
+          ${c.quote || 'No quote provided.'}
+        </blockquote>
+
+        <!-- Perfume Duo & Notes -->
+        <div class="p-3 rounded-2xl bg-[#120D0A] border border-gray-800 text-xs space-y-1">
+          <div class="flex justify-between items-center text-[10px]">
+            <span class="font-bold text-[#C59B27] uppercase">Perfume Duo:</span>
+            <span class="text-gray-400 font-mono">${c.perfumeBrand || 'Luxury Blend'}</span>
+          </div>
+          <p class="font-bold text-white text-xs uppercase truncate">${c.perfumeName || 'Perfume Extrait'}</p>
+          <p class="text-[10px] text-gray-400 truncate">${c.subtitle || ''}</p>
+        </div>
+
+        <!-- Pricing & Action Controls -->
+        <div class="pt-2 flex items-center justify-between border-t border-gray-800">
+          <div>
+            <span class="text-[10px] text-gray-500 line-through">${formatRupees(c.regularPrice || 0)}</span>
+            <span class="font-mono text-base font-bold text-[#C59B27] block">${formatRupees(c.comboPrice || 0)}</span>
+            <span class="text-[9px] font-bold text-green-400">Save ${formatRupees(c.savings || 0)} Combo</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button onclick="openCelebrityWardrobeModal('${c.id}')" class="px-3 py-1.5 rounded-xl bg-blue-600/80 hover:bg-blue-600 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm">
+              <i class="fa-solid fa-pen-to-square"></i>
+              <span>Edit</span>
+            </button>
+            <button onclick="deleteCelebrityWardrobe('${c.id}')" class="p-2 rounded-xl bg-red-900/40 hover:bg-red-800/80 text-red-300 text-xs transition-all" title="Delete Wardrobe">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+  }).join('');
+}
+
+function openCelebrityWardrobeModal(celebId = null) {
+  const form = document.getElementById('admin-celebrity-form');
+  if (!form) return;
+  form.reset();
+
+  const titleEl = document.getElementById('admin-celeb-modal-title');
+  const previewCelebImg = document.getElementById('admin-celeb-image-preview');
+  const previewPerfumeImg = document.getElementById('admin-celeb-perfume-image-preview');
+
+  if (celebId) {
+    const list = getAdminCelebrityWardrobes();
+    const celeb = list.find(c => c.id === celebId);
+    if (celeb) {
+      if (titleEl) titleEl.innerText = `Edit: ${celeb.name}`;
+      document.getElementById('admin-celeb-input-id').value = celeb.id;
+      document.getElementById('admin-celeb-input-name').value = celeb.name || '';
+      document.getElementById('admin-celeb-input-tagline').value = celeb.tagline || '';
+      document.getElementById('admin-celeb-input-badge').value = celeb.badge || '';
+      document.getElementById('admin-celeb-select-rating').value = celeb.rating || '5.0';
+      document.getElementById('admin-celeb-input-reviews').value = celeb.ratingCount || '';
+      document.getElementById('admin-celeb-input-image-url').value = celeb.image || '';
+      document.getElementById('admin-celeb-input-perfume-image-url').value = celeb.perfumeImage || '';
+      document.getElementById('admin-celeb-input-perfume-name').value = celeb.perfumeName || '';
+      document.getElementById('admin-celeb-input-perfume-brand').value = celeb.perfumeBrand || '';
+      document.getElementById('admin-celeb-input-subtitle').value = celeb.subtitle || '';
+      document.getElementById('admin-celeb-input-quote').value = celeb.quote || '';
+      document.getElementById('admin-celeb-input-regular-price').value = celeb.regularPrice || '';
+      document.getElementById('admin-celeb-input-combo-price').value = celeb.comboPrice || '';
+      document.getElementById('admin-celeb-input-savings').value = celeb.savings || '';
+
+      if (previewCelebImg) previewCelebImg.src = celeb.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600';
+      if (previewPerfumeImg) previewPerfumeImg.src = celeb.perfumeImage || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600';
+    }
+  } else {
+    if (titleEl) titleEl.innerText = 'Add Celebrity Scent Wardrobe';
+    document.getElementById('admin-celeb-input-id').value = '';
+    document.getElementById('admin-celeb-select-rating').value = '5.0';
+    document.getElementById('admin-celeb-input-reviews').value = '2.4k+ Fans • 99% Compliment Magnet';
+    if (previewCelebImg) previewCelebImg.src = 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600';
+    if (previewPerfumeImg) previewPerfumeImg.src = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600';
+  }
+
+  document.getElementById('admin-celebrity-modal')?.classList.remove('hidden');
+}
+
+function closeCelebrityWardrobeModal() {
+  document.getElementById('admin-celebrity-modal')?.classList.add('hidden');
+}
+
+function previewAdminCelebImageUrl(url) {
+  const preview = document.getElementById('admin-celeb-image-preview');
+  if (preview && url) preview.src = url;
+}
+
+function previewAdminCelebPerfumeImageUrl(url) {
+  const preview = document.getElementById('admin-celeb-perfume-image-preview');
+  if (preview && url) preview.src = url;
+}
+
+function handleAdminCelebImageUpload(input) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    document.getElementById('admin-celeb-image-file-name').innerText = file.name;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const max = 800;
+        let w = img.width;
+        let h = img.height;
+        if (w > h && w > max) { h = (h * max) / w; w = max; }
+        else if (h > max) { w = (w * max) / h; h = max; }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const compressedData = canvas.toDataURL('image/jpeg', 0.85);
+        document.getElementById('admin-celeb-input-image-url').value = compressedData;
+        document.getElementById('admin-celeb-image-preview').src = compressedData;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function handleAdminCelebPerfumeImageUpload(input) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    document.getElementById('admin-celeb-perfume-image-file-name').innerText = file.name;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const max = 800;
+        let w = img.width;
+        let h = img.height;
+        if (w > h && w > max) { h = (h * max) / w; w = max; }
+        else if (h > max) { w = (w * max) / h; h = max; }
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const compressedData = canvas.toDataURL('image/jpeg', 0.85);
+        document.getElementById('admin-celeb-input-perfume-image-url').value = compressedData;
+        document.getElementById('admin-celeb-perfume-image-preview').src = compressedData;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function handleSaveCelebrityWardrobe(e) {
+  e.preventDefault();
+  const id = document.getElementById('admin-celeb-input-id').value;
+  const name = document.getElementById('admin-celeb-input-name').value.trim();
+  const tagline = document.getElementById('admin-celeb-input-tagline').value.trim();
+  const badge = document.getElementById('admin-celeb-input-badge').value.trim() || '👑 Scent Signature';
+  const rating = document.getElementById('admin-celeb-select-rating').value;
+  const ratingCount = document.getElementById('admin-celeb-input-reviews').value.trim() || '2.4k+ Fans';
+  const image = document.getElementById('admin-celeb-input-image-url').value.trim() || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600';
+  const perfumeImage = document.getElementById('admin-celeb-input-perfume-image-url').value.trim() || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600';
+  const perfumeName = document.getElementById('admin-celeb-input-perfume-name').value.trim();
+  const perfumeBrand = document.getElementById('admin-celeb-input-perfume-brand').value.trim() || 'Haute Parfumerie';
+  const subtitle = document.getElementById('admin-celeb-input-subtitle').value.trim();
+  const quote = document.getElementById('admin-celeb-input-quote').value.trim();
+  const regularPrice = Number(document.getElementById('admin-celeb-input-regular-price').value) || 0;
+  const comboPrice = Number(document.getElementById('admin-celeb-input-combo-price').value) || 0;
+  let savings = Number(document.getElementById('admin-celeb-input-savings').value) || 0;
+  if (!savings && regularPrice > comboPrice) {
+    savings = regularPrice - comboPrice;
+  }
+
+  let list = getAdminCelebrityWardrobes();
+
+  if (id) {
+    const idx = list.findIndex(c => c.id === id);
+    if (idx !== -1) {
+      list[idx] = {
+        ...list[idx],
+        name,
+        tagline,
+        badge,
+        rating,
+        ratingCount,
+        image,
+        perfumeImage,
+        perfumeName,
+        perfumeBrand,
+        subtitle,
+        quote,
+        regularPrice,
+        comboPrice,
+        savings
+      };
+      showToast(`Celebrity Wardrobe for "${name}" updated successfully! ✨`, 'success');
+    }
+  } else {
+    const newId = 'celeb-' + Date.now();
+    list.push({
+      id: newId,
+      name,
+      tagline,
+      badge,
+      rating,
+      ratingCount,
+      image,
+      perfumeImage,
+      perfumeName,
+      perfumeBrand,
+      subtitle,
+      quote,
+      regularPrice,
+      comboPrice,
+      savings
+    });
+    showToast(`New Celebrity Wardrobe for "${name}" published! 🌟`, 'success');
+  }
+
+  saveAdminCelebrityWardrobes(list);
+  closeCelebrityWardrobeModal();
+  renderAdminCelebrityWardrobes();
+}
+
+function deleteCelebrityWardrobe(celebId) {
+  let list = getAdminCelebrityWardrobes();
+  const item = list.find(c => c.id === celebId);
+  if (!item) return;
+
+  if (confirm(`Are you sure you want to remove the celebrity wardrobe for "${item.name}"?`)) {
+    list = list.filter(c => c.id !== celebId);
+    saveAdminCelebrityWardrobes(list);
+    renderAdminCelebrityWardrobes();
+    showToast(`Celebrity Wardrobe for "${item.name}" removed`, 'info');
+  }
+}
+
+function resetCelebrityWardrobesToDefault() {
+  if (confirm('Reset all celebrity wardrobes to standard royal presets?')) {
+    saveAdminCelebrityWardrobes(DEFAULT_STAFF_CELEBRITY_WARDROBES);
+    renderAdminCelebrityWardrobes();
+    showToast('Celebrity Wardrobes reset to original presets ✨', 'success');
+  }
 }
