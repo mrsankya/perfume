@@ -407,6 +407,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Run immediately on script execution to prevent style flash
+loadSiteVisualStyles();
+
+// Cross-tab real-time style sync
+window.addEventListener('storage', (e) => {
+  if (e.key === 'perfumes_site_style') {
+    loadSiteVisualStyles();
+  }
+});
+
 function loadSiteVisualStyles() {
   const style = localStorage.getItem('perfumes_site_style') || 'glassmorphism';
   document.documentElement.setAttribute('data-style', style);

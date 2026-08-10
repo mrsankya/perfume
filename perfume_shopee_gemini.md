@@ -77,10 +77,10 @@
 
 ## Enterprise Security & Anti-Tamper Shield
 1. **🛡️ Client-Side Anti-Inspect & DevTools Shield (`security.js`)**:
-   - Disabled right-click context menu (`contextmenu` preventDefault).
-   - Disabled keyboard shortcuts: `F12`, `Ctrl+Shift+I`, `Ctrl+Shift+J`, `Ctrl+Shift+C`, `Ctrl+U`, `Ctrl+S`, `Cmd+Option+I/J/C/U`.
-   - Continuous DevTools open detection and security toast warning banner.
-   - Console auto-clearing and security monitoring warning prompt.
+   - Disabled right-click context menu & developer shortcuts (`F12`, `Ctrl+Shift+I/J/C`, `Ctrl+U`, `Ctrl+S`, `Cmd+Option+I/J/C/U`) for **regular customer sessions**.
+   - **Full DevTools & Right-Click Privileges Unlocked Exclusively for Staff Admin & Super Admin** (`isPrivilegedAdmin()`).
+   - 1-Click "Inspect Mode" toggle button in Super Admin console header.
+   - Continuous DevTools open detection for visitor sessions.
    - XSS sanitization helper (`sanitizeInput`) across all user form inputs.
 2. **🔐 Brute-Force Rate Limiting & Cryptographic Protection**:
    - `RateLimiter` enforces a max of 5 failed attempts -> 5-minute exponential lockout cooldown.

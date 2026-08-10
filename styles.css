@@ -138,53 +138,131 @@ body {
    GLOBAL UI VISUAL STYLES (GLASSMORPHISM, ROYAL HERITAGE, CYBERPUNK, MINIMAL LUXE)
    ========================================================================== */
 
-/* 1. GLASSMORPHISM (LIQUID FROSTED GLASS & LUMINOUS GLOW) */
+/* 1. LIQUID GLASSMORPHISM (FROSTED GLASS & LUMINOUS AURORA) */
+[data-style="glassmorphism"] body {
+  background-image: radial-gradient(circle at 15% 15%, rgba(197, 155, 39, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at 85% 85%, rgba(212, 93, 121, 0.08) 0%, transparent 40%);
+}
+
 [data-style="glassmorphism"] .theme-card {
-  background: rgba(30, 22, 17, 0.55) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  background: rgba(26, 18, 14, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  border-radius: 1.5rem !important;
 }
 
 [data-style="glassmorphism"][data-theme="women"] .theme-card {
-  background: rgba(255, 255, 255, 0.72) !important;
-  border: 1px solid rgba(224, 122, 147, 0.35) !important;
-  box-shadow: 0 12px 40px 0 rgba(212, 93, 121, 0.18), inset 0 1px 2px 0 rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(212, 93, 121, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(212, 93, 121, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.95) !important;
 }
 
 [data-style="glassmorphism"][data-theme="men"] .theme-card {
-  background: rgba(18, 26, 46, 0.65) !important;
-  border: 1px solid rgba(56, 189, 248, 0.3) !important;
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(56, 189, 248, 0.12) !important;
+  background: rgba(18, 26, 46, 0.72) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), inset 0 0 16px rgba(56, 189, 248, 0.15) !important;
 }
 
-/* 2. ROYAL INDIAN HERITAGE (VELVET SILK & GOLD FILIGREE) */
+[data-style="glassmorphism"] .theme-bg-surface {
+  background: rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* 2. ROYAL INDIAN HERITAGE (OPULENT VELVET & 24K SAFFRON GOLD FILIGREE) */
+[data-style="royal-heritage"] body {
+  background-color: #0D0805 !important;
+  background-image: radial-gradient(ellipse at 50% 0%, #201309 0%, #0D0805 75%) !important;
+}
+
 [data-style="royal-heritage"] .theme-card {
-  border: 1.5px solid rgba(197, 155, 39, 0.6) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(197, 155, 39, 0.08) !important;
+  background-color: #1A110B !important;
+  border: 1.5px solid #C59B27 !important;
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.85), inset 0 0 25px rgba(197, 155, 39, 0.12) !important;
+  border-radius: 1.25rem !important;
 }
 
 [data-style="royal-heritage"][data-theme="women"] .theme-card {
-  border: 1.5px solid rgba(212, 93, 121, 0.6) !important;
-  box-shadow: 0 10px 30px rgba(212, 93, 121, 0.15), inset 0 0 20px rgba(212, 93, 121, 0.05) !important;
+  background-color: #FFF6F8 !important;
+  border: 1.5px solid #D45D79 !important;
+  box-shadow: 0 14px 45px rgba(212, 93, 121, 0.2), inset 0 0 25px rgba(212, 93, 121, 0.08) !important;
 }
 
-/* 3. CYBERPUNK / NEON TITANIUM (ULTRA-NEON GLOW) */
+[data-style="royal-heritage"][data-theme="men"] .theme-card {
+  background-color: #0E1422 !important;
+  border: 1.5px solid #D4AF37 !important;
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(212, 175, 55, 0.15) !important;
+}
+
+[data-style="royal-heritage"] .theme-btn-primary {
+  background: linear-gradient(135deg, #E6C665 0%, #C59B27 50%, #9A7718 100%) !important;
+  color: #120D0A !important;
+  font-weight: 800 !important;
+  box-shadow: 0 6px 20px rgba(197, 155, 39, 0.4) !important;
+}
+
+/* 3. CYBERPUNK / NEON TITANIUM (HIGH-VOLTAGE ARC CYAN & CRIMSON LASER) */
+[data-style="cyberpunk"] body {
+  background-color: #050811 !important;
+  background-image: linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+}
+
 [data-style="cyberpunk"] .theme-card {
+  background-color: #090E1A !important;
   border: 1.5px solid #38BDF8 !important;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 0 15px rgba(56, 189, 248, 0.1) !important;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.4), inset 0 0 20px rgba(56, 189, 248, 0.12) !important;
+  border-radius: 1rem !important;
 }
 
 [data-style="cyberpunk"][data-theme="women"] .theme-card {
+  background-color: #1A0B14 !important;
   border: 1.5px solid #E07A93 !important;
-  box-shadow: 0 0 20px rgba(224, 122, 147, 0.4), inset 0 0 15px rgba(224, 122, 147, 0.1) !important;
+  box-shadow: 0 0 25px rgba(224, 122, 147, 0.45), inset 0 0 20px rgba(224, 122, 147, 0.15) !important;
 }
 
-/* 4. MINIMALIST SCANDINAVIAN LUXE (HAIRLINE ELEGANCE) */
+[data-style="cyberpunk"] .theme-btn-primary {
+  background: linear-gradient(135deg, #38BDF8 0%, #0284C7 60%, #EF4444 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+[data-style="cyberpunk"] .theme-accent {
+  color: #38BDF8 !important;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5) !important;
+}
+
+/* 4. MINIMALIST SCANDINAVIAN LUXE (MATTE MONOCHROME & HAIRLINE PRECISION) */
+[data-style="minimal-luxe"] body {
+  background-color: #0A0A0A !important;
+}
+
+[data-style="minimal-luxe"][data-theme="women"] body {
+  background-color: #FAF8F5 !important;
+}
+
 [data-style="minimal-luxe"] .theme-card {
-  border: 1px solid rgba(160, 140, 120, 0.25) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+  background-color: #141414 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 0.875rem !important;
+}
+
+[data-style="minimal-luxe"][data-theme="women"] .theme-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-style="minimal-luxe"] .theme-btn-primary {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Theme Elements */

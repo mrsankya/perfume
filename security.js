@@ -5,15 +5,35 @@
 (function() {
   'use strict';
 
-  // 1. DISABLE RIGHT-CLICK CONTEXT MENU
+  // HELPER: Check if current session is an Authorized Staff Admin or Super Admin
+  function isPrivilegedAdmin() {
+    try {
+      const isSuperAdmin = sessionStorage.getItem('perfume_superadmin_auth') === 'true';
+      const isStaffAdmin = sessionStorage.getItem('perfume_admin_logged_in') === 'true';
+      const isDevUnlocked = localStorage.getItem('perfume_dev_mode_enabled') === 'true';
+      const isAdminPage = window.location.pathname.includes('admin.html') || window.location.pathname.includes('superadmin.html');
+      return isSuperAdmin || isStaffAdmin || isDevUnlocked || isAdminPage;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // 1. DISABLE RIGHT-CLICK CONTEXT MENU (ONLY FOR REGULAR VISITORS)
   document.addEventListener('contextmenu', function(e) {
+    if (isPrivilegedAdmin()) {
+      return true; // Allow right-click for Admin & Super Admin
+    }
     e.preventDefault();
-    showSecurityToast('⚠️ Right-click inspection is disabled for storefront security.');
+    showSecurityToast('⚠️ Right-click inspection is protected for customer storefront.');
     return false;
   }, false);
 
-  // 2. DISABLE DEVTOOLS KEYBOARD SHORTCUTS & SOURCE VIEW
+  // 2. DISABLE DEVTOOLS KEYBOARD SHORTCUTS & SOURCE VIEW (ONLY FOR REGULAR VISITORS)
   document.addEventListener('keydown', function(e) {
+    if (isPrivilegedAdmin()) {
+      return true; // Allow all developer shortcuts for Admin & Super Admin
+    }
+
     // F12 Key
     if (e.keyCode === 123 || e.key === 'F12') {
       e.preventDefault();
@@ -55,33 +75,27 @@
   }, true);
 
   // 3. CONSOLE WARNING BANNER & ANTI-TAMPER NOTICE
-  const warningTitle = 'font-size: 24px; font-weight: 800; color: #EF4444; text-shadow: 0 2px 4px rgba(0,0,0,0.8);';
+  const warningTitle = 'font-size: 22px; font-weight: 800; color: #EF4444; text-shadow: 0 2px 4px rgba(0,0,0,0.8);';
   const warningBody = 'font-size: 13px; color: #F59E0B; line-height: 1.5;';
   const warningLegal = 'font-size: 11px; color: #9CA3AF; font-style: italic;';
 
   console.log('%c⛔ STOP! PRIVILEGED SECURITY SHIELD ACTIVE', warningTitle);
-  console.log('%cThis browser session is monitored by the Perfume Shope Anti-Tamper Engine.\nExecuting scripts, tampering with pricing or session storage, or attempting XSS/injection attacks is strictly prohibited and logged.', warningBody);
+  console.log('%cThis browser session is monitored by the Perfume Shope Anti-Tamper Engine.\nAdmin & Super Admin users have verified developer tool privileges.', warningBody);
   console.log('%cProtected by Perfume Shope Security Protocol • All Rights Reserved.', warningLegal);
-
-  // Periodic console cleaner to prevent snooping outputs
-  setInterval(function() {
-    console.clear();
-    console.log('%c⛔ STOP! PRIVILEGED SECURITY SHIELD ACTIVE', warningTitle);
-    console.log('%cThis session is protected against client-side tampering.', warningBody);
-  }, 30000);
 
   // 4. DEVTOOLS DETECTION TRAP
   let devtoolsDetected = false;
   const threshold = 160;
 
   function detectDevTools() {
+    if (isPrivilegedAdmin()) return;
     const widthThreshold = window.outerWidth - window.innerWidth > threshold;
     const heightThreshold = window.outerHeight - window.innerHeight > threshold;
     
     if (widthThreshold || heightThreshold) {
       if (!devtoolsDetected) {
         devtoolsDetected = true;
-        recordSecurityEvent('DevTools Window Opened');
+        recordSecurityEvent('DevTools Window Opened (Visitor)');
       }
     } else {
       devtoolsDetected = false;
@@ -89,7 +103,7 @@
   }
 
   window.addEventListener('resize', detectDevTools);
-  setInterval(detectDevTools, 2000);
+  setInterval(detectDevTools, 3000);
 
   // 5. SECURITY TOAST NOTIFICATION
   function showSecurityToast(msg) {
