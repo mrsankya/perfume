@@ -604,6 +604,9 @@ function renderSuperOrdersTable() {
           <button onclick="openSuperOrderStatusModal('${o.id}')" class="p-1.5 rounded-lg bg-blue-600/80 text-white hover:bg-blue-500 font-bold" title="Update Fulfillment Status">
             <i class="fa-solid fa-truck-fast"></i>
           </button>
+          <button onclick="generateSuperGSTTaxInvoice('${o.id}')" class="p-1.5 rounded-lg bg-[#C59B27] text-[#18110E] hover:bg-[#AA771C] font-bold" title="Generate & Print GST Tax Invoice">
+            <i class="fa-solid fa-file-invoice"></i>
+          </button>
           <button onclick="sendSuperWhatsAppOrderStatus('${o.id}')" class="p-1.5 rounded-lg bg-[#16a34a] text-white hover:bg-[#15803d]" title="WhatsApp Dispatch Alert">
             <i class="fa-brands fa-whatsapp"></i>
           </button>
@@ -696,6 +699,239 @@ function sendSuperWhatsAppOrderStatus(orderId) {
   msg += `Thank you for choosing Perfume Shope Pune Flagship Boutique! ✨`;
 
   window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+let superActiveInvoiceOrder = null;
+
+function generateSuperGSTTaxInvoice(orderId) {
+  let allOrders = [];
+  try {
+    allOrders = JSON.parse(localStorage.getItem('perfumes_orders')) || [];
+  } catch (e) {}
+
+  const order = allOrders.find(o => o.id === orderId);
+  if (!order) return;
+  superActiveInvoiceOrder = order;
+
+  const total = Number(order.total || 0);
+  const taxableValue = Math.round(total / 1.18);
+  const totalGst = total - taxableValue;
+  const cgst = (totalGst / 2).toFixed(2);
+  const sgst = (totalGst / 2).toFixed(2);
+
+  const modal = document.getElementById('super-gst-invoice-modal');
+  const container = document.getElementById('super-gst-invoice-modal-content');
+  if (!modal || !container) return;
+
+  const orderDate = order.timestamp || order.date ? new Date(order.timestamp || order.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : new Date().toLocaleDateString('en-IN');
+
+  container.innerHTML = `
+    <div id="super-printable-gst-document" class="p-6 bg-white text-gray-900 font-sans space-y-5 rounded-2xl shadow-xl border border-gray-200">
+      
+      <!-- Invoice Header -->
+      <div class="flex justify-between items-start border-b-2 border-gray-900 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">👑</span>
+            <h2 class="text-xl font-bold tracking-widest text-[#18110E] uppercase">PERFUME SHOPE</h2>
+          </div>
+          <p class="text-xs text-gray-600 font-medium">Haute Parfumerie & Luxury Attars</p>
+          <p class="text-[11px] text-gray-500 mt-1">FC Road, Deccan Gymkhana, Pune, Maharashtra - 411004</p>
+          <p class="text-[11px] text-gray-700 font-mono mt-0.5"><strong>GSTIN:</strong> 27AAAAA0000A1Z5 | <strong>State:</strong> 27 (Maharashtra) | <strong>HSN:</strong> 33030090</p>
+        </div>
+        <div class="text-right">
+          <span class="px-3 py-1 bg-amber-100 border border-amber-400 text-amber-900 font-bold text-xs rounded-lg uppercase tracking-wider">TAX INVOICE</span>
+          <p class="text-xs font-mono font-bold mt-2 text-gray-900">Invoice #: ${order.id}</p>
+          <p class="text-[11px] text-gray-500">Date: ${orderDate}</p>
+          <p class="text-[10px] text-green-700 font-bold">✓ Original for Recipient</p>
+        </div>
+      </div>
+
+      <!-- Billed To Customer -->
+      <div class="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-3.5 rounded-xl border border-gray-200">
+        <div>
+          <span class="text-gray-500 font-bold uppercase block text-[10px] tracking-wider">Billed & Shipped To:</span>
+          <p class="font-bold text-gray-900 text-sm mt-0.5">${order.customer}</p>
+          <p class="text-gray-700 font-mono font-medium">${order.phone}</p>
+          <p class="text-gray-600">${order.email || 'N/A'}</p>
+        </div>
+        <div>
+          <span class="text-gray-500 font-bold uppercase block text-[10px] tracking-wider">Delivery Destination:</span>
+          <p class="text-gray-800 leading-relaxed mt-0.5">${order.address}</p>
+          <p class="text-gray-600 text-[11px] mt-1.5">Payment Method: <strong class="text-gray-900">${order.paymentMethod || 'Prepaid UPI'}</strong> (PAID)</p>
+        </div>
+      </div>
+
+      <!-- Itemized Table -->
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="bg-gray-100 border-b border-gray-300 text-gray-700 uppercase font-bold text-[10px]">
+            <th class="py-2.5 px-3">#</th>
+            <th class="py-2.5 px-3">Fragrance Extrait / Attar</th>
+            <th class="py-2.5 px-3">HSN Code</th>
+            <th class="py-2.5 px-3 text-center">Qty</th>
+            <th class="py-2.5 px-3 text-right">Taxable Value (₹)</th>
+            <th class="py-2.5 px-3 text-right">Total (₹)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          ${order.items ? order.items.map((item, idx) => {
+            const itemTotal = (item.price || 0) * (item.qty || 1);
+            const itemTaxable = Math.round(itemTotal / 1.18);
+            return `
+              <tr>
+                <td class="py-2.5 px-3 text-gray-500">${idx + 1}</td>
+                <td class="py-2.5 px-3">
+                  <span class="font-bold text-gray-900 block">${item.name}</span>
+                  <span class="text-[10px] text-gray-500">${item.brand || 'Luxury Extrait'} + Free 2ml Tester Vial</span>
+                </td>
+                <td class="py-2.5 px-3 font-mono text-[10px] text-gray-600">33030090</td>
+                <td class="py-2.5 px-3 text-center font-bold text-gray-900">${item.qty || 1}</td>
+                <td class="py-2.5 px-3 text-right font-mono">${formatRupees(itemTaxable)}</td>
+                <td class="py-2.5 px-3 text-right font-bold text-gray-900 font-mono">${formatRupees(itemTotal)}</td>
+              </tr>
+            `;
+          }).join('') : `
+            <tr>
+              <td class="py-2.5 px-3 text-gray-500">1</td>
+              <td class="py-2.5 px-3 font-bold text-gray-900">Luxury Fragrance Extrait</td>
+              <td class="py-2.5 px-3 font-mono text-[10px]">33030090</td>
+              <td class="py-2.5 px-3 text-center font-bold">1</td>
+              <td class="py-2.5 px-3 text-right">${formatRupees(taxableValue)}</td>
+              <td class="py-2.5 px-3 text-right font-bold">${formatRupees(total)}</td>
+            </tr>
+          `}
+        </tbody>
+      </table>
+
+      <!-- Calculation Breakdown -->
+      <div class="flex justify-end pt-2">
+        <div class="w-72 text-xs space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-200">
+          <div class="flex justify-between text-gray-600"><span>Taxable Amount:</span><span class="font-mono font-medium">${formatRupees(taxableValue)}</span></div>
+          <div class="flex justify-between text-gray-600"><span>CGST (9.0%):</span><span class="font-mono font-medium">₹${cgst}</span></div>
+          <div class="flex justify-between text-gray-600"><span>SGST (9.0%):</span><span class="font-mono font-medium">₹${sgst}</span></div>
+          ${order.discount > 0 ? `<div class="flex justify-between text-green-700 font-bold"><span>Promo Discount:</span><span class="font-mono">-${formatRupees(order.discount)}</span></div>` : ''}
+          <div class="flex justify-between text-sm font-bold text-gray-900 pt-2 border-t-2 border-gray-300">
+            <span>Grand Total:</span>
+            <span class="text-[#18110E] font-mono text-base">${formatRupees(total)}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer & Batch Seal -->
+      <div class="pt-4 border-t border-gray-300 flex justify-between items-center text-[10px] text-gray-500">
+        <div class="space-y-0.5">
+          <p class="font-bold text-gray-700">✓ 100% Genuine Importer Hologram Seal Verified</p>
+          <p>✓ Includes Free 2ml Tester Vial & Blind Buy Money-Back Insurance</p>
+          <p class="italic text-gray-400">This is a computer-generated tax invoice valid under GST Rules, 2017.</p>
+        </div>
+        <div class="text-right border-l border-gray-200 pl-4">
+          <p class="font-bold text-gray-900 text-xs">For PERFUME SHOPE</p>
+          <div class="h-6"></div>
+          <p class="italic text-gray-500 text-[9px] border-t border-gray-300 pt-1">Authorized Signatory</p>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+}
+
+function closeSuperGSTInvoiceModal() {
+  document.getElementById('super-gst-invoice-modal')?.classList.add('hidden');
+}
+
+function printSuperGSTInvoice() {
+  const container = document.getElementById('super-printable-gst-document') || document.getElementById('super-gst-invoice-modal-content');
+  if (!container) return;
+
+  const contentHtml = container.innerHTML;
+
+  let printFrame = document.getElementById('super-gst-print-iframe');
+  if (printFrame) {
+    printFrame.remove();
+  }
+
+  printFrame = document.createElement('iframe');
+  printFrame.id = 'super-gst-print-iframe';
+  printFrame.style.position = 'fixed';
+  printFrame.style.right = '0';
+  printFrame.style.bottom = '0';
+  printFrame.style.width = '0';
+  printFrame.style.height = '0';
+  printFrame.style.border = 'none';
+  document.body.appendChild(printFrame);
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Tax Invoice - ${superActiveInvoiceOrder ? superActiveInvoiceOrder.id : 'Perfume Shope'}</title>
+      <style>
+        @page {
+          size: A4 portrait;
+          margin: 12mm 15mm;
+        }
+        * {
+          box-sizing: border-box;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+          background: #ffffff !important;
+          color: #111827 !important;
+          margin: 0;
+          padding: 10px;
+          font-size: 12px;
+          line-height: 1.4;
+        }
+        .invoice-wrapper {
+          width: 100%;
+          max-width: 800px;
+          margin: 0 auto;
+          background: #ffffff;
+          padding: 24px;
+          border: 1.5px solid #d1d5db;
+          border-radius: 12px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 16px 0;
+        }
+        th, td {
+          padding: 8px 10px;
+          border-bottom: 1px solid #e5e7eb;
+          font-size: 11px;
+          text-align: left;
+        }
+        th {
+          background-color: #f3f4f6 !important;
+          color: #374151;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 10px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="invoice-wrapper">
+        ${contentHtml}
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 300);
 }
 
 // 1-Click UI Visual Style Switcher

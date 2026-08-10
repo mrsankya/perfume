@@ -623,9 +623,12 @@ function sendWhatsAppOrderStatus(orderId) {
   window.open(`https://wa.me/${phone.startsWith('91') ? phone : '91' + phone}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
+let currentActiveInvoiceOrder = null;
+
 function generateGSTTaxInvoice(orderId) {
   const order = orders.find(o => o.id === orderId);
   if (!order) return;
+  currentActiveInvoiceOrder = order;
 
   const total = Number(order.total || 0);
   const taxableValue = Math.round(total / 1.18);
@@ -637,36 +640,42 @@ function generateGSTTaxInvoice(orderId) {
   const container = document.getElementById('gst-invoice-modal-content');
   if (!modal || !container) return;
 
+  const orderDate = order.timestamp || order.date ? new Date(order.timestamp || order.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : new Date().toLocaleDateString('en-IN');
+
   container.innerHTML = `
-    <div class="p-6 bg-white text-gray-900 font-sans space-y-5 rounded-2xl shadow-xl border border-gray-200">
+    <div id="printable-gst-document" class="p-6 bg-white text-gray-900 font-sans space-y-5 rounded-2xl shadow-xl border border-gray-200">
       
       <!-- Invoice Header -->
-      <div class="flex justify-between items-start border-b border-gray-300 pb-4">
+      <div class="flex justify-between items-start border-b-2 border-gray-900 pb-4">
         <div>
-          <h2 class="text-xl font-bold tracking-widest text-[#18110E] uppercase">${settings.storeName || 'PERFUME SHOPE'}</h2>
-          <p class="text-xs text-gray-600">${settings.tagline || 'Haute Parfumerie & Luxury Attars'}</p>
-          <p class="text-[11px] text-gray-500 mt-1">${settings.storeAddress || 'FC Road, Pune, Maharashtra - 411004'}</p>
-          <p class="text-[11px] text-gray-700 font-mono mt-0.5"><strong>GSTIN:</strong> ${settings.gstNumber || '27AAAAA0000A1Z5'} | <strong>HSN Code:</strong> 33030090</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">👑</span>
+            <h2 class="text-xl font-bold tracking-widest text-[#18110E] uppercase">${settings.storeName || 'PERFUME SHOPE'}</h2>
+          </div>
+          <p class="text-xs text-gray-600 font-medium">${settings.tagline || 'Haute Parfumerie & Luxury Attars'}</p>
+          <p class="text-[11px] text-gray-500 mt-1">${settings.storeAddress || 'FC Road, Deccan Gymkhana, Pune, Maharashtra - 411004'}</p>
+          <p class="text-[11px] text-gray-700 font-mono mt-0.5"><strong>GSTIN:</strong> ${settings.gstNumber || '27AAAAA0000A1Z5'} | <strong>State:</strong> 27 (Maharashtra) | <strong>HSN:</strong> 33030090</p>
         </div>
         <div class="text-right">
-          <span class="px-3 py-1 bg-yellow-100 border border-yellow-400 text-yellow-900 font-bold text-xs rounded-lg uppercase">TAX INVOICE</span>
-          <p class="text-xs font-mono font-bold mt-2">Invoice #: ${order.id}</p>
-          <p class="text-[11px] text-gray-500">Date: ${new Date(order.timestamp).toLocaleDateString('en-IN')}</p>
+          <span class="px-3 py-1 bg-amber-100 border border-amber-400 text-amber-900 font-bold text-xs rounded-lg uppercase tracking-wider">TAX INVOICE</span>
+          <p class="text-xs font-mono font-bold mt-2 text-gray-900">Invoice #: ${order.id}</p>
+          <p class="text-[11px] text-gray-500">Date: ${orderDate}</p>
+          <p class="text-[10px] text-green-700 font-bold">✓ Original for Recipient</p>
         </div>
       </div>
 
       <!-- Billed To Customer -->
-      <div class="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-3 rounded-xl border border-gray-200">
+      <div class="grid grid-cols-2 gap-4 text-xs bg-gray-50 p-3.5 rounded-xl border border-gray-200">
         <div>
-          <span class="text-gray-500 font-bold uppercase block text-[10px]">Billed To:</span>
-          <p class="font-bold text-gray-900">${order.customer}</p>
-          <p class="text-gray-600 font-mono">${order.phone}</p>
+          <span class="text-gray-500 font-bold uppercase block text-[10px] tracking-wider">Billed & Shipped To:</span>
+          <p class="font-bold text-gray-900 text-sm mt-0.5">${order.customer}</p>
+          <p class="text-gray-700 font-mono font-medium">${order.phone}</p>
           <p class="text-gray-600">${order.email || 'N/A'}</p>
         </div>
         <div>
-          <span class="text-gray-500 font-bold uppercase block text-[10px]">Delivery Address:</span>
-          <p class="text-gray-800">${order.address}</p>
-          <p class="text-gray-500 text-[10px] mt-1">Payment Method: <strong>${order.paymentMethod}</strong> (Paid)</p>
+          <span class="text-gray-500 font-bold uppercase block text-[10px] tracking-wider">Delivery Destination:</span>
+          <p class="text-gray-800 leading-relaxed mt-0.5">${order.address}</p>
+          <p class="text-gray-600 text-[11px] mt-1.5">Payment Method: <strong class="text-gray-900">${order.paymentMethod || 'Prepaid UPI'}</strong> (PAID)</p>
         </div>
       </div>
 
@@ -674,51 +683,69 @@ function generateGSTTaxInvoice(orderId) {
       <table class="w-full text-left text-xs border-collapse">
         <thead>
           <tr class="bg-gray-100 border-b border-gray-300 text-gray-700 uppercase font-bold text-[10px]">
-            <th class="py-2 px-2">#</th>
-            <th class="py-2 px-2">Fragrance Item</th>
-            <th class="py-2 px-2">HSN</th>
-            <th class="py-2 px-2 text-center">Qty</th>
-            <th class="py-2 px-2 text-right">Taxable (₹)</th>
-            <th class="py-2 px-2 text-right">Amount (₹)</th>
+            <th class="py-2.5 px-3">#</th>
+            <th class="py-2.5 px-3">Fragrance Extrait / Attar</th>
+            <th class="py-2.5 px-3">HSN Code</th>
+            <th class="py-2.5 px-3 text-center">Qty</th>
+            <th class="py-2.5 px-3 text-right">Taxable Value (₹)</th>
+            <th class="py-2.5 px-3 text-right">Total (₹)</th>
           </tr>
         </thead>
-        <tbody>
-          ${order.items.map((item, idx) => `
-            <tr class="border-b border-gray-200">
-              <td class="py-2 px-2 text-gray-500">${idx + 1}</td>
-              <td class="py-2 px-2 font-bold text-gray-900">${item.name} <span class="text-[10px] font-normal text-gray-500">(${item.brand})</span></td>
-              <td class="py-2 px-2 font-mono text-[10px]">33030090</td>
-              <td class="py-2 px-2 text-center font-bold">${item.qty}</td>
-              <td class="py-2 px-2 text-right">${formatRupees(Math.round((item.price * item.qty) / 1.18))}</td>
-              <td class="py-2 px-2 text-right font-bold">${formatRupees(item.price * item.qty)}</td>
+        <tbody class="divide-y divide-gray-200">
+          ${order.items ? order.items.map((item, idx) => {
+            const itemTotal = (item.price || 0) * (item.qty || 1);
+            const itemTaxable = Math.round(itemTotal / 1.18);
+            return `
+              <tr>
+                <td class="py-2.5 px-3 text-gray-500">${idx + 1}</td>
+                <td class="py-2.5 px-3">
+                  <span class="font-bold text-gray-900 block">${item.name}</span>
+                  <span class="text-[10px] text-gray-500">${item.brand || 'Luxury Extrait'} + Free 2ml Tester Vial</span>
+                </td>
+                <td class="py-2.5 px-3 font-mono text-[10px] text-gray-600">33030090</td>
+                <td class="py-2.5 px-3 text-center font-bold text-gray-900">${item.qty || 1}</td>
+                <td class="py-2.5 px-3 text-right font-mono">${formatRupees(itemTaxable)}</td>
+                <td class="py-2.5 px-3 text-right font-bold text-gray-900 font-mono">${formatRupees(itemTotal)}</td>
+              </tr>
+            `;
+          }).join('') : `
+            <tr>
+              <td class="py-2.5 px-3 text-gray-500">1</td>
+              <td class="py-2.5 px-3 font-bold text-gray-900">Luxury Fragrance Extrait</td>
+              <td class="py-2.5 px-3 font-mono text-[10px]">33030090</td>
+              <td class="py-2.5 px-3 text-center font-bold">1</td>
+              <td class="py-2.5 px-3 text-right">${formatRupees(taxableValue)}</td>
+              <td class="py-2.5 px-3 text-right font-bold">${formatRupees(total)}</td>
             </tr>
-          `).join('')}
+          `}
         </tbody>
       </table>
 
       <!-- Calculation Breakdown -->
       <div class="flex justify-end pt-2">
-        <div class="w-64 text-xs space-y-1">
-          <div class="flex justify-between text-gray-600"><span>Taxable Value:</span><span>${formatRupees(taxableValue)}</span></div>
-          <div class="flex justify-between text-gray-600"><span>CGST (9.0%):</span><span>₹${cgst}</span></div>
-          <div class="flex justify-between text-gray-600"><span>SGST (9.0%):</span><span>₹${sgst}</span></div>
-          ${order.discount > 0 ? `<div class="flex justify-between text-green-600 font-bold"><span>Discount:</span><span>-${formatRupees(order.discount)}</span></div>` : ''}
-          <div class="flex justify-between text-sm font-bold text-gray-900 pt-2 border-t border-gray-300">
-            <span>Total (Incl. GST):</span>
-            <span class="text-[#18110E]">${formatRupees(total)}</span>
+        <div class="w-72 text-xs space-y-1.5 bg-gray-50 p-3 rounded-xl border border-gray-200">
+          <div class="flex justify-between text-gray-600"><span>Taxable Amount:</span><span class="font-mono font-medium">${formatRupees(taxableValue)}</span></div>
+          <div class="flex justify-between text-gray-600"><span>CGST (9.0%):</span><span class="font-mono font-medium">₹${cgst}</span></div>
+          <div class="flex justify-between text-gray-600"><span>SGST (9.0%):</span><span class="font-mono font-medium">₹${sgst}</span></div>
+          ${order.discount > 0 ? `<div class="flex justify-between text-green-700 font-bold"><span>Promo Discount:</span><span class="font-mono">-${formatRupees(order.discount)}</span></div>` : ''}
+          <div class="flex justify-between text-sm font-bold text-gray-900 pt-2 border-t-2 border-gray-300">
+            <span>Grand Total:</span>
+            <span class="text-[#18110E] font-mono text-base">${formatRupees(total)}</span>
           </div>
         </div>
       </div>
 
       <!-- Footer & Batch Seal -->
       <div class="pt-4 border-t border-gray-300 flex justify-between items-center text-[10px] text-gray-500">
-        <div>
-          <p>✓ 100% Genuine Importer Seal Verified</p>
-          <p>✓ Includes Free 2ml Tester Vial & Blind Buy Insurance</p>
+        <div class="space-y-0.5">
+          <p class="font-bold text-gray-700">✓ 100% Genuine Importer Hologram Seal Verified</p>
+          <p>✓ Includes Free 2ml Tester Vial & Blind Buy Money-Back Insurance</p>
+          <p class="italic text-gray-400">This is a computer-generated tax invoice valid under GST Rules, 2017.</p>
         </div>
-        <div class="text-right">
-          <p class="font-bold text-gray-900">For Perfume Shope</p>
-          <p class="italic text-gray-400">Authorized Signatory</p>
+        <div class="text-right border-l border-gray-200 pl-4">
+          <p class="font-bold text-gray-900 text-xs">For ${settings.storeName || 'PERFUME SHOPE'}</p>
+          <div class="h-6"></div>
+          <p class="italic text-gray-500 text-[9px] border-t border-gray-300 pt-1">Authorized Signatory</p>
         </div>
       </div>
 
@@ -733,7 +760,95 @@ function closeGSTInvoiceModal() {
 }
 
 function printGSTInvoice() {
-  window.print();
+  const container = document.getElementById('printable-gst-document') || document.getElementById('gst-invoice-modal-content');
+  if (!container) return;
+
+  const contentHtml = container.innerHTML;
+
+  let printFrame = document.getElementById('gst-print-iframe');
+  if (printFrame) {
+    printFrame.remove();
+  }
+
+  printFrame = document.createElement('iframe');
+  printFrame.id = 'gst-print-iframe';
+  printFrame.style.position = 'fixed';
+  printFrame.style.right = '0';
+  printFrame.style.bottom = '0';
+  printFrame.style.width = '0';
+  printFrame.style.height = '0';
+  printFrame.style.border = 'none';
+  document.body.appendChild(printFrame);
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Tax Invoice - ${currentActiveInvoiceOrder ? currentActiveInvoiceOrder.id : 'Perfume Shope'}</title>
+      <style>
+        @page {
+          size: A4 portrait;
+          margin: 12mm 15mm;
+        }
+        * {
+          box-sizing: border-box;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+          background: #ffffff !important;
+          color: #111827 !important;
+          margin: 0;
+          padding: 10px;
+          font-size: 12px;
+          line-height: 1.4;
+        }
+        .invoice-wrapper {
+          width: 100%;
+          max-width: 800px;
+          margin: 0 auto;
+          background: #ffffff;
+          padding: 24px;
+          border: 1.5px solid #d1d5db;
+          border-radius: 12px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 16px 0;
+        }
+        th, td {
+          padding: 8px 10px;
+          border-bottom: 1px solid #e5e7eb;
+          font-size: 11px;
+          text-align: left;
+        }
+        th {
+          background-color: #f3f4f6 !important;
+          color: #374151;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 10px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="invoice-wrapper">
+        ${contentHtml}
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 300);
 }
 
 function confirmOrderWhatsApp(id, phone, total) {

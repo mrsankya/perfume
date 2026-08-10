@@ -896,22 +896,62 @@ section h2 {
   scrollbar-width: none;
 }
 
-/* Printable GST Invoice */
+/* Printable GST Invoice & Clean PDF Output */
 @media print {
-  body * {
-    visibility: hidden;
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
   }
-  #gst-invoice-modal-content, #gst-invoice-modal-content * {
-    visibility: visible;
-  }
-  #gst-invoice-modal-content {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+
+  html, body {
     background: #ffffff !important;
     color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide background interface, header, sidebar, buttons and modals backdrops */
+  header, footer, nav, .floating-bottom-nav, #login-view, .sidebar, 
+  .no-print, button, .modal-backdrop, [data-tab] {
+    display: none !important;
+  }
+
+  /* Show only the invoice container */
+  #gst-invoice-modal, #super-gst-invoice-modal {
+    position: static !important;
+    display: block !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
     border: none !important;
+  }
+
+  #gst-invoice-modal > div, #super-gst-invoice-modal > div {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: #ffffff !important;
+  }
+
+  #gst-invoice-modal-content, #super-gst-invoice-modal-content {
+    display: block !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  #gst-invoice-modal-content *, #super-gst-invoice-modal-content * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
 
