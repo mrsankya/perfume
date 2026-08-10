@@ -12,6 +12,11 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Kashmiri Kesar, Cinnamon, Sweet Dates, Praline, Amber Vanilla',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Bestseller 🇮🇳',
     longevity: '16+ Hours (Beast Mode ⚡)',
     sillage: 'Room Filler (3.5m 💨)',
@@ -28,6 +33,11 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Pure Cambodian Oud, Mysore Sandalwood, Royal Cardamom, Amber',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Top Pick',
     longevity: '18+ Hours (Eternal 🪵)',
     sillage: 'Intense Heavy Projection 💨',
@@ -44,6 +54,11 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Ambergris, Rich Cedarwood, Patchouli, Pink Peppercorn',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Trending',
     longevity: '14+ Hours (All Day 🌲)',
     sillage: 'Strong 2.5m Sillage 💨',
@@ -60,6 +75,11 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Kashmiri Rose Petals, Tropical Fruits, Vanilla Orchid, Sandalwood',
     image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Viral Hit',
     longevity: '12+ Hours (Long Lasting 🌸)',
     sillage: 'Pleasant Radiant Sillage ✨',
@@ -76,6 +96,11 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Smoky Birch, Italian Lemon, Pineapple, Blackcurrant, Ambergris',
     image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Beast Mode ⚡',
     longevity: '16+ Hours (Compliment Monster 🔥)',
     sillage: 'Massive Room Filler (4m 💨)',
@@ -92,6 +117,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Aged Dehn Al Oudh, Frankincense, Sandalwood, Damascene Rose',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Royal Blend',
     longevity: '20+ Hours (Extrait De Parfum 👑)',
     sillage: 'Regal Enveloping Aura 💨',
@@ -108,6 +137,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Turkish Rose, Incense, Lychee, Warm Amber, Bourbon Vanilla',
     image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Haute Extrait 👑',
     longevity: '15+ Hours (Haute Couture 💎)',
     sillage: 'Enchanting 3m Cloud 🌸',
@@ -124,6 +157,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Fresh Bergamot, Cinnamon, Orange Blossom, Aquatic Grey Amber',
     image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'All-Season 🌊',
     longevity: '14+ Hours (Aqua Beast ⚡)',
     sillage: 'Sharp Crisp Sillage 💨',
@@ -140,6 +177,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Original Mysore Sandalwood Oil, Cardamom, White Musk, Cedar',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Artisanal Reserve 🇮🇳',
     longevity: '24+ Hours (Pure Oil Concentrate 🌿)',
     sillage: 'Meditative Warm Aura 🧘',
@@ -156,6 +197,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Red Berries, Cocoa, Sugared Kesar Vanilla, Tonka, Soft Musk',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Gourmand 🍓',
     longevity: '13+ Hours (Edible Sweetness 🍫)',
     sillage: 'Cozy Seductive Cloud ☁️',
@@ -172,6 +217,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Tobacco Leaf, Spiced Ginger, Cocoa, Tonka Bean, Wood Sap',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Luxury Niche',
     longevity: '18+ Hours (High Connoisseur 🥃)',
     sillage: 'Dense Opulent Projection 💨',
@@ -188,6 +237,10 @@ const PERFUMES_DEFAULT_DB = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Blackcurrant, Italian Bergamot, Birch, Oakmoss, Indian Vetiver',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Masterpiece 👑',
     longevity: '16+ Hours (Legendary Alpha ⚡)',
     sillage: 'Unforgettable Magnetic Trail 💨',
@@ -2589,41 +2642,125 @@ function showToast(message, type = 'info') {
 }
 
 // =========================================================================
-// 13. PRODUCT DETAIL QUICKVIEW MODAL WITH INTERACTIVE ZOOM & REVIEWS
+// 13. PRODUCT DETAIL QUICKVIEW MODAL WITH MULTI-IMAGE GALLERY & VERIFIED REVIEWS
 // =========================================================================
 let activeModalProduct = null;
 let currentDetailZoom = 1.0;
 let currentDetailQty = 1;
+let detailProductImages = [];
+let detailProductImageIndex = 0;
 
-const DEFAULT_REVIEWS = [
-  {
-    author: 'Aarav Mehta',
-    city: 'Pune (FC Road Boutique Regular)',
-    rating: 5,
-    title: 'Unbelievable 18-Hour Performance in Heat!',
-    comment: 'Sprayed at 8 AM for an executive meeting and was still receiving compliments during a dinner gala at 11 PM. The complimentary 2ml tester gave complete peace of mind!',
-    date: '2 days ago',
-    verified: true
-  },
-  {
-    author: 'Simran Kaur',
-    city: 'Mumbai',
-    rating: 5,
-    title: 'Pure Luxury & Compliment Magnet',
-    comment: 'The scent pyramid transition is hypnotic. Smooth blend of rich accords that projects beautifully without being harsh. Will definitely repurchase.',
-    date: '1 week ago',
-    verified: true
-  },
-  {
-    author: 'Kunal Deshmukh',
-    city: 'Bengaluru',
-    rating: 5,
-    title: 'Authentic Batch & Free Laser Engraving is Amazing',
-    comment: 'Got my name engraved on the flacon—looks like a high-end French boutique custom bottle. 10/10 presentation and authentic import seal.',
-    date: '2 weeks ago',
-    verified: true
-  }
-];
+// Active review submission state
+let activeReviewProductId = null;
+let currentReviewRating = 5;
+let currentReviewImages = [];
+let verifiedBuyerSession = null; // { orderId, customerName, phone }
+
+const DEFAULT_PRODUCT_REVIEWS = {
+  'p1': [
+    {
+      id: 'rev-p1-1',
+      author: 'Aarav Mehta',
+      city: 'Pune (FC Road Boutique Regular)',
+      rating: 5,
+      title: 'Unbelievable 18-Hour Performance & Free Tester Included!',
+      comment: 'Sprayed at 8 AM for an executive meeting and was still receiving compliments during a dinner gala at 11 PM. The bottle packaging with velvet box is pure luxury. Complimentary 2ml tester gave total peace of mind!',
+      date: '2 days ago',
+      verified: true,
+      orderId: 'ORD-IN-849201',
+      images: [
+        'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+      ]
+    },
+    {
+      id: 'rev-p1-2',
+      author: 'Simran Kaur',
+      city: 'Mumbai',
+      rating: 5,
+      title: 'Pure Luxury Vanilla Saffron Gourmand',
+      comment: 'The scent pyramid transition is hypnotic. Sweet dates and warm vanilla bourbon that projects beautifully without being cloying. 10/10 presentation with laser engraving.',
+      date: '1 week ago',
+      verified: true,
+      orderId: 'ORD-IN-731940',
+      images: [
+        'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+      ]
+    }
+  ],
+  'p2': [
+    {
+      id: 'rev-p2-1',
+      author: 'Vikramaditya Roy',
+      city: 'Delhi NCR',
+      rating: 5,
+      title: 'Nuclear Cambodian Oud Sillage!',
+      comment: 'The aged Dehn Al Oud note is regal and deep. Lasts well over 24 hours on clothes. Received in 2 days in BlueDart air express with batch hologram seal.',
+      date: '3 days ago',
+      verified: true,
+      orderId: 'ORD-IN-619283',
+      images: [
+        'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+      ]
+    }
+  ],
+  'p5': [
+    {
+      id: 'rev-p5-1',
+      author: 'Kunal Deshmukh',
+      city: 'Bengaluru',
+      rating: 5,
+      title: 'Authentic Batch & Free Laser Engraving is Amazing',
+      comment: 'Got my name engraved on the flacon—looks like a high-end French boutique custom bottle. Beast mode projection for 16+ hours even in Indian summer heat.',
+      date: '2 weeks ago',
+      verified: true,
+      orderId: 'ORD-IN-902814',
+      images: [
+        'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+      ]
+    }
+  ]
+};
+
+function getStoredReviews(productId) {
+  let customReviews = {};
+  try {
+    const saved = localStorage.getItem('perfumes_product_reviews');
+    if (saved) customReviews = JSON.parse(saved);
+  } catch (e) {}
+
+  const productCustom = customReviews[productId] || [];
+  const defaults = DEFAULT_PRODUCT_REVIEWS[productId] || [
+    {
+      id: 'rev-def-1',
+      author: 'Rohan Joshi',
+      city: 'Pune',
+      rating: 5,
+      title: 'Masterpiece Fragrance & 100% Authentic Import',
+      comment: 'Exceptional longevity and compliments from friends. Blind buy insurance gave me complete confidence. Highly recommended boutique!',
+      date: '1 week ago',
+      verified: true,
+      orderId: 'ORD-IN-550192',
+      images: [
+        'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'
+      ]
+    }
+  ];
+
+  return [...productCustom, ...defaults];
+}
+
+function saveStoredReview(productId, review) {
+  let customReviews = {};
+  try {
+    const saved = localStorage.getItem('perfumes_product_reviews');
+    if (saved) customReviews = JSON.parse(saved);
+  } catch (e) {}
+
+  if (!customReviews[productId]) customReviews[productId] = [];
+  customReviews[productId].unshift(review);
+  localStorage.setItem('perfumes_product_reviews', JSON.stringify(customReviews));
+}
 
 function openProductModal(productId) {
   const products = getStoredProducts();
@@ -2633,6 +2770,16 @@ function openProductModal(productId) {
   activeModalProduct = product;
   currentDetailZoom = 1.0;
   currentDetailQty = 1;
+
+  // Multi-image list setup
+  if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+    detailProductImages = [...product.images];
+  } else if (product.image) {
+    detailProductImages = [product.image];
+  } else {
+    detailProductImages = ['https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600'];
+  }
+  detailProductImageIndex = 0;
 
   const imgEl = document.getElementById('detail-product-img');
   const badgeEl = document.getElementById('detail-badge');
@@ -2647,7 +2794,7 @@ function openProductModal(productId) {
   const priceEl = document.getElementById('detail-price');
   const qtyEl = document.getElementById('detail-qty-val');
 
-  if (imgEl) imgEl.src = product.image;
+  if (imgEl) imgEl.src = detailProductImages[0];
   if (badgeEl) badgeEl.innerText = product.badge || 'Haute Extrait';
   if (brandEl) brandEl.innerText = product.brand;
   if (genderEl) genderEl.innerText = product.gender;
@@ -2660,6 +2807,7 @@ function openProductModal(productId) {
   if (priceEl) priceEl.innerText = formatRupees(product.price);
   if (qtyEl) qtyEl.innerText = '1';
 
+  renderDetailImageGallery();
   resetDetailZoom();
   renderDetailReviews();
 
@@ -2671,27 +2819,444 @@ function closeProductModal() {
   resetDetailZoom();
 }
 
+function renderDetailImageGallery() {
+  const counterEl = document.getElementById('detail-image-counter');
+  const prevBtn = document.getElementById('detail-prev-img-btn');
+  const nextBtn = document.getElementById('detail-next-img-btn');
+  const thumbsRow = document.getElementById('detail-thumbnails-row');
+
+  if (counterEl) {
+    counterEl.innerText = `${detailProductImageIndex + 1} / ${detailProductImages.length}`;
+    counterEl.classList.toggle('hidden', detailProductImages.length <= 1);
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.classList.toggle('hidden', detailProductImages.length <= 1);
+    nextBtn.classList.toggle('hidden', detailProductImages.length <= 1);
+  }
+
+  if (thumbsRow) {
+    if (detailProductImages.length > 1) {
+      thumbsRow.classList.remove('hidden');
+      thumbsRow.innerHTML = detailProductImages.map((imgUrl, idx) => `
+        <button type="button" onclick="selectDetailProductImage(${idx})" class="w-12 h-12 rounded-xl overflow-hidden border-2 transition-all shrink-0 aspect-square ${idx === detailProductImageIndex ? 'border-[#C59B27] ring-2 ring-[#C59B27]/40 scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}">
+          <img src="${imgUrl}" alt="Thumbnail ${idx + 1}" class="w-full h-full object-cover">
+        </button>
+      `).join('');
+    } else {
+      thumbsRow.classList.add('hidden');
+    }
+  }
+}
+
+function selectDetailProductImage(index) {
+  if (index >= 0 && index < detailProductImages.length) {
+    detailProductImageIndex = index;
+    const imgEl = document.getElementById('detail-product-img');
+    if (imgEl) {
+      imgEl.style.opacity = '0';
+      setTimeout(() => {
+        imgEl.src = detailProductImages[detailProductImageIndex];
+        imgEl.style.opacity = '1';
+      }, 150);
+    }
+    renderDetailImageGallery();
+    resetDetailZoom();
+  }
+}
+
+function changeDetailImageSlide(direction) {
+  if (detailProductImages.length <= 1) return;
+  let newIndex = detailProductImageIndex + direction;
+  if (newIndex < 0) newIndex = detailProductImages.length - 1;
+  else if (newIndex >= detailProductImages.length) newIndex = 0;
+  selectDetailProductImage(newIndex);
+}
+
 function renderDetailReviews() {
   const container = document.getElementById('detail-reviews-list');
-  if (!container) return;
+  const summaryEl = document.getElementById('detail-reviews-summary');
+  if (!container || !activeModalProduct) return;
 
-  container.innerHTML = DEFAULT_REVIEWS.map(r => `
-    <div class="p-3 rounded-2xl theme-bg-surface border theme-border space-y-1.5 shadow-sm">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="font-bold theme-text-main">${r.author}</span>
-          <span class="text-[10px] theme-text-muted">(${r.city})</span>
-          ${r.verified ? '<span class="text-[9px] font-bold text-green-600 dark:text-green-400">✓ Verified Buyer</span>' : ''}
+  const reviews = getStoredReviews(activeModalProduct.id);
+  const avgRating = reviews.length > 0
+    ? (reviews.reduce((sum, r) => sum + Number(r.rating || 5), 0) / reviews.length).toFixed(1)
+    : '5.0';
+
+  if (summaryEl) {
+    summaryEl.innerText = `${avgRating} / 5.0 (${reviews.length} Verified Buyer Review${reviews.length === 1 ? '' : 's'})`;
+  }
+
+  if (reviews.length === 0) {
+    container.innerHTML = `
+      <div class="p-4 rounded-2xl theme-bg-surface border theme-border text-center text-xs text-gray-500 italic">
+        No reviews published yet. Be the first verified buyer to share your scent experience!
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = reviews.map(r => `
+    <div class="p-3.5 rounded-2xl theme-bg-surface border theme-border space-y-2 shadow-sm transition-all hover:border-[#C59B27]/40">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="font-bold theme-text-main text-xs">${r.author}</span>
+          <span class="text-[10px] theme-text-muted">(${r.city || 'India'})</span>
+          ${r.verified ? `
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-green-500/15 text-green-600 dark:text-green-400 border border-green-500/30 flex items-center gap-1">
+              <i class="fa-solid fa-circle-check text-[8px]"></i> Verified Buyer
+            </span>
+          ` : ''}
+          ${r.orderId ? `<span class="text-[9px] font-mono theme-text-muted">#${r.orderId}</span>` : ''}
         </div>
-        <div class="flex items-center text-yellow-500 text-[10px]">
-          ${'★'.repeat(r.rating)}
+        <div class="flex items-center text-yellow-500 text-xs font-bold gap-1">
+          <span>${'★'.repeat(r.rating || 5)}</span>
+          <span class="text-xs font-mono theme-text-main ml-1">${r.rating || 5}.0</span>
         </div>
       </div>
-      <h5 class="font-bold text-[11px] theme-text-main">${r.title}</h5>
-      <p class="text-xs theme-text-secondary italic leading-relaxed">"${r.comment}"</p>
-      <span class="text-[9px] theme-text-muted block pt-0.5">${r.date}</span>
+
+      <h5 class="font-bold text-xs theme-text-main">${r.title}</h5>
+      <p class="text-xs theme-text-secondary leading-relaxed italic">"${r.comment}"</p>
+
+      <!-- Customer Uploaded Photos of Received Perfume -->
+      ${(r.images && Array.isArray(r.images) && r.images.length > 0) ? `
+        <div class="pt-1.5 space-y-1">
+          <span class="text-[10px] font-bold text-[#C59B27] flex items-center gap-1">
+            <i class="fa-solid fa-camera"></i> Customer Received Photos:
+          </span>
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            ${r.images.map((imgUrl, i) => `
+              <div onclick="openReviewPhotoLightbox('${imgUrl}', 'Photo by ${r.author} - ${r.title}')" class="relative group w-14 h-14 rounded-xl overflow-hidden border theme-border cursor-pointer shrink-0 shadow-sm hover:scale-105 hover:border-[#C59B27] transition-all bg-black/40">
+                <img src="${imgUrl}" alt="Customer Photo #${i + 1}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-[10px] transition-opacity">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="flex items-center justify-between text-[9px] theme-text-muted pt-1 border-t theme-border">
+        <span>${r.date || 'Verified Customer'}</span>
+        <span class="text-green-600 dark:text-green-400 font-semibold flex items-center gap-1">
+          <i class="fa-solid fa-shield-check"></i> Genuine Bottle Verified
+        </span>
+      </div>
     </div>
   `).join('');
+}
+
+// =========================================================================
+// VERIFIED BUYER REVIEW SUBMISSION ENGINE
+// =========================================================================
+function openWriteReviewModal() {
+  if (!activeModalProduct) return;
+  activeReviewProductId = activeModalProduct.id;
+  currentReviewRating = 5;
+  currentReviewImages = [];
+  verifiedBuyerSession = null;
+
+  const titleEl = document.getElementById('review-modal-product-title');
+  if (titleEl) titleEl.innerText = `Review: ${activeModalProduct.name}`;
+
+  const verifyInput = document.getElementById('review-verify-input');
+  const verifyMsg = document.getElementById('review-verify-msg');
+  const verifyCard = document.getElementById('review-verify-card');
+  const reviewForm = document.getElementById('write-review-form');
+
+  if (verifyInput) verifyInput.value = '';
+  if (verifyMsg) {
+    verifyMsg.className = 'text-[11px] font-semibold hidden';
+    verifyMsg.innerText = '';
+  }
+
+  // Check if current user session has already purchased this product
+  const storedOrders = getStoredOrders();
+  const phoneFromStorage = localStorage.getItem('visitor_phone') || (currentUser ? currentUser.phone : null);
+  const emailFromStorage = currentUser ? currentUser.email : null;
+  const lastOrderId = localStorage.getItem('perfumes_last_order_id');
+
+  let autoMatchedOrder = null;
+  if (storedOrders.length > 0) {
+    autoMatchedOrder = storedOrders.find(ord => {
+      const containsProd = ord.items && Array.isArray(ord.items) && ord.items.some(it => 
+        it.id === activeReviewProductId || (it.name && it.name.toLowerCase() === activeModalProduct.name.toLowerCase())
+      );
+      if (!containsProd) return false;
+
+      if (lastOrderId && ord.id === lastOrderId) return true;
+      if (phoneFromStorage && ord.phone && ord.phone.replace(/\D/g, '').endsWith(phoneFromStorage.replace(/\D/g, '').slice(-10))) return true;
+      if (emailFromStorage && ord.email && ord.email.toLowerCase() === emailFromStorage.toLowerCase()) return true;
+      return false;
+    });
+  }
+
+  if (autoMatchedOrder) {
+    unlockReviewForm(autoMatchedOrder);
+  } else {
+    // Show verification card
+    if (verifyCard) verifyCard.classList.remove('hidden');
+    if (reviewForm) reviewForm.classList.add('hidden');
+  }
+
+  setReviewRating(5);
+  renderReviewImagesPreview();
+  document.getElementById('write-review-modal')?.classList.remove('hidden');
+}
+
+function closeWriteReviewModal() {
+  document.getElementById('write-review-modal')?.classList.add('hidden');
+  activeReviewProductId = null;
+  currentReviewImages = [];
+  verifiedBuyerSession = null;
+}
+
+function getStoredOrders() {
+  let list = [];
+  try {
+    const saved = localStorage.getItem('perfumes_orders');
+    if (saved) list = JSON.parse(saved);
+  } catch (e) {}
+
+  // Fallback demo orders for testing convenience
+  if (list.length === 0) {
+    list = [
+      {
+        id: 'ORD-IN-982272',
+        customer: 'Sanket Bhende (Boutique VIP)',
+        phone: '9822725265',
+        email: 'sanket@perfumeshope.in',
+        items: [{ id: 'p1', name: "KHAMRAH D'OR", price: 2899, qty: 1 }],
+        status: 'Delivered'
+      },
+      {
+        id: 'ORD-IN-957945',
+        customer: 'Sakshi Patil',
+        phone: '9579453006',
+        email: 'sakshi@perfumeshope.in',
+        items: [{ id: 'p2', name: 'OUD SUPRÊME', price: 3499, qty: 1 }],
+        status: 'Delivered'
+      }
+    ];
+  }
+  return list;
+}
+
+function verifyBuyerForReview() {
+  const input = document.getElementById('review-verify-input');
+  const msgEl = document.getElementById('review-verify-msg');
+  if (!input || !msgEl || !activeModalProduct) return;
+
+  const val = input.value.trim().toLowerCase();
+  if (!val) {
+    msgEl.className = 'text-[11px] font-semibold text-red-400 block';
+    msgEl.innerText = 'Please enter your phone number or Order ID to verify.';
+    return;
+  }
+
+  const cleanDigits = val.replace(/\D/g, '');
+  const orders = getStoredOrders();
+
+  // Find any matching order containing this product
+  const matchedOrder = orders.find(ord => {
+    const containsProd = ord.items && Array.isArray(ord.items) && ord.items.some(it => 
+      it.id === activeReviewProductId || (it.name && it.name.toLowerCase() === activeModalProduct.name.toLowerCase())
+    );
+    if (!containsProd) return false;
+
+    // Check order id
+    if (ord.id && ord.id.toLowerCase().includes(val)) return true;
+    // Check phone number
+    if (ord.phone) {
+      const ordDigits = ord.phone.replace(/\D/g, '');
+      if (cleanDigits.length >= 6 && (ordDigits.includes(cleanDigits) || cleanDigits.includes(ordDigits))) return true;
+      if (ordDigits.endsWith(cleanDigits) || cleanDigits.endsWith(ordDigits)) return true;
+    }
+    // Check email
+    if (ord.email && ord.email.toLowerCase() === val) return true;
+    // Check customer name
+    if (ord.customer && ord.customer.toLowerCase().includes(val) && val.length >= 4) return true;
+
+    return false;
+  });
+
+  if (matchedOrder) {
+    unlockReviewForm(matchedOrder);
+  } else {
+    msgEl.className = 'text-[11px] font-semibold text-red-400 block leading-relaxed';
+    msgEl.innerHTML = `🔒 <b>Purchase Not Found:</b> We couldn't find an order for <i>"${activeModalProduct.name}"</i> with "${input.value}". Only customers who ordered this fragrance can submit reviews.`;
+  }
+}
+
+function unlockReviewForm(order) {
+  verifiedBuyerSession = {
+    orderId: order.id,
+    customerName: order.customer || 'Verified Buyer',
+    phone: order.phone
+  };
+
+  const verifyCard = document.getElementById('review-verify-card');
+  const reviewForm = document.getElementById('write-review-form');
+  const verifiedText = document.getElementById('review-verified-buyer-text');
+  const verifiedOrderId = document.getElementById('review-verified-order-id');
+  const nameInput = document.getElementById('review-author-name');
+  const cityInput = document.getElementById('review-author-city');
+
+  if (verifyCard) verifyCard.classList.add('hidden');
+  if (reviewForm) reviewForm.classList.remove('hidden');
+
+  if (verifiedText) verifiedText.innerText = `Verified Buyer: ${order.customer || 'Valued Connoisseur'}`;
+  if (verifiedOrderId) verifiedOrderId.innerText = order.id || 'ORD-VERIFIED';
+  if (nameInput) nameInput.value = order.customer || '';
+  if (cityInput && !cityInput.value) cityInput.value = 'Pune, Maharashtra';
+
+  showToast(`Purchase verified for Order #${order.id}! 🌟`, 'success');
+}
+
+function setReviewRating(rating) {
+  currentReviewRating = rating;
+  const valInput = document.getElementById('review-rating-val');
+  if (valInput) valInput.value = rating;
+
+  const stars = document.querySelectorAll('#review-star-picker span');
+  stars.forEach((s, idx) => {
+    if (idx < rating) {
+      s.className = 'text-yellow-400 font-bold';
+    } else {
+      s.className = 'text-gray-600';
+    }
+  });
+
+  const label = document.getElementById('review-rating-label');
+  if (label) {
+    const titles = {
+      5: '5.0 / 5.0 (Beast Mode & Nuclear Projection ✨)',
+      4: '4.0 / 5.0 (High Compliment Magnet & Performance 🌸)',
+      3: '3.0 / 5.0 (Good Daily Wear & Moderate Sillage 👍)',
+      2: '2.0 / 5.0 (Soft Projection / Subtle Scent)',
+      1: '1.0 / 5.0 (Disappointed / Not For Me)'
+    };
+    label.innerText = titles[rating] || `${rating}.0 / 5.0`;
+  }
+}
+
+function hoverReviewRating(rating) {
+  const stars = document.querySelectorAll('#review-star-picker span');
+  stars.forEach((s, idx) => {
+    if (idx < rating) {
+      s.className = 'text-yellow-300';
+    } else {
+      s.className = 'text-gray-600';
+    }
+  });
+}
+
+function resetHoverReviewRating() {
+  setReviewRating(currentReviewRating);
+}
+
+async function handleReviewImagesUpload(event) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+
+  if (currentReviewImages.length + files.length > 4) {
+    showToast('Maximum 4 photos allowed per review', 'error');
+  }
+
+  showToast('Compressing unboxing photos...', 'info');
+  for (let i = 0; i < files.length && currentReviewImages.length < 4; i++) {
+    try {
+      const result = await processImageFile(files[i], 1000, 1000, 0.85);
+      if (result && result.dataUrl) {
+        currentReviewImages.push(result.dataUrl);
+      }
+    } catch (e) {
+      console.warn('Error processing review photo:', e);
+    }
+  }
+
+  renderReviewImagesPreview();
+  showToast(`${currentReviewImages.length} photo(s) attached! 📸`, 'success');
+  event.target.value = '';
+}
+
+function removeReviewImage(index) {
+  if (index >= 0 && index < currentReviewImages.length) {
+    currentReviewImages.splice(index, 1);
+    renderReviewImagesPreview();
+  }
+}
+
+function renderReviewImagesPreview() {
+  const grid = document.getElementById('review-images-preview-grid');
+  const countLabel = document.getElementById('review-image-count-label');
+  if (!grid) return;
+
+  if (countLabel) {
+    countLabel.innerText = `${currentReviewImages.length} / 4 photo(s) added`;
+  }
+
+  if (currentReviewImages.length === 0) {
+    grid.classList.add('hidden');
+    grid.innerHTML = '';
+    return;
+  }
+
+  grid.classList.remove('hidden');
+  grid.innerHTML = currentReviewImages.map((imgUrl, idx) => `
+    <div class="relative group rounded-xl overflow-hidden border theme-border aspect-square bg-black/40 shadow-sm">
+      <img src="${imgUrl}" alt="Review Photo #${idx + 1}" class="w-full h-full object-cover">
+      <button type="button" onclick="removeReviewImage(${idx})" class="absolute top-1 right-1 w-5 h-5 rounded-md bg-red-950/80 hover:bg-red-600 text-red-300 hover:text-white flex items-center justify-center text-[9px] shadow-sm">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  `).join('');
+}
+
+function handleReviewSubmit(e) {
+  e.preventDefault();
+  if (!activeReviewProductId) return;
+
+  const author = document.getElementById('review-author-name').value.trim() || 'Verified Buyer';
+  const city = document.getElementById('review-author-city').value.trim() || 'Pune, India';
+  const title = document.getElementById('review-title').value.trim();
+  const comment = document.getElementById('review-comment').value.trim();
+  const rating = Number(document.getElementById('review-rating-val').value) || 5;
+
+  const newReview = {
+    id: 'rev-user-' + Date.now(),
+    author: author,
+    city: city,
+    rating: rating,
+    title: title,
+    comment: comment,
+    date: 'Just now',
+    verified: true,
+    orderId: verifiedBuyerSession ? verifiedBuyerSession.orderId : 'ORD-VERIFIED',
+    images: [...currentReviewImages]
+  };
+
+  saveStoredReview(activeReviewProductId, newReview);
+  closeWriteReviewModal();
+  renderDetailReviews();
+  showToast('Verified review & photos published successfully! ✨', 'success');
+}
+
+// Lightbox Handlers
+function openReviewPhotoLightbox(imgUrl, caption = '') {
+  const lightbox = document.getElementById('review-photo-lightbox');
+  const img = document.getElementById('lightbox-img');
+  const cap = document.getElementById('lightbox-caption');
+  if (!lightbox || !img) return;
+
+  img.src = imgUrl;
+  if (cap) cap.innerText = caption || '📸 Customer Received Photo';
+  lightbox.classList.remove('hidden');
+}
+
+function closeReviewPhotoLightbox() {
+  document.getElementById('review-photo-lightbox')?.classList.add('hidden');
 }
 
 // Interactive Zoom Handlers

@@ -1044,12 +1044,32 @@
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         
         <!-- Left: Image with Interactive Zoom Controls -->
+        <!-- Left: Image with Interactive Zoom Controls & Multi-Image Gallery -->
         <div class="md:col-span-5 space-y-3">
-          <div id="zoom-viewport-container" class="product-zoom-container aspect-square rounded-2xl bg-black/20 border theme-border shadow-md relative overflow-hidden" onmousemove="handleZoomPan(event)" onmouseleave="resetZoomPan()">
+          <div id="zoom-viewport-container" class="product-zoom-container aspect-square rounded-2xl bg-black/20 border theme-border shadow-md relative overflow-hidden group" onmousemove="handleZoomPan(event)" onmouseleave="resetZoomPan()">
             <img id="detail-product-img" src="" alt="Perfume Flacon" class="w-full h-full object-cover transition-transform duration-200">
-            <span id="detail-badge" class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase theme-badge shadow-sm">
+            
+            <span id="detail-badge" class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase theme-badge shadow-sm z-10">
               Bestseller
             </span>
+
+            <!-- Image Index Counter -->
+            <span id="detail-image-counter" class="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-black/70 text-white backdrop-blur-md z-10 hidden font-mono">
+              1 / 1
+            </span>
+
+            <!-- Carousel Prev / Next Arrows -->
+            <button id="detail-prev-img-btn" onclick="changeDetailImageSlide(-1)" aria-label="Previous Photo" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-[#C59B27] text-white hover:text-black flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-all z-10 backdrop-blur-sm hidden">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="detail-next-img-btn" onclick="changeDetailImageSlide(1)" aria-label="Next Photo" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-[#C59B27] text-white hover:text-black flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-all z-10 backdrop-blur-sm hidden">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Interactive Multi-Image Thumbnails Row -->
+          <div id="detail-thumbnails-row" class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none hidden">
+            <!-- Rendered by app.js -->
           </div>
 
           <!-- Zoom Controls (Zoom In, Zoom Out, Reset) -->
@@ -1145,18 +1165,166 @@
 
       <!-- Verified Customer Reviews Section -->
       <div class="pt-4 border-t theme-border space-y-3">
-        <div class="flex items-center justify-between">
-          <h4 class="font-heading text-xs font-bold theme-text-main uppercase tracking-wider flex items-center gap-2">
-            <i class="fa-solid fa-star text-yellow-500"></i> Verified Customer Reviews & Compliment Rating
-          </h4>
-          <span class="text-[11px] font-bold theme-accent">4.9 / 5.0 (148+ Reviews)</span>
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h4 class="font-heading text-xs font-bold theme-text-main uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-star text-yellow-500"></i> Verified Customer Reviews & Compliment Rating
+            </h4>
+            <span id="detail-reviews-summary" class="text-[11px] font-bold theme-accent">4.9 / 5.0 (Verified Buyer Reviews)</span>
+          </div>
+
+          <button onclick="openWriteReviewModal()" class="theme-btn-primary px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-md hover:scale-105 transition-transform">
+            <i class="fa-solid fa-camera"></i>
+            <span>Write Verified Review</span>
+          </button>
         </div>
 
-        <div id="detail-reviews-list" class="space-y-2 text-xs">
+        <div id="detail-reviews-list" class="space-y-3 text-xs">
           <!-- Rendered by app.js -->
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VERIFIED CUSTOMER REVIEW & UNBOXING PHOTO SUBMISSION MODAL
+       ========================================================================= -->
+  <div id="write-review-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="theme-card max-w-xl w-full rounded-3xl border theme-border p-5 sm:p-6 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+      
+      <div class="flex justify-between items-center border-b theme-border pb-3">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-shield-check"></i> 100% VERIFIED BUYER PROGRAM
+          </span>
+          <h3 id="review-modal-product-title" class="font-heading text-base font-bold theme-text-main uppercase">
+            Review: KHAMRAH D'OR
+          </h3>
+        </div>
+        <button onclick="closeWriteReviewModal()" class="theme-text-muted hover:theme-text-main p-1.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+
+      <!-- Step 1: Purchase Verification Gate -->
+      <div id="review-verify-card" class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center text-sm shrink-0 mt-0.5">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-xs theme-text-main">Verified Purchase Verification</h4>
+            <p class="text-[11px] theme-text-muted mt-0.5 leading-relaxed">
+              To guarantee 100% genuine feedback, only customers who have ordered this fragrance can publish reviews & received bottle photos.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 pt-1">
+          <input type="text" id="review-verify-input" placeholder="Enter Phone Number or Order ID (e.g. 9822725265 or ORD-IN-...)" class="theme-input flex-grow rounded-xl px-3.5 py-2 text-xs">
+          <button type="button" onclick="verifyBuyerForReview()" class="theme-btn-primary px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shrink-0 flex items-center justify-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-shield-check"></i>
+            <span>Verify Order</span>
+          </button>
+        </div>
+        <div id="review-verify-msg" class="text-[11px] font-semibold hidden"></div>
+      </div>
+
+      <!-- Step 2: Unlocked Review Form (visible once verified) -->
+      <form id="write-review-form" onsubmit="handleReviewSubmit(event)" class="space-y-4 hidden">
+        
+        <!-- Verified Confirmation Pill -->
+        <div class="p-2.5 rounded-xl bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 text-xs font-semibold flex items-center justify-between">
+          <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> <span id="review-verified-buyer-text">Verified Buyer Confirmed</span></span>
+          <span class="text-[10px] font-mono opacity-80" id="review-verified-order-id">ORD-VERIFIED</span>
+        </div>
+
+        <!-- Star Rating Selector -->
+        <div>
+          <label class="text-[11px] font-bold theme-text-muted uppercase tracking-wider block mb-1.5">Your Scent Rating *</label>
+          <div class="flex items-center gap-3">
+            <div id="review-star-picker" class="flex items-center gap-1 text-2xl text-gray-400 cursor-pointer select-none">
+              <span onclick="setReviewRating(1)" onmouseover="hoverReviewRating(1)" onmouseleave="resetHoverReviewRating()" data-star="1">★</span>
+              <span onclick="setReviewRating(2)" onmouseover="hoverReviewRating(2)" onmouseleave="resetHoverReviewRating()" data-star="2">★</span>
+              <span onclick="setReviewRating(3)" onmouseover="hoverReviewRating(3)" onmouseleave="resetHoverReviewRating()" data-star="3">★</span>
+              <span onclick="setReviewRating(4)" onmouseover="hoverReviewRating(4)" onmouseleave="resetHoverReviewRating()" data-star="4">★</span>
+              <span onclick="setReviewRating(5)" onmouseover="hoverReviewRating(5)" onmouseleave="resetHoverReviewRating()" data-star="5">★</span>
+            </div>
+            <span id="review-rating-label" class="text-xs font-bold theme-accent">5.0 / 5.0 (Beast Mode & Perfection ✨)</span>
+          </div>
+          <input type="hidden" id="review-rating-val" value="5">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[11px] font-bold theme-text-muted uppercase tracking-wider block mb-1">Your Name *</label>
+            <input type="text" id="review-author-name" required placeholder="e.g. Rahul Sharma" class="theme-input w-full rounded-xl px-3.5 py-2 text-xs">
+          </div>
+          <div>
+            <label class="text-[11px] font-bold theme-text-muted uppercase tracking-wider block mb-1">City / Region *</label>
+            <input type="text" id="review-author-city" required placeholder="e.g. Pune, Maharashtra" class="theme-input w-full rounded-xl px-3.5 py-2 text-xs">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold theme-text-muted uppercase tracking-wider block mb-1">Review Headline / Title *</label>
+          <input type="text" id="review-title" required placeholder="e.g. 18+ Hours Longevity & Free Tester was Amazing!" class="theme-input w-full rounded-xl px-3.5 py-2 text-xs">
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold theme-text-muted uppercase tracking-wider block mb-1">Your Scent Experience & Compliments *</label>
+          <textarea id="review-comment" rows="3" required placeholder="Describe the opening notes, sillage in heat, longevity, bottle feel, and compliments you received..." class="theme-input w-full rounded-xl p-3 text-xs leading-relaxed"></textarea>
+        </div>
+
+        <!-- Multiple Customer Unboxing Images Upload -->
+        <div class="p-3.5 rounded-2xl theme-bg-surface border theme-border space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold theme-accent uppercase tracking-wider flex items-center gap-1.5">
+              <i class="fa-solid fa-camera"></i>
+              <span>Upload Photos of What You Received</span>
+            </span>
+            <span class="text-[10px] theme-text-muted">Bottle, Packaging & Engraving (Max 4)</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label class="cursor-pointer theme-card hover:bg-black/5 dark:hover:bg-white/5 border border-dashed theme-border px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-cloud-arrow-up theme-accent"></i>
+              <span>Select Photos</span>
+              <input type="file" id="review-image-files" multiple accept="image/*" class="hidden" onchange="handleReviewImagesUpload(event)">
+            </label>
+            <span id="review-image-count-label" class="text-[11px] theme-text-muted">0 photos added</span>
+          </div>
+
+          <!-- Previews Container -->
+          <div id="review-images-preview-grid" class="grid grid-cols-4 gap-2 pt-1 hidden">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3 border-t theme-border">
+          <button type="button" onclick="closeWriteReviewModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold theme-card border theme-border theme-text-muted hover:theme-text-main">
+            Cancel
+          </button>
+          <button type="submit" class="theme-btn-primary px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Publish Verified Review</span>
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- FULLSCREEN CUSTOMER PHOTO LIGHTBOX -->
+  <div id="review-photo-lightbox" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4" onclick="closeReviewPhotoLightbox()">
+    <div class="relative max-w-3xl w-full flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+      <button onclick="closeReviewPhotoLightbox()" class="absolute -top-10 right-0 text-white hover:text-amber-400 text-xl p-2">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="lightbox-img" src="" alt="Customer Photo Full" class="max-h-[80vh] max-w-full rounded-2xl object-contain border border-white/20 shadow-2xl bg-black">
+      <span id="lightbox-caption" class="text-xs text-white/80 mt-2 font-medium">📸 Verified Customer Received Photo</span>
     </div>
   </div>
 

@@ -35,6 +35,11 @@ const DEFAULT_PRODUCTS = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Kashmiri Kesar, Cinnamon, Sweet Dates, Praline, Amber Vanilla',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Bestseller 🇮🇳',
     inStock: true
   },
@@ -47,6 +52,11 @@ const DEFAULT_PRODUCTS = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Pure Cambodian Oud, Mysore Sandalwood, Royal Cardamom, Amber',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Top Pick',
     inStock: true
   },
@@ -59,6 +69,11 @@ const DEFAULT_PRODUCTS = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Ambergris, Rich Cedarwood, Patchouli, Pink Peppercorn',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Trending',
     inStock: true
   },
@@ -71,6 +86,11 @@ const DEFAULT_PRODUCTS = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Kashmiri Rose Petals, Tropical Fruits, Vanilla Orchid, Sandalwood',
     image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Viral Hit',
     inStock: true
   },
@@ -83,6 +103,11 @@ const DEFAULT_PRODUCTS = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Smoky Birch, Italian Lemon, Pineapple, Blackcurrant, Ambergris',
     image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Beast Mode',
     inStock: true
   },
@@ -95,6 +120,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Aged Dehn Al Oudh, Frankincense, Sandalwood, Damascene Rose',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Royal Blend',
     inStock: true
   },
@@ -107,6 +136,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Turkish Rose, Incense, Lychee, Warm Amber, Bourbon Vanilla',
     image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Haute Extrait',
     inStock: true
   },
@@ -119,6 +152,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Fresh Bergamot, Cinnamon, Orange Blossom, Aquatic Grey Amber',
     image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'All-Season',
     inStock: true
   },
@@ -131,6 +168,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Original Mysore Sandalwood Oil, Cardamom, White Musk, Cedar',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Artisanal',
     inStock: true
   },
@@ -143,6 +184,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Red Berries, Cocoa, Sugared Kesar Vanilla, Tonka, Soft Musk',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Gourmand',
     inStock: true
   },
@@ -155,6 +200,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Tobacco Leaf, Spiced Ginger, Cocoa, Tonka Bean, Wood Sap',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Luxury Niche',
     inStock: true
   },
@@ -167,6 +216,10 @@ const DEFAULT_PRODUCTS = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Blackcurrant, Italian Bergamot, Birch, Oakmoss, Indian Vetiver',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80'
+    ],
     badge: 'Masterpiece',
     inStock: true
   }
@@ -1114,41 +1167,115 @@ function processImageFile(file, maxWidth = 1200, maxHeight = 1200, quality = 0.8
   });
 }
 
-// Super Product Image Handlers
-async function handleSuperProductFileUpload(event) {
-  const file = event.target.files?.[0];
-  if (!file) return;
-  try {
-    showToast('Compressing & loading image...', 'info');
-    const result = await processImageFile(file, 1000, 1000, 0.85);
-    document.getElementById('sp-image').value = result.dataUrl;
-    previewSuperProductImage(result.dataUrl, file.name);
-    showToast('Photo uploaded & ready for catalog! 📸', 'success');
-  } catch (err) {
-    showToast(err.message || 'Image upload failed', 'error');
+// =========================================================================
+// SUPER PRODUCT MULTI-IMAGE GALLERY HANDLERS
+// =========================================================================
+let superProductImages = [];
+
+async function handleSuperProductMultipleFiles(event) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+  
+  showToast(`Compressing & loading ${files.length} image(s)...`, 'info');
+  let loadedCount = 0;
+  for (let i = 0; i < files.length; i++) {
+    try {
+      const result = await processImageFile(files[i], 1000, 1000, 0.85);
+      if (result && result.dataUrl) {
+        superProductImages.push(result.dataUrl);
+        loadedCount++;
+      }
+    } catch (err) {
+      console.warn('Error processing image:', err);
+    }
+  }
+  renderSuperProductImagesGallery();
+  showToast(`Added ${loadedCount} photo(s) to product gallery! 📸`, 'success');
+  event.target.value = '';
+}
+
+function addSuperProductImageUrl() {
+  const input = document.getElementById('sp-image-url-input');
+  if (!input) return;
+  const url = input.value.trim();
+  if (!url) {
+    showToast('Please enter a valid image URL', 'error');
+    return;
+  }
+  superProductImages.push(url);
+  input.value = '';
+  renderSuperProductImagesGallery();
+  showToast('Image URL added! 🖼️', 'success');
+}
+
+function removeSuperProductImage(index) {
+  if (index >= 0 && index < superProductImages.length) {
+    superProductImages.splice(index, 1);
+    renderSuperProductImagesGallery();
   }
 }
 
-function previewSuperProductImage(url, filename = '') {
-  const previewBox = document.getElementById('sp-image-preview-box');
-  const previewImg = document.getElementById('sp-preview-img');
-  const previewTitle = document.getElementById('sp-preview-title');
-  if (!previewBox || !previewImg) return;
-
-  if (url && url.trim().length > 0) {
-    previewImg.src = url.trim();
-    if (previewTitle) previewTitle.innerText = filename || 'Perfume Bottle Photo';
-    previewBox.classList.remove('hidden');
-  } else {
-    previewBox.classList.add('hidden');
+function setSuperProductCoverImage(index) {
+  if (index > 0 && index < superProductImages.length) {
+    const item = superProductImages.splice(index, 1)[0];
+    superProductImages.unshift(item);
+    renderSuperProductImagesGallery();
+    showToast('Cover photo updated! ⭐', 'success');
   }
 }
 
-function clearSuperProductImage() {
-  document.getElementById('sp-image').value = '';
-  const fileInp = document.getElementById('sp-image-file');
-  if (fileInp) fileInp.value = '';
-  document.getElementById('sp-image-preview-box')?.classList.add('hidden');
+function clearAllSuperProductImages() {
+  superProductImages = [];
+  renderSuperProductImagesGallery();
+}
+
+function renderSuperProductImagesGallery() {
+  const grid = document.getElementById('sp-images-gallery-grid');
+  const countText = document.getElementById('sp-images-count-text');
+  const hiddenImage = document.getElementById('sp-image');
+  if (!grid) return;
+
+  if (hiddenImage) {
+    hiddenImage.value = superProductImages.length > 0 ? superProductImages[0] : '';
+  }
+
+  if (countText) {
+    countText.innerText = `${superProductImages.length} Photo(s) (${superProductImages.length > 0 ? 'First photo is primary catalog cover' : 'No photos added yet'})`;
+  }
+
+  if (superProductImages.length === 0) {
+    grid.innerHTML = `
+      <div class="col-span-full py-4 text-center text-xs text-gray-500 italic">
+        <i class="fa-solid fa-images text-base text-gray-600 block mb-1"></i>
+        No photos added yet. Upload files or paste URLs above.
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = superProductImages.map((imgUrl, idx) => `
+    <div class="relative group rounded-xl overflow-hidden border ${idx === 0 ? 'border-[#C59B27] ring-1 ring-[#C59B27]/40 shadow-md' : 'border-gray-800'} bg-[#1C1511] aspect-square flex flex-col justify-between">
+      <img src="${imgUrl}" alt="Product Image #${idx + 1}" class="w-full h-full object-cover">
+      
+      ${idx === 0 ? `
+        <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-[#C59B27] text-[#120D0A] font-extrabold text-[8px] uppercase tracking-wider shadow-sm flex items-center gap-0.5">
+          <i class="fa-solid fa-star text-[7px]"></i> Cover
+        </span>
+      ` : `
+        <button type="button" onclick="setSuperProductCoverImage(${idx})" title="Set as Cover Photo" class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-black/70 hover:bg-[#C59B27] hover:text-[#120D0A] text-white text-[8px] font-bold opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+          Make Cover
+        </button>
+      `}
+
+      <button type="button" onclick="removeSuperProductImage(${idx})" title="Delete Image" class="absolute top-1 right-1 w-5 h-5 rounded-md bg-red-950/80 hover:bg-red-600 text-red-300 hover:text-white flex items-center justify-center text-[9px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+
+      <span class="absolute bottom-1 right-1 px-1.5 py-0.2 rounded bg-black/60 text-gray-300 text-[8px] font-mono backdrop-blur-sm">
+        #${idx + 1}
+      </span>
+    </div>
+  `).join('');
 }
 
 // Hero Banner Image Handlers
@@ -1775,16 +1902,25 @@ function openSuperProductModal(id = null) {
       document.getElementById('sp-accord').value = item.accord;
       document.getElementById('sp-badge').value = item.badge || 'Bestseller';
       document.getElementById('sp-notes').value = item.notes;
-      document.getElementById('sp-image').value = item.image;
       document.getElementById('sp-stock').checked = item.inStock !== false;
-      previewSuperProductImage(item.image, item.name);
+      
+      // Load images array or single image
+      if (item.images && Array.isArray(item.images) && item.images.length > 0) {
+        superProductImages = [...item.images];
+      } else if (item.image) {
+        superProductImages = [item.image];
+      } else {
+        superProductImages = [];
+      }
+      renderSuperProductImagesGallery();
     }
   } else {
     title.innerText = 'Add New Luxury Fragrance';
     form.reset();
     document.getElementById('sp-stock').checked = true;
     document.getElementById('sp-badge').value = 'New Arrival';
-    clearSuperProductImage();
+    superProductImages = [];
+    renderSuperProductImagesGallery();
   }
 
   modal.classList.remove('hidden');
@@ -1793,6 +1929,7 @@ function openSuperProductModal(id = null) {
 function closeSuperProductModal() {
   document.getElementById('super-product-modal').classList.add('hidden');
   editingProductId = null;
+  superProductImages = [];
 }
 
 function handleSuperProductSubmit(e) {
@@ -1804,21 +1941,22 @@ function handleSuperProductSubmit(e) {
   const accord = document.getElementById('sp-accord').value;
   const badge = document.getElementById('sp-badge').value.trim();
   const notes = document.getElementById('sp-notes').value.trim();
-  const image = document.getElementById('sp-image').value.trim() || 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80';
+  const images = superProductImages.length > 0 ? [...superProductImages] : ['https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'];
+  const image = images[0];
   const inStock = document.getElementById('sp-stock').checked;
 
   if (editingProductId) {
     const idx = products.findIndex(p => p.id === editingProductId);
     if (idx !== -1) {
-      products[idx] = { ...products[idx], name, brand, price, gender, accord, badge, notes, image, inStock };
-      recordAudit(`Updated product '${name}'`);
-      showToast(`Updated '${name}'`, 'success');
+      products[idx] = { ...products[idx], name, brand, price, gender, accord, badge, notes, image, images, inStock };
+      recordAudit(`Updated product '${name}' with ${images.length} images`);
+      showToast(`Updated '${name}' (${images.length} photos) ✨`, 'success');
     }
   } else {
     const newId = 'p' + Date.now();
-    products.unshift({ id: newId, name, brand, price, gender, accord, badge, notes, image, inStock });
-    recordAudit(`Added product '${name}'`);
-    showToast(`Added '${name}'`, 'success');
+    products.unshift({ id: newId, name, brand, price, gender, accord, badge, notes, image, images, inStock });
+    recordAudit(`Added product '${name}' with ${images.length} images`);
+    showToast(`Added '${name}' (${images.length} photos) ✨`, 'success');
   }
 
   localStorage.setItem('perfumes_catalog', JSON.stringify(products));

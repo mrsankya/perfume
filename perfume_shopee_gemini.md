@@ -149,4 +149,17 @@
   - Fixed unclosed modal container tag in `superadmin.html` that previously trapped `#super-celebrity-modal` inside `#super-gst-invoice-modal` (which was hidden by default), allowing the "+ Add Celebrity Wardrobe" modal and "Edit" modal to open and display instantly.
   - Enhanced `buyCelebrityDuo()` in `app.js` to handle both multi-bottle layering duos and custom single/combo packs with proper cart quantity incrementing, discount coupon computation, cart drawer opening, and toast confirmation.
   - Added clean file input name reset in `openCelebrityWardrobeModal()` for both `superadmin.js` and `admin.js`.
+- **Multiple Product Image Upload (Admin & Super Admin)**:
+  - Added interactive Multi-Image Gallery Manager in both `superadmin.html` / `superadmin.js` and `admin.html` / `admin.js`.
+  - Supports uploading multiple photo files simultaneously (with Canvas compression) or pasting image URLs.
+  - Interactive gallery preview grid with 1-click "Make Cover" photo selection, delete buttons, and cover badge.
+  - Product data model upgraded to support `images: [url1, url2, ...]` with backwards compatibility (`image: images[0]`).
+- **Storefront Product Quickview Multi-Image Carousel**:
+  - Upgraded `#product-detail-modal` in `index.html` and `app.js` to render interactive photo carousel with Prev/Next navigation overlay arrows, photo index counter (`1 / 3`), and interactive thumbnail row with active golden ring.
+- **Verified Buyer Reviews System with Received Bottle Photo Uploads**:
+  - Implemented strict purchase verification gate: Customers can only review a product if they have a verified order containing that specific fragrance (checked against `perfumes_orders` / `/api/orders` by Phone number or Order ID).
+  - Unlocked review form includes 5-star rating picker with scent performance titles, headline, experience text, and multi-file unboxing photo uploader (up to 4 received bottle photos compressed via Canvas).
+  - Reviews rendered on product quickview modal with author, city, 5-star rating, verified buyer badge, order ID, genuine bottle seal, and clickable unboxing photo gallery.
+  - Added Fullscreen Photo Lightbox modal (`#review-photo-lightbox`) for high-resolution inspection of customer unboxing photos.
+
 
