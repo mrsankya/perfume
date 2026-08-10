@@ -1266,6 +1266,7 @@ function buyCelebrityDuo(celebId) {
   if (!celeb) return;
 
   const products = getStoredProducts();
+  const savings = Number(celeb.savings) || (celeb.regularPrice && celeb.comboPrice ? Math.max(0, celeb.regularPrice - celeb.comboPrice) : 800);
 
   if (celeb.items && Array.isArray(celeb.items) && celeb.items.length > 0) {
     celeb.items.forEach(cItem => {
@@ -1280,23 +1281,33 @@ function buyCelebrityDuo(celebId) {
         else cart.push({ id: 'celeb-item-' + Date.now() + Math.random(), name: cItem.name, brand: cItem.brand || 'Luxury Extrait', price: cItem.price || Math.round(celeb.comboPrice / 2), image: celeb.perfumeImage || celeb.image, accord: 'Celebrity Choice', qty: 1 });
       }
     });
+    discountCoupon = { code: 'CELEBDUO', amount: savings };
   } else {
     // Custom single/duo combo item
-    cart.push({
-      id: 'celeb-combo-' + celeb.id,
-      name: `${celeb.name} Signature Wardrobe (${celeb.perfumeName || 'Luxury Duo'})`,
-      brand: celeb.perfumeBrand || 'Haute Duo Extrait',
-      price: celeb.comboPrice || 5999,
-      image: celeb.perfumeImage || celeb.image,
-      accord: 'Celebrity Wardrobe',
-      qty: 1
-    });
+    const comboId = 'celeb-combo-' + celeb.id;
+    const existing = cart.find(i => i.id === comboId);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      const itemPrice = celeb.regularPrice && celeb.regularPrice > celeb.comboPrice ? celeb.regularPrice : (celeb.comboPrice || 5999);
+      cart.push({
+        id: comboId,
+        name: `${celeb.name} Signature Wardrobe (${celeb.perfumeName || 'Luxury Duo'})`,
+        brand: celeb.perfumeBrand || 'Haute Duo Extrait',
+        price: itemPrice,
+        image: celeb.perfumeImage || celeb.image,
+        accord: 'Celebrity Wardrobe',
+        qty: 1
+      });
+    }
+    if (celeb.regularPrice && celeb.regularPrice > celeb.comboPrice) {
+      discountCoupon = { code: 'CELEBDUO', amount: savings };
+    }
   }
 
-  discountCoupon = { code: 'CELEBDUO', amount: celeb.savings || 800 };
   saveCartToStorage();
   openCartDrawer();
-  showToast(`Added ${celeb.name}'s Wardrobe Duo (Saved ${formatRupees(celeb.savings || 800)})! 👑`, 'success');
+  showToast(`Added ${celeb.name}'s Wardrobe Duo (Saved ${formatRupees(savings)})! 👑`, 'success');
 }
 
 // 5. DISCOVERY SAMPLE BOX BUILDER

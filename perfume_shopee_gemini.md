@@ -143,3 +143,10 @@
 ## Role-Based Access Control (RBAC)
 - **👑 Super Admin (Direct URL Only)**: `superadmin.html` (Passwords: `superadmin` or `9822725265`)
 - **👔 Regular Staff Admin**: `admin.html` (Password: `admin` or `9822725265`)
+
+## Recent Fixes & Maintenance Log
+- **Celebrity Scent Wardrobes & Duo Combos Modal & Add Button**:
+  - Fixed unclosed modal container tag in `superadmin.html` that previously trapped `#super-celebrity-modal` inside `#super-gst-invoice-modal` (which was hidden by default), allowing the "+ Add Celebrity Wardrobe" modal and "Edit" modal to open and display instantly.
+  - Enhanced `buyCelebrityDuo()` in `app.js` to handle both multi-bottle layering duos and custom single/combo packs with proper cart quantity incrementing, discount coupon computation, cart drawer opening, and toast confirmation.
+  - Added clean file input name reset in `openCelebrityWardrobeModal()` for both `superadmin.js` and `admin.js`.
+

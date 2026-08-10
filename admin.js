@@ -1215,6 +1215,11 @@ function openCelebrityWardrobeModal(celebId = null) {
     if (previewPerfumeImg) previewPerfumeImg.src = 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600';
   }
 
+  const fileNameCeleb = document.getElementById('admin-celeb-image-file-name');
+  if (fileNameCeleb) fileNameCeleb.innerText = 'No file chosen';
+  const fileNamePerfume = document.getElementById('admin-celeb-perfume-image-file-name');
+  if (fileNamePerfume) fileNamePerfume.innerText = 'No file chosen';
+
   document.getElementById('admin-celebrity-modal')?.classList.remove('hidden');
 }
 
