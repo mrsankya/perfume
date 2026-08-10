@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Admin Dashboard | Perfume Shope India</title>
+  <meta name="theme-color" content="#18110E">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            nude: {
+              50: '#FDFBF7',
+              100: '#FAF5EE',
+              200: '#F4ECDF',
+              300: '#EBE2D7',
+            },
+            bronze: {
+              400: '#C89B66',
+              500: '#A67642',
+              600: '#7A5328',
+            },
+            gold: {
+              400: '#D4AF37',
+              500: '#C59B27',
+              600: '#AA771C',
+            },
+            espresso: {
+              800: '#231B17',
+              900: '#18110E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#FAF5EE] text-[#231B17] min-h-screen antialiased">
+
+  <!-- =========================================================================
+       1. ADMIN LOGIN VIEW
+       ========================================================================= -->
+  <div id="admin-login-view" class="min-h-screen flex items-center justify-center p-4 bg-[#18110E] relative overflow-hidden">
+    <!-- Ambient background gradient -->
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-[#C59B27]/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-[#A67642]/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-md w-full bg-[#231B17] border border-[#C59B27]/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative z-10 space-y-6 text-center">
+      
+      <!-- Brand Logo -->
+      <div class="space-y-2">
+        <div class="w-14 h-14 rounded-full border border-[#C59B27]/60 bg-[#18110E] mx-auto flex items-center justify-center shadow-md">
+          <i class="fa-solid fa-crown text-[#C59B27] text-xl"></i>
+        </div>
+        <h1 class="font-heading text-xl sm:text-2xl font-bold tracking-widest text-white uppercase">PERFUME SHOPE</h1>
+        <p class="text-xs uppercase tracking-widest text-[#C59B27] font-semibold">Boutique Admin Portal &bull; India</p>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="handleLogin(event)" class="space-y-4 text-left">
+        <div>
+          <label class="text-[11px] font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Admin Access Password</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3.5 top-3.5 text-gray-400 text-xs"></i>
+            <input 
+              type="password" 
+              id="admin-password" 
+              placeholder="Enter admin password..." 
+              required
+              class="w-full bg-[#18110E] border border-gray-700 text-white rounded-xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:border-[#C59B27] transition-colors"
+            >
+          </div>
+          <p id="login-error" class="text-red-400 text-[11px] mt-1.5 hidden flex items-center gap-1">
+            <i class="fa-solid fa-triangle-exclamation"></i> Incorrect password. Please try again.
+          </p>
+        </div>
+
+        <button type="submit" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Log In to Dashboard</span>
+        </button>
+      </form>
+
+      <!-- Helper / Hint -->
+      <div class="p-3 rounded-xl bg-[#18110E]/60 border border-gray-800 text-[11px] text-gray-400 text-center space-y-1">
+        <span class="text-[#C89B66] font-semibold block">Default Admin Password:</span>
+        <code class="text-white font-mono bg-black/40 px-2 py-0.5 rounded border border-gray-700">admin</code> or <code class="text-white font-mono bg-black/40 px-2 py-0.5 rounded border border-gray-700">9822725265</code>
+      </div>
+
+      <div class="pt-2 border-t border-gray-800">
+        <a href="index.html" class="text-gray-400 hover:text-white text-xs inline-flex items-center gap-1.5 transition-colors">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Return to Live Boutique Store</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. ADMIN DASHBOARD VIEW
+       ========================================================================= -->
+  <div id="admin-dashboard-view" class="hidden min-h-screen flex flex-col bg-[#FAF5EE]">
+    
+    <!-- Top Admin Header Bar -->
+    <header class="bg-[#18110E] text-white border-b border-[#3A2D25] sticky top-0 z-40 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <!-- Left: Logo & Status -->
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-full border border-[#C59B27]/50 bg-[#231B17] flex items-center justify-center p-1">
+            <i class="fa-solid fa-crown text-[#C59B27] text-xs"></i>
+          </div>
+          <div>
+            <span class="font-heading text-sm sm:text-base font-bold tracking-widest block uppercase">PERFUME SHOPE</span>
+            <span class="text-[9px] uppercase tracking-widest text-[#C59B27] block -mt-1 font-semibold">Store Management Console</span>
+          </div>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <a href="index.html" target="_blank" class="bg-[#231B17] hover:bg-[#332722] text-[#C59B27] border border-[#C59B27]/40 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <span class="hidden sm:inline">View Live Store</span>
+          </a>
+          <button onclick="handleLogout()" class="bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-800/50 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors">
+            <i class="fa-solid fa-power-off text-[10px]"></i>
+            <span class="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+      <!-- STATS OVERVIEW RIBBON -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7] flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-spray-can-sparkles text-lg text-[#A67642]"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">Total Fragrances</span>
+            <span id="stat-total-fragrances" class="font-heading text-lg sm:text-2xl font-bold text-[#231B17]">12</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7] flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-indian-rupee-sign text-lg text-[#C59B27]"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">Catalog Value (INR)</span>
+            <span id="stat-total-valuation" class="font-heading text-lg sm:text-2xl font-bold text-[#231B17]">₹0</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7] flex items-center justify-center shrink-0">
+            <i class="fa-brands fa-whatsapp text-lg text-[#16a34a]"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">WhatsApp Leads</span>
+            <span id="stat-total-leads" class="font-heading text-lg sm:text-2xl font-bold text-[#231B17]">0</span>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex items-center gap-3.5">
+          <div class="w-11 h-11 rounded-xl bg-[#FAF5EE] border border-[#EBE2D7] flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-crown text-lg text-[#7A5328]"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-500 uppercase tracking-wider block font-semibold">Featured Brands</span>
+            <span id="stat-total-brands" class="font-heading text-lg sm:text-2xl font-bold text-[#231B17]">8</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DASHBOARD TABS NAVIGATION -->
+      <div class="flex items-center space-x-2 border-b border-[#EBE2D7] pb-3 overflow-x-auto scrollbar-none">
+        <button onclick="switchTab('inventory')" data-tab="inventory" class="admin-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-white shadow-xs flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>Fragrance Inventory</span>
+        </button>
+        <button onclick="switchTab('reservations')" data-tab="reservations" class="admin-tab-btn px-4 py-2.5 rounded-xl font-medium text-xs bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span>WhatsApp Leads & Bookings</span>
+        </button>
+        <button onclick="switchTab('settings')" data-tab="settings" class="admin-tab-btn px-4 py-2.5 rounded-xl font-medium text-xs bg-white text-[#231B17] border border-[#EBE2D7] hover:border-[#A67642] hover:text-[#A67642] flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Boutique & Store Settings</span>
+        </button>
+      </div>
+
+      <!-- =========================================================================
+           TAB 1: INVENTORY MANAGEMENT
+           ========================================================================= -->
+      <div id="tab-inventory" class="tab-content space-y-4">
+        
+        <!-- Controls Bar -->
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+          
+          <div class="flex items-center gap-3 w-full sm:w-auto">
+            <!-- Search -->
+            <div class="relative w-full sm:w-72">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-xs"></i>
+              <input 
+                type="text" 
+                onkeyup="handleInventorySearch(event)" 
+                placeholder="Search inventory..." 
+                class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl pl-8 pr-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]"
+              >
+            </div>
+
+            <!-- Filter Accord -->
+            <select onchange="handleAccordFilter(event)" class="bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none">
+              <option value="All">All Accords</option>
+              <option value="Kashmiri Gulab & Rose">Kashmiri Gulab & Rose</option>
+              <option value="Royal Dehn Al Oud">Royal Dehn Al Oud</option>
+              <option value="Warm Vanilla & Kesar">Warm Vanilla & Kesar</option>
+              <option value="Mysore Sandal & Woods">Mysore Sandal & Woods</option>
+              <option value="Fresh Citrus & Monsoon Aqua">Fresh Citrus & Aqua</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <button onclick="resetCatalogToDefault()" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-600 bg-[#FAF5EE] hover:bg-gray-200 border border-[#EBE2D7] transition-colors" title="Restore default catalog">
+              <i class="fa-solid fa-rotate-left mr-1"></i> Reset
+            </button>
+            <button onclick="openProductModal()" class="bg-[#18110E] hover:bg-[#A67642] text-white px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider flex items-center gap-2 shadow-xs transition-colors">
+              <i class="fa-solid fa-plus text-xs"></i>
+              <span>Add Fragrance</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="bg-white rounded-2xl border border-[#EBE2D7] shadow-xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#FAF5EE] border-b border-[#EBE2D7] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
+                  <th class="py-3 px-3">Fragrance</th>
+                  <th class="py-3 px-3">Brand</th>
+                  <th class="py-3 px-3">Accord</th>
+                  <th class="py-3 px-3">Gender</th>
+                  <th class="py-3 px-3">Price (INR)</th>
+                  <th class="py-3 px-3">Availability</th>
+                  <th class="py-3 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body">
+                <!-- Rendered by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 2: RESERVATIONS / WHATSAPP LEADS
+           ========================================================================= -->
+      <div id="tab-reservations" class="tab-content hidden space-y-4">
+        
+        <div class="bg-white p-4 rounded-2xl border border-[#EBE2D7] shadow-xs flex items-center justify-between">
+          <div>
+            <h3 class="font-heading text-base font-bold text-[#231B17]">WhatsApp Inquiries & Store Pickup Leads</h3>
+            <p class="text-xs text-gray-500">Track customer booking leads initiated through the live website.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="exportReservationsCSV()" class="bg-[#16a34a] hover:bg-[#15803d] text-white px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs">
+              <i class="fa-solid fa-file-csv"></i> Export CSV
+            </button>
+            <button onclick="clearAllReservations()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-xl text-xs font-semibold transition-colors">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-[#EBE2D7] shadow-xs overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-[#FAF5EE] border-b border-[#EBE2D7] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
+                  <th class="py-3 px-3">ID</th>
+                  <th class="py-3 px-3">Perfume Requested</th>
+                  <th class="py-3 px-3">Price</th>
+                  <th class="py-3 px-3">Booking Date</th>
+                  <th class="py-3 px-3">Pickup Status</th>
+                  <th class="py-3 px-3 text-right">WhatsApp</th>
+                </tr>
+              </thead>
+              <tbody id="reservations-table-body">
+                <!-- Rendered by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB 3: BOUTIQUE & STORE SETTINGS
+           ========================================================================= -->
+      <div id="tab-settings" class="tab-content hidden space-y-6">
+        
+        <div class="bg-white p-6 rounded-2xl border border-[#EBE2D7] shadow-xs">
+          <h3 class="font-heading text-lg font-bold text-[#231B17] mb-1">Store Details & Contact Configuration</h3>
+          <p class="text-xs text-gray-500 mb-6">Update your flagship store details, WhatsApp recipient number, and top announcement banner.</p>
+
+          <form onsubmit="handleSettingsSubmit(event)" class="space-y-4">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Boutique Brand Name</label>
+                <input type="text" id="set-store-name" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Tagline</label>
+                <input type="text" id="set-tagline" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">WhatsApp Booking Number (Country Code + Phone)</label>
+                <input type="text" id="set-whatsapp" required placeholder="e.g. 919579453006" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Store Support Phone</label>
+                <input type="text" id="set-phone" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Support Email</label>
+                <input type="email" id="set-email" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Store Timings</label>
+                <input type="text" id="set-hours" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+            </div>
+
+            <div>
+              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Physical Boutique Address</label>
+              <textarea id="set-address" rows="2" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl p-3 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]"></textarea>
+            </div>
+
+            <div>
+              <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Top Announcement Ribbon Text</label>
+              <input type="text" id="set-announcement" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+            </div>
+
+            <div class="flex items-center gap-2 pt-1">
+              <input type="checkbox" id="set-announcement-active" class="w-4 h-4 text-[#A67642] rounded">
+              <label for="set-announcement-active" class="text-xs text-gray-700 font-medium">Display Announcement Ribbon on Live Website</label>
+            </div>
+
+            <div class="pt-4 border-t border-[#EBE2D7] grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-[11px] font-bold text-[#A67642] uppercase tracking-wider block mb-1">Change Admin Password</label>
+                <input type="password" id="set-admin-password" placeholder="Leave blank to keep current password" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3.5 py-2.5 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              </div>
+            </div>
+
+            <div class="pt-4">
+              <button type="submit" class="bg-[#18110E] hover:bg-[#A67642] text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-colors">
+                Save All Settings
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =========================================================================
+       3. ADD / EDIT FRAGRANCE MODAL
+       ========================================================================= -->
+  <div id="product-edit-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white max-w-xl w-full rounded-2xl border border-[#EBE2D7] p-5 sm:p-7 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#FAF5EE] text-gray-600 flex items-center justify-center hover:bg-gray-200 transition-colors">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 id="modal-form-title" class="font-heading text-lg font-bold text-[#231B17] uppercase mb-4">Add New Luxury Fragrance</h3>
+
+      <form id="product-form" onsubmit="handleProductFormSubmit(event)" class="space-y-4">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Perfume Name</label>
+            <input type="text" id="form-name" required placeholder="e.g. KHAMRAH D'OR" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Brand Name</label>
+            <input type="text" id="form-brand" required placeholder="e.g. Lattafa, Rasasi, Creed" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Price in INR (₹)</label>
+            <input type="number" id="form-price" required min="1" placeholder="e.g. 2899" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Gender Target</label>
+            <select id="form-gender" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              <option value="Unisex">Unisex</option>
+              <option value="Women">Women</option>
+              <option value="Men">Men</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Fragrance Accord</label>
+            <select id="form-accord" required class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+              <option value="Kashmiri Gulab & Rose">🌸 Kashmiri Gulab & Rose</option>
+              <option value="Royal Dehn Al Oud">🪵 Royal Dehn Al Oud</option>
+              <option value="Warm Vanilla & Kesar">🍦 Warm Vanilla & Kesar</option>
+              <option value="Mysore Sandal & Woods">🌲 Mysore Sandal & Woods</option>
+              <option value="Fresh Citrus & Monsoon Aqua">🍋 Fresh Citrus & Monsoon Aqua</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Display Badge</label>
+            <input type="text" id="form-badge" placeholder="e.g. Bestseller, Viral Hit, Royal" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Olfactory Notes</label>
+          <input type="text" id="form-notes" required placeholder="e.g. Kashmiri Kesar, Cinnamon, Amber Vanilla, Sandalwood" class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-[#A67642] uppercase block mb-1">Product Image URL</label>
+          <input type="url" id="form-image" oninput="updateImagePreview(this.value)" placeholder="https://images.unsplash.com/..." class="w-full bg-[#FAF5EE] border border-[#EBE2D7] rounded-xl px-3 py-2 text-xs text-[#231B17] focus:outline-none focus:border-[#A67642]">
+          <div class="mt-2 flex items-center gap-3">
+            <img id="image-preview-img" src="" alt="Preview" class="w-14 h-14 rounded-lg object-cover border border-[#EBE2D7] hidden">
+            <span class="text-[10px] text-gray-500">Paste any valid image URL or leave blank for luxury fallback photo.</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2 border-t border-[#EBE2D7]">
+          <input type="checkbox" id="form-stock" checked class="w-4 h-4 text-[#A67642] rounded">
+          <label for="form-stock" class="text-xs font-semibold text-[#231B17]">In Stock & Available for Store Pickup</label>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeProductModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="bg-[#18110E] hover:bg-[#A67642] text-white px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-sm transition-colors">
+            Save Fragrance
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Admin JS Engine -->
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
    PERFUME SHOPE - INDIA'S LUXURY PARFUMERIE & ATTAR BOUTIQUE ENGINE
    ========================================================================== */
 
-const PERFUMES_DATABASE = [
+const PERFUMES_DEFAULT_DB = [
   {
     id: 'p1',
     name: "KHAMRAH D'OR",
@@ -12,7 +12,8 @@ const PERFUMES_DATABASE = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Kashmiri Kesar, Cinnamon, Sweet Dates, Praline, Amber Vanilla',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
-    badge: 'Bestseller 🇮🇳'
+    badge: 'Bestseller 🇮🇳',
+    inStock: true
   },
   {
     id: 'p2',
@@ -23,7 +24,8 @@ const PERFUMES_DATABASE = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Pure Cambodian Oud, Mysore Sandalwood, Royal Cardamom, Amber',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
-    badge: 'Top Pick'
+    badge: 'Top Pick',
+    inStock: true
   },
   {
     id: 'p3',
@@ -34,7 +36,8 @@ const PERFUMES_DATABASE = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Ambergris, Rich Cedarwood, Patchouli, Pink Peppercorn',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Trending'
+    badge: 'Trending',
+    inStock: true
   },
   {
     id: 'p4',
@@ -45,7 +48,8 @@ const PERFUMES_DATABASE = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Kashmiri Rose Petals, Tropical Fruits, Vanilla Orchid, Sandalwood',
     image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=600&auto=format&fit=crop&q=80',
-    badge: 'Viral Hit'
+    badge: 'Viral Hit',
+    inStock: true
   },
   {
     id: 'p5',
@@ -56,7 +60,8 @@ const PERFUMES_DATABASE = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Smoky Birch, Italian Lemon, Pineapple, Blackcurrant, Ambergris',
     image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Beast Mode'
+    badge: 'Beast Mode',
+    inStock: true
   },
   {
     id: 'p6',
@@ -67,7 +72,8 @@ const PERFUMES_DATABASE = [
     accord: 'Royal Dehn Al Oud',
     notes: 'Aged Dehn Al Oudh, Frankincense, Sandalwood, Damascene Rose',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
-    badge: 'Royal Blend'
+    badge: 'Royal Blend',
+    inStock: true
   },
   {
     id: 'p7',
@@ -78,7 +84,8 @@ const PERFUMES_DATABASE = [
     accord: 'Kashmiri Gulab & Rose',
     notes: 'Turkish Rose, Incense, Lychee, Warm Amber, Bourbon Vanilla',
     image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=600&auto=format&fit=crop&q=80',
-    badge: 'Haute Extrait'
+    badge: 'Haute Extrait',
+    inStock: true
   },
   {
     id: 'p8',
@@ -89,7 +96,8 @@ const PERFUMES_DATABASE = [
     accord: 'Fresh Citrus & Monsoon Aqua',
     notes: 'Fresh Bergamot, Cinnamon, Orange Blossom, Aquatic Grey Amber',
     image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=600&auto=format&fit=crop&q=80',
-    badge: 'All-Season'
+    badge: 'All-Season',
+    inStock: true
   },
   {
     id: 'p9',
@@ -100,7 +108,8 @@ const PERFUMES_DATABASE = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Original Mysore Sandalwood Oil, Cardamom, White Musk, Cedar',
     image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
-    badge: 'Artisanal'
+    badge: 'Artisanal',
+    inStock: true
   },
   {
     id: 'p10',
@@ -111,7 +120,8 @@ const PERFUMES_DATABASE = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Red Berries, Cocoa, Sugared Kesar Vanilla, Tonka, Soft Musk',
     image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
-    badge: 'Gourmand'
+    badge: 'Gourmand',
+    inStock: true
   },
   {
     id: 'p11',
@@ -122,7 +132,8 @@ const PERFUMES_DATABASE = [
     accord: 'Warm Vanilla & Kesar',
     notes: 'Tobacco Leaf, Spiced Ginger, Cocoa, Tonka Bean, Wood Sap',
     image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=600&auto=format&fit=crop&q=80',
-    badge: 'Luxury Niche'
+    badge: 'Luxury Niche',
+    inStock: true
   },
   {
     id: 'p12',
@@ -133,14 +144,48 @@ const PERFUMES_DATABASE = [
     accord: 'Mysore Sandal & Woods',
     notes: 'Blackcurrant, Italian Bergamot, Birch, Oakmoss, Indian Vetiver',
     image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
-    badge: 'Masterpiece'
+    badge: 'Masterpiece',
+    inStock: true
   }
 ];
 
-const WHATSAPP_PHONE_NUMBER = '919579453006';
+function getActiveCatalog() {
+  const saved = localStorage.getItem('perfumes_catalog');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    } catch (e) {
+      console.warn('Error reading perfumes_catalog, using defaults');
+    }
+  }
+  localStorage.setItem('perfumes_catalog', JSON.stringify(PERFUMES_DEFAULT_DB));
+  return PERFUMES_DEFAULT_DB;
+}
+
+function getStoreSettings() {
+  const saved = localStorage.getItem('perfumes_settings');
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch (e) {}
+  }
+  return {
+    storeName: 'PERFUME SHOPE',
+    tagline: 'Haute Parfumerie & Luxury Attars • India',
+    whatsappNumber: '919579453006',
+    announcementText: '100% Authentic Original Batches • Same-Day Store Pickup • WhatsApp Booking in INR (₹)',
+    announcementActive: true
+  };
+}
+
+function getWhatsAppNumber() {
+  const settings = getStoreSettings();
+  return settings.whatsappNumber || '919579453006';
+}
 
 function formatRupees(amount) {
-  return `₹${Number(amount).toLocaleString('en-IN')}`;
+  return `₹${Number(amount || 0).toLocaleString('en-IN')}`;
 }
 
 let catalogState = {
@@ -192,7 +237,8 @@ function renderWizardResult() {
   const resultBox = document.getElementById('wizard-result-box');
   if (!resultBox) return;
 
-  let match = PERFUMES_DATABASE.find(p => {
+  const catalog = getActiveCatalog();
+  let match = catalog.find(p => {
     const matchesGender = wizardState.gender === 'Unisex' || p.gender === wizardState.gender || p.gender === 'Unisex';
     const vibeFirstWord = wizardState.vibe.split(' ')[0].toLowerCase();
     const matchesVibe = p.accord.toLowerCase().includes(vibeFirstWord) || p.notes.toLowerCase().includes(vibeFirstWord);
@@ -200,7 +246,7 @@ function renderWizardResult() {
   });
 
   if (!match) {
-    match = PERFUMES_DATABASE.find(p => p.gender === wizardState.gender) || PERFUMES_DATABASE[0];
+    match = catalog.find(p => p.gender === wizardState.gender) || catalog[0];
   }
 
   const waUrl = generateWhatsAppUrl(match.name, match.brand, match.price);
@@ -216,10 +262,10 @@ function renderWizardResult() {
         </div>
       </div>
 
-      <a href="${waUrl}" target="_blank" class="w-full sm:w-auto bg-[#16a34a] hover:bg-[#15803d] text-white px-4 py-2.5 rounded-xl text-[11px] font-semibold uppercase flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-xs">
+      <button onclick="handleWhatsAppReservation('${match.id}')" class="w-full sm:w-auto bg-[#16a34a] hover:bg-[#15803d] text-white px-4 py-2.5 rounded-xl text-[11px] font-semibold uppercase flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-xs">
         <i class="fa-brands fa-whatsapp text-sm"></i>
         <span>Reserve Match &rarr;</span>
-      </a>
+      </button>
     </div>
   `;
 }
@@ -384,13 +430,39 @@ function scrollToCatalog() {
 }
 
 function generateWhatsAppUrl(perfumeName, brand, price) {
+  const number = getWhatsAppNumber();
   const message = `Namaste Perfume Shope! I would like to reserve '${perfumeName}' by ${brand} (${formatRupees(price)}) for store pickup at your boutique. Please confirm availability and share store location.`;
-  return `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+function recordReservationLead(item) {
+  try {
+    let leads = [];
+    const saved = localStorage.getItem('perfumes_reservations');
+    if (saved) leads = JSON.parse(saved);
+
+    const newLead = {
+      id: 'res-' + Date.now().toString().slice(-6),
+      perfumeName: item.name,
+      brand: item.brand,
+      price: item.price,
+      timestamp: new Date().toISOString(),
+      status: 'Pending'
+    };
+
+    leads.unshift(newLead);
+    localStorage.setItem('perfumes_reservations', JSON.stringify(leads));
+  } catch (e) {
+    console.error('Error logging reservation lead', e);
+  }
 }
 
 function handleWhatsAppReservation(perfumeId) {
-  const item = PERFUMES_DATABASE.find(p => p.id === perfumeId);
+  const catalog = getActiveCatalog();
+  const item = catalog.find(p => p.id === perfumeId);
   if (!item) return;
+
+  recordReservationLead(item);
 
   const waUrl = generateWhatsAppUrl(item.name, item.brand, item.price);
   window.open(waUrl, '_blank');
@@ -402,7 +474,9 @@ function renderProducts() {
   const countBadge = document.getElementById('results-count-badge');
   if (!grid) return;
 
-  const filteredProducts = PERFUMES_DATABASE.filter(item => {
+  const catalog = getActiveCatalog();
+
+  const filteredProducts = catalog.filter(item => {
     const matchesSearch = !catalogState.searchQuery || 
       item.name.toLowerCase().includes(catalogState.searchQuery) ||
       item.brand.toLowerCase().includes(catalogState.searchQuery) ||
@@ -431,8 +505,11 @@ function renderProducts() {
     return;
   }
 
-  grid.innerHTML = filteredProducts.map(item => `
-    <div class="group bg-white rounded-2xl p-2.5 sm:p-4 flex flex-col justify-between border border-[#EBE2D7] hover:border-[#A67642] shadow-xs hover:shadow-md transition-all duration-300 relative">
+  grid.innerHTML = filteredProducts.map(item => {
+    const isOutOfStock = item.inStock === false;
+
+    return `
+    <div class="group bg-white rounded-2xl p-2.5 sm:p-4 flex flex-col justify-between border border-[#EBE2D7] hover:border-[#A67642] shadow-xs hover:shadow-md transition-all duration-300 relative ${isOutOfStock ? 'opacity-75' : ''}">
       
       <div>
         <div class="relative h-44 sm:h-56 w-full mb-3 overflow-hidden rounded-xl bg-[#FAF5EE] flex items-center justify-center cursor-pointer" onclick="openQuickViewModal('${item.id}')">
@@ -444,7 +521,7 @@ function renderProducts() {
           >
           
           <span class="absolute top-2 right-2 bg-white/95 text-[#231B17] text-[9px] sm:text-[10px] px-2 py-0.5 rounded border border-[#EBE2D7] font-semibold uppercase tracking-wider shadow-xs">
-            ${item.badge}
+            ${isOutOfStock ? 'Sold Out' : (item.badge || 'Original')}
           </span>
         </div>
 
@@ -469,27 +546,29 @@ function renderProducts() {
 
         <button 
           onclick="handleWhatsAppReservation('${item.id}')" 
-          class="bg-[#16a34a] hover:bg-[#15803d] text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
+          ${isOutOfStock ? 'disabled' : ''}
+          class="${isOutOfStock ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#16a34a] hover:bg-[#15803d]'} text-white px-2.5 sm:px-3 py-1.5 rounded-xl text-[10px] sm:text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs"
           title="Reserve on WhatsApp"
         >
           <i class="fa-brands fa-whatsapp text-xs sm:text-sm"></i>
-          <span>Reserve</span>
+          <span>${isOutOfStock ? 'Out of Stock' : 'Reserve'}</span>
         </button>
       </div>
 
     </div>
-  `).join('');
+  `}).join('');
 }
 
 function openQuickViewModal(productId) {
-  const item = PERFUMES_DATABASE.find(p => p.id === productId);
+  const catalog = getActiveCatalog();
+  const item = catalog.find(p => p.id === productId);
   if (!item) return;
 
   const modal = document.getElementById('product-modal');
   const content = document.getElementById('modal-product-content');
   if (!modal || !content) return;
 
-  const waUrl = generateWhatsAppUrl(item.name, item.brand, item.price);
+  const isOutOfStock = item.inStock === false;
 
   content.innerHTML = `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
@@ -513,7 +592,7 @@ function openQuickViewModal(productId) {
           <div class="text-[10px] text-gray-500 pt-1 flex items-center gap-2">
             <span><i class="fa-solid fa-shield-check text-[#16a34a]"></i> 100% Authentic</span>
             <span>&bull;</span>
-            <span><i class="fa-solid fa-store text-[#A67642]"></i> Physical Store Pickup</span>
+            <span><i class="fa-solid fa-store text-[#A67642]"></i> Store Pickup</span>
             <span>&bull;</span>
             <span><i class="fa-solid fa-qrcode text-[#231B17]"></i> UPI Accepted</span>
           </div>
@@ -525,10 +604,10 @@ function openQuickViewModal(productId) {
             <span class="font-heading text-xl font-extrabold text-[#231B17]">${formatRupees(item.price)}</span>
           </div>
 
-          <a href="${waUrl}" target="_blank" onclick="closeProductModal()" class="bg-[#16a34a] hover:bg-[#15803d] text-white px-4 py-2.5 rounded-xl text-xs font-semibold uppercase flex items-center gap-2 transition-colors shadow-xs">
+          <button onclick="handleWhatsAppReservation('${item.id}'); closeProductModal();" ${isOutOfStock ? 'disabled' : ''} class="${isOutOfStock ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#16a34a] hover:bg-[#15803d]'} text-white px-4 py-2.5 rounded-xl text-xs font-semibold uppercase flex items-center gap-2 transition-colors shadow-xs">
             <i class="fa-brands fa-whatsapp text-sm"></i>
-            <span>Reserve via WhatsApp</span>
-          </a>
+            <span>${isOutOfStock ? 'Sold Out' : 'Reserve via WhatsApp'}</span>
+          </button>
         </div>
       </div>
     </div>
