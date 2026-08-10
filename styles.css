@@ -1,32 +1,40 @@
 /* ==========================================================================
-   PERFUME SHOPE - DYNAMIC DUAL THEME ENGINE & E-COMMERCE CART SYSTEM
+   PERFUME SHOPE - DYNAMIC DUAL THEME ENGINE & HIGH-CONTRAST PALETTE SYSTEM
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Teko:wght@500;600;700&display=swap');
 
-:root, [data-theme="all"], [data-theme="women"] {
-  --bg-main: #FAF5EE;
-  --bg-secondary: #FDFBF7;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #FFFDF9;
-  --border-color: #EBE2D7;
-  --border-focus: #A67642;
-  --border-gold: rgba(197, 155, 39, 0.4);
+/* ==========================================================================
+   1. UNISEX / ALL THEME (ROYAL IMPERIAL GOLD & WARM ESPRESSO)
+   ========================================================================== */
+:root, [data-theme="all"] {
+  --bg-main: #100B08;
+  --bg-secondary: #17110C;
+  --bg-card: #1E1611;
+  --bg-card-hover: #291E17;
+  --bg-surface-elevated: #231913;
+  --border-color: rgba(197, 155, 39, 0.35);
+  --border-focus: #C59B27;
+  --border-gold: rgba(197, 155, 39, 0.6);
   
-  --text-main: #231B17;
-  --text-secondary: #5C524A;
-  --text-muted: #8C8077;
+  --text-main: #FFFFFF;
+  --text-secondary: #E5D9C8;
+  --text-muted: #A89887;
   
-  --accent-gold: #C59B27;
-  --accent-bronze: #A67642;
+  --accent-primary: #C59B27;
+  --accent-secondary: #A67642;
   --accent-theme: #C59B27;
-  --accent-badge-bg: #FAF1DC;
-  --accent-badge-text: #7A5328;
+  --accent-badge-bg: #2C2012;
+  --accent-badge-text: #F3CA40;
+  
+  --btn-primary-bg: #C59B27;
+  --btn-primary-hover: #AA771C;
+  --btn-primary-text: #100B08;
 
-  --card-shadow: 0 4px 20px rgba(35, 27, 23, 0.05);
-  --hero-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
-  --dock-bg: #231B17;
-  --dock-border: rgba(166, 118, 66, 0.4);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(197, 155, 39, 0.1);
+  --hero-gradient: linear-gradient(to top, #100B08 0%, rgba(16, 11, 8, 0.6) 50%, rgba(0, 0, 0, 0.4) 100%);
+  --dock-bg: #17110C;
+  --dock-border: rgba(197, 155, 39, 0.4);
   
   --font-heading: 'Cinzel', serif;
   --font-body: 'Outfit', sans-serif;
@@ -34,33 +42,72 @@
 }
 
 /* ==========================================================================
-   MEN'S MARVEL / TITANIUM BEAST MODE DARK THEME
+   2. WOMEN'S THEME (ROSE GOLD LUXE, BLUSH VELVET & PEONY ESSENCE)
+   ========================================================================== */
+[data-theme="women"] {
+  --bg-main: #FFF3F6;
+  --bg-secondary: #FDE8ED;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FFF9FA;
+  --bg-surface-elevated: #FFF0F4;
+  --border-color: rgba(224, 122, 147, 0.38);
+  --border-focus: #D45D79;
+  --border-gold: rgba(212, 93, 121, 0.6);
+  
+  --text-main: #36131E;        /* Ultra-Crisp Dark Berry Espresso */
+  --text-secondary: #632B3E;   /* Rich Rosewood */
+  --text-muted: #8E5468;       /* Warm Mauve */
+  
+  --accent-primary: #D45D79;   /* Luminous Rose Gold */
+  --accent-secondary: #E07A93; /* Petal Pink */
+  --accent-theme: #D45D79;
+  --accent-badge-bg: #FFE2EA;
+  --accent-badge-text: #96173B;
+  
+  --btn-primary-bg: #D45D79;
+  --btn-primary-hover: #B8435E;
+  --btn-primary-text: #FFFFFF;
+
+  --card-shadow: 0 10px 30px rgba(212, 93, 121, 0.12), 0 2px 8px rgba(54, 19, 30, 0.04);
+  --hero-gradient: linear-gradient(to top, #36131E 0%, rgba(54, 19, 30, 0.7) 50%, rgba(0, 0, 0, 0.4) 100%);
+  --dock-bg: #FFFFFF;
+  --dock-border: rgba(224, 122, 147, 0.4);
+}
+
+/* ==========================================================================
+   3. MEN'S THEME (MARVEL TITANIUM, OBSIDIAN CARBON & ARC CYAN)
    ========================================================================== */
 [data-theme="men"] {
-  --bg-main: #0B0F17;
-  --bg-secondary: #101624;
-  --bg-card: #151D2D;
-  --bg-card-hover: #1B253A;
-  --border-color: #222F46;
+  --bg-main: #070B12;
+  --bg-secondary: #0D1322;
+  --bg-card: #121A2E;
+  --bg-card-hover: #19233D;
+  --bg-surface-elevated: #162038;
+  --border-color: rgba(56, 189, 248, 0.3);
   --border-focus: #38BDF8;
-  --border-gold: rgba(56, 189, 248, 0.4);
+  --border-gold: rgba(56, 189, 248, 0.6);
   
-  --text-main: #F1F5F9;
-  --text-secondary: #CBD5E1;
-  --text-muted: #64748B;
+  --text-main: #F8FAFC;        /* High-Voltage Silver White */
+  --text-secondary: #CBD5E1;   /* Cool Platinum */
+  --text-muted: #94A3B8;       /* Steel Titanium */
   
-  --accent-gold: #38BDF8; /* Arc Reactor Cyan Glow */
-  --accent-bronze: #E62429; /* Marvel Crimson */
+  --accent-primary: #38BDF8;   /* Electric Arc Reactor Cyan */
+  --accent-secondary: #EF4444; /* Marvel Crimson Red */
   --accent-theme: #38BDF8;
-  --accent-badge-bg: #0C2136;
+  --accent-badge-bg: #0C2842;
   --accent-badge-text: #38BDF8;
+  
+  --btn-primary-bg: #38BDF8;
+  --btn-primary-hover: #0284C7;
+  --btn-primary-text: #070B12;
 
-  --card-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.08);
-  --hero-gradient: linear-gradient(to top, rgba(11, 15, 23, 0.95) 0%, rgba(11, 15, 23, 0.5) 50%, transparent 100%);
-  --dock-bg: #101624;
+  --card-shadow: 0 10px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(56, 189, 248, 0.15);
+  --hero-gradient: linear-gradient(to top, #070B12 0%, rgba(7, 11, 18, 0.75) 50%, rgba(0, 0, 0, 0.5) 100%);
+  --dock-bg: #0D1322;
   --dock-border: rgba(56, 189, 248, 0.4);
 }
 
+/* Base Body */
 body {
   font-family: var(--font-body);
   background-color: var(--bg-main);
@@ -87,16 +134,16 @@ body {
   font-weight: 700;
 }
 
-/* Glass Headers */
+/* Glass Header */
 .glass-header-mobile {
   background: var(--bg-main);
   border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-/* Dynamic Card & Container Theming */
+/* Theme Elements */
 .theme-card {
   background-color: var(--bg-card);
   border-color: var(--border-color);
@@ -118,120 +165,151 @@ body {
   background-color: var(--bg-secondary);
 }
 
+.theme-bg-surface {
+  background-color: var(--bg-surface-elevated);
+}
+
 .theme-border {
   border-color: var(--border-color);
 }
 
 .theme-text-main {
-  color: var(--text-main);
+  color: var(--text-main) !important;
 }
 
 .theme-text-secondary {
-  color: var(--text-secondary);
+  color: var(--text-secondary) !important;
 }
 
 .theme-text-muted {
-  color: var(--text-muted);
+  color: var(--text-muted) !important;
 }
 
 .theme-accent {
-  color: var(--accent-theme);
+  color: var(--accent-primary) !important;
 }
 
 .theme-badge {
   background-color: var(--accent-badge-bg);
   color: var(--accent-badge-text);
-  border: 1px solid var(--border-gold);
+  border: 1px solid var(--border-color);
 }
 
-/* Mobile Bottom Dock */
-.mobile-bottom-dock {
-  background-color: var(--dock-bg);
-  border-color: var(--dock-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding-bottom: var(--safe-bottom);
+.theme-btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  transition: all 0.25s ease;
 }
 
-/* Hero Carousel Dynamic Background */
-.hero-slider-bg {
-  background-size: cover;
-  background-position: center;
-  transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+.theme-btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* Interactive Inputs */
+.theme-input {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.theme-input:focus {
+  border-color: var(--border-focus);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(197, 155, 39, 0.2);
+}
+
+[data-theme="women"] .theme-input:focus {
+  box-shadow: 0 0 0 2px rgba(212, 93, 121, 0.25);
+}
+
+[data-theme="men"] .theme-input:focus {
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
 }
 
 /* Scent Notes Tag */
 .scent-note-tag {
-  background: rgba(197, 155, 39, 0.08);
-  border: 1px solid rgba(197, 155, 39, 0.2);
-  color: var(--text-main);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
   transition: all 0.2s ease;
 }
 
-[data-theme="men"] .scent-note-tag {
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  color: #F1F5F9;
-}
-
-/* Longevity & Sillage Meter Bars */
+/* Performance Gauges */
 .meter-bar-fill {
   background: linear-gradient(90deg, #C59B27, #F59E0B, #10B981);
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
+[data-theme="women"] .meter-bar-fill {
+  background: linear-gradient(90deg, #E07A93, #D45D79, #9F1D49);
+  box-shadow: 0 0 8px rgba(212, 93, 121, 0.4);
+}
+
 [data-theme="men"] .meter-bar-fill {
-  background: linear-gradient(90deg, #0284C7, #38BDF8, #E62429);
+  background: linear-gradient(90deg, #0284C7, #38BDF8, #EF4444);
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
 }
 
-/* Velvet Discovery Box Slots */
+/* Velvet Discovery Box */
 .velvet-slot {
-  background: radial-gradient(circle at center, #2B1D15 0%, #150E0A 100%);
-  border: 1.5px dashed rgba(197, 155, 39, 0.4);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--bg-surface-elevated);
+  border: 1.5px dashed var(--border-color);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .velvet-slot.filled {
-  background: radial-gradient(circle at center, #3D2B1F 0%, #1A120D 100%);
-  border: 1.5px solid #C59B27;
-  box-shadow: 0 4px 15px rgba(197, 155, 39, 0.25);
+  background: var(--bg-card);
+  border: 1.5px solid var(--accent-primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Alchemy Blender Fluid Pulse */
 @keyframes alchemyPulse {
-  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.4)); }
-  50% { transform: scale(1.04); filter: drop-shadow(0 0 22px rgba(197, 155, 39, 0.8)); }
-  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.4)); }
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.3)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(197, 155, 39, 0.7)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(197, 155, 39, 0.3)); }
+}
+
+[data-theme="women"] .alchemy-mixing-glow {
+  animation: alchemyPulseWomen 3s infinite ease-in-out;
+}
+
+@keyframes alchemyPulseWomen {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 93, 121, 0.3)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(212, 93, 121, 0.7)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 93, 121, 0.3)); }
+}
+
+[data-theme="men"] .alchemy-mixing-glow {
+  animation: alchemyPulseMen 3s infinite ease-in-out;
+}
+
+@keyframes alchemyPulseMen {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3)); }
+  50% { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.7)); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3)); }
 }
 
 .alchemy-mixing-glow {
   animation: alchemyPulse 3s infinite ease-in-out;
 }
 
-/* Laser Engraving Preview on Glass Bottle */
-.bottle-engraving-badge {
-  font-family: 'Cinzel', serif;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(197, 155, 39, 0.9));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 12px rgba(197, 155, 39, 0.5);
-  font-weight: 700;
-}
-
 /* Celebrity Wardrobe Glow */
 .celebrity-card {
   position: relative;
   overflow: hidden;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  box-shadow: var(--card-shadow);
   transition: all 0.4s ease;
 }
 
 .celebrity-card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent-gold);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--border-focus);
 }
 
 /* WhatsApp Floating Pulse */
@@ -245,32 +323,17 @@ body {
   animation: waPulse 2.5s infinite;
 }
 
-/* GPS Radar Pulse */
-@keyframes gpsRadar {
-  0% { transform: scale(1); opacity: 0.9; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
-
-.gps-radar {
-  position: relative;
-}
-.gps-radar::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 9999px;
-  border: 2px solid var(--accent-gold);
-  animation: gpsRadar 1.8s infinite;
-}
-
 /* Cart Slide-Over Drawer */
 .cart-drawer-overlay {
-  background-color: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
   transition: opacity 0.3s ease;
 }
 
 .cart-drawer-panel {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border-left: 1px solid var(--border-color);
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -282,7 +345,7 @@ body {
 /* Modals */
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 /* Scrollbars */
@@ -298,7 +361,7 @@ body {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gold);
+  background: var(--accent-primary);
 }
 
 .scrollbar-none::-webkit-scrollbar {

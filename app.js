@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PERFUME SHOPE - LUXURY E-COMMERCE & SCENT COMMUNITY MASTER ENGINE
+   PERFUME SHOPE - LUXURY E-COMMERCE & DYNAMIC THEME ENGINE
    ========================================================================== */
 
 const PERFUMES_DEFAULT_DB = [
@@ -197,7 +197,6 @@ const PERFUMES_DEFAULT_DB = [
   }
 ];
 
-// CELEBRITY SCENT WARDROBES DATA
 const CELEBRITY_WARDROBES = [
   {
     id: 'celeb-srk',
@@ -265,7 +264,6 @@ const CELEBRITY_WARDROBES = [
   }
 ];
 
-// COMMUNITY SCENT FEED INITIAL DATA
 const INITIAL_COMMUNITY_POSTS = [
   {
     id: 'sotd-1',
@@ -314,7 +312,6 @@ const INITIAL_COMMUNITY_POSTS = [
   }
 ];
 
-// STATE MANAGEMENT
 let cart = [];
 let currentUser = null;
 let currentGenderTheme = 'All';
@@ -334,17 +331,15 @@ let deliveryAddress = {
   lng: null
 };
 
-// DISCOVERY BOX STATE
 let discoveryBoxState = {
-  size: 5, // 3 or 5
+  size: 5,
   price: 999,
-  selected: ['p1', 'p5', 'p9', 'p4', 'p8'] // default 5 items
+  selected: ['p1', 'p5', 'p9', 'p4', 'p8']
 };
 
-// ALCHEMY LAB STATE
 let alchemyState = {
-  baseId: 'p2', // Oud Supreme
-  topId: 'p1'   // Khamrah D'Or
+  baseId: 'p2',
+  topId: 'p1'
 };
 
 let communityPosts = [...INITIAL_COMMUNITY_POSTS];
@@ -383,7 +378,6 @@ function getWhatsAppNumber() {
   return settings.whatsappNumber || '919579453006';
 }
 
-// INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
   loadCartFromStorage();
   loadUserFromStorage();
@@ -401,7 +395,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCommunityFeed();
   updateCartBadge();
 
-  // Show Lead Gift Modal after 4s if not yet closed
   setTimeout(() => {
     if (!localStorage.getItem('perfume_lead_captured')) {
       openLeadGiftModal();
@@ -413,9 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// =========================================================================
-// 1. SHOPPING CART SYSTEM & ENGRAVING
-// =========================================================================
+// 1. SHOPPING CART & ENGRAVING
 function loadCartFromStorage() {
   try {
     const saved = localStorage.getItem('perfumes_cart');
@@ -528,7 +519,6 @@ function renderCartDrawer() {
   const discountRowEl = document.getElementById('cart-discount-row');
   const discountValEl = document.getElementById('cart-discount-val');
   const totalValEl = document.getElementById('cart-total-val');
-  const emptyViewEl = document.getElementById('cart-empty-view');
   const footerEl = document.getElementById('cart-footer-section');
 
   if (!listEl) return;
@@ -536,11 +526,11 @@ function renderCartDrawer() {
   if (cart.length === 0) {
     listEl.innerHTML = `
       <div class="py-12 text-center space-y-3">
-        <div class="w-16 h-16 rounded-2xl bg-[#120D0A] border border-gray-800 flex items-center justify-center text-gray-500 mx-auto text-2xl">
+        <div class="w-16 h-16 rounded-2xl theme-bg-surface border theme-border flex items-center justify-center theme-text-muted mx-auto text-2xl">
           <i class="fa-solid fa-bag-shopping"></i>
         </div>
-        <p class="font-heading text-sm text-gray-400">Your Luxury Scent Cart is Empty</p>
-        <button onclick="closeCartDrawer()" class="bg-[#C59B27] text-[#18110E] px-4 py-2 rounded-xl text-xs font-bold uppercase">Explore Royal Fragrances</button>
+        <p class="font-heading text-sm theme-text-secondary">Your Luxury Scent Cart is Empty</p>
+        <button onclick="closeCartDrawer()" class="theme-btn-primary px-4 py-2 rounded-xl text-xs font-bold uppercase">Explore Royal Fragrances</button>
       </div>
     `;
     if (footerEl) footerEl.classList.add('hidden');
@@ -553,27 +543,27 @@ function renderCartDrawer() {
   const total = Math.max(0, subtotal - discountCoupon.amount);
 
   listEl.innerHTML = cart.map(item => `
-    <div class="p-3 rounded-2xl bg-[#1C1511] border border-gray-800 flex items-center gap-3">
-      <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=100&auto=format&fit=crop&q=60';" class="w-14 h-14 rounded-xl object-cover border border-gray-700">
+    <div class="p-3 rounded-2xl theme-card border theme-border flex items-center gap-3">
+      <img src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=100&auto=format&fit=crop&q=60';" class="w-14 h-14 rounded-xl object-cover border theme-border">
       <div class="flex-1 min-w-0">
-        <h4 class="font-heading text-xs font-bold text-white uppercase truncate">${item.name}</h4>
-        <p class="text-[10px] text-gray-400 truncate">${item.brand} • ${item.accord}</p>
-        <p class="text-xs font-bold text-[#C59B27] mt-0.5">${formatRupees(item.price)}</p>
+        <h4 class="font-heading text-xs font-bold theme-text-main uppercase truncate">${item.name}</h4>
+        <p class="text-[10px] theme-text-muted truncate">${item.brand} • ${item.accord}</p>
+        <p class="text-xs font-bold theme-accent mt-0.5">${formatRupees(item.price)}</p>
         
         ${isEngravingEnabled && bottleEngravingText ? `
-          <span class="inline-block mt-1 px-2 py-0.5 rounded text-[9px] bg-yellow-950/60 border border-yellow-700/60 text-yellow-300">
+          <span class="inline-block mt-1 px-2 py-0.5 rounded text-[9px] theme-badge">
             ✨ Laser Engraved: "${bottleEngravingText}"
           </span>
         ` : ''}
       </div>
 
-      <div class="flex items-center gap-2 bg-[#120D0A] px-2 py-1 rounded-xl border border-gray-800">
-        <button onclick="updateCartQty('${item.id}', -1)" class="text-gray-400 hover:text-white px-1 text-xs">-</button>
-        <span class="text-xs font-bold text-white font-mono">${item.qty}</span>
-        <button onclick="updateCartQty('${item.id}', 1)" class="text-gray-400 hover:text-white px-1 text-xs">+</button>
+      <div class="flex items-center gap-2 theme-bg-surface px-2 py-1 rounded-xl border theme-border">
+        <button onclick="updateCartQty('${item.id}', -1)" class="theme-text-muted hover:theme-text-main px-1 text-xs">-</button>
+        <span class="text-xs font-bold theme-text-main font-mono">${item.qty}</span>
+        <button onclick="updateCartQty('${item.id}', 1)" class="theme-text-muted hover:theme-text-main px-1 text-xs">+</button>
       </div>
 
-      <button onclick="removeFromCart('${item.id}')" class="text-gray-500 hover:text-red-400 p-1">
+      <button onclick="removeFromCart('${item.id}')" class="theme-text-muted hover:text-red-500 p-1">
         <i class="fa-solid fa-trash text-xs"></i>
       </button>
     </div>
@@ -610,9 +600,7 @@ function applyPromoCode() {
   renderCartDrawer();
 }
 
-// =========================================================================
-// 2. AUTOMATIC GPS PRECISE ADDRESS VS MANUAL ADDRESS
-// =========================================================================
+// 2. ADDRESS SELECTION (GPS VS MANUAL)
 function setAddressMode(mode) {
   deliveryAddress.mode = mode;
   const gpsView = document.getElementById('addr-gps-view');
@@ -629,7 +617,7 @@ function setAddressMode(mode) {
   } else {
     gpsView.classList.add('hidden');
     manualView.classList.remove('hidden');
-    manualBtn.className = 'flex-1 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm flex items-center justify-center gap-1.5 transition-all';
+    manualBtn.className = 'flex-1 py-2 rounded-xl text-xs font-bold theme-btn-primary shadow-sm flex items-center justify-center gap-1.5 transition-all';
     gpsBtn.className = 'flex-1 py-2 rounded-xl text-xs font-medium theme-card flex items-center justify-center gap-1.5 transition-all';
   }
 }
@@ -638,11 +626,11 @@ function fetchAutomaticGPSLocation() {
   const statusEl = document.getElementById('gps-status-text');
   const coordsEl = document.getElementById('gps-coords-display');
   if (!navigator.geolocation) {
-    statusEl.innerHTML = `<span class="text-red-400">Geolocation not supported by browser. Please use Manual Address.</span>`;
+    statusEl.innerHTML = `<span class="text-red-500">Geolocation not supported by browser. Please use Manual Address.</span>`;
     return;
   }
 
-  statusEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-[#C59B27]"></i> Calibrating satellite coordinates for high-precision Pune delivery pin...`;
+  statusEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin theme-accent"></i> Calibrating satellite coordinates for high-precision Pune delivery pin...`;
 
   navigator.geolocation.getCurrentPosition(
     (pos) => {
@@ -653,24 +641,23 @@ function fetchAutomaticGPSLocation() {
 
       coordsEl.innerText = `🛰️ Lat: ${lat}, Long: ${lng} (Precision: ±${Math.round(pos.coords.accuracy)}m)`;
 
-      // Reverse geocode via OpenStreetMap Nominatim
       fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
         .then(res => res.json())
         .then(data => {
           if (data && data.display_name) {
             deliveryAddress.fullAddress = `${data.display_name} (GPS: ${lat}, ${lng})`;
             statusEl.innerHTML = `
-              <div class="p-3 rounded-xl bg-green-950/40 border border-green-700/50 text-xs">
-                <span class="text-green-300 font-bold block">🟢 High-Precision GPS Lock Verified:</span>
-                <p class="text-white mt-0.5">${deliveryAddress.fullAddress}</p>
+              <div class="p-3 rounded-xl bg-green-500/10 border border-green-500/30 text-xs">
+                <span class="text-green-600 font-bold block">🟢 High-Precision GPS Lock Verified:</span>
+                <p class="theme-text-main mt-0.5">${deliveryAddress.fullAddress}</p>
               </div>
             `;
           } else {
             deliveryAddress.fullAddress = `Pune High-Precision Pin: ${lat}, ${lng}`;
             statusEl.innerHTML = `
-              <div class="p-3 rounded-xl bg-green-950/40 border border-green-700/50 text-xs">
-                <span class="text-green-300 font-bold block">📍 GPS Location:</span>
-                <p class="text-white">${deliveryAddress.fullAddress}</p>
+              <div class="p-3 rounded-xl bg-green-500/10 border border-green-500/30 text-xs">
+                <span class="text-green-600 font-bold block">📍 GPS Location:</span>
+                <p class="theme-text-main">${deliveryAddress.fullAddress}</p>
               </div>
             `;
           }
@@ -678,15 +665,15 @@ function fetchAutomaticGPSLocation() {
         .catch(() => {
           deliveryAddress.fullAddress = `FC Road Area, Pune - 411004 (GPS: ${lat}, ${lng})`;
           statusEl.innerHTML = `
-            <div class="p-3 rounded-xl bg-green-950/40 border border-green-700/50 text-xs">
-              <span class="text-green-300 font-bold block">📍 GPS Location Verified:</span>
-              <p class="text-white">${deliveryAddress.fullAddress}</p>
+            <div class="p-3 rounded-xl bg-green-500/10 border border-green-500/30 text-xs">
+              <span class="text-green-600 font-bold block">📍 GPS Location Verified:</span>
+              <p class="theme-text-main">${deliveryAddress.fullAddress}</p>
             </div>
           `;
         });
     },
     (err) => {
-      statusEl.innerHTML = `<span class="text-yellow-400">GPS access denied. Switched to Manual Address.</span>`;
+      statusEl.innerHTML = `<span class="text-yellow-600">GPS access denied. Switched to Manual Address.</span>`;
       setAddressMode('manual');
     },
     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
@@ -705,9 +692,7 @@ function saveManualAddress() {
   deliveryAddress.pincode = pin;
 }
 
-// =========================================================================
-// 3. CHECKOUT & ORDER PLACEMENT
-// =========================================================================
+// 3. CHECKOUT & ORDERS
 function handleCheckoutOrder(paymentMethod) {
   if (cart.length === 0) {
     showToast('Your cart is empty', 'error');
@@ -738,7 +723,6 @@ function handleCheckoutOrder(paymentMethod) {
     status: 'Confirmed'
   };
 
-  // Save to Orders database
   let allOrders = [];
   try {
     const saved = localStorage.getItem('perfumes_orders');
@@ -773,7 +757,6 @@ function handleCheckoutOrder(paymentMethod) {
     openUPIModal(orderData);
   }
 
-  // Clear cart and show confirmation
   cart = [];
   saveCartToStorage();
   closeCartDrawer();
@@ -818,38 +801,36 @@ function closeOrderSuccessModal() {
   document.getElementById('order-success-modal')?.classList.add('hidden');
 }
 
-// =========================================================================
 // 4. CELEBRITY SCENT WARDROBES
-// =========================================================================
 function renderCelebrityWardrobes() {
   const container = document.getElementById('celebrity-wardrobe-grid');
   if (!container) return;
 
   container.innerHTML = CELEBRITY_WARDROBES.map(c => `
-    <div class="celebrity-card rounded-3xl p-5 theme-card border border-gray-700/60 shadow-lg flex flex-col justify-between space-y-4">
+    <div class="celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4">
       
       <div class="flex items-center gap-3.5">
-        <img src="${c.image}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border border-[#C59B27]/50 shadow-md">
+        <img src="${c.image}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border theme-border shadow-md">
         <div>
-          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#C59B27]/10 text-[#C59B27] border border-[#C59B27]/30 inline-block mb-1">
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block mb-1">
             ${c.badge}
           </span>
           <h3 class="font-heading text-base font-bold theme-text-main">${c.name}</h3>
-          <p class="text-[11px] text-gray-400 line-clamp-1">${c.tagline}</p>
+          <p class="text-[11px] theme-text-muted line-clamp-1">${c.tagline}</p>
         </div>
       </div>
 
-      <blockquote class="text-xs italic text-gray-300 p-3 rounded-2xl bg-black/20 border border-gray-800">
+      <blockquote class="text-xs italic theme-text-secondary p-3 rounded-2xl theme-bg-surface border theme-border">
         ${c.quote}
       </blockquote>
 
       <div class="space-y-2 pt-1 border-t theme-border">
-        <span class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">Signature Scent Duo:</span>
+        <span class="text-[10px] font-bold theme-accent uppercase tracking-wider block">Signature Scent Duo:</span>
         <div class="grid grid-cols-2 gap-2">
           ${c.items.map(item => `
-            <div class="p-2 rounded-xl bg-black/30 border border-gray-800 text-[11px]">
-              <span class="font-bold text-white block truncate uppercase">${item.name}</span>
-              <span class="text-gray-400">${item.brand} • ${formatRupees(item.price)}</span>
+            <div class="p-2 rounded-xl theme-bg-surface border theme-border text-[11px]">
+              <span class="font-bold theme-text-main block truncate uppercase">${item.name}</span>
+              <span class="theme-text-muted">${item.brand} • ${formatRupees(item.price)}</span>
             </div>
           `).join('')}
         </div>
@@ -857,12 +838,12 @@ function renderCelebrityWardrobes() {
 
       <div class="pt-2 flex items-center justify-between border-t theme-border">
         <div>
-          <span class="text-[10px] text-gray-400 line-through">${formatRupees(c.regularPrice)}</span>
-          <span class="font-heading text-base font-bold text-[#C59B27] block">${formatRupees(c.comboPrice)}</span>
-          <span class="text-[9px] font-bold text-green-400">Save ${formatRupees(c.savings)} Duo Combo</span>
+          <span class="text-[10px] theme-text-muted line-through">${formatRupees(c.regularPrice)}</span>
+          <span class="font-heading text-base font-bold theme-accent block">${formatRupees(c.comboPrice)}</span>
+          <span class="text-[9px] font-bold text-green-600 dark:text-green-400">Save ${formatRupees(c.savings)} Duo Combo</span>
         </div>
 
-        <button onclick="buyCelebrityDuo('${c.id}')" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 transition-all">
+        <button onclick="buyCelebrityDuo('${c.id}')" class="theme-btn-primary px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
           <i class="fa-solid fa-cart-plus"></i>
           <span>Add Duo</span>
         </button>
@@ -886,17 +867,13 @@ function buyCelebrityDuo(celebId) {
     }
   });
 
-  // Apply extra combo discount
   discountCoupon = { code: 'CELEBDUO', amount: celeb.savings };
-
   saveCartToStorage();
   openCartDrawer();
   showToast(`Added ${celeb.name}'s Wardrobe Duo (Saved ${formatRupees(celeb.savings)})! 👑`, 'success');
 }
 
-// =========================================================================
-// 5. CUSTOM DISCOVERY SAMPLE BOX BUILDER (PICK 3 FOR ₹699 / 5 FOR ₹999)
-// =========================================================================
+// 5. DISCOVERY SAMPLE BOX BUILDER
 function setDiscoveryBoxSize(size) {
   discoveryBoxState.size = size;
   discoveryBoxState.price = size === 3 ? 699 : 999;
@@ -931,7 +908,6 @@ function renderDiscoveryBoxBuilder() {
 
   const products = getStoredProducts();
 
-  // Render Velvet Box Slots
   const slotsHtml = [];
   for (let i = 0; i < discoveryBoxState.size; i++) {
     const pId = discoveryBoxState.selected[i];
@@ -940,37 +916,36 @@ function renderDiscoveryBoxBuilder() {
     if (prod) {
       slotsHtml.push(`
         <div class="velvet-slot filled rounded-2xl p-3 text-center relative group">
-          <button onclick="toggleDiscoveryItem('${prod.id}')" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-900/80 text-white text-[10px] flex items-center justify-center">
+          <button onclick="toggleDiscoveryItem('${prod.id}')" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-red-800 text-white text-[10px] flex items-center justify-center shadow-sm">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <img src="${prod.image}" alt="${prod.name}" class="w-12 h-12 mx-auto rounded-lg object-cover border border-[#C59B27]/40 mb-1.5">
-          <span class="font-heading text-[10px] font-bold text-white block uppercase truncate">${prod.name}</span>
-          <span class="text-[9px] text-[#C59B27] block">5ml Tester</span>
+          <img src="${prod.image}" alt="${prod.name}" class="w-12 h-12 mx-auto rounded-lg object-cover border theme-border mb-1.5">
+          <span class="font-heading text-[10px] font-bold theme-text-main block uppercase truncate">${prod.name}</span>
+          <span class="text-[9px] theme-accent font-bold block">5ml Tester</span>
         </div>
       `);
     } else {
       slotsHtml.push(`
         <div class="velvet-slot rounded-2xl p-4 text-center flex flex-col items-center justify-center min-h-[105px]">
-          <i class="fa-solid fa-plus text-gray-500 text-sm mb-1"></i>
-          <span class="text-[10px] text-gray-400 font-medium">Slot ${i + 1} Empty</span>
-          <span class="text-[8px] text-gray-500">Tap below to pick</span>
+          <i class="fa-solid fa-plus theme-text-muted text-sm mb-1"></i>
+          <span class="text-[10px] theme-text-secondary font-medium">Slot ${i + 1} Empty</span>
+          <span class="text-[8px] theme-text-muted">Tap below to pick</span>
         </div>
       `);
     }
   }
   slotsContainer.innerHTML = slotsHtml.join('');
 
-  // Render Selector Grid
   selectorGrid.innerHTML = products.map(prod => {
     const isSelected = discoveryBoxState.selected.includes(prod.id);
     return `
-      <div onclick="toggleDiscoveryItem('${prod.id}')" class="cursor-pointer p-2.5 rounded-2xl border transition-all ${isSelected ? 'bg-[#C59B27]/15 border-[#C59B27] shadow-sm' : 'bg-black/20 border-gray-800 hover:border-gray-600'} flex items-center gap-2.5">
-        <img src="${prod.image}" alt="${prod.name}" class="w-10 h-10 rounded-lg object-cover border border-gray-700">
+      <div onclick="toggleDiscoveryItem('${prod.id}')" class="cursor-pointer p-2.5 rounded-2xl border transition-all ${isSelected ? 'theme-bg-surface border-2 theme-border' : 'theme-card border theme-border hover:border-gray-400'} flex items-center gap-2.5">
+        <img src="${prod.image}" alt="${prod.name}" class="w-10 h-10 rounded-lg object-cover border theme-border">
         <div class="flex-1 min-w-0">
           <span class="font-heading text-xs font-bold theme-text-main block truncate uppercase">${prod.name}</span>
-          <span class="text-[10px] text-gray-400 block">${prod.accord}</span>
+          <span class="text-[10px] theme-text-muted block">${prod.accord}</span>
         </div>
-        <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs ${isSelected ? 'bg-[#C59B27] text-[#18110E]' : 'border border-gray-600 text-gray-500'}">
+        <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs ${isSelected ? 'theme-btn-primary' : 'border theme-border theme-text-muted'}">
           <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
         </div>
       </div>
@@ -1015,9 +990,7 @@ function addDiscoveryBoxToCart() {
   showToast(`Added ${discoveryBoxState.size}-Piece Discovery Sample Box to Cart! 🎁`, 'success');
 }
 
-// =========================================================================
 // 6. FRAGRANCE LAYERING ALCHEMY LAB
-// =========================================================================
 function setAlchemyBase(id) {
   alchemyState.baseId = id;
   renderAlchemyBlender();
@@ -1041,27 +1014,24 @@ function renderAlchemyBlender() {
   const baseProd = products.find(p => p.id === alchemyState.baseId) || products[1];
   const topProd = products.find(p => p.id === alchemyState.topId) || products[0];
 
-  // Base options (Oud, Sandalwood, Woods, Amber)
   const baseOptions = products.filter(p => p.gender !== 'Women').slice(0, 4);
   baseGrid.innerHTML = baseOptions.map(p => `
-    <button onclick="setAlchemyBase('${p.id}')" class="p-2.5 rounded-2xl border text-left transition-all ${alchemyState.baseId === p.id ? 'bg-[#C59B27]/20 border-[#C59B27] shadow-md' : 'bg-black/20 border-gray-800 hover:border-gray-600'}">
-      <span class="font-heading text-xs font-bold text-white block uppercase truncate">${p.name}</span>
-      <span class="text-[10px] text-gray-400 block">${p.accord}</span>
+    <button onclick="setAlchemyBase('${p.id}')" class="w-full p-2.5 rounded-2xl border text-left transition-all ${alchemyState.baseId === p.id ? 'theme-bg-surface border-2 theme-border shadow-sm' : 'theme-card border theme-border hover:border-gray-400'}">
+      <span class="font-heading text-xs font-bold theme-text-main block uppercase truncate">${p.name}</span>
+      <span class="text-[10px] theme-text-muted block">${p.accord}</span>
     </button>
   `).join('');
 
-  // Top options (Rose, Vanilla, Citrus, Fruits)
   const topOptions = products.slice(0, 4);
   topGrid.innerHTML = topOptions.map(p => `
-    <button onclick="setAlchemyTop('${p.id}')" class="p-2.5 rounded-2xl border text-left transition-all ${alchemyState.topId === p.id ? 'bg-[#C59B27]/20 border-[#C59B27] shadow-md' : 'bg-black/20 border-gray-800 hover:border-gray-600'}">
-      <span class="font-heading text-xs font-bold text-white block uppercase truncate">${p.name}</span>
-      <span class="text-[10px] text-gray-400 block">${p.accord}</span>
+    <button onclick="setAlchemyTop('${p.id}')" class="w-full p-2.5 rounded-2xl border text-left transition-all ${alchemyState.topId === p.id ? 'theme-bg-surface border-2 theme-border shadow-sm' : 'theme-card border theme-border hover:border-gray-400'}">
+      <span class="font-heading text-xs font-bold theme-text-main block uppercase truncate">${p.name}</span>
+      <span class="text-[10px] theme-text-muted block">${p.accord}</span>
     </button>
   `).join('');
 
-  // Calculate Synergy
   const regularTotal = baseProd.price + topProd.price;
-  const comboPrice = Math.round(regularTotal * 0.85); // 15% layering discount
+  const comboPrice = Math.round(regularTotal * 0.85);
 
   document.getElementById('alchemy-base-name').innerText = baseProd.name;
   document.getElementById('alchemy-top-name').innerText = topProd.name;
@@ -1079,7 +1049,6 @@ function addLayeringDuoToCart() {
   addToCart(baseProd.id);
   addToCart(topProd.id);
 
-  // Apply 15% layering combo discount
   const savings = Math.round((baseProd.price + topProd.price) * 0.15);
   discountCoupon = { code: 'ALCHEMY15', amount: savings };
 
@@ -1088,54 +1057,52 @@ function addLayeringDuoToCart() {
   showToast(`Layering Duo Added! Saved ${formatRupees(savings)} with 15% Alchemy Discount 🧪`, 'success');
 }
 
-// =========================================================================
-// 7. THE SCENT CLUB - COMMUNITY SOTD FEED & REVIEWS
-// =========================================================================
+// 7. THE SCENT CLUB - COMMUNITY SOTD FEED
 function renderCommunityFeed() {
   const container = document.getElementById('community-feed-grid');
   if (!container) return;
 
   container.innerHTML = communityPosts.map(post => `
-    <div class="rounded-3xl p-5 theme-card border border-gray-800 space-y-3.5 shadow-sm">
+    <div class="rounded-3xl p-5 theme-card border theme-border space-y-3.5 shadow-sm">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover border border-[#C59B27]/40">
+          <img src="${post.avatar}" alt="${post.author}" class="w-10 h-10 rounded-full object-cover border theme-border">
           <div>
             <div class="flex items-center gap-1.5">
               <span class="font-bold text-xs theme-text-main">${post.author}</span>
-              ${post.verifiedPurchase ? '<span class="text-[10px] text-green-400 font-bold">✓ Verified</span>' : ''}
+              ${post.verifiedPurchase ? '<span class="text-[10px] text-green-600 dark:text-green-400 font-bold">✓ Verified</span>' : ''}
             </div>
-            <span class="text-[10px] text-gray-400">${post.city} • ${post.date}</span>
+            <span class="text-[10px] theme-text-muted">${post.city} • ${post.date}</span>
           </div>
         </div>
 
-        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#C59B27]/10 text-[#C59B27] border border-[#C59B27]/30">
+        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold theme-badge">
           ⚡ ${post.longevityRating}
         </span>
       </div>
 
-      <div class="p-3 rounded-2xl bg-black/20 border border-gray-800 space-y-1">
+      <div class="p-3 rounded-2xl theme-bg-surface border theme-border space-y-1">
         <div class="flex items-center justify-between text-[11px]">
-          <span class="text-gray-400">Scent of the Day:</span>
-          <span class="font-heading font-bold text-white uppercase">${post.sotd}</span>
+          <span class="theme-text-muted">Scent of the Day:</span>
+          <span class="font-heading font-bold theme-text-main uppercase">${post.sotd}</span>
         </div>
         <div class="flex items-center justify-between text-[11px]">
-          <span class="text-gray-400">Occasion:</span>
-          <span class="text-gray-300 font-medium">${post.occasion}</span>
+          <span class="theme-text-muted">Occasion:</span>
+          <span class="theme-text-secondary font-medium">${post.occasion}</span>
         </div>
       </div>
 
-      <p class="text-xs text-gray-300 italic leading-relaxed">
+      <p class="text-xs theme-text-secondary italic leading-relaxed">
         "${post.text}"
       </p>
 
       <div class="pt-2 flex items-center justify-between border-t theme-border">
-        <button onclick="likeCommunityPost('${post.id}')" class="text-xs text-gray-400 hover:text-red-400 flex items-center gap-1.5">
+        <button onclick="likeCommunityPost('${post.id}')" class="text-xs theme-text-muted hover:text-red-500 flex items-center gap-1.5">
           <i class="fa-solid fa-heart text-red-500"></i>
           <span>${post.likes} Upvotes</span>
         </button>
 
-        <button onclick="buyCommunityDuo(['${post.duoIds[0]}', '${post.duoIds[1]}'])" class="text-xs font-bold text-[#C59B27] hover:underline flex items-center gap-1">
+        <button onclick="buyCommunityDuo(['${post.duoIds[0]}', '${post.duoIds[1]}'])" class="text-xs font-bold theme-accent hover:underline flex items-center gap-1">
           <span>Buy This Layering Duo</span>
           <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
@@ -1197,12 +1164,11 @@ function handleCommunityPostSubmit(e) {
   communityPosts.unshift(newPost);
   renderCommunityFeed();
   document.getElementById('community-post-form').reset();
+  document.getElementById('post-sotd-modal')?.classList.add('hidden');
   showToast('Your Scent of the Day post is live on The Scent Club! 🎉', 'success');
 }
 
-// =========================================================================
 // 8. IN-STORE VIP SCENT CONSULTATION BOOKING
-// =========================================================================
 function handleConsultationBooking(e) {
   e.preventDefault();
   const name = document.getElementById('consult-name').value.trim();
@@ -1225,7 +1191,6 @@ function handleConsultationBooking(e) {
     timestamp: new Date().toISOString()
   };
 
-  // Save to storage for admin
   let allBookings = [];
   try {
     const saved = localStorage.getItem('perfumes_consultations');
@@ -1234,7 +1199,6 @@ function handleConsultationBooking(e) {
   allBookings.unshift(bookingData);
   localStorage.setItem('perfumes_consultations', JSON.stringify(allBookings));
 
-  // WhatsApp VIP Pass
   const waNumber = getWhatsAppNumber();
   let msg = `*👑 VIP IN-STORE SCENT CONSULTATION PASS*\n`;
   msg += `*Booking Ref:* ${bookingId}\n`;
@@ -1250,9 +1214,7 @@ function handleConsultationBooking(e) {
   document.getElementById('consultation-form').reset();
 }
 
-// =========================================================================
-// 9. GOOGLE IDENTITY SERVICES OAUTH & USER PROFILE
-// =========================================================================
+// 9. GOOGLE IDENTITY SERVICES OAUTH
 const GOOGLE_CLIENT_ID = '269277017328-r3olvtqb8nf91rbqifpmchbpflkceves.apps.googleusercontent.com';
 
 function decodeJwtPayload(token) {
@@ -1378,7 +1340,7 @@ function updateUserUI() {
 
   if (currentUser) {
     userBtn.innerHTML = `
-      <img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-6 h-6 rounded-full border border-[#C59B27] object-cover">
+      <img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-6 h-6 rounded-full border theme-border object-cover">
       <span class="hidden md:inline font-bold text-xs theme-text-main">${currentUser.name.split(' ')[0]}</span>
     `;
     userBtn.onclick = openProfileModal;
@@ -1422,9 +1384,7 @@ function handleUserLogout() {
   showToast('Logged out of Scent Club profile');
 }
 
-// =========================================================================
 // 10. VISITOR LEADS CAPTURE
-// =========================================================================
 function initVisitorTracker() {
   let count = Number(localStorage.getItem('perfume_visit_count') || 0) + 1;
   localStorage.setItem('perfume_visit_count', count);
@@ -1487,9 +1447,7 @@ function recordVisitorLead(leadData) {
   localStorage.setItem('perfumes_visitors', JSON.stringify(allVisitors));
 }
 
-// =========================================================================
 // 11. CATALOG PRODUCT RENDERING & GAUGE METERS
-// =========================================================================
 function renderProducts() {
   const grid = document.getElementById('products-grid');
   if (!grid) return;
@@ -1506,24 +1464,23 @@ function renderProducts() {
     grid.innerHTML = `
       <div class="col-span-full py-12 text-center space-y-2">
         <p class="font-heading text-lg theme-text-main">No fragrances match your filter</p>
-        <button onclick="resetFilters()" class="text-xs text-[#C59B27] font-bold underline">Reset All Filters</button>
+        <button onclick="resetFilters()" class="text-xs theme-accent font-bold underline">Reset All Filters</button>
       </div>
     `;
     return;
   }
 
   grid.innerHTML = filtered.map(p => `
-    <div class="theme-card rounded-3xl p-4 border border-gray-700/50 shadow-md flex flex-col justify-between space-y-3 group hover:border-[#C59B27] transition-all">
+    <div class="theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all">
       
-      <!-- Top Image & Badges -->
-      <div class="relative rounded-2xl overflow-hidden aspect-square bg-black/30">
+      <!-- Image & Badges -->
+      <div class="relative rounded-2xl overflow-hidden aspect-square bg-black/20">
         <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         
         <span class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider theme-badge shadow-sm">
           ${p.badge || 'Bestseller'}
         </span>
 
-        <!-- Blind Buy Insurance Badge -->
         <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md text-[9px] font-bold bg-black/80 backdrop-blur-md text-green-300 border border-green-700/60 shadow-sm flex items-center gap-1">
           <i class="fa-solid fa-shield-check text-green-400"></i> Free 2ml Tester Vial
         </span>
@@ -1532,43 +1489,42 @@ function renderProducts() {
       <!-- Details -->
       <div class="space-y-1.5">
         <div class="flex items-center justify-between">
-          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">${p.brand}</span>
-          <span class="text-[10px] font-semibold text-gray-400">${p.accord}</span>
+          <span class="text-[10px] font-bold uppercase tracking-widest theme-text-muted">${p.brand}</span>
+          <span class="text-[10px] font-semibold theme-text-muted">${p.accord}</span>
         </div>
 
         <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase tracking-wide truncate">${p.name}</h3>
+        <p class="text-[11px] theme-text-muted line-clamp-2 leading-relaxed">${p.notes}</p>
 
-        <p class="text-[11px] text-gray-400 line-clamp-2 leading-relaxed">${p.notes}</p>
-
-        <!-- Longevity & Sillage Performance Gauges -->
-        <div class="p-2.5 rounded-xl bg-black/20 border border-gray-800/80 space-y-1.5 mt-2">
+        <!-- Performance Gauges -->
+        <div class="p-2.5 rounded-xl theme-bg-surface border theme-border space-y-1.5 mt-2">
           <div class="flex items-center justify-between text-[10px]">
-            <span class="text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[#C59B27]"></i> Longevity:</span>
-            <span class="font-bold text-white">${p.longevity || '16+ Hours ⚡'}</span>
+            <span class="theme-text-muted flex items-center gap-1"><i class="fa-solid fa-clock theme-accent"></i> Longevity:</span>
+            <span class="font-bold theme-text-main">${p.longevity || '16+ Hours ⚡'}</span>
           </div>
-          <div class="w-full bg-gray-800 rounded-full h-1.5 overflow-hidden">
+          <div class="w-full bg-black/20 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
             <div class="meter-bar-fill h-1.5 rounded-full" style="width: 92%"></div>
           </div>
 
           <div class="flex items-center justify-between text-[10px] pt-1">
-            <span class="text-gray-400 flex items-center gap-1"><i class="fa-solid fa-wind text-blue-400"></i> Sillage:</span>
-            <span class="font-bold text-white">${p.sillage || 'Room Filler 💨'}</span>
+            <span class="theme-text-muted flex items-center gap-1"><i class="fa-solid fa-wind theme-accent"></i> Sillage:</span>
+            <span class="font-bold theme-text-main">${p.sillage || 'Room Filler 💨'}</span>
           </div>
         </div>
       </div>
 
-      <!-- Pricing & Actions -->
+      <!-- Pricing & Buy -->
       <div class="pt-2 border-t theme-border flex items-center justify-between gap-2">
         <div>
-          <span class="text-[9px] uppercase tracking-wider text-gray-400 block font-bold">Boutique Price</span>
-          <span class="font-heading text-base sm:text-lg font-bold text-[#C59B27]">${formatRupees(p.price)}</span>
+          <span class="text-[9px] uppercase tracking-wider theme-text-muted block font-bold">Boutique Price</span>
+          <span class="font-heading text-base sm:text-lg font-bold theme-accent">${formatRupees(p.price)}</span>
         </div>
 
         <div class="flex items-center gap-1.5">
-          <button onclick="addToCart('${p.id}', event)" class="p-2.5 rounded-xl bg-[#120D0A] hover:bg-black border border-gray-700 text-gray-300 hover:text-white transition-colors" title="Add to Cart">
+          <button onclick="addToCart('${p.id}', event)" class="p-2.5 rounded-xl theme-bg-surface border theme-border theme-text-main hover:border-gray-400 transition-colors" title="Add to Cart">
             <i class="fa-solid fa-cart-shopping text-xs"></i>
           </button>
-          <button onclick="buyNow('${p.id}', event)" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-all">
+          <button onclick="buyNow('${p.id}', event)" class="theme-btn-primary px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-all">
             Buy Now
           </button>
         </div>
@@ -1585,13 +1541,17 @@ function switchGenderTheme(gender, updateUrl = true) {
 
   document.querySelectorAll('.gender-tab-btn').forEach(btn => {
     if (btn.dataset.gender === gender) {
-      btn.className = 'gender-tab-btn px-4 py-2 rounded-xl font-bold text-xs bg-[#C59B27] text-[#18110E] shadow-sm transition-all';
+      btn.className = 'gender-tab-btn px-4 py-2 rounded-xl font-bold text-xs theme-btn-primary shadow-sm transition-all';
     } else {
-      btn.className = 'gender-tab-btn px-4 py-2 rounded-xl font-semibold text-xs theme-card hover:border-[#C59B27] transition-all';
+      btn.className = 'gender-tab-btn px-4 py-2 rounded-xl font-semibold text-xs theme-card hover:border-gray-400 transition-all';
     }
   });
 
   renderProducts();
+  renderCelebrityWardrobes();
+  renderDiscoveryBoxBuilder();
+  renderAlchemyBlender();
+  renderCommunityFeed();
   initHeroSlider();
 }
 
@@ -1599,9 +1559,9 @@ function filterByAccord(accord) {
   selectedAccord = accord;
   document.querySelectorAll('.accord-pill-btn').forEach(btn => {
     if (btn.dataset.accord === accord) {
-      btn.className = 'accord-pill-btn px-3 py-1.5 rounded-full text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm transition-all';
+      btn.className = 'accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold theme-btn-primary shadow-sm transition-all shrink-0';
     } else {
-      btn.className = 'accord-pill-btn px-3 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all';
+      btn.className = 'accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0';
     }
   });
   renderProducts();
@@ -1619,9 +1579,7 @@ function resetFilters() {
   filterByAccord('All');
 }
 
-// =========================================================================
-// 12. HERO SLIDER & SCENT QUIZ
-// =========================================================================
+// 12. HERO SLIDER & QUIZ
 function initHeroSlider() {
   const heroEl = document.getElementById('hero-banner');
   if (!heroEl) return;
@@ -1633,8 +1591,8 @@ function initHeroSlider() {
     document.getElementById('hero-desc-text').innerText = '16+ Hour Longevity in Pune Summer Heat. Smoky Birch, Mysore Sandalwood & Arabian Grey Amber.';
   } else if (currentGenderTheme === 'Women') {
     heroEl.style.backgroundImage = `url('https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1600&auto=format&fit=crop&q=80')`;
-    document.getElementById('hero-badge-text').innerText = '🌸 WOMEN’S HAUTE COUTURE & ROYAL ATTARS';
-    document.getElementById('hero-title-text').innerText = 'ETHEREAL DAMASCENE LUXE';
+    document.getElementById('hero-badge-text').innerText = '🌸 WOMEN’S HAUTE COUTURE & ROSE GOLD ATTARS';
+    document.getElementById('hero-title-text').innerText = 'ETHEREAL PEONY & DAMASCENE LUXE';
     document.getElementById('hero-desc-text').innerText = 'Turkish Rose Petals, Kashmiri Kesar Vanilla & Sugared Gourmand Extraits.';
   } else {
     heroEl.style.backgroundImage = `url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80')`;
@@ -1644,7 +1602,6 @@ function initHeroSlider() {
   }
 }
 
-// SCENT QUIZ
 const QUIZ_QUESTIONS = [
   {
     question: "Which vibe defines your signature style?",
@@ -1657,7 +1614,6 @@ const QUIZ_QUESTIONS = [
   }
 ];
 
-let currentQuizStep = 0;
 function renderWizard() {
   const container = document.getElementById('quiz-container');
   if (!container) return;
@@ -1668,9 +1624,9 @@ function renderWizard() {
       <h4 class="font-heading text-base font-bold theme-text-main">${q.question}</h4>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         ${q.options.map(opt => `
-          <button onclick="handleQuizAnswer('${opt.accord}')" class="p-3.5 rounded-2xl theme-card border border-gray-700/60 text-left hover:border-[#C59B27] transition-all flex items-center justify-between group">
+          <button onclick="handleQuizAnswer('${opt.accord}')" class="p-3.5 rounded-2xl theme-card border theme-border text-left hover:border-gray-400 transition-all flex items-center justify-between group">
             <span class="font-semibold text-xs theme-text-main">${opt.text}</span>
-            <i class="fa-solid fa-arrow-right text-xs text-gray-500 group-hover:text-[#C59B27] transition-colors"></i>
+            <i class="fa-solid fa-arrow-right text-xs theme-text-muted group-hover:theme-accent transition-colors"></i>
           </button>
         `).join('')}
       </div>
@@ -1680,22 +1636,21 @@ function renderWizard() {
 
 function handleQuizAnswer(accord) {
   filterByAccord(accord);
-  document.getElementById('products-section')?.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
   showToast(`Scent Profile Matched: ${accord} ✨`, 'success');
 }
 
-// TOAST
 function showToast(message, type = 'info') {
   let toast = document.getElementById('site-toast');
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'site-toast';
-    toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 bg-[#18110E] text-white border border-[#C59B27] px-4 py-2.5 rounded-2xl text-xs shadow-2xl flex items-center gap-2 transition-all duration-300 translate-y-10 opacity-0';
+    toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 z-50 theme-card border theme-border px-4 py-2.5 rounded-2xl text-xs shadow-2xl flex items-center gap-2 transition-all duration-300 translate-y-10 opacity-0';
     document.body.appendChild(toast);
   }
 
-  const icon = type === 'success' ? 'fa-circle-check text-green-400' : 'fa-circle-info text-[#C59B27]';
-  toast.innerHTML = `<i class="fa-solid ${icon}"></i> ${message}`;
+  const icon = type === 'success' ? 'fa-circle-check text-green-500' : 'fa-circle-info theme-accent';
+  toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span class="theme-text-main font-semibold">${message}</span>`;
   toast.classList.remove('translate-y-10', 'opacity-0');
 
   setTimeout(() => {

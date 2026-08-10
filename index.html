@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PERFUME SHOPE | Haute Parfumerie & Luxury Attars • India</title>
   <meta name="description" content="Discover 100% authentic Arabian extraits, designer perfumes & royal Indian attars. Shop custom 5-in-1 discovery boxes, celebrity scent wardrobes, and visit our flagship boutique in Pune, India.">
-  <meta name="theme-color" content="#18110E">
+  <meta name="theme-color" content="#100B08">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -16,14 +16,8 @@
         extend: {
           colors: {
             royalGold: '#C59B27',
-            bronzeGold: '#A67642',
-            espresso: '#18110E',
-            parchment: '#FAF5EE'
-          },
-          fontFamily: {
-            heading: ['Cinzel', 'serif'],
-            body: ['Outfit', 'sans-serif'],
-            marvel: ['Teko', 'sans-serif']
+            roseLuxe: '#D45D79',
+            marvelCyan: '#38BDF8'
           }
         }
       }
@@ -49,10 +43,10 @@
   <!-- =========================================================================
        TOP ANNOUNCEMENT BANNER
        ========================================================================= -->
-  <div onclick="openLeadGiftModal()" class="cursor-pointer bg-[#18110E] text-gray-200 py-2 px-3 text-center border-b border-[#C59B27]/30 text-[11px] sm:text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-black transition-colors">
-    <span class="px-2 py-0.5 rounded-full bg-[#C59B27] text-[#18110E] font-bold text-[10px] uppercase">Royal Offer</span>
-    <span>🎁 First Order? Use Code <strong class="text-[#C59B27] font-mono">ROYAL500</strong> for ₹500 OFF + Free 5ml Attar Tester spray!</span>
-    <i class="fa-solid fa-arrow-right text-[10px] text-[#C59B27]"></i>
+  <div onclick="openLeadGiftModal()" class="cursor-pointer theme-bg-surface theme-text-main py-2 px-3 text-center border-b theme-border text-[11px] sm:text-xs tracking-wider flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+    <span class="px-2 py-0.5 rounded-full theme-badge font-bold text-[10px] uppercase">Royal Offer</span>
+    <span>🎁 First Order? Use Code <strong class="theme-accent font-mono">ROYAL500</strong> for ₹500 OFF + Free 5ml Attar Tester spray!</span>
+    <i class="fa-solid fa-arrow-right text-[10px] theme-accent"></i>
   </div>
 
   <!-- =========================================================================
@@ -63,39 +57,39 @@
       
       <!-- Brand Logo -->
       <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group">
-        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full border border-[#C59B27] flex items-center justify-center bg-[#18110E] text-[#C59B27] shadow-md group-hover:scale-105 transition-transform">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full border theme-border flex items-center justify-center theme-bg-surface theme-accent shadow-md group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-crown text-sm sm:text-base"></i>
         </div>
         <div>
           <span class="font-heading text-sm sm:text-xl font-bold tracking-widest theme-text-main block uppercase">PERFUME SHOPE</span>
-          <span class="text-[9px] sm:text-[10px] uppercase tracking-widest text-[#A67642] block -mt-0.5 font-semibold">Haute Parfumerie • Pune 🇮🇳</span>
+          <span class="text-[9px] sm:text-[10px] uppercase tracking-widest theme-text-muted block -mt-0.5 font-semibold">Haute Parfumerie • Pune 🇮🇳</span>
         </div>
       </a>
 
       <!-- Gender Theme Switcher (All / Women / Men Marvel) -->
-      <div class="flex items-center p-1 rounded-2xl bg-black/10 border theme-border">
-        <button onclick="switchGenderTheme('All')" data-gender="All" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-bold text-xs bg-[#C59B27] text-[#18110E] shadow-sm transition-all">
+      <div class="flex items-center p-1 rounded-2xl theme-bg-surface border theme-border">
+        <button onclick="switchGenderTheme('All')" data-gender="All" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-bold text-xs theme-btn-primary shadow-sm transition-all">
           👑 All
         </button>
-        <button onclick="switchGenderTheme('Women')" data-gender="Women" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-[#C59B27] transition-all">
+        <button onclick="switchGenderTheme('Women')" data-gender="Women" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-gray-400 transition-all">
           🌸 Women
         </button>
-        <button onclick="switchGenderTheme('Men')" data-gender="Men" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-[#C59B27] transition-all">
+        <button onclick="switchGenderTheme('Men')" data-gender="Men" class="gender-tab-btn px-3 sm:px-4 py-1.5 rounded-xl font-semibold text-xs theme-card hover:border-gray-400 transition-all">
           ⚡ Men
         </button>
       </div>
 
-      <!-- Right Header Actions (Search, Scent Club Profile, Cart Drawer) -->
+      <!-- Right Header Actions (Google User Profile & Cart Drawer) -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         
         <!-- Google User Profile / Login -->
-        <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl theme-card border flex items-center gap-2 text-xs font-semibold hover:border-[#C59B27] transition-colors">
+        <button id="header-user-btn" onclick="openGoogleLoginModal()" class="p-2 sm:px-3 sm:py-2 rounded-xl theme-card border theme-border flex items-center gap-2 text-xs font-semibold hover:border-gray-400 transition-colors">
           <i class="fa-brands fa-google text-red-500"></i>
           <span class="hidden md:inline theme-text-main">Sign In</span>
         </button>
 
         <!-- Cart Drawer Button -->
-        <button onclick="openCartDrawer()" class="relative p-2.5 sm:px-4 sm:py-2 rounded-xl bg-[#C59B27] text-[#18110E] font-bold text-xs flex items-center gap-2 shadow-md hover:bg-[#AA771C] transition-all">
+        <button onclick="openCartDrawer()" class="relative p-2.5 sm:px-4 sm:py-2 rounded-xl theme-btn-primary font-bold text-xs flex items-center gap-2 shadow-md transition-all">
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="hidden sm:inline uppercase tracking-wider">Cart</span>
           <span class="cart-badge-count absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-mono font-bold shadow-sm hidden">0</span>
@@ -110,29 +104,29 @@
        HERO BANNER
        ========================================================================= -->
   <section id="hero-banner" class="hero-slider-bg relative min-h-[440px] sm:min-h-[520px] flex items-center justify-center text-center p-6 text-white overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-t from-[#120D0A] via-black/60 to-black/30 z-0"></div>
+    <div class="absolute inset-0 z-0" style="background: var(--hero-gradient);"></div>
 
     <div class="relative z-10 max-w-3xl mx-auto space-y-4">
-      <span id="hero-badge-text" class="px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#C59B27]/20 border border-[#C59B27] text-[#C59B27] inline-block shadow-sm">
+      <span id="hero-badge-text" class="px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest theme-badge inline-block shadow-sm">
         👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS
       </span>
 
-      <h1 id="hero-title-text" class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-wider leading-tight uppercase">
+      <h1 id="hero-title-text" class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-wider leading-tight uppercase text-white drop-shadow-md">
         HAUTE PARFUMERIE • PUNE
       </h1>
 
-      <p id="hero-desc-text" class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">
+      <p id="hero-desc-text" class="text-xs sm:text-sm text-gray-200 max-w-xl mx-auto leading-relaxed drop-shadow">
         Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup.
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <a href="#discovery-box" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-6 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-2 transition-all">
+        <a href="#discovery-box" class="theme-btn-primary px-6 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-2 transition-all">
           <i class="fa-solid fa-gift"></i>
           <span>Build Discovery Box (₹999)</span>
         </a>
 
-        <a href="#celebrity-wardrobe" class="bg-black/50 hover:bg-black/80 text-white border border-gray-600 hover:border-[#C59B27] px-5 py-3 rounded-2xl font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
-          <i class="fa-solid fa-star text-[#C59B27]"></i>
+        <a href="#celebrity-wardrobe" class="bg-black/60 hover:bg-black/80 text-white border border-gray-500 px-5 py-3 rounded-2xl font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-sm">
+          <i class="fa-solid fa-star theme-accent"></i>
           <span>Celebrity Vault</span>
         </a>
       </div>
@@ -145,32 +139,32 @@
   <section class="py-5 theme-bg-secondary border-y theme-border">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-3 text-center sm:text-left">
       
-      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
-        <i class="fa-solid fa-shield-check text-[#16a34a] text-xl shrink-0"></i>
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border theme-border">
+        <i class="fa-solid fa-shield-check text-green-500 text-xl shrink-0"></i>
         <div>
           <h4 class="text-xs font-bold theme-text-main">Blind Buy Insurance 🛡️</h4>
           <p class="text-[10px] theme-text-muted">Free 2ml tester vial with every full bottle</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
-        <i class="fa-solid fa-bolt text-[#38BDF8] text-xl shrink-0"></i>
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border theme-border">
+        <i class="fa-solid fa-bolt theme-accent text-xl shrink-0"></i>
         <div>
           <h4 class="text-xs font-bold theme-text-main">14+ Hr Beast Mode ⚡</h4>
           <p class="text-[10px] theme-text-muted">Tested for Indian humidity & heat</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
-        <i class="fa-solid fa-wand-magic-sparkles text-[#C59B27] text-xl shrink-0"></i>
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border theme-border">
+        <i class="fa-solid fa-wand-magic-sparkles theme-accent text-xl shrink-0"></i>
         <div>
           <h4 class="text-xs font-bold theme-text-main">Free Laser Engraving ✨</h4>
           <p class="text-[10px] theme-text-muted">Custom name engraved on bottle</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border">
-        <i class="fa-solid fa-store text-[#A67642] text-xl shrink-0"></i>
+      <div class="flex items-center gap-2.5 p-3 rounded-2xl theme-card border theme-border">
+        <i class="fa-solid fa-store theme-accent text-xl shrink-0"></i>
         <div>
           <h4 class="text-xs font-bold theme-text-main">FC Road Pune Boutique 🏛️</h4>
           <p class="text-[10px] theme-text-muted">Test before you buy or instant pickup</p>
@@ -187,9 +181,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
       <div class="text-center max-w-xl mx-auto space-y-1.5">
-        <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🌟 ICONIC SCENT WARDROBES</span>
+        <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🌟 ICONIC SCENT WARDROBES</span>
         <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase">Wear Like a Legend</h2>
-        <p class="text-xs text-gray-400">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
+        <p class="text-xs theme-text-muted">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
       </div>
 
       <div id="celebrity-wardrobe-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -207,16 +201,16 @@
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🎁 LUXURY VELVET SAMPLER</span>
+          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🎁 LUXURY VELVET SAMPLER</span>
           <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Build Your Custom Discovery Box</h2>
-          <p class="text-xs text-gray-400 mt-1">Pick your favorite 5ml luxury miniatures in our signature gold-embossed velvet box.</p>
+          <p class="text-xs theme-text-muted mt-1">Pick your favorite 5ml luxury miniatures in our signature gold-embossed velvet box.</p>
         </div>
 
-        <div class="flex items-center gap-2 bg-black/20 p-1.5 rounded-2xl border theme-border">
-          <button onclick="setDiscoveryBoxSize(3)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 3 ? 'bg-[#C59B27] text-[#18110E]' : 'theme-text-main hover:text-[#C59B27]'}">
+        <div class="flex items-center gap-2 theme-bg-surface p-1.5 rounded-2xl border theme-border">
+          <button onclick="setDiscoveryBoxSize(3)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 3 ? 'theme-btn-primary' : 'theme-text-main hover:theme-accent'}">
             3 Mini Set (₹699)
           </button>
-          <button onclick="setDiscoveryBoxSize(5)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 5 ? 'bg-[#C59B27] text-[#18110E]' : 'theme-text-main hover:text-[#C59B27]'}">
+          <button onclick="setDiscoveryBoxSize(5)" class="px-4 py-2 rounded-xl text-xs font-bold transition-all ${discoveryBoxState.size === 5 ? 'theme-btn-primary' : 'theme-text-main hover:theme-accent'}">
             5 Mini Set (₹999) 👑
           </button>
         </div>
@@ -224,23 +218,23 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Velvet Box Interactive Visualizer -->
-        <div class="lg:col-span-5 rounded-3xl p-6 bg-[#18110E] border border-[#C59B27]/40 shadow-2xl space-y-5">
-          <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-            <span class="font-heading text-sm font-bold text-white uppercase tracking-wider">Royal Velvet Gift Box</span>
-            <span id="discovery-price-display" class="font-heading text-lg font-bold text-[#C59B27]">₹999</span>
+        <!-- Velvet Box Visualizer -->
+        <div class="lg:col-span-5 rounded-3xl p-6 theme-card border theme-border shadow-2xl space-y-5">
+          <div class="flex items-center justify-between border-b theme-border pb-3">
+            <span class="font-heading text-sm font-bold theme-text-main uppercase tracking-wider">Royal Velvet Gift Box</span>
+            <span id="discovery-price-display" class="font-heading text-lg font-bold theme-accent">₹999</span>
           </div>
 
           <div id="discovery-slots-container" class="grid grid-cols-3 gap-3">
             <!-- Rendered by app.js -->
           </div>
 
-          <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 text-[11px] text-gray-300 space-y-1">
-            <span class="text-[#C59B27] font-bold block">✨ Includes:</span>
+          <div class="p-3 rounded-2xl theme-bg-surface border theme-border text-[11px] theme-text-secondary space-y-1">
+            <span class="theme-accent font-bold block">✨ Includes:</span>
             <p>• 5ml Atomizer Vials • Handcrafted Velvet Gift Packaging • ₹500 Voucher for Full Bottle</p>
           </div>
 
-          <button id="discovery-add-to-cart-btn" onclick="addDiscoveryBoxToCart()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+          <button id="discovery-add-to-cart-btn" onclick="addDiscoveryBoxToCart()" class="w-full theme-btn-primary py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
             <span>Add Velvet Box to Cart</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
@@ -266,46 +260,46 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       
       <div class="text-center max-w-xl mx-auto space-y-1.5">
-        <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🧪 SCENT ALCHEMY LAB</span>
+        <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🧪 SCENT ALCHEMY LAB</span>
         <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase">Interactive Scent Blender</h2>
-        <p class="text-xs text-gray-400">Layer authentic pure attar base notes with luxury designer top accords to create your one-of-a-kind royal Indian signature.</p>
+        <p class="text-xs theme-text-muted">Layer authentic pure attar base notes with luxury designer top accords to create your one-of-a-kind royal Indian signature.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
         
         <!-- Base Note Selector -->
         <div class="space-y-3">
-          <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block">1. Select Base Note (Longevity 18h+):</span>
+          <span class="text-xs font-bold theme-accent uppercase tracking-wider block">1. Select Base Note (Longevity 18h+):</span>
           <div id="alchemy-base-grid" class="space-y-2">
             <!-- Rendered by app.js -->
           </div>
         </div>
 
         <!-- Center Visual Alchemy Blender -->
-        <div class="rounded-3xl p-6 bg-[#18110E] border border-[#C59B27] text-center space-y-4 shadow-2xl relative overflow-hidden">
-          <div class="alchemy-mixing-glow w-16 h-16 rounded-full bg-[#C59B27]/20 border border-[#C59B27] flex items-center justify-center text-2xl text-[#C59B27] mx-auto">
+        <div class="rounded-3xl p-6 theme-card border theme-border text-center space-y-4 shadow-2xl relative overflow-hidden">
+          <div class="alchemy-mixing-glow w-16 h-16 rounded-full theme-bg-surface border theme-border flex items-center justify-center text-2xl theme-accent mx-auto">
             <i class="fa-solid fa-flask-vial"></i>
           </div>
 
           <div class="space-y-1">
-            <span class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">SYNERGY RECIPE</span>
-            <h4 class="font-heading text-sm font-bold text-white uppercase"><span id="alchemy-base-name">OUD SUPRÊME</span> + <span id="alchemy-top-name">KHAMRAH D'OR</span></h4>
+            <span class="text-[9px] uppercase tracking-widest theme-text-muted font-bold">SYNERGY RECIPE</span>
+            <h4 class="font-heading text-sm font-bold theme-text-main uppercase"><span id="alchemy-base-name">OUD SUPRÊME</span> + <span id="alchemy-top-name">KHAMRAH D'OR</span></h4>
           </div>
 
-          <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 space-y-1.5 text-xs text-left">
-            <div class="flex justify-between"><span class="text-gray-400">Synergy Score:</span><span id="alchemy-synergy-score" class="font-bold text-green-400">98% Royal Match</span></div>
-            <div class="flex justify-between"><span class="text-gray-400">Performance:</span><span id="alchemy-projection-rating" class="font-bold text-[#C59B27]">18+ Hours Beast Mode</span></div>
-            <div class="flex justify-between pt-1 border-t border-gray-800"><span class="text-gray-400">Combo Price (15% OFF):</span><span id="alchemy-combo-price" class="font-heading font-bold text-white">₹5,438</span></div>
+          <div class="p-3 rounded-2xl theme-bg-surface border theme-border space-y-1.5 text-xs text-left">
+            <div class="flex justify-between"><span class="theme-text-muted">Synergy Score:</span><span id="alchemy-synergy-score" class="font-bold text-green-600 dark:text-green-400">98% Royal Match</span></div>
+            <div class="flex justify-between"><span class="theme-text-muted">Performance:</span><span id="alchemy-projection-rating" class="font-bold theme-accent">18+ Hours Beast Mode</span></div>
+            <div class="flex justify-between pt-1 border-t theme-border"><span class="theme-text-muted">Combo Price (15% OFF):</span><span id="alchemy-combo-price" class="font-heading font-bold theme-text-main">₹5,438</span></div>
           </div>
 
-          <button onclick="addLayeringDuoToCart()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md">
+          <button onclick="addLayeringDuoToCart()" class="w-full theme-btn-primary py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md">
             Buy Layering Duo (15% OFF)
           </button>
         </div>
 
         <!-- Top Note Selector -->
         <div class="space-y-3">
-          <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block">2. Select Top Note (Projection & Sillage):</span>
+          <span class="text-xs font-bold theme-accent uppercase tracking-wider block">2. Select Top Note (Projection & Sillage):</span>
           <div id="alchemy-top-grid" class="space-y-2">
             <!-- Rendered by app.js -->
           </div>
@@ -324,47 +318,47 @@
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">🇮🇳 LUXURY COLLECTION</span>
+          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🇮🇳 LUXURY COLLECTION</span>
           <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Authentic Parfums & Extraits</h2>
-          <p class="text-xs text-gray-400 mt-1">Each full bottle includes a Free 2ml Tester Vial + Blind Buy Money-Back Insurance.</p>
+          <p class="text-xs theme-text-muted mt-1">Each full bottle includes a Free 2ml Tester Vial + Blind Buy Money-Back Insurance.</p>
         </div>
 
         <!-- Search Bar -->
         <div class="relative w-full md:w-80">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-500 text-xs"></i>
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 theme-text-muted text-xs"></i>
           <input 
             type="text" 
             id="search-input" 
             oninput="handleSearch(this.value)" 
             placeholder="Search perfumes, brands, notes..." 
-            class="w-full bg-[#18110E] border border-gray-700 text-white rounded-2xl pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:border-[#C59B27] transition-colors"
+            class="w-full theme-input rounded-2xl pl-9 pr-4 py-2.5 text-xs transition-colors"
           >
         </div>
       </div>
 
       <!-- Accord Pills -->
       <div class="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
-        <button onclick="filterByAccord('All')" data-accord="All" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm transition-all shrink-0">
+        <button onclick="filterByAccord('All')" data-accord="All" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-bold theme-btn-primary shadow-sm transition-all shrink-0">
           All Accords
         </button>
-        <button onclick="filterByAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+        <button onclick="filterByAccord('Warm Vanilla & Kesar')" data-accord="Warm Vanilla & Kesar" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
           🍦 Warm Vanilla & Kesar
         </button>
-        <button onclick="filterByAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+        <button onclick="filterByAccord('Royal Dehn Al Oud')" data-accord="Royal Dehn Al Oud" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
           🪵 Royal Dehn Al Oud
         </button>
-        <button onclick="filterByAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+        <button onclick="filterByAccord('Mysore Sandal & Woods')" data-accord="Mysore Sandal & Woods" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
           🌲 Mysore Sandal & Woods
         </button>
-        <button onclick="filterByAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+        <button onclick="filterByAccord('Kashmiri Gulab & Rose')" data-accord="Kashmiri Gulab & Rose" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
           🌸 Kashmiri Gulab & Rose
         </button>
-        <button onclick="filterByAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-[#C59B27] transition-all shrink-0">
+        <button onclick="filterByAccord('Fresh Citrus & Monsoon Aqua')" data-accord="Fresh Citrus & Monsoon Aqua" class="accord-pill-btn px-4 py-1.5 rounded-full text-xs font-medium theme-card hover:border-gray-400 transition-all shrink-0">
           🌊 Fresh Citrus & Monsoon Aqua
         </button>
       </div>
 
-      <!-- Products Grid with Longevity & Sillage Gauges -->
+      <!-- Products Grid -->
       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         <!-- Rendered by app.js -->
       </div>
@@ -380,18 +374,17 @@
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">👑 THE SCENT CLUB</span>
+          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">👑 THE SCENT CLUB</span>
           <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Community Scent of the Day</h2>
-          <p class="text-xs text-gray-400 mt-1">Real compliment stories, longevity ratings, and verified layering recipes from fragrance connoisseurs across India.</p>
+          <p class="text-xs theme-text-muted mt-1">Real compliment stories, longevity ratings, and verified layering recipes from fragrance connoisseurs across India.</p>
         </div>
 
-        <button onclick="document.getElementById('post-sotd-modal')?.classList.remove('hidden')" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] px-4 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
+        <button onclick="document.getElementById('post-sotd-modal')?.classList.remove('hidden')" class="theme-btn-primary px-4 py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5">
           <i class="fa-solid fa-feather"></i>
           <span>Share Your SOTD</span>
         </button>
       </div>
 
-      <!-- Feed Grid -->
       <div id="community-feed-grid" class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Rendered by app.js -->
       </div>
@@ -405,37 +398,37 @@
   <section id="book-consultation" class="py-12 sm:py-20 theme-bg-secondary border-t theme-border">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="rounded-3xl p-6 sm:p-10 bg-[#18110E] border border-[#C59B27]/60 shadow-2xl space-y-6">
+      <div class="rounded-3xl p-6 sm:p-10 theme-card border theme-border shadow-2xl space-y-6">
         
         <div class="text-center space-y-2">
-          <div class="w-12 h-12 rounded-2xl border border-[#C59B27] flex items-center justify-center text-[#C59B27] text-xl mx-auto">
+          <div class="w-12 h-12 rounded-2xl border theme-border flex items-center justify-center theme-accent text-xl mx-auto">
             <i class="fa-solid fa-calendar-check"></i>
           </div>
-          <span class="text-[10px] uppercase tracking-[0.25em] text-[#C59B27] font-bold block">PUNE FLAGSHIP BOUTIQUE</span>
-          <h2 class="font-heading text-2xl sm:text-3xl font-bold text-white uppercase">Book In-Store VIP Scent Consultation</h2>
-          <p class="text-xs text-gray-400 max-w-lg mx-auto">Visit our FC Road boutique for a complimentary 15-minute private tasting table session with our master perfumer, complimentary attar coffee & sample vials.</p>
+          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">PUNE FLAGSHIP BOUTIQUE</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold theme-text-main uppercase">Book In-Store VIP Scent Consultation</h2>
+          <p class="text-xs theme-text-muted max-w-lg mx-auto">Visit our FC Road boutique for a complimentary 15-minute private tasting table session with our master perfumer, complimentary attar coffee & sample vials.</p>
         </div>
 
         <form id="consultation-form" onsubmit="handleConsultationBooking(event)" class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Your Full Name</label>
-              <input type="text" id="consult-name" required placeholder="e.g. Rahul Patil" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Your Full Name</label>
+              <input type="text" id="consult-name" required placeholder="e.g. Rahul Patil" class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
             </div>
 
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">WhatsApp Phone Number</label>
-              <input type="tel" id="consult-phone" required placeholder="+91 98227 25265" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">WhatsApp Phone Number</label>
+              <input type="tel" id="consult-phone" required placeholder="+91 98227 25265" class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
             </div>
 
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Appointment Date</label>
-              <input type="date" id="consult-date" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Appointment Date</label>
+              <input type="date" id="consult-date" required class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
             </div>
 
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Preferred Time Slot</label>
-              <select id="consult-time" required class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Preferred Time Slot</label>
+              <select id="consult-time" required class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
                 <option value="11:30 AM (Morning Session)">11:30 AM (Morning Session)</option>
                 <option value="03:00 PM (Afternoon VIP)">03:00 PM (Afternoon VIP)</option>
                 <option value="06:30 PM (Evening Soirée)">06:30 PM (Evening Soirée)</option>
@@ -444,8 +437,8 @@
             </div>
 
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Number of Guests</label>
-              <select id="consult-guests" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Number of Guests</label>
+              <select id="consult-guests" class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
                 <option value="1">1 Person (Private Session)</option>
                 <option value="2">2 Persons (Couple Consultation)</option>
                 <option value="3+">3+ Persons (Wedding Party)</option>
@@ -453,8 +446,8 @@
             </div>
 
             <div>
-              <label class="text-[10px] font-bold text-[#C59B27] uppercase block mb-1">Primary Preference</label>
-              <select id="consult-pref" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+              <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Primary Preference</label>
+              <select id="consult-pref" class="w-full theme-input rounded-xl px-3.5 py-2.5 text-xs">
                 <option value="Wedding / Festive Fragrances">Wedding & Festive Attars</option>
                 <option value="Executive / Office Sillage">Executive Office & Boardroom Sillage</option>
                 <option value="Daily Compliment Beast Mode">Daily Compliment Beast Mode</option>
@@ -464,7 +457,7 @@
           </div>
 
           <div class="pt-2">
-            <button type="submit" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+            <button type="submit" class="w-full theme-btn-primary py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
               <i class="fa-brands fa-whatsapp text-sm"></i>
               <span>Confirm & Generate VIP WhatsApp Pass</span>
             </button>
@@ -479,43 +472,43 @@
   <!-- =========================================================================
        FOOTER
        ========================================================================= -->
-  <footer class="bg-[#120D0A] text-gray-400 py-12 border-t border-gray-800 text-xs">
+  <footer class="theme-bg-surface theme-text-muted py-12 border-t theme-border text-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
       
       <div class="space-y-3">
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full border border-[#C59B27] flex items-center justify-center text-[#C59B27]">
+          <div class="w-8 h-8 rounded-full border theme-border flex items-center justify-center theme-accent">
             <i class="fa-solid fa-crown text-xs"></i>
           </div>
-          <span class="font-heading text-sm font-bold text-white uppercase tracking-wider">PERFUME SHOPE</span>
+          <span class="font-heading text-sm font-bold theme-text-main uppercase tracking-wider">PERFUME SHOPE</span>
         </div>
-        <p class="text-[11px] leading-relaxed text-gray-400">India's premier destination for authentic Arabian extraits, designer perfumes, and pure royal Indian attars.</p>
+        <p class="text-[11px] leading-relaxed theme-text-muted">India's premier destination for authentic Arabian extraits, designer perfumes, and pure royal Indian attars.</p>
       </div>
 
       <div class="space-y-2">
-        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Pune Flagship Boutique</h4>
-        <p class="text-[11px]">Shop No. 4, Ground Floor, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004</p>
-        <p class="text-[11px] text-[#C59B27] font-semibold">Open All 7 Days: 10:30 AM - 10:00 PM IST</p>
+        <h4 class="font-heading text-xs font-bold theme-text-main uppercase tracking-wider">Pune Flagship Boutique</h4>
+        <p class="text-[11px] theme-text-secondary">Shop No. 4, Ground Floor, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004</p>
+        <p class="text-[11px] theme-accent font-semibold">Open All 7 Days: 10:30 AM - 10:00 PM IST</p>
       </div>
 
       <div class="space-y-2">
-        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Curated Collections</h4>
+        <h4 class="font-heading text-xs font-bold theme-text-main uppercase tracking-wider">Curated Collections</h4>
         <ul class="space-y-1 text-[11px]">
-          <li><a href="#celebrity-wardrobe" class="hover:text-white">Celebrity Scent Vault</a></li>
-          <li><a href="#discovery-box" class="hover:text-white">Custom Discovery Boxes</a></li>
-          <li><a href="#alchemy-lab" class="hover:text-white">Scent Alchemy Blender</a></li>
-          <li><a href="#scent-community" class="hover:text-white">The Scent Club Community</a></li>
+          <li><a href="#celebrity-wardrobe" class="hover:theme-accent">Celebrity Scent Vault</a></li>
+          <li><a href="#discovery-box" class="hover:theme-accent">Custom Discovery Boxes</a></li>
+          <li><a href="#alchemy-lab" class="hover:theme-accent">Scent Alchemy Blender</a></li>
+          <li><a href="#scent-community" class="hover:theme-accent">The Scent Club Community</a></li>
         </ul>
       </div>
 
       <div class="space-y-2">
-        <h4 class="font-heading text-xs font-bold text-white uppercase tracking-wider">Concierge & Authenticity</h4>
-        <p class="text-[11px]">Support: +91 95794 53006 / +91 98227 25265</p>
-        <p class="text-[11px]">All items backed by 100% Genuine Importer Seal & Blind Buy Insurance.</p>
+        <h4 class="font-heading text-xs font-bold theme-text-main uppercase tracking-wider">Concierge & Authenticity</h4>
+        <p class="text-[11px] theme-text-secondary">Support: +91 95794 53006 / +91 98227 25265</p>
+        <p class="text-[11px] theme-text-muted">All items backed by 100% Genuine Importer Seal & Blind Buy Insurance.</p>
       </div>
 
     </div>
-    <div class="max-w-7xl mx-auto px-4 mt-8 pt-4 border-t border-gray-800/80 text-center text-[10px] text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 mt-8 pt-4 border-t theme-border text-center text-[10px] theme-text-muted">
       © 2026 PERFUME SHOPE • All Rights Reserved. Prices listed in Indian Rupees (INR ₹).
     </div>
   </footer>
@@ -528,15 +521,15 @@
   <div id="cart-drawer-overlay" class="fixed inset-0 z-50 cart-drawer-overlay hidden flex justify-end">
     <div onclick="closeCartDrawer()" class="absolute inset-0"></div>
 
-    <div id="cart-drawer-panel" class="relative w-full max-w-md bg-[#18110E] text-gray-200 h-full flex flex-col shadow-2xl z-10 cart-drawer-panel border-l border-gray-800">
+    <div id="cart-drawer-panel" class="relative w-full max-w-md h-full flex flex-col shadow-2xl z-10 cart-drawer-panel">
       
       <!-- Header -->
-      <div class="p-4 border-b border-gray-800 flex items-center justify-between bg-[#120D0A]">
+      <div class="p-4 border-b theme-border flex items-center justify-between theme-bg-surface">
         <div class="flex items-center gap-2">
-          <i class="fa-solid fa-cart-shopping text-[#C59B27]"></i>
-          <h3 class="font-heading text-sm font-bold text-white uppercase tracking-wider">Your Shopping Cart</h3>
+          <i class="fa-solid fa-cart-shopping theme-accent"></i>
+          <h3 class="font-heading text-sm font-bold theme-text-main uppercase tracking-wider">Your Shopping Cart</h3>
         </div>
-        <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white p-1">
+        <button onclick="closeCartDrawer()" class="theme-text-muted hover:theme-text-main p-1">
           <i class="fa-solid fa-xmark text-base"></i>
         </button>
       </div>
@@ -547,16 +540,16 @@
       </div>
 
       <!-- Checkout & Delivery Section -->
-      <div id="cart-footer-section" class="p-4 border-t border-gray-800 bg-[#120D0A] space-y-3.5 max-h-[55vh] overflow-y-auto">
+      <div id="cart-footer-section" class="p-4 border-t theme-border theme-bg-surface space-y-3.5 max-h-[55vh] overflow-y-auto">
         
         <!-- FREE LASER BOTTLE ENGRAVING TOGGLE -->
-        <div class="p-3 rounded-2xl bg-black/40 border border-[#C59B27]/40 space-y-2">
+        <div class="p-3 rounded-2xl theme-card border theme-border space-y-2">
           <div class="flex items-center justify-between">
-            <label class="text-xs font-bold text-white flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" id="engraving-toggle" onchange="toggleBottleEngraving(this.checked)" class="w-4 h-4 text-[#C59B27] rounded">
+            <label class="text-xs font-bold theme-text-main flex items-center gap-1.5 cursor-pointer">
+              <input type="checkbox" id="engraving-toggle" onchange="toggleBottleEngraving(this.checked)" class="w-4 h-4 rounded">
               <span>✨ Free Custom Laser Bottle Engraving</span>
             </label>
-            <span class="text-[9px] font-bold text-[#C59B27] uppercase">Free</span>
+            <span class="text-[9px] font-bold theme-accent uppercase">Free</span>
           </div>
 
           <div id="engraving-input-container" class="hidden space-y-1 pt-1">
@@ -566,56 +559,56 @@
               maxlength="24"
               oninput="updateEngravingText(this.value)"
               placeholder="Name or Message (e.g. Rahul S. / King 2026)" 
-              class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none"
+              class="w-full theme-input rounded-xl px-3 py-2 text-xs"
             >
-            <p class="text-[9px] text-gray-400">Laser engraved directly onto glass bottle surface.</p>
+            <p class="text-[9px] theme-text-muted">Laser engraved directly onto glass bottle surface.</p>
           </div>
         </div>
 
         <!-- Promo Coupon Code -->
         <div class="flex items-center gap-2">
-          <input type="text" id="cart-coupon-input" placeholder="Promo code (e.g. ROYAL500)" class="flex-1 bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white uppercase focus:border-[#C59B27] focus:outline-none">
-          <button onclick="applyPromoCode()" class="bg-[#C59B27] text-[#18110E] px-3.5 py-2 rounded-xl text-xs font-bold uppercase">Apply</button>
+          <input type="text" id="cart-coupon-input" placeholder="Promo code (e.g. ROYAL500)" class="flex-1 theme-input rounded-xl px-3 py-2 text-xs uppercase">
+          <button onclick="applyPromoCode()" class="theme-btn-primary px-3.5 py-2 rounded-xl text-xs font-bold uppercase">Apply</button>
         </div>
 
         <!-- Address Mode: GPS vs Manual -->
-        <div class="space-y-2 pt-1 border-t border-gray-800">
-          <label class="text-[10px] font-bold text-[#C59B27] uppercase tracking-wider block">Delivery Address:</label>
+        <div class="space-y-2 pt-1 border-t theme-border">
+          <label class="text-[10px] font-bold theme-accent uppercase tracking-wider block">Delivery Address:</label>
           <div class="flex items-center gap-2">
             <button id="addr-mode-gps-btn" onclick="setAddressMode('gps')" class="flex-1 py-2 rounded-xl text-xs font-medium theme-card flex items-center justify-center gap-1.5">
-              <i class="fa-solid fa-crosshairs text-green-400"></i>
-              <span>Auto GPS Pin</span>
+              <i class="fa-solid fa-crosshairs text-green-500"></i>
+              <span class="theme-text-main">Auto GPS Pin</span>
             </button>
-            <button id="addr-mode-manual-btn" onclick="setAddressMode('manual')" class="flex-1 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#18110E] shadow-sm flex items-center justify-center gap-1.5">
+            <button id="addr-mode-manual-btn" onclick="setAddressMode('manual')" class="flex-1 py-2 rounded-xl text-xs font-bold theme-btn-primary shadow-sm flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-pen-to-square"></i>
               <span>Manual Address</span>
             </button>
           </div>
 
           <div id="addr-gps-view" class="hidden space-y-2 pt-1">
-            <div id="gps-status-text" class="text-xs text-gray-300"></div>
-            <p id="gps-coords-display" class="text-[10px] font-mono text-gray-500"></p>
+            <div id="gps-status-text" class="text-xs theme-text-secondary"></div>
+            <p id="gps-coords-display" class="text-[10px] font-mono theme-text-muted"></p>
             <button onclick="fetchAutomaticGPSLocation()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-1.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-location-arrow"></i> Re-scan Satellite Location
             </button>
           </div>
 
           <div id="addr-manual-view" class="space-y-2 pt-1">
-            <input type="text" id="man-addr-line1" placeholder="Flat, Building & Street Address" class="w-full bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+            <input type="text" id="man-addr-line1" placeholder="Flat, Building & Street Address" class="w-full theme-input rounded-xl px-3 py-2 text-xs">
             <div class="grid grid-cols-3 gap-2">
-              <input type="text" id="man-city" value="Pune" placeholder="City" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-              <input type="text" id="man-state" value="Maharashtra" placeholder="State" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-              <input type="text" id="man-pincode" value="411004" placeholder="PIN Code" class="bg-[#18110E] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+              <input type="text" id="man-city" value="Pune" placeholder="City" class="theme-input rounded-xl px-3 py-2 text-xs">
+              <input type="text" id="man-state" value="Maharashtra" placeholder="State" class="theme-input rounded-xl px-3 py-2 text-xs">
+              <input type="text" id="man-pincode" value="411004" placeholder="PIN Code" class="theme-input rounded-xl px-3 py-2 text-xs">
             </div>
           </div>
         </div>
 
         <!-- Bill Breakdown -->
-        <div class="space-y-1 pt-2 border-t border-gray-800 text-xs">
-          <div class="flex justify-between text-gray-400"><span>Subtotal:</span><span id="cart-subtotal-val" class="font-bold text-white">₹0</span></div>
-          <div id="cart-discount-row" class="flex justify-between text-green-400 hidden"><span>Discount:</span><span id="cart-discount-val">-₹0</span></div>
-          <div class="flex justify-between text-gray-400"><span>Delivery & Tester Vial:</span><span class="text-green-400 font-bold">FREE 🛡️</span></div>
-          <div class="flex justify-between text-sm font-bold text-white pt-1 border-t border-gray-800"><span>Total Payable:</span><span id="cart-total-val" class="text-[#C59B27]">₹0</span></div>
+        <div class="space-y-1 pt-2 border-t theme-border text-xs">
+          <div class="flex justify-between theme-text-muted"><span>Subtotal:</span><span id="cart-subtotal-val" class="font-bold theme-text-main">₹0</span></div>
+          <div id="cart-discount-row" class="flex justify-between text-green-600 dark:text-green-400 hidden"><span>Discount:</span><span id="cart-discount-val">-₹0</span></div>
+          <div class="flex justify-between theme-text-muted"><span>Delivery & Tester Vial:</span><span class="text-green-600 dark:text-green-400 font-bold">FREE 🛡️</span></div>
+          <div class="flex justify-between text-sm font-bold theme-text-main pt-1 border-t theme-border"><span>Total Payable:</span><span id="cart-total-val" class="theme-accent">₹0</span></div>
         </div>
 
         <!-- Checkout Buttons -->
@@ -624,7 +617,7 @@
             <i class="fa-brands fa-whatsapp text-sm"></i>
             <span>WhatsApp Buy</span>
           </button>
-          <button onclick="handleCheckoutOrder('UPI')" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md">
+          <button onclick="handleCheckoutOrder('UPI')" class="theme-btn-primary py-3 rounded-2xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md">
             <i class="fa-solid fa-qrcode text-sm"></i>
             <span>UPI Instant Pay</span>
           </button>
@@ -636,34 +629,34 @@
 
   <!-- 2. POST SOTD COMMUNITY MODAL -->
   <div id="post-sotd-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
-      <button onclick="document.getElementById('post-sotd-modal')?.classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+    <div class="theme-card max-w-md w-full rounded-3xl border theme-border p-6 relative shadow-2xl space-y-4">
+      <button onclick="document.getElementById('post-sotd-modal')?.classList.add('hidden')" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <h3 class="font-heading text-lg font-bold text-white uppercase">Share Your Scent of the Day (SOTD)</h3>
+      <h3 class="font-heading text-lg font-bold theme-text-main uppercase">Share Your Scent of the Day (SOTD)</h3>
 
       <form id="community-post-form" onsubmit="handleCommunityPostSubmit(event)" class="space-y-3">
         <div class="grid grid-cols-2 gap-3">
-          <input type="text" id="post-author-name" required placeholder="Your Name" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-          <input type="text" id="post-city-name" required placeholder="City (e.g. Pune)" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+          <input type="text" id="post-author-name" required placeholder="Your Name" class="w-full theme-input rounded-xl px-3 py-2 text-xs">
+          <input type="text" id="post-city-name" required placeholder="City (e.g. Pune)" class="w-full theme-input rounded-xl px-3 py-2 text-xs">
         </div>
-        <input type="text" id="post-sotd-name" required placeholder="Fragrance Name or Layering Duo" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-        <select id="post-longevity-select" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+        <input type="text" id="post-sotd-name" required placeholder="Fragrance Name or Layering Duo" class="w-full theme-input rounded-xl px-3 py-2 text-xs">
+        <select id="post-longevity-select" class="w-full theme-input rounded-xl px-3 py-2 text-xs">
           <option value="16+ Hours (Beast Mode)">16+ Hours (Beast Mode)</option>
           <option value="14 Hours (All Day)">14 Hours (All Day)</option>
           <option value="12 Hours (Strong)">12 Hours (Strong)</option>
         </select>
-        <textarea id="post-review-text" rows="3" required placeholder="How was the projection? What compliments did you receive?" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl p-3 text-xs text-white focus:outline-none"></textarea>
-        <button type="submit" class="w-full bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider">Publish Post</button>
+        <textarea id="post-review-text" rows="3" required placeholder="How was the projection? What compliments did you receive?" class="w-full theme-input rounded-xl p-3 text-xs"></textarea>
+        <button type="submit" class="w-full theme-btn-primary py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider">Publish Post</button>
       </form>
     </div>
   </div>
 
   <!-- 3. GOOGLE LOGIN MODAL -->
   <div id="google-login-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl text-center space-y-4">
-      <button onclick="closeGoogleLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+    <div class="theme-card max-w-sm w-full rounded-3xl border theme-border p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeGoogleLoginModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
@@ -672,17 +665,17 @@
       </div>
 
       <div>
-        <h3 class="font-heading text-lg font-bold text-white uppercase">Sign In with Google</h3>
-        <p class="text-xs text-gray-400 mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
+        <h3 class="font-heading text-lg font-bold theme-text-main uppercase">Sign In with Google</h3>
+        <p class="text-xs theme-text-muted mt-1">Unlock saved orders, GPS delivery address, and 750 Royalty Reward Points.</p>
       </div>
 
       <!-- Official Google GSI Button Container -->
       <div id="google-signin-btn-container" class="flex justify-center my-3 min-h-[44px]"></div>
 
       <div class="relative flex py-1 items-center">
-        <div class="flex-grow border-t border-gray-700"></div>
-        <span class="flex-shrink mx-2 text-[10px] uppercase text-gray-500 font-bold">Or Quick Demo Profile</span>
-        <div class="flex-grow border-t border-gray-700"></div>
+        <div class="flex-grow border-t theme-border"></div>
+        <span class="flex-shrink mx-2 text-[10px] uppercase theme-text-muted font-bold">Or Quick Demo Profile</span>
+        <div class="flex-grow border-t theme-border"></div>
       </div>
 
       <div class="space-y-2 pt-1">
@@ -701,36 +694,36 @@
 
   <!-- 4. USER PROFILE MODAL -->
   <div id="user-profile-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-gray-700 p-6 relative shadow-2xl space-y-4">
-      <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+    <div class="theme-card max-w-md w-full rounded-3xl border theme-border p-6 relative shadow-2xl space-y-4">
+      <button onclick="closeProfileModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
       <div class="flex items-center gap-3.5">
-        <img id="prof-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-full object-cover border border-[#C59B27]">
+        <img id="prof-avatar-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" class="w-16 h-16 rounded-full object-cover border theme-border">
         <div>
-          <h3 id="prof-name" class="font-heading text-lg font-bold text-white">Sakshi Patil</h3>
-          <p id="prof-email" class="text-xs text-gray-400">sakshi.patil@gmail.com</p>
-          <span id="prof-vip-tier" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#C59B27]/20 text-[#C59B27] border border-[#C59B27]/40 inline-block mt-1">
+          <h3 id="prof-name" class="font-heading text-lg font-bold theme-text-main">Sakshi Patil</h3>
+          <p id="prof-email" class="text-xs theme-text-muted">sakshi.patil@gmail.com</p>
+          <span id="prof-vip-tier" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block mt-1">
             Royal Attar Club 👑
           </span>
         </div>
       </div>
 
-      <div class="p-4 rounded-2xl bg-[#120D0A] border border-gray-800 flex items-center justify-between">
+      <div class="p-4 rounded-2xl theme-bg-surface border theme-border flex items-center justify-between">
         <div>
-          <span class="text-[10px] uppercase tracking-wider text-gray-400 block font-bold">Reward Balance</span>
-          <span id="prof-points" class="font-heading text-xl font-bold text-[#C59B27]">750 Royalty Points</span>
+          <span class="text-[10px] uppercase tracking-wider theme-text-muted block font-bold">Reward Balance</span>
+          <span id="prof-points" class="font-heading text-xl font-bold theme-accent">750 Royalty Points</span>
         </div>
-        <span class="text-xs text-green-400 font-bold">Worth ₹750</span>
+        <span class="text-xs text-green-600 dark:text-green-400 font-bold">Worth ₹750</span>
       </div>
 
-      <div class="space-y-1 text-xs text-gray-300">
+      <div class="space-y-1 text-xs theme-text-secondary">
         <p><strong>Registered Phone:</strong> <span id="prof-phone">+91 98227 25265</span></p>
         <p><strong>Boutique Perks:</strong> Free laser engraving & priority store appointments.</p>
       </div>
 
-      <button onclick="handleUserLogout()" class="w-full bg-red-950/60 hover:bg-red-900 text-red-300 py-2.5 rounded-xl text-xs font-semibold">
+      <button onclick="handleUserLogout()" class="w-full bg-red-950/40 hover:bg-red-900 text-red-400 py-2.5 rounded-xl text-xs font-semibold">
         Log Out
       </button>
     </div>
@@ -738,38 +731,38 @@
 
   <!-- 5. LEAD GIFT ₹500 MODAL -->
   <div id="lead-gift-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
-      <button onclick="closeLeadGiftModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+    <div class="theme-card max-w-sm w-full rounded-3xl border theme-border p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeLeadGiftModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <div class="w-14 h-14 rounded-2xl bg-[#120D0A] border border-[#C59B27] mx-auto flex items-center justify-center text-[#C59B27] text-2xl shadow-lg">
+      <div class="w-14 h-14 rounded-2xl theme-bg-surface border theme-border mx-auto flex items-center justify-center theme-accent text-2xl shadow-lg">
         <i class="fa-solid fa-gift animate-bounce"></i>
       </div>
 
       <div>
-        <span class="text-[9px] uppercase tracking-widest text-[#C59B27] font-bold block">ROYAL WELCOME GIFT</span>
-        <h3 class="font-heading text-xl font-bold text-white uppercase mt-0.5">Unlock ₹500 OFF Your Order</h3>
-        <p class="text-xs text-gray-400 mt-1">Enter your details to receive instant VIP discount coupon & complimentary 5ml Attar Tester spray.</p>
+        <span class="text-[9px] uppercase tracking-widest theme-accent font-bold block">ROYAL WELCOME GIFT</span>
+        <h3 class="font-heading text-xl font-bold theme-text-main uppercase mt-0.5">Unlock ₹500 OFF Your Order</h3>
+        <p class="text-xs theme-text-muted mt-1">Enter your details to receive instant VIP discount coupon & complimentary 5ml Attar Tester spray.</p>
       </div>
 
       <form onsubmit="handleLeadGiftSubmit(event)" class="space-y-3 text-left">
         <div>
-          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">Your Full Name</label>
-          <input type="text" id="lead-name-input" required placeholder="e.g. Rahul Sharma" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          <label class="text-[10px] font-bold theme-accent uppercase block mb-1">Your Full Name</label>
+          <input type="text" id="lead-name-input" required placeholder="e.g. Rahul Sharma" class="w-full theme-input rounded-xl px-3.5 py-2 text-xs">
         </div>
 
         <div>
-          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">WhatsApp Phone Number</label>
-          <input type="tel" id="lead-phone-input" required placeholder="+91 98227 25265" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          <label class="text-[10px] font-bold theme-accent uppercase block mb-1">WhatsApp Phone Number</label>
+          <input type="tel" id="lead-phone-input" required placeholder="+91 98227 25265" class="w-full theme-input rounded-xl px-3.5 py-2 text-xs">
         </div>
 
         <div>
-          <label class="text-[10px] font-bold text-gray-300 uppercase block mb-1">City</label>
-          <input type="text" id="lead-city-input" placeholder="Pune / Mumbai" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+          <label class="text-[10px] font-bold theme-accent uppercase block mb-1">City</label>
+          <input type="text" id="lead-city-input" placeholder="Pune / Mumbai" class="w-full theme-input rounded-xl px-3.5 py-2 text-xs">
         </div>
 
-        <button type="submit" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#18110E] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2">
+        <button type="submit" class="w-full theme-btn-primary py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all flex items-center justify-center gap-2">
           <span>Claim ₹500 Voucher & Tester &rarr;</span>
         </button>
       </form>
@@ -778,21 +771,21 @@
 
   <!-- 6. UPI QR MODAL -->
   <div id="upi-payment-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-sm w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
-      <button onclick="closeUPIModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+    <div class="theme-card max-w-sm w-full rounded-3xl border theme-border p-6 relative shadow-2xl text-center space-y-4">
+      <button onclick="closeUPIModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-1">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <span class="text-[10px] font-bold uppercase tracking-wider text-[#C59B27] block">Scan & Pay via any UPI App</span>
-      <h3 class="font-heading text-lg font-bold text-white uppercase">Order Total: <span id="upi-amount-val" class="text-[#C59B27]">₹0</span></h3>
+      <span class="text-[10px] font-bold uppercase tracking-wider theme-accent block">Scan & Pay via any UPI App</span>
+      <h3 class="font-heading text-lg font-bold theme-text-main uppercase">Order Total: <span id="upi-amount-val" class="theme-accent">₹0</span></h3>
 
       <div class="bg-white p-3 rounded-2xl max-w-[200px] mx-auto shadow-md">
         <img id="upi-qr-image" src="" alt="UPI QR Code" class="w-full h-auto">
       </div>
 
-      <div class="text-[11px] text-gray-300 space-y-1">
-        <p>UPI VPA: <strong class="text-white font-mono">perfumeshope@upi</strong></p>
-        <p>Order ID: <strong id="upi-order-id" class="text-[#C59B27] font-mono">ORD-000000</strong></p>
+      <div class="text-[11px] theme-text-secondary space-y-1">
+        <p>UPI VPA: <strong class="theme-text-main font-mono">perfumeshope@upi</strong></p>
+        <p>Order ID: <strong id="upi-order-id" class="theme-accent font-mono">ORD-000000</strong></p>
       </div>
 
       <button onclick="confirmUPIPaymentDone()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">
@@ -803,21 +796,21 @@
 
   <!-- 7. ORDER SUCCESS MODAL -->
   <div id="order-success-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
-    <div class="bg-[#1C1511] max-w-md w-full rounded-3xl border border-[#C59B27] p-6 relative shadow-2xl text-center space-y-4">
+    <div class="theme-card max-w-md w-full rounded-3xl border theme-border p-6 relative shadow-2xl text-center space-y-4">
       <div class="w-14 h-14 rounded-full bg-green-950 border border-green-500 text-green-400 text-2xl mx-auto flex items-center justify-center shadow-lg">
         <i class="fa-solid fa-check"></i>
       </div>
 
-      <h3 class="font-heading text-xl font-bold text-white uppercase">Order Confirmed!</h3>
-      <p class="text-xs text-gray-300">Your genuine batch sealed package with complimentary 2ml tester vial is being prepared.</p>
+      <h3 class="font-heading text-xl font-bold theme-text-main uppercase">Order Confirmed!</h3>
+      <p class="text-xs theme-text-muted">Your genuine batch sealed package with complimentary 2ml tester vial is being prepared.</p>
 
-      <div class="p-3 rounded-2xl bg-black/40 border border-gray-800 text-left text-xs space-y-1 text-gray-300">
-        <p><strong>Order ID:</strong> <span id="success-order-id" class="text-[#C59B27] font-mono"></span></p>
-        <p><strong>Total Paid:</strong> <span id="success-total-val" class="text-white font-bold"></span></p>
-        <p><strong>Delivery Address:</strong> <span id="success-address-val" class="text-gray-400 text-[11px]"></span></p>
+      <div class="p-3 rounded-2xl theme-bg-surface border theme-border text-left text-xs space-y-1 theme-text-secondary">
+        <p><strong>Order ID:</strong> <span id="success-order-id" class="theme-accent font-mono"></span></p>
+        <p><strong>Total Paid:</strong> <span id="success-total-val" class="theme-text-main font-bold"></span></p>
+        <p><strong>Delivery Address:</strong> <span id="success-address-val" class="theme-text-muted text-[11px]"></span></p>
       </div>
 
-      <button onclick="closeOrderSuccessModal()" class="w-full bg-[#C59B27] text-[#18110E] py-2.5 rounded-xl font-bold text-xs uppercase">
+      <button onclick="closeOrderSuccessModal()" class="w-full theme-btn-primary py-2.5 rounded-xl font-bold text-xs uppercase">
         Continue Exploring
       </button>
     </div>
