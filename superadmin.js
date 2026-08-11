@@ -289,16 +289,16 @@ const DEFAULT_HERO_BANNERS = {
 };
 
 const DEFAULT_STORE_SETTINGS = {
-  storeName: 'PERFUME SHOPE',
-  tagline: 'Haute Parfumerie & Luxury Attars • India',
-  whatsappNumber: '919579453006',
-  supportPhone: '+91 95794 53006 / +91 98227 25265',
-  supportEmail: 'contact@perfumeshope.in',
-  storeAddress: 'Shop No. 4, Ground Floor, Royal Heritage Galleria, FC Road, Pune, Maharashtra - 411004, India',
-  storeHours: 'Mon - Sun: 10:30 AM - 10:00 PM (IST)',
-  upiVpa: 'perfumeshope@upi',
+  storeName: 'Club 99 – The Perfume Shop',
+  tagline: 'Luxury Parfumerie & Arabian Extraits • Jalgaon',
+  whatsappNumber: '919822725265',
+  supportPhone: '+91 9822725265',
+  supportEmail: 'contact@club99perfumes.in',
+  storeAddress: 'Club 99 – The Perfume Shop, Near Station Road / City Center, Jalgaon, Maharashtra – 425001, India',
+  storeHours: 'Monday – Sunday: 10:30 AM – 10:00 PM (IST)',
+  upiVpa: 'club99@upi',
   gstNumber: '27AABCP9822F1Z4',
-  announcementText: '100% Authentic Original Batches • Same-Day Store Pickup • WhatsApp Booking in INR (₹)',
+  announcementText: '100% Authentic Original Batches • Jalgaon Store Pickup • WhatsApp VIP Concierge',
   announcementActive: true,
   maintenanceMode: false
 };

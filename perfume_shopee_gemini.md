@@ -191,6 +191,10 @@
   - Implemented strict purchase verification gate: Customers can only review a product if they have a verified order containing that specific fragrance (checked against `perfumes_orders` / `/api/orders` by Phone number or Order ID).
   - Unlocked review form includes 5-star rating picker with scent performance titles, headline, experience text, and multi-file unboxing photo uploader (up to 4 received bottle photos compressed via Canvas).
   - Reviews rendered on product quickview modal with author, city, 5-star rating, verified buyer badge, order ID, genuine bottle seal, and clickable unboxing photo gallery.
-  - Added Fullscreen Photo Lightbox modal (`#review-photo-lightbox`) for high-resolution inspection of customer unboxing photos.
-
-
+- **Physical Boutique Showcase (Club 99 – The Perfume Shop, Jalgaon)**:
+  - Added dedicated flagship boutique section `#jalgaon-boutique` at the end of the page (Section 10) right before the footer.
+  - Implemented responsive 2-column showcase:
+    - **Left Column**: Luxury storefront showcase photo with dynamic gold badges (`👑 Flagship Perfumery`, `🟢 Open Today`), bottom caption, and 3-feature grid (`Sensory Testing`, `Live Engraving`, `15-Min Pickup`).
+    - **Right Column**: Interactive responsive Google Maps embed of Jalgaon location with 1-click turn-by-turn navigation shortcut (`📍 Get Directions`), followed by comprehensive store address and contact card with direct WhatsApp (`+91 9822725265`) and hotline call buttons.
+  - Fully integrated with the dynamic theme engine (`theme-bg-main`, `theme-card`, `theme-border`, `theme-text-main`, `theme-accent`) supporting all 5 visual themes seamlessly.
+  - Synchronized default store settings (`storeName`, `storeAddress`, `whatsappNumber`, `supportPhone`, `storeHours`) across `index.html`, `app.js`, `superadmin.js`, and `admin.js`.

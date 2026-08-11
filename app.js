@@ -450,16 +450,20 @@ function getStoreSettings() {
     try { return JSON.parse(saved); } catch (e) {}
   }
   return {
-    storeName: 'PERFUME SHOPE',
-    tagline: 'Haute Parfumerie & Luxury Attars • India',
-    whatsappNumber: '919579453006',
-    upiVpa: 'perfumeshope@upi'
+    storeName: 'Club 99 – The Perfume Shop',
+    tagline: 'Luxury Parfumerie & Arabian Extraits • Jalgaon',
+    whatsappNumber: '919822725265',
+    supportPhone: '+91 9822725265',
+    supportEmail: 'contact@club99perfumes.in',
+    storeAddress: 'Club 99 – The Perfume Shop, Near Station Road / City Center, Jalgaon, Maharashtra – 425001, India',
+    storeHours: 'Monday – Sunday: 10:30 AM – 10:00 PM (IST)',
+    upiVpa: 'club99@upi'
   };
 }
 
 function getWhatsAppNumber() {
   const settings = getStoreSettings();
-  return settings.whatsappNumber || '919579453006';
+  return settings.whatsappNumber || '919822725265';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
