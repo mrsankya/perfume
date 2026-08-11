@@ -3,6 +3,7 @@
 ## Project Overview
 - **Project Name**: Perfume Shope (India's Premier Luxury Parfumerie & Attar Boutique)
 - **Repository**: mrsankya/perfume (https://github.com/mrsankya/perfume.git)
+- **Repository Note**: Dedicated independent repository. (Original repository `Sakshi-patil48/perfume-shopee` is maintained separately).
 - **Tech Stack**: Vanilla HTML5, Tailwind CSS CDN, Vanilla JavaScript (ES6+), Google Identity Services (GSI), FontAwesome Icons, Google Fonts (Cinzel, Outfit, Teko)
 - **Currency**: Indian Rupees (INR ₹)
 - **Deployment Platform**: Cloudflare Pages
