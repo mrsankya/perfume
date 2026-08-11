@@ -718,9 +718,46 @@
       </div>
 
       <!-- =========================================================================
-           TAB 6: DATABASE BACKUP & RESTORE
+           TAB 6: DATABASE BACKUP & RESTORE & RENDER CLOUD SYNC
            ========================================================================= -->
       <div id="super-tab-backup" class="super-tab-content hidden space-y-6">
+        <!-- RENDER & MONGODB ATLAS CLOUD CONNECTION DESK -->
+        <div class="bg-[#1C1511] p-6 rounded-2xl border border-gray-800 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-800 pb-3">
+            <div>
+              <h3 class="font-heading text-lg font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-cloud-arrow-up text-[#C59B27]"></i> Render Cloud Backend & MongoDB Atlas
+              </h3>
+              <p class="text-xs text-gray-400">Connect your deployed Render API service to sync products, verified reviews, and customer orders directly with MongoDB Atlas.</p>
+            </div>
+            <div id="render-cloud-status-badge" class="px-3 py-1 text-xs rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5 self-start sm:self-auto">
+              <i class="fas fa-circle-notch fa-spin text-amber-400"></i> Checking status...
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div>
+              <label class="text-[11px] font-bold text-[#C59B27] uppercase block mb-1">Render API Backend URL</label>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="url" id="render-api-url-input" placeholder="e.g. https://perfume-shope-api.onrender.com or http://localhost:5000" class="flex-1 bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-[#C59B27] focus:outline-none">
+                <button type="button" onclick="saveAndTestRenderBackend()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all">
+                  <i class="fa-solid fa-bolt"></i> Test & Save
+                </button>
+              </div>
+              <p class="text-[10px] text-gray-500 mt-1">Leave empty to use automatic localhost / same-origin detection. Deployed Cloudflare site uses this URL to communicate with MongoDB.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <button type="button" onclick="syncLocalCatalogToMongoAtlas()" class="bg-[#231B17] hover:bg-[#2e231e] border border-[#C59B27]/40 hover:border-[#C59B27] text-[#C59B27] p-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                <i class="fa-solid fa-upload"></i> 1-Click Push Local Catalog to MongoDB
+              </button>
+              <button type="button" onclick="syncCatalogFromMongoAtlas()" class="bg-[#231B17] hover:bg-[#2e231e] border border-gray-700 hover:border-gray-500 text-gray-300 p-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all">
+                <i class="fa-solid fa-download"></i> 1-Click Pull Catalog from MongoDB
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="bg-[#1C1511] p-6 rounded-2xl border border-gray-800 space-y-4">
           <h3 class="font-heading text-lg font-bold text-white">Full Database Backup, Export & Restore</h3>
           <p id="backup-summary-stats" class="text-xs text-[#C59B27] font-semibold"></p>

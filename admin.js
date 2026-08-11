@@ -33,6 +33,7 @@ function formatRupees(amount) {
 document.addEventListener('DOMContentLoaded', () => {
   loadAdminData();
   checkAuth();
+  initAdminRenderCloudDesk();
 });
 
 function loadAdminData() {
@@ -1469,5 +1470,90 @@ function resetCelebrityWardrobesToDefault() {
     saveAdminCelebrityWardrobes(DEFAULT_STAFF_CELEBRITY_WARDROBES);
     renderAdminCelebrityWardrobes();
     showToast('Celebrity Wardrobes reset to original presets ✨', 'success');
+  }
+}
+
+// =========================================================================
+// RENDER BACKEND & MONGODB ATLAS CLOUD SYNC OPERATIONS (STAFF ADMIN)
+// =========================================================================
+function initAdminRenderCloudDesk() {
+  const input = document.getElementById('admin-render-url-input');
+  if (input) {
+    input.value = localStorage.getItem('perfume_backend_url') || '';
+  }
+  updateAdminRenderCloudStatus();
+}
+
+async function updateAdminRenderCloudStatus() {
+  const badge = document.getElementById('admin-render-status-badge');
+  if (!badge) return;
+
+  if (typeof MongoSync !== 'undefined') {
+    const isOk = await MongoSync.checkHealth();
+    if (isOk) {
+      badge.className = 'px-3 py-1 text-xs rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5';
+      badge.innerHTML = `<i class="fa-solid fa-cloud text-emerald-400"></i> Render API & MongoDB Atlas Online 🍃`;
+    } else {
+      const url = MongoSync.getBackendUrl();
+      if (!url && !window.location.origin.includes('localhost')) {
+        badge.className = 'px-3 py-1 text-xs rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5';
+        badge.innerHTML = `<i class="fa-solid fa-server text-amber-400"></i> Local Storage Mode (Enter Render URL)`;
+      } else {
+        badge.className = 'px-3 py-1 text-xs rounded-full bg-red-500/20 text-red-300 border border-red-500/40 font-bold flex items-center gap-1.5';
+        badge.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-400"></i> Connection Failed / Offline`;
+      }
+    }
+  }
+}
+
+async function saveAndTestAdminRenderBackend() {
+  const input = document.getElementById('admin-render-url-input');
+  const url = input?.value?.trim() || '';
+  if (typeof MongoSync !== 'undefined') {
+    MongoSync.setBackendUrl(url);
+    showToast('Pinging Render API backend & MongoDB Atlas...', 'info');
+    const ok = await MongoSync.checkHealth();
+    if (ok) {
+      showToast('Successfully connected to Render & MongoDB Atlas! 🍃', 'success');
+    } else {
+      showToast('Could not connect to URL. Ensure Render service is deployed & awake.', 'error');
+    }
+    updateAdminRenderCloudStatus();
+  }
+}
+
+async function syncLocalCatalogToMongoAtlasAdmin() {
+  if (typeof MongoSync === 'undefined' || !MongoSync.pushProductsBulk) {
+    showToast('Sync engine not loaded', 'error');
+    return;
+  }
+  const currentCatalog = JSON.parse(localStorage.getItem('perfumes_catalog') || '[]');
+  if (!currentCatalog.length) {
+    showToast('No products in catalog to push', 'error');
+    return;
+  }
+  try {
+    showToast(`Uploading ${currentCatalog.length} products to MongoDB Atlas...`, 'info');
+    await MongoSync.pushProductsBulk(currentCatalog);
+    showToast(`✅ Successfully uploaded ${currentCatalog.length} products to MongoDB Atlas! 🍃`, 'success');
+  } catch (err) {
+    showToast('Push failed: ' + err.message, 'error');
+  }
+}
+
+async function syncCatalogFromMongoAtlasAdmin() {
+  if (typeof MongoSync === 'undefined') return;
+  try {
+    showToast('Pulling latest catalog from MongoDB Atlas...', 'info');
+    const remoteProducts = await MongoSync.syncProducts();
+    if (remoteProducts && remoteProducts.length > 0) {
+      localStorage.setItem('perfumes_catalog', JSON.stringify(remoteProducts));
+      renderAdminInventory();
+      showToast(`✅ Loaded ${remoteProducts.length} products from MongoDB Atlas! 🍃`, 'success');
+    } else {
+      showToast('No remote products found or backend unreachable.', 'info');
+    }
+  } catch (err) {
+    showToast('Pull failed: ' + err.message, 'error');
   }
 }

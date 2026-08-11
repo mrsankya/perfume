@@ -17,15 +17,17 @@
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
 
-## MongoDB Atlas Cloud Database Integration
+## MongoDB Atlas Cloud Database & Render Backend Integration
 - **Cluster**: `cluster0.uw1rkyw.mongodb.net`
 - **Database Name**: `perfumeshope`
 - **Database User**: `bhendesanket21_db_user`
 - **Driver**: Official `mongodb` Node.js driver + `mongoose`
-- **REST API Backend**: `server.js` (Express on port 5000)
+- **REST API Backend**: `server.js` (Express with `/healthz`, `/api/health`, `/api/products/bulk`, `/api/reviews`, `/api/orders`, `/api/visitors`, `/api/consultations`)
+- **Render Blueprint**: `render.yaml` (Build: `npm install`, Start: `npm start`, Health: `/healthz`)
 - **Database Seeder**: `seed_db.js` (`npm run seed`)
-- **Frontend Sync Layer**: `db-sync.js` (Auto-syncs catalog, orders, visitors, and consultations with resilient localStorage fallback)
-- **Collections**: `products`, `orders`, `visitors`, `consultations`, `settings`, `hero_banners`
+- **Frontend Sync Layer**: `db-sync.js` (Auto-resolves Render URL from `localStorage` or `window.PERFUME_BACKEND_URL`, with resilient localStorage fallback)
+- **Admin Cloud Desk**: Integrated in both `superadmin.html` and `admin.html` for 1-click Render connection test, bulk product push to MongoDB Atlas, and live remote catalog pull.
+- **Collections**: `products`, `orders`, `visitors`, `consultations`, `settings`, `hero_banners`, `reviews`
 
 ## Google OAuth & Identity Services Integration
 - **Client ID**: `269277017328-r3olvtqb8nf91rbqifpmchbpflkceves.apps.googleusercontent.com`

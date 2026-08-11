@@ -8,29 +8,69 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({ origin: '*' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname)));
 
 let db = null;
 let client = null;
+let isConnecting = false;
 
-// Connect to MongoDB Atlas
+// Connect to MongoDB Atlas with auto-retry
 async function connectDB() {
+  if (isConnecting || db) return;
+  if (!MONGODB_URI) {
+    console.warn('⚠️ MONGODB_URI is not defined in environment variables.');
+    return;
+  }
+  isConnecting = true;
   try {
-    client = new MongoClient(MONGODB_URI);
+    console.log('🔄 Connecting to MongoDB Atlas Cluster...');
+    client = new MongoClient(MONGODB_URI, {
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 10000
+    });
     await client.connect();
     db = client.db('perfumeshope');
     console.log('🍃 Connected to MongoDB Atlas Database: perfumeshope');
   } catch (err) {
     console.error('❌ MongoDB Atlas Connection Error:', err.message);
+    db = null;
+    // Auto-retry connection after 10 seconds
+    setTimeout(connectDB, 10000);
+  } finally {
+    isConnecting = false;
   }
 }
 
-// Middleware to ensure DB connection
-app.use((req, res, next) => {
+// 0. Render & Healthcheck Endpoints (Bypasses DB check so Render deployment passes immediately)
+app.get('/healthz', (req, res) => {
+  res.status(200).json({
+    status: 'online',
+    service: 'Perfume Shope API Backend',
+    mongoConnected: !!db,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Middleware to ensure DB connection for DB-dependent routes
+app.use('/api', (req, res, next) => {
+  if (req.path === '/health' && !db) {
+    return res.json({
+      status: 'starting',
+      database: 'MongoDB Atlas',
+      mongoConnected: false,
+      message: 'Connecting to MongoDB Atlas. Ensure 0.0.0.0/0 is added in MongoDB Atlas Network Access.'
+    });
+  }
   if (!db) {
-    return res.status(503).json({ error: 'MongoDB Atlas service initializing. Please retry in a moment.' });
+    // Trigger reconnection attempt if idle
+    connectDB();
+    return res.status(503).json({
+      error: 'MongoDB Atlas service initializing or connecting. Please retry in a moment.',
+      mongoConnected: false
+    });
   }
   next();
 });
@@ -206,14 +246,56 @@ app.put('/api/style', async (req, res) => {
   }
 });
 
-// Fallback Route for SPA
-app.get('*', (req, res) => {
+// 8. Bulk Product Sync (Push Local Catalog to MongoDB in 1-Click)
+app.post('/api/products/bulk', async (req, res) => {
+  try {
+    const products = req.body;
+    if (!Array.isArray(products) || products.length === 0) {
+      return res.status(400).json({ error: 'Array of products is required' });
+    }
+    const operations = products.map(p => ({
+      updateOne: {
+        filter: { id: p.id },
+        update: { $set: p },
+        upsert: true
+      }
+    }));
+    const result = await db.collection('products').bulkWrite(operations);
+    res.json({ success: true, count: products.length, result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 9. Verified Customer Reviews
+app.get('/api/reviews', async (req, res) => {
+  try {
+    const reviews = await db.collection('reviews').find({}).sort({ date: -1 }).toArray();
+    res.json(reviews);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/reviews', async (req, res) => {
+  try {
+    const review = req.body;
+    if (!review.id) review.id = 'rev-' + Date.now();
+    review.date = review.date || new Date().toISOString();
+    await db.collection('reviews').insertOne(review);
+    res.status(201).json({ success: true, review });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Fallback Route for SPA (Express 5 compatible)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Start Server
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Perfume Shope MongoDB Backend Server running on http://localhost:${PORT}`);
-  });
+// Start Server immediately so cloud platforms (Render, Railway, etc.) detect the open PORT instantly
+app.listen(PORT, () => {
+  console.log(`🚀 Perfume Shope Backend Server listening on port ${PORT}`);
+  connectDB();
 });
