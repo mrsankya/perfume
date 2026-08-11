@@ -2153,9 +2153,9 @@ function generateProductCardHTML(p, isSliderCard = false) {
   return `
     <div onclick="openProductModal('${p.id}')" class="${isSliderCard ? 'category-slider-card' : ''} theme-card rounded-3xl p-4 border theme-border flex flex-col justify-between space-y-3 group hover:border-gray-400 transition-all cursor-pointer">
       
-      <!-- Image & Badges -->
-      <div class="relative rounded-2xl overflow-hidden aspect-square bg-black/20">
-        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+      <!-- Image & Badges with 3D Pop-Out Hover -->
+      <div class="product-card-img-wrapper">
+        <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80';">
         
         <span class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider theme-badge shadow-sm">
           ${p.badge || 'Bestseller'}
@@ -2839,7 +2839,7 @@ function renderDetailImageGallery() {
     if (detailProductImages.length > 1) {
       thumbsRow.classList.remove('hidden');
       thumbsRow.innerHTML = detailProductImages.map((imgUrl, idx) => `
-        <button type="button" onclick="selectDetailProductImage(${idx})" class="w-12 h-12 rounded-xl overflow-hidden border-2 transition-all shrink-0 aspect-square ${idx === detailProductImageIndex ? 'border-[#C59B27] ring-2 ring-[#C59B27]/40 scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}">
+        <button type="button" onclick="selectDetailProductImage(${idx})" class="modal-thumb-pop w-12 h-12 rounded-xl overflow-hidden border-2 transition-all shrink-0 aspect-square ${idx === detailProductImageIndex ? 'border-[#C59B27] ring-2 ring-[#C59B27]/40 scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}">
           <img src="${imgUrl}" alt="Thumbnail ${idx + 1}" class="w-full h-full object-cover">
         </button>
       `).join('');

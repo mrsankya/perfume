@@ -1217,9 +1217,11 @@ function removeSuperProductImage(index) {
 }
 
 function setSuperProductCoverImage(index) {
-  if (index > 0 && index < superProductImages.length) {
-    const item = superProductImages.splice(index, 1)[0];
-    superProductImages.unshift(item);
+  if (index >= 0 && index < superProductImages.length) {
+    if (index !== 0) {
+      const item = superProductImages.splice(index, 1)[0];
+      superProductImages.unshift(item);
+    }
     renderSuperProductImagesGallery();
     showToast('Cover photo updated! ⭐', 'success');
   }
@@ -1241,7 +1243,7 @@ function renderSuperProductImagesGallery() {
   }
 
   if (countText) {
-    countText.innerText = `${superProductImages.length} Photo(s) (${superProductImages.length > 0 ? 'First photo is primary catalog cover' : 'No photos added yet'})`;
+    countText.innerText = `${superProductImages.length} Photo(s) (${superProductImages.length > 0 ? 'Click any photo to make it the Primary Cover ⭐' : 'No photos added yet'})`;
   }
 
   if (superProductImages.length === 0) {
@@ -1255,26 +1257,32 @@ function renderSuperProductImagesGallery() {
   }
 
   grid.innerHTML = superProductImages.map((imgUrl, idx) => `
-    <div class="relative group rounded-xl overflow-hidden border ${idx === 0 ? 'border-[#C59B27] ring-1 ring-[#C59B27]/40 shadow-md' : 'border-gray-800'} bg-[#1C1511] aspect-square flex flex-col justify-between">
-      <img src="${imgUrl}" alt="Product Image #${idx + 1}" class="w-full h-full object-cover">
+    <div onclick="setSuperProductCoverImage(${idx})" class="admin-gallery-card ${idx === 0 ? 'is-cover' : ''} flex flex-col justify-between p-1.5" title="${idx === 0 ? 'Current Primary Cover Photo' : 'Click to make this the Primary Cover Photo'}">
+      <img src="${imgUrl}" alt="Product Image #${idx + 1}">
       
-      ${idx === 0 ? `
-        <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-[#C59B27] text-[#120D0A] font-extrabold text-[8px] uppercase tracking-wider shadow-sm flex items-center gap-0.5">
-          <i class="fa-solid fa-star text-[7px]"></i> Cover
-        </span>
-      ` : `
-        <button type="button" onclick="setSuperProductCoverImage(${idx})" title="Set as Cover Photo" class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-black/70 hover:bg-[#C59B27] hover:text-[#120D0A] text-white text-[8px] font-bold opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
-          Make Cover
+      <!-- Top Badges & Actions -->
+      <div class="absolute top-1.5 inset-x-1.5 flex items-center justify-between pointer-events-none">
+        ${idx === 0 ? `
+          <span class="px-2 py-0.5 rounded-md bg-[#C59B27] text-[#120D0A] font-extrabold text-[9px] uppercase tracking-wider shadow-md flex items-center gap-1">
+            <i class="fa-solid fa-crown text-[8px]"></i> Cover
+          </span>
+        ` : `
+          <button type="button" onclick="event.stopPropagation(); setSuperProductCoverImage(${idx})" title="Set as Cover Photo" class="pointer-events-auto px-1.5 py-0.5 rounded-md bg-black/80 hover:bg-[#C59B27] hover:text-[#120D0A] text-gray-200 text-[8px] font-bold transition-all shadow-sm backdrop-blur-sm border border-gray-700">
+            <i class="fa-solid fa-star text-yellow-400"></i> Set Cover
+          </button>
+        `}
+
+        <button type="button" onclick="event.stopPropagation(); removeSuperProductImage(${idx})" title="Delete Image" class="pointer-events-auto w-5 h-5 rounded-md bg-red-950/90 hover:bg-red-600 text-red-300 hover:text-white flex items-center justify-center text-[9px] transition-all shadow-sm border border-red-800/50">
+          <i class="fa-solid fa-trash"></i>
         </button>
-      `}
+      </div>
 
-      <button type="button" onclick="removeSuperProductImage(${idx})" title="Delete Image" class="absolute top-1 right-1 w-5 h-5 rounded-md bg-red-950/80 hover:bg-red-600 text-red-300 hover:text-white flex items-center justify-center text-[9px] opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-
-      <span class="absolute bottom-1 right-1 px-1.5 py-0.2 rounded bg-black/60 text-gray-300 text-[8px] font-mono backdrop-blur-sm">
-        #${idx + 1}
-      </span>
+      <!-- Bottom Index & Caption -->
+      <div class="absolute bottom-1.5 inset-x-1.5 flex items-center justify-between pointer-events-none">
+        <span class="px-1.5 py-0.5 rounded bg-black/75 text-gray-200 text-[8px] font-mono backdrop-blur-sm border border-white/10">
+          ${idx === 0 ? '⭐ Primary' : `#${idx + 1}`}
+        </span>
+      </div>
     </div>
   `).join('');
 }

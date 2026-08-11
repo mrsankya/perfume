@@ -106,6 +106,9 @@
     - Dedicated mobile header row with compact glowing crown logo, tactile action cluster (Track, Google Sign-In, Cart with badge count), and responsive single-line announcement ticker.
     - Touch-optimized segmented sub-header gender switcher pills (`👑 All` • `🌸 Women` • `⚡ Men`) on phones with smooth theme transitions.
     - Upgraded luxury mobile footer with 1-tap WhatsApp Scent Concierge, direct boutique call, live Pune store hours badge (`🟢 Open Today: 10:30 AM - 10:00 PM IST`), Google Maps directions, 2-column mobile vault navigation, and safe-area floating bottom dock spacing.
+19. **⭐ 1-Click Primary Cover Image Selector & 3D Pop-Out Hover Animations**:
+    - In Super Admin and Staff Admin product modals, admins can upload multiple photos and set ANY photo as the Primary Cover Image with 1-click (`⭐ Set as Cover`), automatically elevating it to position #1 with a glowing gold crown badge.
+    - Added fluid 3D Pop-Out animations on cursor hover across all product flacon images, gallery cards (`.admin-gallery-card`), category sliders, and quickview modal thumbnails (`transform: scale(1.09) translateY(-4px)`, shadow lift, and gold edge glow).
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:
