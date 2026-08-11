@@ -201,38 +201,45 @@ const INITIAL_CELEBRITIES = [
 ];
 
 async function seedDatabase() {
-  console.log('🌱 Starting MongoDB Atlas Database Initialization...');
+  console.log('🌱 Starting Safe MongoDB Atlas Database Initialization...');
   const client = new MongoClient(uri);
 
   try {
     await client.connect();
     const db = client.db('perfumeshope');
 
-    // 1. Products Collection
+    // 1. Products Collection - NEVER wipe existing products, only insert if missing
     const productsCol = db.collection('products');
-    await productsCol.deleteMany({});
-    await productsCol.insertMany(INITIAL_PRODUCTS);
-    console.log(`✅ Seeded ${INITIAL_PRODUCTS.length} luxury fragrances into 'products' collection.`);
+    const existingCount = await productsCol.countDocuments();
+    if (existingCount === 0) {
+      await productsCol.insertMany(INITIAL_PRODUCTS);
+      console.log(`✅ Seeded initial ${INITIAL_PRODUCTS.length} fragrances into empty 'products' collection.`);
+    } else {
+      console.log(`🔒 Preserved ${existingCount} existing products in MongoDB Atlas (zero data loss).`);
+    }
 
-    // 2. Settings Collection
+    // 2. Settings Collection - Preserves existing settings and celebrity wardrobes
     const settingsCol = db.collection('settings');
-    await settingsCol.deleteMany({});
-    await settingsCol.insertOne(INITIAL_SETTINGS);
     await settingsCol.updateOne(
-      { id: 'celebrity_wardrobes' },
-      { $set: { id: 'celebrity_wardrobes', list: INITIAL_CELEBRITIES, updatedAt: new Date().toISOString() } },
+      { id: 'store_config' },
+      { $setOnInsert: INITIAL_SETTINGS },
       { upsert: true }
     );
-    console.log(`✅ Seeded store configuration & ${INITIAL_CELEBRITIES.length} celebrity wardrobes into 'settings' collection.`);
+    await settingsCol.updateOne(
+      { id: 'celebrity_wardrobes' },
+      { $setOnInsert: { id: 'celebrity_wardrobes', list: INITIAL_CELEBRITIES, updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    );
+    console.log(`✅ Preserved/Initialized master store configuration and celebrity wardrobes.`);
 
     // 3. Ensure Indexes
     await productsCol.createIndex({ id: 1 }, { unique: true });
     await db.collection('orders').createIndex({ id: 1 }, { unique: true });
     await db.collection('visitors').createIndex({ phone: 1 });
     await db.collection('consultations').createIndex({ id: 1 }, { unique: true });
-    console.log('✅ Created unique database indexes.');
+    console.log('✅ Verified unique database indexes.');
 
-    console.log('🎉 MongoDB Atlas Database is fully seeded and ready for production!');
+    console.log('🎉 MongoDB Atlas Database is secure and ready for production!');
   } catch (err) {
     console.error('❌ Seeding Failed:', err);
   } finally {
