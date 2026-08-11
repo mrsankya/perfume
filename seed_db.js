@@ -115,6 +115,7 @@ const INITIAL_PRODUCTS = [
 ];
 
 const INITIAL_SETTINGS = {
+  id: 'store_config',
   storeName: 'PERFUME SHOPE',
   tagline: 'Haute Parfumerie & Luxury Attars • India',
   gstNumber: '27AAAAA0000A1Z5',
@@ -127,6 +128,77 @@ const INITIAL_SETTINGS = {
   announcementActive: true,
   siteStyle: 'artisan-minimal'
 };
+
+const INITIAL_CELEBRITIES = [
+  {
+    id: 'celeb-srk',
+    name: 'Shah Rukh Khan',
+    tagline: 'The King of Bollywood Signature Layering',
+    subtitle: 'SRK’s iconic blend of smoky Mysore Sandalwood + spicy Woody Amber',
+    badge: '👑 King Khan’s Scent Signature',
+    rating: '5.0',
+    ratingCount: '2.4k+ Fans • 99% Compliments',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'MYSORE CHANDAN ROYALE + TURATHI BROWN',
+    perfumeBrand: 'Reserve & Afnan Duo',
+    quote: '"I always layer two fragrances: a rich woody oriental base with a fresh peppery leather top note."',
+    regularPrice: 7399,
+    comboPrice: 6599,
+    savings: 800
+  },
+  {
+    id: 'celeb-virat',
+    name: 'Virat Kohli',
+    tagline: 'The Alpha Captain Beast-Mode Signature',
+    subtitle: 'Intense Spiced Tobacco Vanilla layered with Royal Dehn Al Oud',
+    badge: '🏏 Alpha Champion Sillage',
+    rating: '4.9',
+    ratingCount: '1.9k+ Fans • 98% Longevity',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&auto=format&fit=crop&q=80',
+    perfumeName: "KHAMRAH D'OR + OUD SUPRÊME",
+    perfumeBrand: 'Lattafa & Rasasi Duo',
+    quote: '"For me, performance is everything. My scent has to project for 16+ hours even in extreme heat."',
+    regularPrice: 6398,
+    comboPrice: 5598,
+    savings: 800
+  },
+  {
+    id: 'celeb-deepika',
+    name: 'Deepika Padukone',
+    tagline: 'Royal Grace & Haute Rose Extrait',
+    subtitle: 'Kashmiri Damascene Rose Petals blended with Bourbon Vanilla Gourmand',
+    badge: '🌸 Queen of Grace Wardrobe',
+    rating: '5.0',
+    ratingCount: '3.1k+ Fans • 100% Sillage Trail',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'DELINA EXCLUSIF + YARA BLUSH',
+    perfumeBrand: 'Parfums de Marly & Lattafa',
+    quote: '"A fragrance should be like a silk saree—ethereal, lasting, and leaving an unforgettable floral trail."',
+    regularPrice: 10998,
+    comboPrice: 10198,
+    savings: 800
+  },
+  {
+    id: 'celeb-tony',
+    name: 'Marvel Titan / Tony Stark',
+    tagline: 'Billionaire Tech & High-Voltage Sillage',
+    subtitle: 'Smoky Birch Creed Aventus paired with Aquatic Grey Amber Beast Mode',
+    badge: '⚡ Titanium Arc Reactor Duo',
+    rating: '4.9',
+    ratingCount: '2.8k+ Fans • Beast Mode Projection',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=80',
+    perfumeImage: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80',
+    perfumeName: 'CLUB DE NUIT INTENSE + HAWAS',
+    perfumeBrand: 'Armaf & Rasasi Duo',
+    quote: '"Jarvis, set sillage projection to maximum overload. Unapologetic power."',
+    regularPrice: 7598,
+    comboPrice: 6798,
+    savings: 800
+  }
+];
 
 async function seedDatabase() {
   console.log('🌱 Starting MongoDB Atlas Database Initialization...');
@@ -146,7 +218,12 @@ async function seedDatabase() {
     const settingsCol = db.collection('settings');
     await settingsCol.deleteMany({});
     await settingsCol.insertOne(INITIAL_SETTINGS);
-    console.log(`✅ Seeded master store configuration into 'settings' collection.`);
+    await settingsCol.updateOne(
+      { id: 'celebrity_wardrobes' },
+      { $set: { id: 'celebrity_wardrobes', list: INITIAL_CELEBRITIES, updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    );
+    console.log(`✅ Seeded store configuration & ${INITIAL_CELEBRITIES.length} celebrity wardrobes into 'settings' collection.`);
 
     // 3. Ensure Indexes
     await productsCol.createIndex({ id: 1 }, { unique: true });

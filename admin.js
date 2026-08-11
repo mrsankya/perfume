@@ -1368,59 +1368,45 @@ function previewAdminCelebPerfumeImageUrl(url) {
   if (preview && url) preview.src = url;
 }
 
-function handleAdminCelebImageUpload(input) {
+async function handleAdminCelebImageUpload(input) {
   if (input.files && input.files[0]) {
     const file = input.files[0];
-    document.getElementById('admin-celeb-image-file-name').innerText = file.name;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const max = 800;
-        let w = img.width;
-        let h = img.height;
-        if (w > h && w > max) { h = (h * max) / w; w = max; }
-        else if (h > max) { w = (w * max) / h; h = max; }
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
-        const compressedData = canvas.toDataURL('image/jpeg', 0.85);
-        document.getElementById('admin-celeb-input-image-url').value = compressedData;
-        document.getElementById('admin-celeb-image-preview').src = compressedData;
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+    const nameEl = document.getElementById('admin-celeb-image-file-name');
+    if (nameEl) nameEl.innerText = file.name;
+    try {
+      showToast('Compressing & loading celebrity portrait... 📸', 'info');
+      const result = await processImageFile(file, 900, 900, 0.85);
+      if (result && result.dataUrl) {
+        document.getElementById('admin-celeb-input-image-url').value = result.dataUrl;
+        const preview = document.getElementById('admin-celeb-image-preview');
+        if (preview) preview.src = result.dataUrl;
+        showToast('Celebrity portrait loaded! ✨', 'success');
+      }
+    } catch (err) {
+      console.warn('Admin celeb image error:', err);
+      showToast('Failed to process celebrity portrait', 'error');
+    }
   }
 }
 
-function handleAdminCelebPerfumeImageUpload(input) {
+async function handleAdminCelebPerfumeImageUpload(input) {
   if (input.files && input.files[0]) {
     const file = input.files[0];
-    document.getElementById('admin-celeb-perfume-image-file-name').innerText = file.name;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const max = 800;
-        let w = img.width;
-        let h = img.height;
-        if (w > h && w > max) { h = (h * max) / w; w = max; }
-        else if (h > max) { w = (w * max) / h; h = max; }
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
-        const compressedData = canvas.toDataURL('image/jpeg', 0.85);
-        document.getElementById('admin-celeb-input-perfume-image-url').value = compressedData;
-        document.getElementById('admin-celeb-perfume-image-preview').src = compressedData;
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+    const nameEl = document.getElementById('admin-celeb-perfume-image-file-name');
+    if (nameEl) nameEl.innerText = file.name;
+    try {
+      showToast('Compressing & loading perfume photo... 🧴', 'info');
+      const result = await processImageFile(file, 900, 900, 0.85);
+      if (result && result.dataUrl) {
+        document.getElementById('admin-celeb-input-perfume-image-url').value = result.dataUrl;
+        const preview = document.getElementById('admin-celeb-perfume-image-preview');
+        if (preview) preview.src = result.dataUrl;
+        showToast('Perfume photo loaded! ✨', 'success');
+      }
+    } catch (err) {
+      console.warn('Admin celeb perfume image error:', err);
+      showToast('Failed to process perfume photo', 'error');
+    }
   }
 }
 
