@@ -3462,26 +3462,62 @@ function getStoredVideoConfig() {
   return { ...DEFAULT_STOREFRONT_VIDEO_CONFIG };
 }
 
+function parseYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+  url = url.trim();
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
 function initGlobalVideoShowcase() {
   const cfg = getStoredVideoConfig();
   const placement = cfg.placement || 'section';
   const videoSrc = cfg.videoSrc || 'videos/animo-orbit-globe-720p.mp4';
+  const ytId = parseYouTubeId(videoSrc);
 
   const sectionEl = document.getElementById('global-sourcing-video-section');
   const heroVideoEl = document.getElementById('hero-bg-video');
   const floatingWidgetEl = document.getElementById('floating-orbit-globe-widget');
   const globalVideoEl = document.getElementById('global-sourcing-video');
+  const globalYtIframeEl = document.getElementById('global-sourcing-youtube-iframe');
+  const formatBadgeEl = document.getElementById('global-video-format-badge');
+  const customControlsEl = document.getElementById('global-video-custom-controls');
+  const soundBtnEl = document.getElementById('video-sound-toggle-btn');
   const floatingVideoEl = document.getElementById('floating-orbit-globe-video');
-  const modalVideoEl = document.getElementById('modal-orbit-globe-video');
 
-  // Set Sources
-  [globalVideoEl, heroVideoEl, floatingVideoEl, modalVideoEl].forEach(v => {
-    if (v) {
-      if (v.src !== videoSrc && !v.src.endsWith(videoSrc)) {
-        v.src = videoSrc;
+  // Video / YouTube Rendering in Section
+  if (ytId) {
+    if (globalVideoEl) {
+      globalVideoEl.pause();
+      globalVideoEl.classList.add('hidden');
+    }
+    if (globalYtIframeEl) {
+      globalYtIframeEl.classList.remove('hidden');
+      const embedUrl = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=1&rel=0&modestbranding=1`;
+      if (globalYtIframeEl.src !== embedUrl) {
+        globalYtIframeEl.src = embedUrl;
       }
     }
-  });
+    if (formatBadgeEl) formatBadgeEl.textContent = 'YouTube 4K • Global Origins & Sourcing';
+    if (customControlsEl) customControlsEl.classList.add('hidden');
+    if (soundBtnEl) soundBtnEl.classList.add('hidden');
+  } else {
+    if (globalYtIframeEl) {
+      globalYtIframeEl.src = '';
+      globalYtIframeEl.classList.add('hidden');
+    }
+    if (globalVideoEl) {
+      globalVideoEl.classList.remove('hidden');
+      if (videoSrc && !globalVideoEl.src.endsWith(videoSrc)) {
+        globalVideoEl.src = videoSrc;
+      }
+      globalVideoEl.play().catch(() => {});
+    }
+    if (formatBadgeEl) formatBadgeEl.textContent = 'HD 720p • Global Origin Orbit';
+    if (customControlsEl) customControlsEl.classList.remove('hidden');
+    if (soundBtnEl) soundBtnEl.classList.remove('hidden');
+  }
 
   // Set Text Copy
   const badgeEl = document.getElementById('video-showcase-badge');
@@ -3493,7 +3529,11 @@ function initGlobalVideoShowcase() {
   if (titleEl) titleEl.textContent = cfg.title;
   if (descEl) descEl.textContent = cfg.desc;
   if (overlayTintEl) {
-    overlayTintEl.style.backgroundColor = `rgba(0,0,0,${(cfg.overlayOpacity || 40) / 100})`;
+    if (ytId) {
+      overlayTintEl.style.backgroundColor = 'transparent';
+    } else {
+      overlayTintEl.style.backgroundColor = `rgba(0,0,0,${(cfg.overlayOpacity || 40) / 100})`;
+    }
   }
 
   // Handle Placements
@@ -3505,6 +3545,9 @@ function initGlobalVideoShowcase() {
     if (sectionEl) sectionEl.classList.add('hidden');
     if (heroVideoEl) {
       heroVideoEl.classList.remove('hidden');
+      if (videoSrc && !heroVideoEl.src.endsWith(videoSrc) && !ytId) {
+        heroVideoEl.src = videoSrc;
+      }
       heroVideoEl.play().catch(() => {});
     }
     if (floatingWidgetEl) floatingWidgetEl.classList.add('hidden');
@@ -3513,23 +3556,19 @@ function initGlobalVideoShowcase() {
     if (heroVideoEl) heroVideoEl.classList.add('hidden');
     if (floatingWidgetEl) {
       floatingWidgetEl.classList.remove('hidden');
-      if (floatingVideoEl) floatingVideoEl.play().catch(() => {});
+      if (floatingVideoEl && !ytId) floatingVideoEl.play().catch(() => {});
     }
   } else if (placement === 'both_section_floating') {
     if (sectionEl) sectionEl.classList.remove('hidden');
     if (heroVideoEl) heroVideoEl.classList.add('hidden');
     if (floatingWidgetEl) {
       floatingWidgetEl.classList.remove('hidden');
-      if (floatingVideoEl) floatingVideoEl.play().catch(() => {});
+      if (floatingVideoEl && !ytId) floatingVideoEl.play().catch(() => {});
     }
   } else if (placement === 'none') {
     if (sectionEl) sectionEl.classList.add('hidden');
     if (heroVideoEl) heroVideoEl.classList.add('hidden');
     if (floatingWidgetEl) floatingWidgetEl.classList.add('hidden');
-  }
-
-  if (globalVideoEl && !globalVideoEl.paused) {
-    globalVideoEl.play().catch(() => {});
   }
 }
 
@@ -3574,18 +3613,42 @@ function toggleGlobalVideoFullscreen() {
 function openOrbitGlobeModal() {
   const modal = document.getElementById('orbit-globe-modal');
   const modalVideo = document.getElementById('modal-orbit-globe-video');
+  const modalIframe = document.getElementById('modal-youtube-iframe');
+  const cfg = getStoredVideoConfig();
+  const ytId = parseYouTubeId(cfg.videoSrc);
+
   if (modal) {
     modal.classList.remove('hidden');
-    if (modalVideo) modalVideo.play().catch(() => {});
+    if (ytId) {
+      if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.classList.add('hidden');
+      }
+      if (modalIframe) {
+        modalIframe.classList.remove('hidden');
+        modalIframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=0&controls=1`;
+      }
+    } else {
+      if (modalIframe) {
+        modalIframe.src = '';
+        modalIframe.classList.add('hidden');
+      }
+      if (modalVideo) {
+        modalVideo.classList.remove('hidden');
+        modalVideo.play().catch(() => {});
+      }
+    }
   }
 }
 
 function closeOrbitGlobeModal() {
   const modal = document.getElementById('orbit-globe-modal');
   const modalVideo = document.getElementById('modal-orbit-globe-video');
+  const modalIframe = document.getElementById('modal-youtube-iframe');
   if (modal) {
     modal.classList.add('hidden');
     if (modalVideo) modalVideo.pause();
+    if (modalIframe) modalIframe.src = '';
   }
 }
 

@@ -2483,6 +2483,62 @@ function getStoredVideoSettings() {
   return { ...DEFAULT_VIDEO_SETTINGS };
 }
 
+function parseYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+  url = url.trim();
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+function updateSuperVideoPreview(src) {
+  src = (src || '').trim();
+  const videoEl = document.getElementById('super-preview-video');
+  const iframeEl = document.getElementById('super-preview-youtube-iframe');
+  const labelEl = document.getElementById('super-preview-source-label');
+  const ytId = parseYouTubeId(src);
+
+  if (ytId) {
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.classList.add('hidden');
+    }
+    if (iframeEl) {
+      iframeEl.classList.remove('hidden');
+      const embedUrl = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=1&rel=0&modestbranding=1`;
+      if (iframeEl.src !== embedUrl) {
+        iframeEl.src = embedUrl;
+      }
+    }
+    if (labelEl) labelEl.textContent = `📺 YouTube Embed: ${ytId}`;
+  } else {
+    if (iframeEl) {
+      iframeEl.src = '';
+      iframeEl.classList.add('hidden');
+    }
+    if (videoEl) {
+      videoEl.classList.remove('hidden');
+      if (src && (!videoEl.src.endsWith(src))) {
+        videoEl.src = src;
+      }
+      videoEl.play().catch(() => {});
+    }
+    if (labelEl) labelEl.textContent = `🎥 MP4 File: ${src.split('/').pop() || src}`;
+  }
+}
+
+function handleSuperVideoSrcChange(val) {
+  updateSuperVideoPreview(val);
+}
+
+function setSuperVideoPreset(src) {
+  const srcInp = document.getElementById('super-video-src');
+  if (srcInp) {
+    srcInp.value = src;
+    updateSuperVideoPreview(src);
+  }
+}
+
 function initSuperVideoSettings() {
   const cfg = getStoredVideoSettings();
   
@@ -2509,6 +2565,8 @@ function initSuperVideoSettings() {
   if (overlaySlider) overlaySlider.value = cfg.overlayOpacity;
   if (overlayVal) overlayVal.textContent = cfg.overlayOpacity + '%';
   if (previewOverlay) previewOverlay.style.opacity = (cfg.overlayOpacity / 100).toString();
+
+  updateSuperVideoPreview(cfg.videoSrc);
 
   // Active Placement Badge
   const badge = document.getElementById('super-video-active-placement-badge');

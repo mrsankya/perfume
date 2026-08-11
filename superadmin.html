@@ -651,14 +651,30 @@
             <!-- 3. MEDIA PATH & PLAYBACK OPTIONS -->
             <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3">
               <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block flex items-center gap-2">
-                <i class="fa-solid fa-gear"></i>
-                <span>3. Video File Path & Overlay Opacity</span>
+                <i class="fa-solid fa-film"></i>
+                <span>3. Video Source (YouTube URL or Local MP4)</span>
               </span>
 
               <div>
-                <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Video Source File / URL</label>
-                <input type="text" id="super-video-src" value="videos/animo-orbit-globe-720p.mp4" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono focus:border-[#C59B27] outline-none">
-                <p class="text-[10px] text-gray-500 mt-1">Local high-def file: <code class="text-white bg-black/40 px-1 py-0.5 rounded">videos/animo-orbit-globe-720p.mp4</code></p>
+                <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Video Source URL / File Path</label>
+                <input type="text" id="super-video-src" value="videos/animo-orbit-globe-720p.mp4" oninput="handleSuperVideoSrcChange(this.value)" placeholder="e.g. https://www.youtube.com/watch?v=... or videos/animo-orbit-globe-720p.mp4" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:border-[#C59B27] outline-none">
+                
+                <!-- Quick Preset Buttons -->
+                <div class="flex flex-wrap items-center gap-1.5 pt-2">
+                  <span class="text-[10px] text-gray-400 font-medium mr-1">⚡ Quick Presets:</span>
+                  <button type="button" onclick="setSuperVideoPreset('videos/animo-orbit-globe-720p.mp4')" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-[#231B17] border border-gray-700 hover:border-[#C59B27] text-gray-300 hover:text-white flex items-center gap-1">
+                    <i class="fa-solid fa-earth-americas text-[#C59B27]"></i> 3D Orbit Globe (MP4)
+                  </button>
+                  <button type="button" onclick="setSuperVideoPreset('https://www.youtube.com/watch?v=0kF41yM8p6c')" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-[#231B17] border border-gray-700 hover:border-red-500 text-gray-300 hover:text-white flex items-center gap-1">
+                    <i class="fa-brands fa-youtube text-red-500"></i> YouTube Dubai Oud
+                  </button>
+                  <button type="button" onclick="setSuperVideoPreset('https://www.youtube.com/watch?v=kYJzB8zD8xU')" class="px-2.5 py-1 rounded-lg text-[10px] font-semibold bg-[#231B17] border border-gray-700 hover:border-red-500 text-gray-300 hover:text-white flex items-center gap-1">
+                    <i class="fa-brands fa-youtube text-red-500"></i> YouTube Grasse Rose
+                  </button>
+                </div>
+                <p class="text-[10px] text-gray-400 mt-2">
+                  <i class="fa-solid fa-circle-info text-[#C59B27] mr-1"></i> Paste any standard YouTube link, Shorts link, or local MP4 path. The player will automatically switch to high-performance YouTube Embed mode.
+                </p>
               </div>
 
               <!-- Overlay Darkness Slider -->
@@ -686,19 +702,24 @@
                 </span>
               </div>
 
-              <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-gray-700 shadow-xl">
+              <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-gray-700 shadow-xl flex items-center justify-center">
+                <!-- Local MP4 Video -->
                 <video id="super-preview-video" autoplay loop muted playsinline class="w-full h-full object-cover">
                   <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
                 </video>
-                <div id="super-preview-overlay" class="absolute inset-0 bg-black/40 pointer-events-none transition-opacity"></div>
-                <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
-                  <span class="px-2 py-0.5 rounded bg-black/80 text-[10px] text-white font-mono">animo-orbit-globe-720p.mp4</span>
+
+                <!-- YouTube Embedded Preview -->
+                <iframe id="super-preview-youtube-iframe" class="hidden w-full h-full border-0 absolute inset-0 z-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                <div id="super-preview-overlay" class="absolute inset-0 bg-black/40 pointer-events-none transition-opacity z-10"></div>
+                <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none z-20">
+                  <span id="super-preview-source-label" class="px-2 py-0.5 rounded bg-black/80 text-[10px] text-white font-mono">Source: animo-orbit-globe-720p.mp4</span>
                 </div>
               </div>
 
               <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800 text-[11px] text-gray-400 space-y-1">
-                <span class="text-[#C59B27] font-semibold block">⚡ 1-Click Instant Preview:</span>
-                <p>Changes apply dynamically to your chosen storefront location as soon as you save.</p>
+                <span class="text-[#C59B27] font-semibold block">⚡ Real-Time YouTube Parsing:</span>
+                <p>Supports all formats: <code class="text-white bg-black/50 px-1 py-0.5 rounded">youtube.com/watch?v=...</code>, <code class="text-white bg-black/50 px-1 py-0.5 rounded">youtu.be/...</code>, and <code class="text-white bg-black/50 px-1 py-0.5 rounded">shorts/...</code></p>
               </div>
 
               <button type="button" onclick="saveSuperVideoSettings()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">

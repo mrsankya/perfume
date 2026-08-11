@@ -118,8 +118,9 @@
 22. **🖼️ Hero Banner Contrast Protection & Interactive Transparency / Darkness Overlay Slider**:
     - Protected hero typography (`#hero-title-text`, `#hero-badge-text`, `#hero-desc-text`, and buttons) with high-contrast luminous text-shadows, ensuring crystal-clear readability over photographic backgrounds in ALL themes.
     - Added an interactive **Storefront Banner Darkness & Transparency Slider** (0% clear to 95% deep velvet tint) in both **Super Admin** (`superadmin.html`) and **Staff Admin** (`admin.html`) with real-time live preview and cross-device synchronization.
-23. **🌍 3D Orbit Globe Video & Dynamic Storefront Placement Showcase Engine**:
-    - Added local high-def video asset `videos/animo-orbit-globe-720p.mp4` (41MB 3D animated orbit globe).
+23. **🌍 3D Orbit Globe & YouTube Video Showcase Engine (Multi-Format Support)**:
+    - Added local high-def video asset `videos/animo-orbit-globe-720p.mp4` (H.264 faststart 6MB 3D animated orbit globe).
+    - **YouTube Video Links & Shorts Parsing Support**: Admins can paste standard YouTube URLs (`youtube.com/watch?v=...`), Short URLs (`youtu.be/...`), Shorts (`youtube.com/shorts/...`), or embed links. The system automatically extracts the video ID and renders a high-performance, responsive YouTube embed iframe with live preview in Super Admin and Staff Admin.
     - Integrated a complete **Video Showcase Controller** in both **Super Admin** and **Staff Admin** allowing administrators to decide the exact storefront placement:
       - `🌍 Dedicated Global Sourcing Section`: Interactive luxury section between Products and Celebrity Wardrobes with play/pause, audio toggle, and fullscreen controls.
       - `👑 Hero Banner Background Video`: Looping cinematic orbit globe replacing hero photography.
