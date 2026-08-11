@@ -1369,6 +1369,9 @@ function handleHeroBannerSubmit(e) {
   }
 
   localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushBanners) {
+    MongoSync.pushBanners(heroBanners);
+  }
   closeHeroBannerModal();
   switchBannerManagerSection(section);
 }
@@ -1377,6 +1380,9 @@ function deleteHeroBannerSlide(section, index) {
   if (confirm(`Delete Slide #${index + 1} from ${section} section?`)) {
     heroBanners[section].splice(index, 1);
     localStorage.setItem('perfumes_hero_banners', JSON.stringify(heroBanners));
+    if (typeof MongoSync !== 'undefined' && MongoSync.pushBanners) {
+      MongoSync.pushBanners(heroBanners);
+    }
     recordAudit(`Deleted Slide #${index + 1} from ${section}`);
     renderHeroBannersManager();
     showToast(`Banner Slide removed`, 'info');
@@ -1470,8 +1476,8 @@ function getSuperCelebrityWardrobes() {
 
 function saveSuperCelebrityWardrobes(list) {
   localStorage.setItem('perfumes_celebrity_wardrobes', JSON.stringify(list));
-  if (typeof syncToAtlasCloud === 'function') {
-    syncToAtlasCloud('celebrities', list);
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushCelebrities) {
+    MongoSync.pushCelebrities(list);
   }
 }
 
@@ -1946,21 +1952,32 @@ function handleSuperProductSubmit(e) {
   const image = images[0];
   const inStock = document.getElementById('sp-stock').checked;
 
+  let savedProduct = null;
   if (editingProductId) {
     const idx = products.findIndex(p => p.id === editingProductId);
     if (idx !== -1) {
       products[idx] = { ...products[idx], name, brand, price, gender, accord, badge, notes, image, images, inStock };
+      savedProduct = products[idx];
       recordAudit(`Updated product '${name}' with ${images.length} images`);
       showToast(`Updated '${name}' (${images.length} photos) ✨`, 'success');
     }
   } else {
     const newId = 'p' + Date.now();
-    products.unshift({ id: newId, name, brand, price, gender, accord, badge, notes, image, images, inStock });
+    savedProduct = { id: newId, name, brand, price, gender, accord, badge, notes, image, images, inStock };
+    products.unshift(savedProduct);
     recordAudit(`Added product '${name}' with ${images.length} images`);
     showToast(`Added '${name}' (${images.length} photos) ✨`, 'success');
   }
 
   localStorage.setItem('perfumes_catalog', JSON.stringify(products));
+
+  // Push directly to MongoDB Atlas Cloud in real-time
+  if (savedProduct && typeof MongoSync !== 'undefined' && MongoSync.pushProduct) {
+    MongoSync.pushProduct(savedProduct).then(res => {
+      if (res) showToast(`Product '${name}' stored in MongoDB Atlas 🍃`, 'success');
+    });
+  }
+
   closeSuperProductModal();
   renderMasterInventory();
   renderAnalytics();
@@ -1973,6 +1990,12 @@ function deleteSuperProduct(id) {
   if (confirm(`Super Admin Action: Permanently delete '${item.name}'?`)) {
     products = products.filter(p => p.id !== id);
     localStorage.setItem('perfumes_catalog', JSON.stringify(products));
+
+    // Delete directly from MongoDB Atlas Cloud in real-time
+    if (typeof MongoSync !== 'undefined' && MongoSync.deleteProduct) {
+      MongoSync.deleteProduct(id);
+    }
+
     recordAudit(`Deleted product '${item.name}'`);
     renderMasterInventory();
     renderAnalytics();

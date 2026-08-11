@@ -9,8 +9,8 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static(path.join(__dirname)));
 
 let db = null;
@@ -284,6 +284,54 @@ app.post('/api/reviews', async (req, res) => {
     review.date = review.date || new Date().toISOString();
     await db.collection('reviews').insertOne(review);
     res.status(201).json({ success: true, review });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 10. Hero Banners
+app.get('/api/banners', async (req, res) => {
+  try {
+    const bannersDoc = await db.collection('hero_banners').findOne({ id: 'main_banners' });
+    res.json(bannersDoc ? bannersDoc.banners : null);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/banners', async (req, res) => {
+  try {
+    const banners = req.body;
+    await db.collection('hero_banners').updateOne(
+      { id: 'main_banners' },
+      { $set: { id: 'main_banners', banners, updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    );
+    res.status(201).json({ success: true, banners });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 11. Celebrity Wardrobes
+app.get('/api/celebrities', async (req, res) => {
+  try {
+    const celebDoc = await db.collection('settings').findOne({ id: 'celebrity_wardrobes' });
+    res.json(celebDoc ? celebDoc.list : null);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/celebrities', async (req, res) => {
+  try {
+    const list = req.body;
+    await db.collection('settings').updateOne(
+      { id: 'celebrity_wardrobes' },
+      { $set: { id: 'celebrity_wardrobes', list, updatedAt: new Date().toISOString() } },
+      { upsert: true }
+    );
+    res.status(201).json({ success: true, list });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

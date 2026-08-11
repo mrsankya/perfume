@@ -55,13 +55,13 @@ const MongoSync = (function() {
 
   async function checkHealth() {
     const apiBase = getApiBase();
-    if (!apiBase && typeof window !== 'undefined' && !window.location.origin.includes('localhost') && !window.location.origin.includes('127.0.0.1')) {
-      updateMongoIndicator(false, { message: 'No Render backend configured yet (using local storage)' });
+    if (!apiBase) {
+      updateMongoIndicator(false, { message: 'No backend configured' });
       return false;
     }
 
     try {
-      const res = await fetch(`${apiBase}/api/health`, { signal: AbortSignal.timeout(5000) });
+      const res = await fetch(`${apiBase}/api/health`, { signal: AbortSignal.timeout(6000) });
       if (res.ok) {
         const data = await res.json();
         isConnected = data.status === 'online' || data.mongoConnected === true;
@@ -89,14 +89,14 @@ const MongoSync = (function() {
     }
 
     // Also update any admin backend status pill if present
-    const adminStatusPill = document.getElementById('admin-render-status-badge');
+    const adminStatusPill = document.getElementById('admin-render-status-badge') || document.getElementById('render-cloud-status-badge');
     if (adminStatusPill) {
       if (online) {
         adminStatusPill.className = 'px-3 py-1 text-xs rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5';
-        adminStatusPill.innerHTML = `<i class="fas fa-check-circle text-emerald-400"></i> Render API & MongoDB Atlas Online`;
+        adminStatusPill.innerHTML = `<i class="fa-solid fa-cloud text-emerald-400"></i> Render API & MongoDB Atlas Online 🍃`;
       } else {
         adminStatusPill.className = 'px-3 py-1 text-xs rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1.5';
-        adminStatusPill.innerHTML = `<i class="fas fa-exclamation-triangle text-amber-400"></i> Local Storage Mode`;
+        adminStatusPill.innerHTML = `<i class="fa-solid fa-server text-amber-400"></i> Local Storage Mode`;
       }
     }
   }
@@ -106,15 +106,66 @@ const MongoSync = (function() {
     const apiBase = getApiBase();
     if (!apiBase) return null;
     try {
-      const res = await fetch(`${apiBase}/api/products`, { signal: AbortSignal.timeout(5000) });
+      const res = await fetch(`${apiBase}/api/products`, { signal: AbortSignal.timeout(6000) });
       if (res.ok) {
         const products = await res.json();
         if (Array.isArray(products) && products.length > 0) {
           localStorage.setItem('perfumes_catalog', JSON.stringify(products));
+          console.log(`🍃 Synced ${products.length} products from MongoDB Atlas Cloud`);
+
+          // Live UI re-renders
+          if (typeof setCatalogViewMode === 'function') {
+            const mode = localStorage.getItem('perfumes_catalog_view_mode') || 'slider';
+            setCatalogViewMode(mode);
+          }
+          if (typeof renderMasterInventory === 'function') renderMasterInventory();
+          if (typeof renderInventoryTable === 'function') renderInventoryTable();
+          if (typeof renderWizard === 'function') renderWizard();
+          if (typeof renderDiscoveryBoxBuilder === 'function') renderDiscoveryBoxBuilder();
           return products;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Could not sync products from MongoDB Atlas, using local cache:', e.message);
+    }
+    return null;
+  }
+
+  // Push single product (add or edit) directly to MongoDB Atlas
+  async function pushProduct(product) {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/products`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product)
+      });
+      if (res.ok) {
+        console.log(`🍃 Product '${product.name}' pushed directly to MongoDB Atlas!`);
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Failed to push product to MongoDB Atlas:', e.message);
+    }
+    return null;
+  }
+
+  // Delete single product directly from MongoDB Atlas
+  async function deleteProduct(productId) {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/products/${productId}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        console.log(`🍃 Product '${productId}' deleted from MongoDB Atlas!`);
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Failed to delete product from MongoDB Atlas:', e.message);
+    }
     return null;
   }
 
@@ -132,6 +183,83 @@ const MongoSync = (function() {
       throw new Error(err.error || 'Failed to bulk sync products');
     }
     return await res.json();
+  }
+
+  // Hero Banners Sync
+  async function syncBanners() {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/banners`, { signal: AbortSignal.timeout(6000) });
+      if (res.ok) {
+        const banners = await res.json();
+        if (banners && typeof banners === 'object') {
+          localStorage.setItem('perfumes_hero_banners', JSON.stringify(banners));
+          if (typeof initHeroSlider === 'function') initHeroSlider();
+          if (typeof renderHeroBannersManager === 'function') renderHeroBannersManager();
+          return banners;
+        }
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  async function pushBanners(banners) {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/banners`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(banners)
+      });
+      if (res.ok) {
+        console.log('🍃 Hero Banners synced to MongoDB Atlas!');
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Failed to push hero banners to MongoDB:', e.message);
+    }
+    return null;
+  }
+
+  // Celebrity Wardrobes Sync
+  async function syncCelebrities() {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/celebrities`, { signal: AbortSignal.timeout(6000) });
+      if (res.ok) {
+        const list = await res.json();
+        if (Array.isArray(list) && list.length > 0) {
+          localStorage.setItem('perfumes_celebrity_wardrobes', JSON.stringify(list));
+          if (typeof renderCelebrityWardrobes === 'function') renderCelebrityWardrobes();
+          if (typeof renderSuperCelebrityWardrobes === 'function') renderSuperCelebrityWardrobes();
+          if (typeof renderAdminCelebrityWardrobes === 'function') renderAdminCelebrityWardrobes();
+          return list;
+        }
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  async function pushCelebrities(list) {
+    const apiBase = getApiBase();
+    if (!apiBase) return null;
+    try {
+      const res = await fetch(`${apiBase}/api/celebrities`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(list)
+      });
+      if (res.ok) {
+        console.log('🍃 Celebrity Wardrobes synced to MongoDB Atlas!');
+        return await res.json();
+      }
+    } catch (e) {
+      console.warn('Failed to push celebrity wardrobes to MongoDB:', e.message);
+    }
+    return null;
   }
 
   // Push new order to MongoDB
@@ -216,6 +344,8 @@ const MongoSync = (function() {
       wakeBackend();
       checkHealth();
       syncProducts();
+      syncBanners();
+      syncCelebrities();
     });
   }
 
@@ -225,7 +355,13 @@ const MongoSync = (function() {
     setBackendUrl,
     checkHealth,
     syncProducts,
+    pushProduct,
+    deleteProduct,
     pushProductsBulk,
+    syncBanners,
+    pushBanners,
+    syncCelebrities,
+    pushCelebrities,
     pushOrder,
     pushVisitor,
     pushConsultation,
