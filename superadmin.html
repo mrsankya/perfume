@@ -165,6 +165,10 @@
           <i class="fa-solid fa-star text-[#C59B27]"></i>
           <span>🌟 Celebrity Wardrobes</span>
         </button>
+        <button onclick="switchSuperTab('video')" data-tab="video" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
+          <i class="fa-solid fa-circle-play text-[#C59B27]"></i>
+          <span>🌍 Video & Globe Showcase</span>
+        </button>
         <button onclick="switchSuperTab('inventory')" data-tab="inventory" class="super-tab-btn px-4 py-2.5 rounded-xl font-semibold text-xs bg-[#231B17] text-gray-300 border border-gray-700 hover:border-[#C59B27] hover:text-white flex items-center gap-2 transition-all shrink-0">
           <i class="fa-solid fa-boxes-stacked"></i>
           <span>Master Inventory & Pricing</span>
@@ -541,6 +545,169 @@
         <!-- Celebrity Wardrobes Grid List -->
         <div id="super-celebrity-wardrobes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <!-- Rendered by superadmin.js -->
+        </div>
+
+      </div>
+
+      <!-- =========================================================================
+           TAB: VIDEO SHOWCASE & ORBIT GLOBE PLACEMENT CONTROLLER
+           ========================================================================= -->
+      <div id="super-tab-video" class="super-tab-content hidden space-y-6">
+        
+        <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-[#C59B27] font-bold block">STOREFRONT CINEMATIC MEDIA ENGINE</span>
+            <h3 class="font-heading text-lg font-bold text-white uppercase mt-0.5">3D Orbit Globe & Video Showcase Placement</h3>
+            <p class="text-xs text-gray-400">Decide exactly where and how your 3D orbit globe video renders across the storefront.</p>
+          </div>
+          <button type="button" onclick="saveSuperVideoSettings()" class="bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Save & Publish Video Settings</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left Configuration Form (7 cols) -->
+          <div class="lg:col-span-7 space-y-5">
+            
+            <!-- 1. PLACEMENT SELECTOR -->
+            <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-4">
+              <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block flex items-center gap-2">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <span>1. Select Storefront Video Placement</span>
+              </span>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="super-video-placement-options">
+                
+                <label class="p-3.5 rounded-2xl border border-[#C59B27] bg-[#C59B27]/10 cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card" data-val="section">
+                  <input type="radio" name="super_video_placement" value="section" checked onchange="handleSuperVideoPlacementChange(this.value)" class="mt-1 accent-[#C59B27]">
+                  <div>
+                    <span class="text-xs font-bold text-white block">🌍 Dedicated Global Sourcing Section</span>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Rich interactive section with video player, sourcing hotspots, and audio toggle.</p>
+                  </div>
+                </label>
+
+                <label class="p-3.5 rounded-2xl border border-gray-700 bg-[#120D0A] cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card" data-val="hero">
+                  <input type="radio" name="super_video_placement" value="hero" onchange="handleSuperVideoPlacementChange(this.value)" class="mt-1 accent-[#C59B27]">
+                  <div>
+                    <span class="text-xs font-bold text-white block">👑 Hero Banner Background Video</span>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Replaces hero photography with cinematic looping orbit globe background.</p>
+                  </div>
+                </label>
+
+                <label class="p-3.5 rounded-2xl border border-gray-700 bg-[#120D0A] cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card" data-val="floating">
+                  <input type="radio" name="super_video_placement" value="floating" onchange="handleSuperVideoPlacementChange(this.value)" class="mt-1 accent-[#C59B27]">
+                  <div>
+                    <span class="text-xs font-bold text-white block">✨ Floating Hologram Globe Widget</span>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Tactile floating orb in bottom-right corner with 1-click expand modal.</p>
+                  </div>
+                </label>
+
+                <label class="p-3.5 rounded-2xl border border-gray-700 bg-[#120D0A] cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card" data-val="both_section_floating">
+                  <input type="radio" name="super_video_placement" value="both_section_floating" onchange="handleSuperVideoPlacementChange(this.value)" class="mt-1 accent-[#C59B27]">
+                  <div>
+                    <span class="text-xs font-bold text-white block">🌟 Both Section & Floating Widget</span>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Maximum impact with full showcase section and floating hologram badge.</p>
+                  </div>
+                </label>
+
+                <label class="p-3.5 rounded-2xl border border-gray-700 bg-[#120D0A] cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card" data-val="none">
+                  <input type="radio" name="super_video_placement" value="none" onchange="handleSuperVideoPlacementChange(this.value)" class="mt-1 accent-[#C59B27]">
+                  <div>
+                    <span class="text-xs font-bold text-red-400 block">🛑 Hide Video Globally</span>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Temporarily disable all video playback across the storefront.</p>
+                  </div>
+                </label>
+
+              </div>
+            </div>
+
+            <!-- 2. VIDEO HEADINGS & TEXT COPY -->
+            <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3">
+              <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block flex items-center gap-2">
+                <i class="fa-solid fa-pen-nib"></i>
+                <span>2. Showcase Badge, Heading & Narrative</span>
+              </span>
+
+              <div class="space-y-3">
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Badge Tagline</label>
+                  <input type="text" id="super-video-badge" value="🌍 DIRECT GLOBAL SOURCING • DUBAI TO PUNE" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] outline-none">
+                </div>
+
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Main Heading Title</label>
+                  <input type="text" id="super-video-title" value="The World’s Rarest Oils & Arabian Extraits" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white focus:border-[#C59B27] outline-none">
+                </div>
+
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Narrative Description</label>
+                  <textarea id="super-video-desc" rows="3" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl p-3 text-xs text-white focus:border-[#C59B27] outline-none">Ethically sourced from aged Cambodian oud reserves, French Grasse rose fields, pure Mysore sandalwood forests, and Royal Taif distilleries. 100% uncut luxury extraits bottled with precision craftsmanship.</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. MEDIA PATH & PLAYBACK OPTIONS -->
+            <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3">
+              <span class="text-xs font-bold text-[#C59B27] uppercase tracking-wider block flex items-center gap-2">
+                <i class="fa-solid fa-gear"></i>
+                <span>3. Video File Path & Overlay Opacity</span>
+              </span>
+
+              <div>
+                <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Video Source File / URL</label>
+                <input type="text" id="super-video-src" value="videos/animo-orbit-globe-720p.mp4" class="w-full bg-[#120D0A] border border-gray-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono focus:border-[#C59B27] outline-none">
+                <p class="text-[10px] text-gray-500 mt-1">Local high-def file: <code class="text-white bg-black/40 px-1 py-0.5 rounded">videos/animo-orbit-globe-720p.mp4</code></p>
+              </div>
+
+              <!-- Overlay Darkness Slider -->
+              <div class="pt-2">
+                <div class="flex justify-between items-center mb-1">
+                  <label class="text-[10px] font-bold text-gray-400 uppercase">Video Darkness / Tint Overlay</label>
+                  <span id="super-video-overlay-val" class="font-mono text-xs text-[#C59B27] font-bold">40%</span>
+                </div>
+                <input type="range" id="super-video-overlay-slider" min="0" max="80" value="40" oninput="handleSuperVideoOverlayChange(this.value)" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#C59B27]">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Real-Time Preview (5 cols) -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-[#1C1511] p-5 rounded-2xl border border-gray-800 space-y-3 sticky top-24">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                  <i class="fa-solid fa-eye text-[#C59B27]"></i>
+                  <span>Live Video Player Preview</span>
+                </span>
+                <span id="super-video-active-placement-badge" class="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-[#C59B27] text-[#120D0A]">
+                  Active: Section Mode
+                </span>
+              </div>
+
+              <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-gray-700 shadow-xl">
+                <video id="super-preview-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+                  <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
+                </video>
+                <div id="super-preview-overlay" class="absolute inset-0 bg-black/40 pointer-events-none transition-opacity"></div>
+                <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
+                  <span class="px-2 py-0.5 rounded bg-black/80 text-[10px] text-white font-mono">animo-orbit-globe-720p.mp4</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-[#120D0A] border border-gray-800 text-[11px] text-gray-400 space-y-1">
+                <span class="text-[#C59B27] font-semibold block">⚡ 1-Click Instant Preview:</span>
+                <p>Changes apply dynamically to your chosen storefront location as soon as you save.</p>
+              </div>
+
+              <button type="button" onclick="saveSuperVideoSettings()" class="w-full bg-[#C59B27] hover:bg-[#AA771C] text-[#120D0A] py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+                <i class="fa-solid fa-check"></i>
+                <span>Publish to Live Storefront</span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
       </div>

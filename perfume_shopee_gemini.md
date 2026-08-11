@@ -118,6 +118,15 @@
 22. **🖼️ Hero Banner Contrast Protection & Interactive Transparency / Darkness Overlay Slider**:
     - Protected hero typography (`#hero-title-text`, `#hero-badge-text`, `#hero-desc-text`, and buttons) with high-contrast luminous text-shadows, ensuring crystal-clear readability over photographic backgrounds in ALL themes.
     - Added an interactive **Storefront Banner Darkness & Transparency Slider** (0% clear to 95% deep velvet tint) in both **Super Admin** (`superadmin.html`) and **Staff Admin** (`admin.html`) with real-time live preview and cross-device synchronization.
+23. **🌍 3D Orbit Globe Video & Dynamic Storefront Placement Showcase Engine**:
+    - Added local high-def video asset `videos/animo-orbit-globe-720p.mp4` (41MB 3D animated orbit globe).
+    - Integrated a complete **Video Showcase Controller** in both **Super Admin** and **Staff Admin** allowing administrators to decide the exact storefront placement:
+      - `🌍 Dedicated Global Sourcing Section`: Interactive luxury section between Products and Celebrity Wardrobes with play/pause, audio toggle, and fullscreen controls.
+      - `👑 Hero Banner Background Video`: Looping cinematic orbit globe replacing hero photography.
+      - `✨ Floating Hologram Globe Widget`: Tactile corner orb badge with 1-click expand modal for authentic Arabian sourcing origin details.
+      - `🌟 Both Section & Floating Widget`: Maximum immersion across the storefront.
+      - `🛑 Hidden / Disabled`: 1-click global hide option.
+    - Full admin customization of badge text, main title, narrative copy, and background overlay darkness tint.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:

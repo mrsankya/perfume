@@ -548,6 +548,7 @@ function switchSuperTab(tabId) {
   if (tabId === 'themes') renderThemeStyles();
   if (tabId === 'banners') renderHeroBannersManager();
   if (tabId === 'celebrities') renderSuperCelebrityWardrobes();
+  if (tabId === 'video') initSuperVideoSettings();
   if (tabId === 'inventory') renderMasterInventory();
   if (tabId === 'staff') renderStaffList();
   if (tabId === 'reservations') renderSuperReservations();
@@ -2456,3 +2457,133 @@ async function syncCatalogFromMongoAtlas() {
     showToast('Pull failed: ' + err.message, 'error');
   }
 }
+
+// =========================================================================
+// 3D ORBIT GLOBE & VIDEO SHOWCASE CONTROLLER (SUPER ADMIN)
+// =========================================================================
+const DEFAULT_VIDEO_SETTINGS = {
+  placement: 'section',
+  videoSrc: 'videos/animo-orbit-globe-720p.mp4',
+  badge: '🌍 DIRECT GLOBAL SOURCING • DUBAI TO PUNE',
+  title: 'The World’s Rarest Oils & Arabian Extraits',
+  desc: 'Ethically sourced from aged Cambodian oud reserves, French Grasse rose fields, pure Mysore sandalwood forests, and Royal Taif distilleries. 100% uncut luxury extraits bottled with precision craftsmanship.',
+  overlayOpacity: 40,
+  autoplay: true,
+  loop: true,
+  muted: true
+};
+
+function getStoredVideoSettings() {
+  const saved = localStorage.getItem('perfumes_video_settings');
+  if (saved) {
+    try {
+      return { ...DEFAULT_VIDEO_SETTINGS, ...JSON.parse(saved) };
+    } catch (e) {}
+  }
+  return { ...DEFAULT_VIDEO_SETTINGS };
+}
+
+function initSuperVideoSettings() {
+  const cfg = getStoredVideoSettings();
+  
+  // Placement radio
+  const radios = document.querySelectorAll('input[name="super_video_placement"]');
+  radios.forEach(r => {
+    r.checked = (r.value === cfg.placement);
+  });
+  updateSuperPlacementCardStyles(cfg.placement);
+
+  // Inputs
+  const badgeInp = document.getElementById('super-video-badge');
+  const titleInp = document.getElementById('super-video-title');
+  const descInp = document.getElementById('super-video-desc');
+  const srcInp = document.getElementById('super-video-src');
+  const overlaySlider = document.getElementById('super-video-overlay-slider');
+  const overlayVal = document.getElementById('super-video-overlay-val');
+  const previewOverlay = document.getElementById('super-preview-overlay');
+
+  if (badgeInp) badgeInp.value = cfg.badge;
+  if (titleInp) titleInp.value = cfg.title;
+  if (descInp) descInp.value = cfg.desc;
+  if (srcInp) srcInp.value = cfg.videoSrc;
+  if (overlaySlider) overlaySlider.value = cfg.overlayOpacity;
+  if (overlayVal) overlayVal.textContent = cfg.overlayOpacity + '%';
+  if (previewOverlay) previewOverlay.style.opacity = (cfg.overlayOpacity / 100).toString();
+
+  // Active Placement Badge
+  const badge = document.getElementById('super-video-active-placement-badge');
+  if (badge) {
+    const labels = {
+      section: 'Active: Dedicated Section',
+      hero: 'Active: Hero Background',
+      floating: 'Active: Floating Widget',
+      both_section_floating: 'Active: Section + Floating',
+      none: 'Active: Hidden Globally'
+    };
+    badge.textContent = labels[cfg.placement] || 'Active: Section';
+  }
+}
+
+function updateSuperPlacementCardStyles(placement) {
+  document.querySelectorAll('.video-placement-card').forEach(card => {
+    if (card.dataset.val === placement) {
+      card.className = 'p-3.5 rounded-2xl border border-[#C59B27] bg-[#C59B27]/10 cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card';
+    } else {
+      card.className = 'p-3.5 rounded-2xl border border-gray-700 bg-[#120D0A] cursor-pointer flex items-start gap-3 transition-all hover:border-[#C59B27] video-placement-card';
+    }
+  });
+}
+
+function handleSuperVideoPlacementChange(val) {
+  updateSuperPlacementCardStyles(val);
+  const badge = document.getElementById('super-video-active-placement-badge');
+  if (badge) {
+    const labels = {
+      section: 'Active: Dedicated Section',
+      hero: 'Active: Hero Background',
+      floating: 'Active: Floating Widget',
+      both_section_floating: 'Active: Section + Floating',
+      none: 'Active: Hidden Globally'
+    };
+    badge.textContent = labels[val] || val;
+  }
+}
+
+function handleSuperVideoOverlayChange(val) {
+  val = parseInt(val, 10);
+  const valEl = document.getElementById('super-video-overlay-val');
+  const overlay = document.getElementById('super-preview-overlay');
+  if (valEl) valEl.textContent = val + '%';
+  if (overlay) overlay.style.opacity = (val / 100).toString();
+}
+
+function saveSuperVideoSettings() {
+  const placement = (document.querySelector('input[name="super_video_placement"]:checked') || {}).value || 'section';
+  const badge = (document.getElementById('super-video-badge')?.value || DEFAULT_VIDEO_SETTINGS.badge).trim();
+  const title = (document.getElementById('super-video-title')?.value || DEFAULT_VIDEO_SETTINGS.title).trim();
+  const desc = (document.getElementById('super-video-desc')?.value || DEFAULT_VIDEO_SETTINGS.desc).trim();
+  const videoSrc = (document.getElementById('super-video-src')?.value || DEFAULT_VIDEO_SETTINGS.videoSrc).trim();
+  const overlayOpacity = parseInt(document.getElementById('super-video-overlay-slider')?.value || '40', 10);
+
+  const videoSettings = {
+    placement,
+    badge,
+    title,
+    desc,
+    videoSrc,
+    overlayOpacity,
+    autoplay: true,
+    loop: true,
+    muted: true
+  };
+
+  localStorage.setItem('perfumes_video_settings', JSON.stringify(videoSettings));
+  
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushSettings) {
+    MongoSync.pushSettings();
+  }
+
+  showToast('🌍 Video & Orbit Globe Placement Saved & Published!', 'success');
+  recordAudit(`Updated Storefront Video Placement: ${placement.toUpperCase()}`);
+}
+

@@ -478,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDiscoveryBoxBuilder();
   renderAlchemyBlender();
   renderCommunityFeed();
+  initGlobalVideoShowcase();
   updateCartBadge();
 
   setTimeout(() => {
@@ -505,6 +506,9 @@ window.addEventListener('storage', (e) => {
   }
   if (e.key === 'perfumes_hero_banners') {
     setHeroSlide(currentHeroSlideIndex);
+  }
+  if (e.key === 'perfumes_video_settings') {
+    initGlobalVideoShowcase();
   }
 });
 
@@ -3432,3 +3436,156 @@ function scrollToSection(sectionId) {
     el.scrollIntoView({ behavior: 'smooth' });
   }
 }
+
+// =========================================================================
+// 15. 3D ORBIT GLOBE & STOREFRONT VIDEO SHOWCASE CONTROLLER
+// =========================================================================
+const DEFAULT_STOREFRONT_VIDEO_CONFIG = {
+  placement: 'section',
+  videoSrc: 'videos/animo-orbit-globe-720p.mp4',
+  badge: '🌍 DIRECT GLOBAL SOURCING • DUBAI TO PUNE',
+  title: 'The World’s Rarest Oils & Arabian Extraits',
+  desc: 'Ethically sourced from aged Cambodian oud reserves, French Grasse rose fields, pure Mysore sandalwood forests, and Royal Taif distilleries. 100% uncut luxury extraits bottled with precision craftsmanship.',
+  overlayOpacity: 40,
+  autoplay: true,
+  loop: true,
+  muted: true
+};
+
+function getStoredVideoConfig() {
+  const saved = localStorage.getItem('perfumes_video_settings');
+  if (saved) {
+    try {
+      return { ...DEFAULT_STOREFRONT_VIDEO_CONFIG, ...JSON.parse(saved) };
+    } catch (e) {}
+  }
+  return { ...DEFAULT_STOREFRONT_VIDEO_CONFIG };
+}
+
+function initGlobalVideoShowcase() {
+  const cfg = getStoredVideoConfig();
+  const placement = cfg.placement || 'section';
+  const videoSrc = cfg.videoSrc || 'videos/animo-orbit-globe-720p.mp4';
+
+  const sectionEl = document.getElementById('global-sourcing-video-section');
+  const heroVideoEl = document.getElementById('hero-bg-video');
+  const floatingWidgetEl = document.getElementById('floating-orbit-globe-widget');
+  const globalVideoEl = document.getElementById('global-sourcing-video');
+  const floatingVideoEl = document.getElementById('floating-orbit-globe-video');
+  const modalVideoEl = document.getElementById('modal-orbit-globe-video');
+
+  // Set Sources
+  [globalVideoEl, heroVideoEl, floatingVideoEl, modalVideoEl].forEach(v => {
+    if (v) {
+      if (v.src !== videoSrc && !v.src.endsWith(videoSrc)) {
+        v.src = videoSrc;
+      }
+    }
+  });
+
+  // Set Text Copy
+  const badgeEl = document.getElementById('video-showcase-badge');
+  const titleEl = document.getElementById('video-showcase-title');
+  const descEl = document.getElementById('video-showcase-desc');
+  const overlayTintEl = document.getElementById('global-video-overlay-tint');
+
+  if (badgeEl) badgeEl.textContent = cfg.badge;
+  if (titleEl) titleEl.textContent = cfg.title;
+  if (descEl) descEl.textContent = cfg.desc;
+  if (overlayTintEl) {
+    overlayTintEl.style.backgroundColor = `rgba(0,0,0,${(cfg.overlayOpacity || 40) / 100})`;
+  }
+
+  // Handle Placements
+  if (placement === 'section') {
+    if (sectionEl) sectionEl.classList.remove('hidden');
+    if (heroVideoEl) heroVideoEl.classList.add('hidden');
+    if (floatingWidgetEl) floatingWidgetEl.classList.add('hidden');
+  } else if (placement === 'hero') {
+    if (sectionEl) sectionEl.classList.add('hidden');
+    if (heroVideoEl) {
+      heroVideoEl.classList.remove('hidden');
+      heroVideoEl.play().catch(() => {});
+    }
+    if (floatingWidgetEl) floatingWidgetEl.classList.add('hidden');
+  } else if (placement === 'floating') {
+    if (sectionEl) sectionEl.classList.add('hidden');
+    if (heroVideoEl) heroVideoEl.classList.add('hidden');
+    if (floatingWidgetEl) {
+      floatingWidgetEl.classList.remove('hidden');
+      if (floatingVideoEl) floatingVideoEl.play().catch(() => {});
+    }
+  } else if (placement === 'both_section_floating') {
+    if (sectionEl) sectionEl.classList.remove('hidden');
+    if (heroVideoEl) heroVideoEl.classList.add('hidden');
+    if (floatingWidgetEl) {
+      floatingWidgetEl.classList.remove('hidden');
+      if (floatingVideoEl) floatingVideoEl.play().catch(() => {});
+    }
+  } else if (placement === 'none') {
+    if (sectionEl) sectionEl.classList.add('hidden');
+    if (heroVideoEl) heroVideoEl.classList.add('hidden');
+    if (floatingWidgetEl) floatingWidgetEl.classList.add('hidden');
+  }
+
+  if (globalVideoEl && !globalVideoEl.paused) {
+    globalVideoEl.play().catch(() => {});
+  }
+}
+
+function toggleGlobalVideoPlay() {
+  const video = document.getElementById('global-sourcing-video');
+  const icon = document.getElementById('video-play-icon');
+  if (!video) return;
+  if (video.paused) {
+    video.play();
+    if (icon) icon.className = 'fa-solid fa-pause';
+  } else {
+    video.pause();
+    if (icon) icon.className = 'fa-solid fa-play';
+  }
+}
+
+function toggleGlobalVideoSound() {
+  const video = document.getElementById('global-sourcing-video');
+  const icon = document.getElementById('video-sound-icon');
+  const label = document.getElementById('video-sound-label');
+  if (!video) return;
+  video.muted = !video.muted;
+  if (video.muted) {
+    if (icon) icon.className = 'fa-solid fa-volume-xmark';
+    if (label) label.textContent = 'Unmute Audio';
+  } else {
+    if (icon) icon.className = 'fa-solid fa-volume-high text-[#C59B27]';
+    if (label) label.textContent = 'Mute Audio';
+  }
+}
+
+function toggleGlobalVideoFullscreen() {
+  const video = document.getElementById('global-sourcing-video');
+  if (!video) return;
+  if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.webkitRequestFullscreen) {
+    video.webkitRequestFullscreen();
+  }
+}
+
+function openOrbitGlobeModal() {
+  const modal = document.getElementById('orbit-globe-modal');
+  const modalVideo = document.getElementById('modal-orbit-globe-video');
+  if (modal) {
+    modal.classList.remove('hidden');
+    if (modalVideo) modalVideo.play().catch(() => {});
+  }
+}
+
+function closeOrbitGlobeModal() {
+  const modal = document.getElementById('orbit-globe-modal');
+  const modalVideo = document.getElementById('modal-orbit-globe-video');
+  if (modal) {
+    modal.classList.add('hidden');
+    if (modalVideo) modalVideo.pause();
+  }
+}
+
