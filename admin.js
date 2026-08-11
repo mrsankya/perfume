@@ -1088,14 +1088,32 @@ function renderReservationsTable() {
   `).join('');
 }
 
-function cleanStaffGoogleMapEmbedUrl(val) {
-  if (!val || typeof val !== 'string') return '';
+function cleanStaffGoogleMapEmbedUrl(val, fallbackAddress = 'Club 99 – The Perfume Shop, Jalgaon, Maharashtra') {
+  if (!val || typeof val !== 'string' || !val.trim()) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(fallbackAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
   val = val.trim();
   const iframeMatch = val.match(/src=["']([^"']+)["']/i);
   if (iframeMatch && iframeMatch[1]) {
-    return iframeMatch[1];
+    val = iframeMatch[1].trim();
   }
-  return val;
+  if (val.includes('/maps/embed') || (val.includes('output=embed') && val.includes('maps.google.com'))) {
+    return val;
+  }
+  const placeMatch = val.match(/\/maps\/place\/([^/@?]+)/i);
+  if (placeMatch && placeMatch[1]) {
+    const placeQuery = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
+    return `https://maps.google.com/maps?q=${encodeURIComponent(placeQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+  const queryMatch = val.match(/[?&](?:q|query)=([^&#]+)/i);
+  if (queryMatch && queryMatch[1]) {
+    const qVal = decodeURIComponent(queryMatch[1].replace(/\+/g, ' '));
+    return `https://maps.google.com/maps?q=${encodeURIComponent(qVal)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+  if (!val.startsWith('http://') && !val.startsWith('https://')) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(val)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(fallbackAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 }
 
 function handleStaffStorefrontUpload(e) {

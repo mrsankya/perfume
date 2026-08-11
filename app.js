@@ -3664,6 +3664,46 @@ function closeOrbitGlobeModal() {
   }
 }
 
+function formatGoogleMapsEmbedUrl(rawUrl, fallbackAddress = 'Club 99 – The Perfume Shop, Jalgaon, Maharashtra') {
+  if (!rawUrl || typeof rawUrl !== 'string' || !rawUrl.trim()) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(fallbackAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+  rawUrl = rawUrl.trim();
+
+  // If user pasted full iframe code
+  const iframeMatch = rawUrl.match(/src=["']([^"']+)["']/i);
+  if (iframeMatch && iframeMatch[1]) {
+    rawUrl = iframeMatch[1].trim();
+  }
+
+  // If already an embed URL
+  if (rawUrl.includes('/maps/embed') || (rawUrl.includes('output=embed') && rawUrl.includes('maps.google.com'))) {
+    return rawUrl;
+  }
+
+  // If it's a place link: e.g. https://www.google.com/maps/place/Some+Name/...
+  const placeMatch = rawUrl.match(/\/maps\/place\/([^/@?]+)/i);
+  if (placeMatch && placeMatch[1]) {
+    const placeQuery = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
+    return `https://maps.google.com/maps?q=${encodeURIComponent(placeQuery)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+
+  // If it's a query link: ?q=... or ?query=...
+  const queryMatch = rawUrl.match(/[?&](?:q|query)=([^&#]+)/i);
+  if (queryMatch && queryMatch[1]) {
+    const qVal = decodeURIComponent(queryMatch[1].replace(/\+/g, ' '));
+    return `https://maps.google.com/maps?q=${encodeURIComponent(qVal)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+
+  // If it's a raw address or query string
+  if (!rawUrl.startsWith('http://') && !rawUrl.startsWith('https://')) {
+    return `https://maps.google.com/maps?q=${encodeURIComponent(rawUrl)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  }
+
+  // Fallback if URL is a shortened redirect link (e.g. goo.gl / maps.app.goo.gl)
+  return `https://maps.google.com/maps?q=${encodeURIComponent(fallbackAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+}
+
 // =========================================================================
 // 16. DYNAMIC PHYSICAL BOUTIQUE & GOOGLE MAPS SHOWCASE RENDERER
 // =========================================================================
@@ -3676,7 +3716,8 @@ function initStorefrontBoutiqueDetails() {
   const storePhone = settings.supportPhone || settings.whatsappNumber || '+91 9822725265';
   const whatsappNum = settings.whatsappNumber || '919822725265';
   const storefrontImg = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
-  const mapEmbedUrl = settings.mapEmbedUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  const rawMapEmbed = settings.mapEmbedUrl || '';
+  const mapEmbedUrl = formatGoogleMapsEmbedUrl(rawMapEmbed, storeName + ', ' + storeAddress);
   const mapDirectionsUrl = settings.mapDirectionsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeName + ' ' + storeAddress)}`;
   const storeDesc = settings.storeDescription || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
 
