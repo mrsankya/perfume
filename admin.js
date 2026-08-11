@@ -1169,12 +1169,14 @@ function renderSettingsForm() {
   const mapDirectionsEl = document.getElementById('set-map-directions-url');
   const storeDescEl = document.getElementById('set-store-description');
   const previewEl = document.getElementById('set-storefront-preview');
+  const gscTokenEl = document.getElementById('set-gsc-token');
 
   if (storefrontImgEl) storefrontImgEl.value = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
   if (mapEmbedEl) mapEmbedEl.value = settings.mapEmbedUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
   if (mapDirectionsEl) mapDirectionsEl.value = settings.mapDirectionsUrl || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
   if (storeDescEl) storeDescEl.value = settings.storeDescription || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
   if (previewEl) previewEl.src = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  if (gscTokenEl) gscTokenEl.value = settings.gscVerificationToken || '';
 }
 
 function handleSettingsSubmit(e) {
@@ -1192,11 +1194,18 @@ function handleSettingsSubmit(e) {
   const rawMapEmbed = (document.getElementById('set-map-embed-url')?.value || '').trim();
   const customDirections = (document.getElementById('set-map-directions-url')?.value || '').trim();
   const customDesc = (document.getElementById('set-store-description')?.value || '').trim();
+  let rawGsc = (document.getElementById('set-gsc-token')?.value || '').trim();
+
+  const metaContentMatch = rawGsc.match(/content=["']([^"']+)["']/i);
+  if (metaContentMatch && metaContentMatch[1]) {
+    rawGsc = metaContentMatch[1];
+  }
 
   settings.storefrontImage = customImg || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
   settings.mapEmbedUrl = cleanStaffGoogleMapEmbedUrl(rawMapEmbed) || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
   settings.mapDirectionsUrl = customDirections || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
   settings.storeDescription = customDesc || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
+  settings.gscVerificationToken = rawGsc;
 
   const newPass = document.getElementById('set-new-password').value.trim();
   if (newPass) {
@@ -1205,7 +1214,7 @@ function handleSettingsSubmit(e) {
   }
 
   localStorage.setItem('perfumes_settings', JSON.stringify(settings));
-  showToast('Storefront Settings & Map saved successfully', 'success');
+  showToast('Storefront Settings, Map & SEO saved successfully', 'success');
 }
 
 function showToast(message, type = 'info') {

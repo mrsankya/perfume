@@ -198,3 +198,17 @@
     - **Right Column**: Interactive responsive Google Maps embed of Jalgaon location with 1-click turn-by-turn navigation shortcut (`📍 Get Directions`), followed by comprehensive store address and contact card with direct WhatsApp (`+91 9822725265`) and hotline call buttons.
   - Fully integrated with the dynamic theme engine (`theme-bg-main`, `theme-card`, `theme-border`, `theme-text-main`, `theme-accent`) supporting all 5 visual themes seamlessly.
   - Synchronized default store settings (`storeName`, `storeAddress`, `whatsappNumber`, `supportPhone`, `storeHours`) across `index.html`, `app.js`, `superadmin.js`, and `admin.js`.
+
+### 25. Google Search Console & SEO Master Suite
+- **XML Sitemap (`sitemap.xml`)**:
+  - Full valid standard XML sitemap indexing the homepage, physical boutique, catalog section, 5-in-1 discovery box builder, celebrity wardrobe vault, fragrance layering lab, and VIP booking.
+- **Search Directives (`robots.txt`)**:
+  - Allows search bots (Googlebot, Bingbot) to crawl all public pages and assets while blocking private admin dashboards (`/admin.html`, `/superadmin.html`).
+- **Google Site Verification Hook**:
+  - Dynamic `<meta name="google-site-verification" content="...">` tag populated via `index.html`, `app.js`, `superadmin.html`/`superadmin.js`, and `admin.html`/`admin.js`.
+- **Schema.org Rich Snippet Structured Data (JSON-LD)**:
+  - `Store` / `LocalBusiness` schema for Club 99 – The Perfume Shop, Jalgaon (geo coordinates, address, opening hours, 4.9/5 aggregate rating from 2,480+ reviews, priceRange, phone).
+  - `WebSite` schema with Sitelinks `SearchAction`.
+- **OpenGraph & Twitter Card Meta Tags**:
+  - Optimized titles, descriptions, canonical link, and social preview assets.
+

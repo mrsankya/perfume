@@ -3748,5 +3748,11 @@ function initStorefrontBoutiqueDetails() {
   if (waBtnEl) waBtnEl.href = `https://wa.me/${whatsappNum}?text=${encodeURIComponent('Hi ' + storeName + ', I would like to visit your boutique and check fragrance stock')}`;
   if (callBtnEl) callBtnEl.href = `tel:${whatsappNum}`;
   if (callTextEl) callTextEl.textContent = `Call Store: ${whatsappNum}`;
+
+  // Google Search Console Site Verification Meta Tag
+  const gscMetaEl = document.getElementById('google-site-verification-meta');
+  if (gscMetaEl && settings.gscVerificationToken) {
+    gscMetaEl.setAttribute('content', settings.gscVerificationToken);
+  }
 }
 

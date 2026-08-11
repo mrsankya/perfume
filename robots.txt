@@ -1,0 +1,24 @@
+# =========================================================================
+# ROBOTS.TXT FOR CLUB 99 - THE PERFUME SHOP (https://perfume-shopee.pages.dev)
+# Optimized for Googlebot, Bingbot & Search Crawlers
+# =========================================================================
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /videos/
+Allow: /images/
+Allow: /styles.css
+Allow: /app.js
+
+# Disallow Private Administrative Dashboards and Internal APIs
+Disallow: /admin.html
+Disallow: /superadmin.html
+Disallow: /admin.js
+Disallow: /superadmin.js
+Disallow: /api/
+Disallow: /server.js
+Disallow: /db-sync.js
+
+# Google Search Console XML Sitemap Location
+Sitemap: https://perfume-shopee.pages.dev/sitemap.xml
