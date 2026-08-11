@@ -109,6 +109,9 @@
 19. **⭐ 1-Click Primary Cover Image Selector & 3D Pop-Out Hover Animations**:
     - In Super Admin and Staff Admin product modals, admins can upload multiple photos and set ANY photo as the Primary Cover Image with 1-click (`⭐ Set as Cover`), automatically elevating it to position #1 with a glowing gold crown badge.
     - Added fluid 3D Pop-Out animations on cursor hover across all product flacon images, gallery cards (`.admin-gallery-card`), category sliders, and quickview modal thumbnails (`transform: scale(1.09) translateY(-4px)`, shadow lift, and gold edge glow).
+20. **🌟 "Wear Like a Legend" QuickView Breakdown & Base64 Image Upload Fix**:
+    - Clicking the "Wear Like a Legend" section header or any celebrity card opens a dedicated **Celebrity Scent Wardrobe Story & Layering Breakdown QuickView Modal** (`#celebrity-detail-modal`) with high-res portrait, quote, duo flacons, step-by-step "How to Layer" guide, and 1-click duo checkout.
+    - Upgraded celebrity image inputs in Super Admin (`superadmin.html`) and Staff Admin (`admin.html`) to support Base64 compressed image uploads and web URLs without HTML5 URL validation errors.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:

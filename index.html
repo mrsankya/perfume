@@ -440,9 +440,17 @@
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block">🌟 ICONIC SCENT WARDROBES</span>
-          <h2 class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1">Wear Like a Legend</h2>
-          <p class="text-xs theme-text-muted mt-1">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends.</p>
+          <button type="button" onclick="openCelebrityDetailModal()" class="text-[10px] uppercase tracking-[0.25em] theme-accent font-bold block hover:underline flex items-center gap-1.5 mb-1 cursor-pointer">
+            <span>🌟 ICONIC SCENT WARDROBES</span>
+            <i class="fa-solid fa-sparkles text-[9px]"></i>
+          </button>
+          <h2 onclick="openCelebrityDetailModal()" title="Click to explore Celebrity Scent Story & Layering Breakdown" class="font-heading text-2xl sm:text-4xl font-bold theme-text-main uppercase mt-1 cursor-pointer hover:theme-accent transition-colors flex items-center gap-2">
+            <span>Wear Like a Legend</span>
+            <span class="text-xs font-sans normal-case px-2.5 py-1 rounded-full theme-badge hidden sm:inline-flex items-center gap-1 font-semibold">
+              <i class="fa-solid fa-layer-group"></i> Layering Guide
+            </span>
+          </h2>
+          <p class="text-xs theme-text-muted mt-1">Discover the signature scent layering combinations worn by Bollywood royalty, cricket champions, and Marvel legends. Click any card to explore their full scent breakdown & application ritual.</p>
         </div>
 
         <!-- Slider Navigation Controls -->
@@ -1026,6 +1034,98 @@
       <button onclick="confirmUPIPaymentDone()" class="w-full bg-[#16a34a] hover:bg-[#15803d] text-white py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider">
         I Have Made the Payment &rarr;
       </button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       6.5 CELEBRITY SCENT WARDROBE DETAIL & STORY MODAL (WEAR LIKE A LEGEND)
+       ========================================================================= -->
+  <div id="celebrity-detail-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="theme-card max-w-2xl w-full rounded-3xl border theme-border p-5 sm:p-7 relative shadow-2xl max-h-[92vh] overflow-y-auto space-y-5">
+      <button onclick="closeCelebrityDetailModal()" class="absolute top-4 right-4 theme-text-muted hover:theme-text-main p-2 rounded-full theme-bg-surface border theme-border shadow-sm z-20 transition-all hover:scale-110">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+
+      <!-- Modal Content Header -->
+      <div class="flex items-start gap-4">
+        <div class="relative shrink-0">
+          <img id="cdm-celeb-img" src="" alt="Celebrity Portrait" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-[#C59B27] shadow-xl">
+          <span class="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full bg-[#C59B27] text-[#120D0A] flex items-center justify-center text-xs font-bold shadow-md">
+            <i class="fa-solid fa-crown text-[10px]"></i>
+          </span>
+        </div>
+        <div class="space-y-1 min-w-0">
+          <span id="cdm-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold theme-badge inline-block"></span>
+          <h2 id="cdm-name" class="font-heading text-lg sm:text-2xl font-bold theme-text-main uppercase"></h2>
+          <p id="cdm-tagline" class="text-xs theme-text-muted leading-relaxed"></p>
+          <div class="flex items-center gap-2 pt-1">
+            <span id="cdm-stars" class="text-amber-400 text-xs font-bold"></span>
+            <span id="cdm-rating-val" class="text-xs font-mono font-bold theme-text-main"></span>
+            <span id="cdm-reviews" class="text-[10px] text-green-500 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-sparkles text-[9px]"></i>
+              <span id="cdm-reviews-text"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Celebrity Quote / Scent Story -->
+      <blockquote id="cdm-quote-box" class="p-3.5 rounded-2xl theme-bg-surface border theme-border text-xs italic theme-text-secondary leading-relaxed relative">
+        <i class="fa-solid fa-quote-left text-xs text-[#C59B27] mr-1 opacity-75"></i>
+        <span id="cdm-quote-text"></span>
+      </blockquote>
+
+      <!-- Fragrance Layering Duo Breakdown -->
+      <div class="p-4 rounded-2xl theme-bg-surface border theme-border space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold theme-accent uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-layer-group"></i> Layering Duo Composition
+          </h4>
+          <span id="cdm-brand-tag" class="text-[10px] theme-text-muted font-mono"></span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <img id="cdm-perfume-img" src="" alt="Perfume Flacons" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border theme-border shadow-md shrink-0 p-1 bg-black/20">
+          <div class="space-y-1 min-w-0">
+            <h3 id="cdm-perfume-name" class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase"></h3>
+            <p id="cdm-subtitle" class="text-xs theme-text-secondary leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- How to Layer Guide -->
+        <div class="pt-2 border-t theme-border space-y-1.5 text-xs">
+          <span class="font-bold theme-text-main text-[11px] uppercase tracking-wider block">✨ How to Layer Like This Legend:</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] theme-text-muted">
+            <div class="p-2.5 rounded-xl theme-card border theme-border space-y-0.5">
+              <strong class="theme-text-main block text-xs">Step 1: Base Anchor Layer</strong>
+              <span>Apply 3-4 sprays of the deep woody extrait on collarbones & chest.</span>
+            </div>
+            <div class="p-2.5 rounded-xl theme-card border theme-border space-y-0.5">
+              <strong class="theme-text-main block text-xs">Step 2: Radiant Sillage Top</strong>
+              <span>Top with 2-3 sprays of radiant accord for 16+ hour compliment trail.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing & Actions -->
+      <div class="pt-2 border-t theme-border flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span id="cdm-regular-price" class="text-xs theme-text-muted line-through"></span>
+            <span id="cdm-combo-price" class="font-heading text-xl sm:text-2xl font-bold theme-accent"></span>
+          </div>
+          <span id="cdm-savings-badge" class="text-[10px] font-bold text-green-500"></span>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button id="cdm-buy-btn" class="flex-1 sm:flex-initial theme-btn-primary px-6 py-3 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Add Duo Combo to Cart</span>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 

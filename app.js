@@ -1177,13 +1177,13 @@ function renderCelebrityWardrobes() {
     const starsHtml = '★'.repeat(starCount) + (starCount < 5 ? '☆'.repeat(5 - starCount) : '');
 
     return `
-    <div class="luxury-slider-item four-col celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4 shadow-sm hover:shadow-xl transition-all duration-300">
+    <div onclick="openCelebrityDetailModal('${c.id}')" class="luxury-slider-item four-col celebrity-card rounded-3xl p-5 theme-card border theme-border flex flex-col justify-between space-y-4 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer group hover:border-[#C59B27]/70">
       
       <!-- Top Header: Celebrity Photo & Perfume Flacon Photo -->
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-3 min-w-0">
           <div class="relative shrink-0">
-            <img src="${c.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600'}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-[#C59B27] shadow-md">
+            <img src="${c.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600'}" alt="${c.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-[#C59B27] shadow-md group-hover:scale-105 transition-transform duration-300">
             <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-[#C59B27] text-[#120D0A] flex items-center justify-center text-[10px] font-bold shadow-sm">
               <i class="fa-solid fa-crown text-[8px]"></i>
             </span>
@@ -1192,14 +1192,14 @@ function renderCelebrityWardrobes() {
             <span class="px-2 py-0.5 rounded-full text-[9px] font-bold theme-badge inline-block mb-1 truncate max-w-full">
               ${c.badge || '🌟 Iconic Signature'}
             </span>
-            <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase truncate">${c.name}</h3>
+            <h3 class="font-heading text-sm sm:text-base font-bold theme-text-main uppercase truncate group-hover:theme-accent transition-colors">${c.name}</h3>
             <p class="text-[11px] theme-text-muted truncate">${c.tagline || ''}</p>
           </div>
         </div>
 
         ${c.perfumeImage ? `
-          <div class="shrink-0 relative group" title="Signature Perfume with Celeb">
-            <img src="${c.perfumeImage}" alt="${c.perfumeName || 'Perfume Flacon'}" class="w-14 h-14 rounded-2xl object-cover border theme-border shadow-sm p-0.5 bg-white/5 group-hover:scale-105 transition-transform">
+          <div class="shrink-0 relative" title="Signature Perfume with Celeb">
+            <img src="${c.perfumeImage}" alt="${c.perfumeName || 'Perfume Flacon'}" class="w-14 h-14 rounded-2xl object-cover border theme-border shadow-sm p-0.5 bg-white/5 group-hover:scale-110 transition-transform duration-300">
             <span class="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 bg-amber-500 text-black font-extrabold text-[8px] rounded-full uppercase tracking-tighter">Duo</span>
           </div>
         ` : ''}
@@ -1235,8 +1235,14 @@ function renderCelebrityWardrobes() {
         </div>
       </div>
 
+      <!-- Quick Exploration Link -->
+      <div class="flex items-center justify-between text-[11px] font-bold theme-accent hover:underline pt-0.5">
+        <span>✨ Explore Scent Story & Layering</span>
+        <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+      </div>
+
       <!-- Pricing & Add Duo to Cart -->
-      <div class="pt-2 flex items-center justify-between border-t theme-border">
+      <div class="pt-2 flex items-center justify-between border-t theme-border" onclick="event.stopPropagation()">
         <div>
           <span class="text-[10px] theme-text-muted line-through">${formatRupees(c.regularPrice || 7999)}</span>
           <span class="font-heading text-base sm:text-lg font-bold theme-accent block">${formatRupees(c.comboPrice || 6999)}</span>
@@ -1255,6 +1261,85 @@ function renderCelebrityWardrobes() {
 
   renderCelebritySliderDots();
   initCelebritySliderAutoPlay();
+}
+
+function openCelebrityDetailModal(celebId) {
+  const wardrobes = getStoredCelebrityWardrobes();
+  const celeb = wardrobes.find(c => c.id === celebId) || wardrobes[0];
+  if (!celeb) return;
+
+  const modal = document.getElementById('celebrity-detail-modal');
+  if (!modal) return;
+
+  const celebImg = document.getElementById('cdm-celeb-img');
+  if (celebImg) {
+    celebImg.src = celeb.image || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600';
+    celebImg.alt = celeb.name;
+  }
+
+  const badgeEl = document.getElementById('cdm-badge');
+  if (badgeEl) badgeEl.innerText = celeb.badge || '🌟 Iconic Scent Wardrobe';
+
+  const nameEl = document.getElementById('cdm-name');
+  if (nameEl) nameEl.innerText = celeb.name;
+
+  const taglineEl = document.getElementById('cdm-tagline');
+  if (taglineEl) taglineEl.innerText = celeb.tagline || '';
+
+  const starCount = Math.floor(Number(celeb.rating || 5));
+  const starsEl = document.getElementById('cdm-stars');
+  if (starsEl) starsEl.innerText = '★'.repeat(starCount) + (starCount < 5 ? '☆'.repeat(5 - starCount) : '');
+
+  const ratingValEl = document.getElementById('cdm-rating-val');
+  if (ratingValEl) ratingValEl.innerText = celeb.rating || '5.0';
+
+  const reviewsEl = document.getElementById('cdm-reviews-text');
+  if (reviewsEl) reviewsEl.innerText = celeb.ratingCount || '99% Compliment Magnet';
+
+  const quoteEl = document.getElementById('cdm-quote-text');
+  if (quoteEl) quoteEl.innerText = celeb.quote || 'A timeless, magnetic fragrance pairing designed to project unforgettable elegance.';
+
+  const brandTag = document.getElementById('cdm-brand-tag');
+  if (brandTag) brandTag.innerText = celeb.perfumeBrand || 'Haute Duo Extrait';
+
+  const perfumeImg = document.getElementById('cdm-perfume-img');
+  if (perfumeImg) {
+    perfumeImg.src = celeb.perfumeImage || celeb.image || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600';
+    perfumeImg.alt = celeb.perfumeName || 'Perfume Flacons';
+  }
+
+  const perfumeNameEl = document.getElementById('cdm-perfume-name');
+  if (perfumeNameEl) perfumeNameEl.innerText = celeb.perfumeName || (celeb.items ? celeb.items.map(i => i.name).join(' + ') : 'Signature Fragrance Duo');
+
+  const subtitleEl = document.getElementById('cdm-subtitle');
+  if (subtitleEl) subtitleEl.innerText = celeb.subtitle || 'Specially formulated dual layering for maximum silage and 16+ hour skin projection.';
+
+  const regularPrice = celeb.regularPrice || 7999;
+  const comboPrice = celeb.comboPrice || 6999;
+  const savings = celeb.savings || Math.max(0, regularPrice - comboPrice) || 800;
+
+  const regEl = document.getElementById('cdm-regular-price');
+  if (regEl) regEl.innerText = formatRupees(regularPrice);
+
+  const comboEl = document.getElementById('cdm-combo-price');
+  if (comboEl) comboEl.innerText = formatRupees(comboPrice);
+
+  const savingsEl = document.getElementById('cdm-savings-badge');
+  if (savingsEl) savingsEl.innerText = `Save ${formatRupees(savings)} Duo Discount (Code: CELEBDUO)`;
+
+  const buyBtn = document.getElementById('cdm-buy-btn');
+  if (buyBtn) {
+    buyBtn.onclick = () => {
+      closeCelebrityDetailModal();
+      buyCelebrityDuo(celeb.id);
+    };
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeCelebrityDetailModal() {
+  document.getElementById('celebrity-detail-modal')?.classList.add('hidden');
 }
 
 function renderCelebritySliderDots() {
