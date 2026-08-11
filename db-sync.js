@@ -5,6 +5,9 @@
 const MongoSync = (function() {
   'use strict';
 
+  // Production Default Render URL
+  const DEFAULT_RENDER_URL = 'https://perfume-rujn.onrender.com';
+
   // Get dynamic API base URL
   function getApiBase() {
     // 1. Custom Render backend URL stored in localStorage
@@ -26,8 +29,8 @@ const MongoSync = (function() {
       }
     }
 
-    // 4. Default empty (relative path for same-origin proxy or fallback)
-    return '';
+    // 4. Default live Render production backend URL
+    return DEFAULT_RENDER_URL;
   }
 
   function setBackendUrl(url) {
@@ -198,9 +201,19 @@ const MongoSync = (function() {
     } catch (e) {}
   }
 
-  // Initialize background connection check
+  // Background Wake-Up Ping for Render Free Tier
+  async function wakeBackend() {
+    const apiBase = getApiBase();
+    if (!apiBase) return;
+    try {
+      fetch(`${apiBase}/healthz`, { mode: 'cors' }).catch(() => {});
+    } catch (e) {}
+  }
+
+  // Initialize background connection check & silent wake-up
   if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', () => {
+      wakeBackend();
       checkHealth();
       syncProducts();
     });

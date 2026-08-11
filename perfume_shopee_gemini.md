@@ -13,6 +13,7 @@
 - **Storefront URL**: [https://perfume-shopee.pages.dev](https://perfume-shopee.pages.dev)
 - **Regular Admin URL**: [https://perfume-shopee.pages.dev/admin.html](https://perfume-shopee.pages.dev/admin.html)
 - **Super Admin URL (Hidden / URL-Only Navigation)**: [https://perfume-shopee.pages.dev/superadmin.html](https://perfume-shopee.pages.dev/superadmin.html)
+- **Render Live API Backend URL**: [https://perfume-rujn.onrender.com](https://perfume-rujn.onrender.com)
 - **Cloudflare Account ID**: `0fbadd932cb4ec64fe049a68da13c315`
 - **Cloudflare Pages Project Name**: `perfume-shopee`
 - **Production Branch**: `main`
