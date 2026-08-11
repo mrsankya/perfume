@@ -131,7 +131,7 @@
        HERO BANNER (DYNAMIC SLIDING BACKGROUND PERFUME BOTTLES)
        ========================================================================= -->
   <section id="hero-banner" class="hero-slider-bg relative min-h-[460px] sm:min-h-[540px] flex items-center justify-center text-center p-6 text-white overflow-hidden">
-    <video id="hero-bg-video" autoplay loop muted playsinline class="hidden absolute inset-0 w-full h-full object-cover z-0 pointer-events-none transition-opacity duration-700">
+    <video id="hero-bg-video" autoplay loop muted playsinline style="mix-blend-mode: screen;" class="hidden absolute inset-0 w-full h-full object-cover z-0 pointer-events-none transition-opacity duration-700">
       <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay absolute inset-0 z-0"></div>
@@ -489,37 +489,37 @@
           </div>
         </div>
 
-        <!-- Right 3D Orbit Globe & YouTube Video Player -->
-        <div class="lg:col-span-7 relative">
+        <!-- Right 3D Orbit Globe & YouTube Video Player (3D Floating Holographic Stage) -->
+        <div class="lg:col-span-7 relative flex items-center justify-center">
           
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl border-2 theme-border bg-black/60 aspect-video flex items-center justify-center group">
+          <div id="global-video-card-container" class="hologram-3d-stage relative w-full rounded-3xl overflow-hidden min-h-[340px] sm:min-h-[420px] aspect-video flex items-center justify-center group">
             
-            <!-- Standard HTML5 Video Player -->
-            <video id="global-sourcing-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+            <!-- 3D Transparent Orbit Globe HTML5 Video Player (Black Background Removed via Screen Blend) -->
+            <video id="global-sourcing-video" autoplay loop muted playsinline class="hologram-3d-video w-full h-full max-h-[480px] object-contain">
               <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
 
             <!-- YouTube Embedded Player (Visible when YouTube link is configured) -->
-            <iframe id="global-sourcing-youtube-iframe" class="hidden w-full h-full border-0 absolute inset-0 z-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe id="global-sourcing-youtube-iframe" class="hidden w-full h-full border-0 absolute inset-0 z-0 rounded-3xl shadow-2xl" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-            <!-- Video Overlay Vignette -->
-            <div id="global-video-overlay-tint" class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/60 via-transparent to-black/30 z-10"></div>
+            <!-- Video Overlay Vignette / Dynamic Transparency Tint -->
+            <div id="global-video-overlay-tint" class="absolute inset-0 pointer-events-none z-10"></div>
 
             <!-- Floating Video Play/Pause & Fullscreen Controls -->
             <div id="global-video-custom-controls" class="absolute bottom-4 right-4 flex items-center gap-2 z-20 opacity-80 group-hover:opacity-100 transition-opacity">
-              <button type="button" onclick="toggleGlobalVideoPlay()" class="w-9 h-9 rounded-xl bg-black/70 hover:bg-black text-white border border-white/20 flex items-center justify-center text-xs backdrop-blur-md transition-all shadow-lg">
+              <button type="button" onclick="toggleGlobalVideoPlay()" class="w-9 h-9 rounded-xl bg-black/50 hover:bg-[#C59B27] text-white hover:text-[#120D0A] border border-white/20 flex items-center justify-center text-xs backdrop-blur-md transition-all shadow-lg">
                 <i class="fa-solid fa-pause" id="video-play-icon"></i>
               </button>
-              <button type="button" onclick="toggleGlobalVideoFullscreen()" class="w-9 h-9 rounded-xl bg-black/70 hover:bg-black text-white border border-white/20 flex items-center justify-center text-xs backdrop-blur-md transition-all shadow-lg">
+              <button type="button" onclick="toggleGlobalVideoFullscreen()" class="w-9 h-9 rounded-xl bg-black/50 hover:bg-[#C59B27] text-white hover:text-[#120D0A] border border-white/20 flex items-center justify-center text-xs backdrop-blur-md transition-all shadow-lg">
                 <i class="fa-solid fa-expand"></i>
               </button>
             </div>
 
             <!-- Floating Live Status Badge -->
-            <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold tracking-wider uppercase z-20 shadow-lg">
-              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-              <span id="global-video-format-badge">HD • Global Origins & Sourcing</span>
+            <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-[#C59B27]/40 text-white text-[10px] font-bold tracking-wider uppercase z-20 shadow-lg">
+              <span class="w-2 h-2 rounded-full bg-[#C59B27] animate-ping"></span>
+              <span id="global-video-format-badge">✨ 3D Holographic Orbit Globe</span>
             </div>
 
           </div>
@@ -1628,11 +1628,11 @@
     </div>
   <!-- FLOATING LUXURY ORBIT GLOBE WIDGET -->
   <div id="floating-orbit-globe-widget" class="fixed bottom-24 right-5 z-40 hidden flex items-center gap-2">
-    <div onclick="openOrbitGlobeModal()" title="Global Arabian Origins • Click to explore" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#C59B27] shadow-[0_0_24px_rgba(197,155,39,0.5)] cursor-pointer hover:scale-110 transition-transform bg-black relative group">
-      <video id="floating-orbit-globe-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+    <div onclick="openOrbitGlobeModal()" title="Global Arabian Origins • Click to explore" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-[#C59B27] shadow-[0_0_24px_rgba(197,155,39,0.5)] cursor-pointer hover:scale-110 transition-transform bg-black/40 backdrop-blur-md relative group flex items-center justify-center">
+      <video id="floating-orbit-globe-video" autoplay loop muted playsinline style="mix-blend-mode: screen;" class="w-full h-full object-cover">
         <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
       </video>
-      <span class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></span>
+      <span class="absolute inset-0 bg-transparent group-hover:bg-[#C59B27]/10 transition-colors"></span>
       <span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#C59B27] text-[#120D0A] flex items-center justify-center text-[8px] font-bold shadow-md">
         🌍
       </span>
@@ -1656,8 +1656,8 @@
         </div>
       </div>
 
-      <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-gray-800 flex items-center justify-center">
-        <video id="modal-orbit-globe-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+      <div class="hologram-3d-stage relative rounded-2xl overflow-hidden aspect-video border border-gray-800 flex items-center justify-center">
+        <video id="modal-orbit-globe-video" autoplay loop muted playsinline class="hologram-3d-video w-full h-full max-h-[380px] object-contain">
           <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
         </video>
         <iframe id="modal-youtube-iframe" class="hidden w-full h-full border-0 absolute inset-0 z-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

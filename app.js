@@ -3446,7 +3446,7 @@ const DEFAULT_STOREFRONT_VIDEO_CONFIG = {
   badge: '🌍 DIRECT GLOBAL SOURCING • DUBAI TO PUNE',
   title: 'The World’s Rarest Oils & Arabian Extraits',
   desc: 'Ethically sourced from aged Cambodian oud reserves, French Grasse rose fields, pure Mysore sandalwood forests, and Royal Taif distilleries. 100% uncut luxury extraits bottled with precision craftsmanship.',
-  overlayOpacity: 40,
+  overlayOpacity: 95,
   autoplay: true,
   loop: true,
   muted: true
@@ -3475,6 +3475,9 @@ function initGlobalVideoShowcase() {
   const placement = cfg.placement || 'section';
   const videoSrc = cfg.videoSrc || 'videos/animo-orbit-globe-720p.mp4';
   const ytId = parseYouTubeId(videoSrc);
+  const opacityRatio = ((cfg.overlayOpacity || 95) / 100).toString();
+
+  document.documentElement.style.setProperty('--video-opacity', opacityRatio);
 
   const sectionEl = document.getElementById('global-sourcing-video-section');
   const heroVideoEl = document.getElementById('hero-bg-video');
@@ -3512,9 +3515,10 @@ function initGlobalVideoShowcase() {
       if (videoSrc && !globalVideoEl.src.endsWith(videoSrc)) {
         globalVideoEl.src = videoSrc;
       }
+      globalVideoEl.style.opacity = opacityRatio;
       globalVideoEl.play().catch(() => {});
     }
-    if (formatBadgeEl) formatBadgeEl.textContent = 'HD 720p • Global Origin Orbit';
+    if (formatBadgeEl) formatBadgeEl.textContent = '✨ 3D Holographic Orbit Globe';
     if (customControlsEl) customControlsEl.classList.remove('hidden');
     if (soundBtnEl) soundBtnEl.classList.remove('hidden');
   }
@@ -3523,11 +3527,11 @@ function initGlobalVideoShowcase() {
   const badgeEl = document.getElementById('video-showcase-badge');
   const titleEl = document.getElementById('video-showcase-title');
   const descEl = document.getElementById('video-showcase-desc');
-  const overlayTintEl = document.getElementById('global-video-overlay-tint');
 
   if (badgeEl) badgeEl.textContent = cfg.badge;
   if (titleEl) titleEl.textContent = cfg.title;
   if (descEl) descEl.textContent = cfg.desc;
+  const overlayTintEl = document.getElementById('global-video-overlay-tint');
   if (overlayTintEl) {
     if (ytId) {
       overlayTintEl.style.backgroundColor = 'transparent';

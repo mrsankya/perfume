@@ -1905,7 +1905,7 @@ const DEFAULT_STAFF_VIDEO_SETTINGS = {
   badge: '🌍 DIRECT GLOBAL SOURCING • DUBAI TO PUNE',
   title: 'The World’s Rarest Oils & Arabian Extraits',
   desc: 'Ethically sourced from aged Cambodian oud reserves, French Grasse rose fields, pure Mysore sandalwood forests, and Royal Taif distilleries. 100% uncut luxury extraits bottled with precision craftsmanship.',
-  overlayOpacity: 40,
+  overlayOpacity: 95,
   autoplay: true,
   loop: true,
   muted: true
@@ -2048,9 +2048,9 @@ function handleStaffVideoPlacementChange(val) {
 function handleStaffVideoOverlayChange(val) {
   val = parseInt(val, 10);
   const valEl = document.getElementById('staff-video-overlay-val');
-  const overlay = document.getElementById('staff-preview-overlay');
+  const previewVideo = document.getElementById('staff-preview-video');
   if (valEl) valEl.textContent = val + '%';
-  if (overlay) overlay.style.opacity = (val / 100).toString();
+  if (previewVideo) previewVideo.style.opacity = (val / 100).toString();
 }
 
 function saveStaffVideoSettings() {
@@ -2059,7 +2059,7 @@ function saveStaffVideoSettings() {
   const title = (document.getElementById('staff-video-title')?.value || DEFAULT_STAFF_VIDEO_SETTINGS.title).trim();
   const desc = (document.getElementById('staff-video-desc')?.value || DEFAULT_STAFF_VIDEO_SETTINGS.desc).trim();
   const videoSrc = (document.getElementById('staff-video-src')?.value || DEFAULT_STAFF_VIDEO_SETTINGS.videoSrc).trim();
-  const overlayOpacity = parseInt(document.getElementById('staff-video-overlay-slider')?.value || '40', 10);
+  const overlayOpacity = parseInt(document.getElementById('staff-video-overlay-slider')?.value || '95', 10);
 
   const videoSettings = {
     placement,

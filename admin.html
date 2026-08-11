@@ -628,13 +628,14 @@
                 </p>
               </div>
 
-              <!-- Overlay Darkness Slider -->
+              <!-- Transparency & 3D Hologram Glow Slider -->
               <div class="pt-2">
                 <div class="flex justify-between items-center mb-1">
-                  <label class="text-[10px] font-bold text-gray-400 uppercase">Video Darkness / Tint Overlay</label>
-                  <span id="staff-video-overlay-val" class="font-mono text-xs text-[#C59B27] font-bold">40%</span>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase">3D Video Transparency & Hologram Luma</label>
+                  <span id="staff-video-overlay-val" class="font-mono text-xs text-[#C59B27] font-bold">95%</span>
                 </div>
-                <input type="range" id="staff-video-overlay-slider" min="0" max="80" value="40" oninput="handleStaffVideoOverlayChange(this.value)" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#C59B27]">
+                <input type="range" id="staff-video-overlay-slider" min="20" max="100" value="95" oninput="handleStaffVideoOverlayChange(this.value)" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-[#C59B27]">
+                <p class="text-[9px] text-gray-500 mt-1">Black background is automatically converted to 100% transparent floating 3D depth via hardware screen blending.</p>
               </div>
             </div>
 
@@ -646,23 +647,22 @@
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
                   <i class="fa-solid fa-eye text-[#C59B27]"></i>
-                  <span>Live Video Player Preview</span>
+                  <span>Live 3D Video Preview</span>
                 </span>
                 <span id="staff-video-active-placement-badge" class="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-[#C59B27] text-[#120D0A]">
                   Active: Section Mode
                 </span>
               </div>
 
-              <div class="relative rounded-2xl overflow-hidden aspect-video bg-black border border-gray-700 shadow-xl flex items-center justify-center">
-                <!-- Local MP4 Video -->
-                <video id="staff-preview-video" autoplay loop muted playsinline class="w-full h-full object-cover">
+              <div class="hologram-3d-stage relative rounded-2xl overflow-hidden aspect-video border border-gray-700 shadow-xl flex items-center justify-center">
+                <!-- Local MP4 Video (Screen Blended 3D Floating) -->
+                <video id="staff-preview-video" autoplay loop muted playsinline class="hologram-3d-video w-full h-full object-contain">
                   <source src="videos/animo-orbit-globe-720p.mp4" type="video/mp4">
                 </video>
 
                 <!-- YouTube Embedded Preview -->
                 <iframe id="staff-preview-youtube-iframe" class="hidden w-full h-full border-0 absolute inset-0 z-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                <div id="staff-preview-overlay" class="absolute inset-0 bg-black/40 pointer-events-none transition-opacity z-10"></div>
                 <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none z-20">
                   <span id="staff-preview-source-label" class="px-2 py-0.5 rounded bg-black/80 text-[10px] text-white font-mono">Source: animo-orbit-globe-720p.mp4</span>
                 </div>
