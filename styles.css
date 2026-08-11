@@ -442,42 +442,115 @@ body {
   color: #38312A !important;
 }
 
-/* Admin & Super Admin Panel Dynamic Theme Adaptation */
+/* =========================================================================
+   ADMIN & SUPER ADMIN PANEL COMPLETE DYNAMIC THEME (ARTISAN MINIMAL)
+   ========================================================================= */
+[data-style="artisan-minimal"] #superadmin-dashboard-view,
+[data-style="artisan-minimal"] #dashboard-view,
+[data-style="artisan-minimal"] #superadmin-login-view,
+[data-style="artisan-minimal"] #login-view,
+[data-style="artisan-minimal"] body {
+  background-color: #FAF8F5 !important;
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] header {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E2D9CC !important;
+  box-shadow: 0 2px 12px rgba(45, 35, 25, 0.04) !important;
+}
+
+[data-style="artisan-minimal"] header h1,
+[data-style="artisan-minimal"] header h2,
+[data-style="artisan-minimal"] header .font-heading,
+[data-style="artisan-minimal"] header span.text-white {
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] header span.text-gray-400,
+[data-style="artisan-minimal"] header span.text-gray-500 {
+  color: #6E6152 !important;
+}
+
+[data-style="artisan-minimal"] header .bg-\[\#120D0A\],
+[data-style="artisan-minimal"] header .bg-\[\#1C1511\] {
+  background-color: #F4EFEB !important;
+  border-color: #E2D9CC !important;
+}
+
 [data-style="artisan-minimal"] .super-tab-btn,
 [data-style="artisan-minimal"] .admin-tab-btn {
-  background-color: #ECE5DA !important;
-  border: 1px solid #DCD5C9 !important;
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #DCD5C9 !important;
   color: #38312A !important;
+  box-shadow: 0 1px 4px rgba(45, 35, 25, 0.04) !important;
+}
+
+[data-style="artisan-minimal"] .super-tab-btn:hover,
+[data-style="artisan-minimal"] .admin-tab-btn:hover {
+  background-color: #F4EFEB !important;
+  border-color: #8C6627 !important;
+  color: #14110E !important;
 }
 
 [data-style="artisan-minimal"] .super-tab-btn.bg-\[\#C59B27\],
-[data-style="artisan-minimal"] .admin-tab-btn.bg-\[\#C59B27\] {
+[data-style="artisan-minimal"] .admin-tab-btn.bg-\[\#C59B27\],
+[data-style="artisan-minimal"] .super-tab-btn.active,
+[data-style="artisan-minimal"] .admin-tab-btn.active {
   background-color: #1C1917 !important;
   color: #FFFFFF !important;
   border-color: #1C1917 !important;
 }
 
-[data-style="artisan-minimal"] header.bg-\[\#120D0A\],
-[data-style="artisan-minimal"] aside.bg-\[\#120D0A\],
-[data-style="artisan-minimal"] div.bg-\[\#120D0A\] {
-  background-color: #FAF8F5 !important;
-  border-color: #E2D9CC !important;
-  color: #14110E !important;
-}
-
-[data-style="artisan-minimal"] div.bg-\[\#18110E\],
-[data-style="artisan-minimal"] div.bg-\[\#1C1511\],
-[data-style="artisan-minimal"] div.bg-\[\#231B17\] {
+/* Card & Surface Containers */
+[data-style="artisan-minimal"] .bg-\[\#1C1511\],
+[data-style="artisan-minimal"] .bg-\[\#18110E\],
+[data-style="artisan-minimal"] .bg-\[\#231B17\],
+[data-style="artisan-minimal"] .bg-\[\#120D0A\] {
   background-color: #FFFFFF !important;
   border-color: #E5DFD5 !important;
   color: #14110E !important;
 }
 
+[data-style="artisan-minimal"] .bg-\[\#120D0A\]\/70,
+[data-style="artisan-minimal"] .bg-\[\#120D0A\]\/60,
+[data-style="artisan-minimal"] .bg-\[\#120D0A\]\/40,
+[data-style="artisan-minimal"] .bg-\[\#18110E\]\/60 {
+  background-color: #F4EFEB !important;
+  border-color: #E2D9CC !important;
+  color: #14110E !important;
+}
+
+/* Text Hierarchy */
+[data-style="artisan-minimal"] .text-white,
+[data-style="artisan-minimal"] .text-gray-100,
+[data-style="artisan-minimal"] .text-gray-200,
+[data-style="artisan-minimal"] .text-gray-300 {
+  color: #14110E !important;
+}
+
+[data-style="artisan-minimal"] .text-gray-400,
+[data-style="artisan-minimal"] .text-gray-500,
+[data-style="artisan-minimal"] .text-gray-600 {
+  color: #6E6152 !important;
+}
+
+[data-style="artisan-minimal"] .text-\[\#C59B27\] {
+  color: #8C6627 !important;
+}
+
+[data-style="artisan-minimal"] .border-gray-700,
+[data-style="artisan-minimal"] .border-gray-800,
+[data-style="artisan-minimal"] .border-gray-900 {
+  border-color: #E2D9CC !important;
+}
+
+/* Form Inputs & Controls */
 [data-style="artisan-minimal"] input:not([type="checkbox"]):not([type="radio"]),
 [data-style="artisan-minimal"] select,
 [data-style="artisan-minimal"] textarea {
   background-color: #FFFFFF !important;
-  border: 1px solid #DCD5C9 !important;
+  border: 1.5px solid #DCD5C9 !important;
   color: #14110E !important;
 }
 
@@ -486,10 +559,19 @@ body {
   color: #8F867C !important;
 }
 
+[data-style="artisan-minimal"] input:focus,
+[data-style="artisan-minimal"] select:focus,
+[data-style="artisan-minimal"] textarea:focus {
+  border-color: #8C6627 !important;
+  box-shadow: 0 0 0 3px rgba(140, 102, 39, 0.15) !important;
+}
+
+/* Tables & Data Grids */
 [data-style="artisan-minimal"] table th {
   background-color: #F4EFEB !important;
   color: #38312A !important;
   border-color: #E2D9CC !important;
+  font-weight: 700 !important;
 }
 
 [data-style="artisan-minimal"] table td {
@@ -502,20 +584,38 @@ body {
   background-color: #FAF8F5 !important;
 }
 
-[data-style="artisan-minimal"] .text-gray-300,
-[data-style="artisan-minimal"] .text-gray-200,
-[data-style="artisan-minimal"] .text-white {
+/* Modals & Dialogs */
+[data-style="artisan-minimal"] .modal-backdrop {
+  background-color: rgba(20, 17, 14, 0.55) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+[data-style="artisan-minimal"] .modal-backdrop > div {
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #E2D9CC !important;
+  box-shadow: 0 20px 60px rgba(45, 35, 25, 0.18) !important;
   color: #14110E !important;
 }
 
-[data-style="artisan-minimal"] .text-gray-400,
-[data-style="artisan-minimal"] .text-gray-500 {
-  color: #6E6152 !important;
+/* Action Buttons */
+[data-style="artisan-minimal"] .bg-gradient-to-r {
+  background: #1C1917 !important;
+  color: #FFFFFF !important;
 }
 
-[data-style="artisan-minimal"] .border-gray-700,
-[data-style="artisan-minimal"] .border-gray-800 {
-  border-color: #E2D9CC !important;
+[data-style="artisan-minimal"] .bg-\[\#C59B27\] {
+  background-color: #1C1917 !important;
+  color: #FFFFFF !important;
+}
+
+[data-style="artisan-minimal"] .text-\[\#120D0A\] {
+  color: #FFFFFF !important;
+}
+
+[data-style="artisan-minimal"] code {
+  background-color: #F4EFEB !important;
+  color: #14110E !important;
+  border: 1px solid #DCD5C9 !important;
 }
 
 /* Theme Elements */
