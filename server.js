@@ -112,9 +112,11 @@ app.post('/api/products', async (req, res) => {
   try {
     const product = req.body;
     if (!product.id) product.id = 'p-' + Date.now();
-    await db.collection('products').updateOne({ id: product.id }, { $set: product }, { upsert: true });
-    res.status(201).json({ success: true, product });
+    const { _id, ...cleanProduct } = product;
+    await db.collection('products').updateOne({ id: cleanProduct.id }, { $set: cleanProduct }, { upsert: true });
+    res.status(201).json({ success: true, product: cleanProduct });
   } catch (err) {
+    console.error('Error saving product to MongoDB:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -123,9 +125,11 @@ app.put('/api/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const updates = req.body;
-    await db.collection('products').updateOne({ id }, { $set: updates });
-    res.json({ success: true, id, updates });
+    const { _id, ...cleanUpdates } = updates;
+    await db.collection('products').updateOne({ id }, { $set: cleanUpdates });
+    res.json({ success: true, id, updates: cleanUpdates });
   } catch (err) {
+    console.error('Error updating product in MongoDB:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -253,13 +257,16 @@ app.post('/api/products/bulk', async (req, res) => {
     if (!Array.isArray(products) || products.length === 0) {
       return res.status(400).json({ error: 'Array of products is required' });
     }
-    const operations = products.map(p => ({
-      updateOne: {
-        filter: { id: p.id },
-        update: { $set: p },
-        upsert: true
-      }
-    }));
+    const operations = products.map(p => {
+      const { _id, ...clean } = p;
+      return {
+        updateOne: {
+          filter: { id: clean.id },
+          update: { $set: clean },
+          upsert: true
+        }
+      };
+    });
     const result = await db.collection('products').bulkWrite(operations);
     res.json({ success: true, count: products.length, result });
   } catch (err) {

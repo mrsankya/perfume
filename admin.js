@@ -435,6 +435,9 @@ function openProductModal(id = null) {
       document.getElementById('inp-notes').value = item.notes;
       document.getElementById('inp-stock').checked = item.inStock !== false;
       
+      const urlInput = document.getElementById('inp-image-url-input');
+      if (urlInput) urlInput.value = item.image || '';
+
       // Load images array or single image
       if (item.images && Array.isArray(item.images) && item.images.length > 0) {
         adminProductImages = [...item.images];
@@ -449,6 +452,8 @@ function openProductModal(id = null) {
     title.innerText = 'Add New Fragrance';
     form.reset();
     document.getElementById('inp-stock').checked = true;
+    const urlInput = document.getElementById('inp-image-url-input');
+    if (urlInput) urlInput.value = '';
     adminProductImages = [];
     renderAdminProductImagesGallery();
   }
@@ -460,6 +465,8 @@ function closeProductModal() {
   document.getElementById('product-edit-modal').classList.add('hidden');
   editingProductId = null;
   adminProductImages = [];
+  const urlInput = document.getElementById('inp-image-url-input');
+  if (urlInput) urlInput.value = '';
 }
 
 function handleProductSubmit(e) {
@@ -471,6 +478,16 @@ function handleProductSubmit(e) {
   const accord = document.getElementById('inp-accord').value;
   const badge = document.getElementById('inp-badge').value.trim();
   const notes = document.getElementById('inp-notes').value.trim();
+
+  // Auto-capture direct URL input if entered or modified
+  const urlInput = document.getElementById('inp-image-url-input');
+  if (urlInput && urlInput.value.trim()) {
+    const typedUrl = urlInput.value.trim();
+    if (!adminProductImages.includes(typedUrl)) {
+      adminProductImages.unshift(typedUrl);
+    }
+  }
+
   const images = adminProductImages.length > 0 ? [...adminProductImages] : ['https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'];
   const image = images[0];
   const inStock = document.getElementById('inp-stock').checked;
@@ -479,7 +496,9 @@ function handleProductSubmit(e) {
   if (editingProductId) {
     const idx = products.findIndex(p => p.id === editingProductId);
     if (idx !== -1) {
-      products[idx] = { ...products[idx], name, brand, price, gender, accord, badge, notes, image, images, inStock };
+      const existing = products[idx];
+      const { _id, ...cleanExisting } = existing;
+      products[idx] = { ...cleanExisting, id: editingProductId, name, brand, price, gender, accord, badge, notes, image, images, inStock };
       savedProduct = products[idx];
       showToast(`Updated '${name}' (${images.length} photos) ✨`, 'success');
     }

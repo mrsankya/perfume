@@ -136,14 +136,18 @@ const MongoSync = (function() {
     const apiBase = getApiBase();
     if (!apiBase) return null;
     try {
+      const { _id, ...cleanProduct } = product;
       const res = await fetch(`${apiBase}/api/products`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(product)
+        body: JSON.stringify(cleanProduct)
       });
       if (res.ok) {
-        console.log(`🍃 Product '${product.name}' pushed directly to MongoDB Atlas!`);
+        console.log(`🍃 Product '${cleanProduct.name}' pushed directly to MongoDB Atlas!`);
         return await res.json();
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        console.warn('MongoDB Push returned status:', res.status, errJson);
       }
     } catch (e) {
       console.warn('Failed to push product to MongoDB Atlas:', e.message);

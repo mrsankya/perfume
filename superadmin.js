@@ -1911,6 +1911,9 @@ function openSuperProductModal(id = null) {
       document.getElementById('sp-notes').value = item.notes;
       document.getElementById('sp-stock').checked = item.inStock !== false;
       
+      const urlInput = document.getElementById('sp-image-url-input');
+      if (urlInput) urlInput.value = item.image || '';
+
       // Load images array or single image
       if (item.images && Array.isArray(item.images) && item.images.length > 0) {
         superProductImages = [...item.images];
@@ -1926,6 +1929,8 @@ function openSuperProductModal(id = null) {
     form.reset();
     document.getElementById('sp-stock').checked = true;
     document.getElementById('sp-badge').value = 'New Arrival';
+    const urlInput = document.getElementById('sp-image-url-input');
+    if (urlInput) urlInput.value = '';
     superProductImages = [];
     renderSuperProductImagesGallery();
   }
@@ -1937,6 +1942,8 @@ function closeSuperProductModal() {
   document.getElementById('super-product-modal').classList.add('hidden');
   editingProductId = null;
   superProductImages = [];
+  const urlInput = document.getElementById('sp-image-url-input');
+  if (urlInput) urlInput.value = '';
 }
 
 function handleSuperProductSubmit(e) {
@@ -1948,6 +1955,16 @@ function handleSuperProductSubmit(e) {
   const accord = document.getElementById('sp-accord').value;
   const badge = document.getElementById('sp-badge').value.trim();
   const notes = document.getElementById('sp-notes').value.trim();
+  
+  // Auto-capture direct URL input if entered or modified
+  const urlInput = document.getElementById('sp-image-url-input');
+  if (urlInput && urlInput.value.trim()) {
+    const typedUrl = urlInput.value.trim();
+    if (!superProductImages.includes(typedUrl)) {
+      superProductImages.unshift(typedUrl);
+    }
+  }
+
   const images = superProductImages.length > 0 ? [...superProductImages] : ['https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&auto=format&fit=crop&q=80'];
   const image = images[0];
   const inStock = document.getElementById('sp-stock').checked;
@@ -1956,7 +1973,9 @@ function handleSuperProductSubmit(e) {
   if (editingProductId) {
     const idx = products.findIndex(p => p.id === editingProductId);
     if (idx !== -1) {
-      products[idx] = { ...products[idx], name, brand, price, gender, accord, badge, notes, image, images, inStock };
+      const existing = products[idx];
+      const { _id, ...cleanExisting } = existing;
+      products[idx] = { ...cleanExisting, id: editingProductId, name, brand, price, gender, accord, badge, notes, image, images, inStock };
       savedProduct = products[idx];
       recordAudit(`Updated product '${name}' with ${images.length} images`);
       showToast(`Updated '${name}' (${images.length} photos) ✨`, 'success');
