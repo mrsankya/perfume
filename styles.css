@@ -690,10 +690,10 @@ section h2 {
   100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3)); }
 }
 
-/* Floating Bottom Navigation Pill Bar */
+/* Floating Bottom Navigation Pill Bar (Mobile & Safe Area Optimized) */
 .floating-bottom-nav {
   position: fixed;
-  bottom: 20px;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   z-index: 45;
@@ -703,12 +703,22 @@ section h2 {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 155, 39, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.2);
   border-radius: 9999px;
-  padding: 6px 14px;
+  padding: 4px 8px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  max-width: calc(100vw - 32px);
+  gap: 2px;
+  max-width: calc(100vw - 16px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .floating-bottom-nav {
+    bottom: 20px;
+    padding: 6px 16px;
+    gap: 8px;
+    max-width: calc(100vw - 32px);
+  }
 }
 
 [data-theme="women"] .floating-bottom-nav {
@@ -728,22 +738,37 @@ section h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
+  padding: 5px 7px;
   border-radius: 9999px;
   color: var(--text-secondary);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   transition: all 0.25s ease;
   white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .floating-nav-item {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
 }
 
 .floating-nav-item i {
   color: var(--accent-primary);
-  font-size: 13px;
-  margin-bottom: 2px;
+  font-size: 12px;
+  margin-bottom: 1.5px;
   transition: transform 0.2s ease, color 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .floating-nav-item i {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
 }
 
 .floating-nav-item:hover, .floating-nav-item.active {
