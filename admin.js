@@ -31,10 +31,23 @@ function formatRupees(amount) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  applyAdminTheme();
   loadAdminData();
   checkAuth();
   initAdminRenderCloudDesk();
 });
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'perfumes_site_style') {
+    applyAdminTheme();
+  }
+});
+
+function applyAdminTheme() {
+  const currentStyle = localStorage.getItem('perfumes_site_style') || 'artisan-minimal';
+  document.documentElement.setAttribute('data-style', currentStyle);
+  document.body.setAttribute('data-style', currentStyle);
+}
 
 function loadAdminData() {
   // Products

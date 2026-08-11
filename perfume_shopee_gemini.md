@@ -112,6 +112,9 @@
 20. **🌟 "Wear Like a Legend" QuickView Breakdown & Base64 Image Upload Fix**:
     - Clicking the "Wear Like a Legend" section header or any celebrity card opens a dedicated **Celebrity Scent Wardrobe Story & Layering Breakdown QuickView Modal** (`#celebrity-detail-modal`) with high-res portrait, quote, duo flacons, step-by-step "How to Layer" guide, and 1-click duo checkout.
     - Upgraded celebrity image inputs in Super Admin (`superadmin.html`) and Staff Admin (`admin.html`) to support Base64 compressed image uploads and web URLs without HTML5 URL validation errors.
+21. **🎨 Universal Dynamic Theme Synchronization (Storefront + Super Admin + Staff Admin) & Discovery Box Contrast**:
+    - Fixed text readability and contrast in the **Custom Discovery Box & 5ml Tester Slots** for Clean Skin & White Minimal theme (`[data-style="artisan-minimal"]`).
+    - Super Admin (`superadmin.html`) and Staff Admin (`admin.html`) now dynamically inherit and synchronize the exact active store theme styling across all tables, inputs, sidebars, and cards.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:
