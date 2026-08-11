@@ -1088,14 +1088,75 @@ function renderReservationsTable() {
   `).join('');
 }
 
+function cleanStaffGoogleMapEmbedUrl(val) {
+  if (!val || typeof val !== 'string') return '';
+  val = val.trim();
+  const iframeMatch = val.match(/src=["']([^"']+)["']/i);
+  if (iframeMatch && iframeMatch[1]) {
+    return iframeMatch[1];
+  }
+  return val;
+}
+
+function handleStaffStorefrontUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const maxDim = 1200;
+      let width = img.width;
+      let height = img.height;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+      const input = document.getElementById('set-storefront-img');
+      const preview = document.getElementById('set-storefront-preview');
+      if (input) input.value = dataUrl;
+      if (preview) preview.src = dataUrl;
+      showToast('Storefront Photo Uploaded & Compressed', 'success');
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 function renderSettingsForm() {
   document.getElementById('set-store-name').value = settings.storeName || '';
-  document.getElementById('set-gst-number').value = settings.gstNumber || '27AAAAA0000A1Z5';
+  document.getElementById('set-gst-number').value = settings.gstNumber || '27AABCP9822F1Z4';
   document.getElementById('set-whatsapp').value = settings.whatsappNumber || '';
   document.getElementById('set-phone').value = settings.supportPhone || '';
-  document.getElementById('set-email').value = settings.supportEmail || '';
+  if (document.getElementById('set-email')) document.getElementById('set-email').value = settings.supportEmail || '';
   document.getElementById('set-address').value = settings.storeAddress || '';
-  document.getElementById('set-announcement').value = settings.announcementText || '';
+  if (document.getElementById('set-announcement')) document.getElementById('set-announcement').value = settings.announcementText || '';
+
+  // Physical Boutique & Map Config
+  const storefrontImgEl = document.getElementById('set-storefront-img');
+  const mapEmbedEl = document.getElementById('set-map-embed-url');
+  const mapDirectionsEl = document.getElementById('set-map-directions-url');
+  const storeDescEl = document.getElementById('set-store-description');
+  const previewEl = document.getElementById('set-storefront-preview');
+
+  if (storefrontImgEl) storefrontImgEl.value = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  if (mapEmbedEl) mapEmbedEl.value = settings.mapEmbedUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  if (mapDirectionsEl) mapDirectionsEl.value = settings.mapDirectionsUrl || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
+  if (storeDescEl) storeDescEl.value = settings.storeDescription || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
+  if (previewEl) previewEl.src = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
 }
 
 function handleSettingsSubmit(e) {
@@ -1104,9 +1165,20 @@ function handleSettingsSubmit(e) {
   settings.gstNumber = document.getElementById('set-gst-number').value.trim();
   settings.whatsappNumber = document.getElementById('set-whatsapp').value.trim();
   settings.supportPhone = document.getElementById('set-phone').value.trim();
-  settings.supportEmail = document.getElementById('set-email').value.trim();
+  if (document.getElementById('set-email')) settings.supportEmail = document.getElementById('set-email').value.trim();
   settings.storeAddress = document.getElementById('set-address').value.trim();
-  settings.announcementText = document.getElementById('set-announcement').value.trim();
+  if (document.getElementById('set-announcement')) settings.announcementText = document.getElementById('set-announcement').value.trim();
+
+  // Save Physical Boutique & Map Config
+  const customImg = (document.getElementById('set-storefront-img')?.value || '').trim();
+  const rawMapEmbed = (document.getElementById('set-map-embed-url')?.value || '').trim();
+  const customDirections = (document.getElementById('set-map-directions-url')?.value || '').trim();
+  const customDesc = (document.getElementById('set-store-description')?.value || '').trim();
+
+  settings.storefrontImage = customImg || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  settings.mapEmbedUrl = cleanStaffGoogleMapEmbedUrl(rawMapEmbed) || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  settings.mapDirectionsUrl = customDirections || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
+  settings.storeDescription = customDesc || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
 
   const newPass = document.getElementById('set-new-password').value.trim();
   if (newPass) {
@@ -1115,7 +1187,7 @@ function handleSettingsSubmit(e) {
   }
 
   localStorage.setItem('perfumes_settings', JSON.stringify(settings));
-  showToast('Settings saved successfully', 'success');
+  showToast('Storefront Settings & Map saved successfully', 'success');
 }
 
 function showToast(message, type = 'info') {

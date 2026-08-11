@@ -483,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderAlchemyBlender();
   renderCommunityFeed();
   initGlobalVideoShowcase();
+  initStorefrontBoutiqueDetails();
   updateCartBadge();
 
   setTimeout(() => {
@@ -513,6 +514,9 @@ window.addEventListener('storage', (e) => {
   }
   if (e.key === 'perfumes_video_settings') {
     initGlobalVideoShowcase();
+  }
+  if (e.key === 'perfumes_settings') {
+    initStorefrontBoutiqueDetails();
   }
 });
 
@@ -3658,5 +3662,50 @@ function closeOrbitGlobeModal() {
     if (modalVideo) modalVideo.pause();
     if (modalIframe) modalIframe.src = '';
   }
+}
+
+// =========================================================================
+// 16. DYNAMIC PHYSICAL BOUTIQUE & GOOGLE MAPS SHOWCASE RENDERER
+// =========================================================================
+function initStorefrontBoutiqueDetails() {
+  const settings = getStoreSettings();
+
+  const storeName = settings.storeName || 'Club 99 – The Perfume Shop';
+  const storeAddress = settings.storeAddress || 'Club 99 – The Perfume Shop,\nNear Station Road / City Center,\nJalgaon, Maharashtra – 425001, India.';
+  const storeHours = settings.storeHours || 'Monday – Sunday: 10:30 AM – 10:00 PM';
+  const storePhone = settings.supportPhone || settings.whatsappNumber || '+91 9822725265';
+  const whatsappNum = settings.whatsappNumber || '919822725265';
+  const storefrontImg = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  const mapEmbedUrl = settings.mapEmbedUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  const mapDirectionsUrl = settings.mapDirectionsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeName + ' ' + storeAddress)}`;
+  const storeDesc = settings.storeDescription || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
+
+  const headingEl = document.getElementById('boutique-heading-name');
+  const descEl = document.getElementById('boutique-desc-text');
+  const subcaptionNameEl = document.getElementById('boutique-subcaption-name');
+  const photoEl = document.getElementById('storefront-main-photo');
+  const mapIframeEl = document.getElementById('boutique-google-map-iframe');
+  const dirBtnEl = document.getElementById('boutique-directions-overlay-btn');
+  const cardNameEl = document.getElementById('boutique-card-name');
+  const addressEl = document.getElementById('boutique-address-text');
+  const hoursEl = document.getElementById('boutique-hours-text');
+  const phoneEl = document.getElementById('boutique-phone-text');
+  const waBtnEl = document.getElementById('boutique-whatsapp-action-btn');
+  const callBtnEl = document.getElementById('boutique-call-action-btn');
+  const callTextEl = document.getElementById('boutique-call-btn-text');
+
+  if (headingEl) headingEl.textContent = storeName;
+  if (descEl) descEl.textContent = storeDesc;
+  if (subcaptionNameEl) subcaptionNameEl.textContent = storeName + ' • Fragrance Lounge';
+  if (photoEl && storefrontImg) photoEl.src = storefrontImg;
+  if (mapIframeEl && mapEmbedUrl && mapIframeEl.src !== mapEmbedUrl) mapIframeEl.src = mapEmbedUrl;
+  if (dirBtnEl) dirBtnEl.href = mapDirectionsUrl;
+  if (cardNameEl) cardNameEl.textContent = storeName;
+  if (addressEl) addressEl.innerHTML = storeAddress.replace(/\n/g, '<br>');
+  if (hoursEl) hoursEl.textContent = storeHours;
+  if (phoneEl) phoneEl.textContent = storePhone;
+  if (waBtnEl) waBtnEl.href = `https://wa.me/${whatsappNum}?text=${encodeURIComponent('Hi ' + storeName + ', I would like to visit your boutique and check fragrance stock')}`;
+  if (callBtnEl) callBtnEl.href = `tel:${whatsappNum}`;
+  if (callTextEl) callTextEl.textContent = `Call Store: ${whatsappNum}`;
 }
 

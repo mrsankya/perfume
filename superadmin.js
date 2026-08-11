@@ -2184,6 +2184,54 @@ function renderSuperReservations() {
   `).join('');
 }
 
+function cleanGoogleMapEmbedUrl(val) {
+  if (!val || typeof val !== 'string') return '';
+  val = val.trim();
+  // If user pasted full iframe tag
+  const iframeMatch = val.match(/src=["']([^"']+)["']/i);
+  if (iframeMatch && iframeMatch[1]) {
+    return iframeMatch[1];
+  }
+  return val;
+}
+
+function handleSuperStorefrontUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const maxDim = 1200;
+      let width = img.width;
+      let height = img.height;
+      if (width > maxDim || height > maxDim) {
+        if (width > height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+      document.getElementById('su-storefront-img').value = dataUrl;
+      const preview = document.getElementById('su-storefront-preview');
+      if (preview) preview.src = dataUrl;
+      showToast('Storefront Photo Uploaded & Compressed', 'success');
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 // 5. Store Settings
 function renderSuperSettings() {
   document.getElementById('su-store-name').value = settings.storeName || '';
@@ -2198,6 +2246,19 @@ function renderSuperSettings() {
   document.getElementById('su-announcement').value = settings.announcementText || '';
   document.getElementById('su-announcement-active').checked = settings.announcementActive !== false;
   document.getElementById('su-maintenance').checked = settings.maintenanceMode === true;
+
+  // Physical Boutique & Map Config
+  const storefrontImgEl = document.getElementById('su-storefront-img');
+  const mapEmbedEl = document.getElementById('su-map-embed-url');
+  const mapDirectionsEl = document.getElementById('su-map-directions-url');
+  const storeDescEl = document.getElementById('su-store-description');
+  const previewEl = document.getElementById('su-storefront-preview');
+
+  if (storefrontImgEl) storefrontImgEl.value = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  if (mapEmbedEl) mapEmbedEl.value = settings.mapEmbedUrl || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  if (mapDirectionsEl) mapDirectionsEl.value = settings.mapDirectionsUrl || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
+  if (storeDescEl) storeDescEl.value = settings.storeDescription || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
+  if (previewEl) previewEl.src = settings.storefrontImage || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
 }
 
 function handleSuperSettingsSubmit(e) {
@@ -2216,6 +2277,17 @@ function handleSuperSettingsSubmit(e) {
   settings.announcementActive = document.getElementById('su-announcement-active').checked;
   settings.maintenanceMode = document.getElementById('su-maintenance').checked;
 
+  // Save Physical Boutique & Map Config
+  const customImg = (document.getElementById('su-storefront-img')?.value || '').trim();
+  const rawMapEmbed = (document.getElementById('su-map-embed-url')?.value || '').trim();
+  const customDirections = (document.getElementById('su-map-directions-url')?.value || '').trim();
+  const customDesc = (document.getElementById('su-store-description')?.value || '').trim();
+
+  settings.storefrontImage = customImg || 'https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1200&auto=format&fit=crop&q=80';
+  settings.mapEmbedUrl = cleanGoogleMapEmbedUrl(rawMapEmbed) || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119227.1896898495!2d75.5000574972656!3d20.998064600000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fa4a1eab717%3A0x52efbdc30d3be000!2sJalgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin';
+  settings.mapDirectionsUrl = customDirections || 'https://www.google.com/maps/search/?api=1&query=Club+99+The+Perfume+Shop+Jalgaon+Maharashtra';
+  settings.storeDescription = customDesc || 'Step into our flagship fragrance sanctuary in Jalgaon. Experience 100+ authentic Arabian extraits, designer flacons, live laser bottle engraving, and complimentary sensory drydown testing on skin before you buy.';
+
   const newSuperPass = document.getElementById('su-new-password').value.trim();
   if (newSuperPass) {
     localStorage.setItem('perfume_superadmin_password', newSuperPass);
@@ -2224,8 +2296,8 @@ function handleSuperSettingsSubmit(e) {
   }
 
   localStorage.setItem('perfumes_settings', JSON.stringify(settings));
-  recordAudit('Master Store Settings Updated');
-  showToast('Master Store Settings Saved Successfully', 'success');
+  recordAudit('Master Store Settings & Map Customizer Updated');
+  showToast('Master Store Settings & Map Saved Successfully', 'success');
 }
 
 // 6. Backup, Export & Restore
