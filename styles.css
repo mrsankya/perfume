@@ -728,8 +728,68 @@ section h2 {
   transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+:root {
+  --hero-opacity: 0.55;
+}
+
 .hero-overlay {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 60%, var(--bg-main) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, calc(var(--hero-opacity, 0.55) * 0.75)) 0%, rgba(0, 0, 0, var(--hero-opacity, 0.55)) 60%, rgba(0, 0, 0, calc(var(--hero-opacity, 0.55) * 1.25)) 100%);
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+/* Explicit Hero Banner Typography & Contrast Protection Across All Themes */
+#hero-banner h1,
+[data-style="artisan-minimal"] #hero-banner h1,
+[data-style="glassmorphism"] #hero-banner h1,
+[data-style="royal-heritage"] #hero-banner h1,
+[data-style="cyberpunk"] #hero-banner h1,
+[data-style="minimal-luxe"] #hero-banner h1 {
+  color: #FFFFFF !important;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.9) !important;
+}
+
+#hero-banner p,
+[data-style="artisan-minimal"] #hero-banner p,
+[data-style="artisan-minimal"] #hero-desc-text,
+#hero-desc-text {
+  color: #F3F4F6 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9) !important;
+}
+
+#hero-banner #hero-badge-text,
+[data-style="artisan-minimal"] #hero-banner #hero-badge-text {
+  background-color: rgba(0, 0, 0, 0.65) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.hero-btn-primary {
+  background: #C59B27 !important;
+  color: #120D0A !important;
+  font-weight: 800 !important;
+  border: 1px solid #E5BE72 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(197, 155, 39, 0.4) !important;
+}
+
+.hero-btn-primary:hover {
+  background: #E5BE72 !important;
+  transform: translateY(-2px);
+}
+
+.hero-btn-secondary {
+  background: rgba(0, 0, 0, 0.65) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-color: #FFFFFF !important;
+  transform: translateY(-2px);
 }
 
 /* =========================================================================

@@ -493,11 +493,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Run immediately on script execution to prevent style flash
 loadSiteVisualStyles();
+applyHeroBannerOpacity();
 
 // Cross-tab real-time style sync
 window.addEventListener('storage', (e) => {
   if (e.key === 'perfumes_site_style') {
     loadSiteVisualStyles();
+  }
+  if (e.key === 'perfumes_hero_opacity') {
+    applyHeroBannerOpacity();
+  }
+  if (e.key === 'perfumes_hero_banners') {
+    setHeroSlide(currentHeroSlideIndex);
   }
 });
 
@@ -505,6 +512,11 @@ function loadSiteVisualStyles() {
   const style = localStorage.getItem('perfumes_site_style') || 'glassmorphism';
   document.documentElement.setAttribute('data-style', style);
   document.body.setAttribute('data-style', style);
+}
+
+function applyHeroBannerOpacity() {
+  const opacityVal = parseInt(localStorage.getItem('perfumes_hero_opacity') || '55', 10);
+  document.documentElement.style.setProperty('--hero-opacity', (opacityVal / 100).toString());
 }
 
 // 1. SHOPPING CART & ENGRAVING

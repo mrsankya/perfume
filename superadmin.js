@@ -1089,7 +1089,35 @@ function switchBannerManagerSection(section) {
   renderHeroBannersManager();
 }
 
+function getHeroBannerOpacity() {
+  return parseInt(localStorage.getItem('perfumes_hero_opacity') || '55', 10);
+}
+
+function handleHeroOpacityChange(val) {
+  val = parseInt(val, 10);
+  const valEl = document.getElementById('super-hero-opacity-val');
+  const sliderEl = document.getElementById('super-hero-opacity-slider');
+  if (valEl) valEl.textContent = val + '%';
+  if (sliderEl) sliderEl.value = val;
+  localStorage.setItem('perfumes_hero_opacity', val.toString());
+  document.documentElement.style.setProperty('--hero-opacity', (val / 100).toString());
+  if (typeof syncPushConfigToCloud === 'function') {
+    syncPushConfigToCloud();
+  }
+}
+
+function setHeroOpacityPreset(val) {
+  handleHeroOpacityChange(val);
+}
+
 function renderHeroBannersManager() {
+  // Sync slider UI
+  const currentOpacity = getHeroBannerOpacity();
+  const valEl = document.getElementById('super-hero-opacity-val');
+  const sliderEl = document.getElementById('super-hero-opacity-slider');
+  if (valEl) valEl.textContent = currentOpacity + '%';
+  if (sliderEl) sliderEl.value = currentOpacity;
+
   const container = document.getElementById('hero-banners-list-grid');
   if (!container) return;
 

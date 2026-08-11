@@ -206,6 +206,7 @@ function switchTab(tabId) {
   if (tabId === 'visitors') renderVisitorsTable();
   if (tabId === 'orders') renderOrdersTable();
   if (tabId === 'celebrities') renderAdminCelebrityWardrobes();
+  if (tabId === 'banners') renderStaffHeroBanners();
   if (tabId === 'consultations') renderConsultationsTable();
   if (tabId === 'reservations') renderReservationsTable();
   if (tabId === 'settings') renderSettingsForm();
@@ -1600,3 +1601,298 @@ async function syncCatalogFromMongoAtlasAdmin() {
     showToast('Pull failed: ' + err.message, 'error');
   }
 }
+
+// =========================================================================
+// STAFF ADMIN: HERO BANNERS & TRANSPARENCY CONTROLLER
+// =========================================================================
+let staffActiveBannerSection = 'All';
+
+function getStaffHeroBanners() {
+  const saved = localStorage.getItem('perfumes_hero_banners');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      if (parsed && Array.isArray(parsed.All) && Array.isArray(parsed.Women) && Array.isArray(parsed.Men)) {
+        return parsed;
+      }
+    } catch (e) {}
+  }
+  return {
+    All: [
+      {
+        image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+        badge: '👑 100% ORIGINAL IMPORTED EXTRAITS & ROYAL ATTARS',
+        title: 'HAUTE PARFUMERIE • PUNE',
+        desc: 'Curated Arabian Masterpieces, Designer Extraits & 100% Risk-Free Tester Guarantee with same-day FC Road boutique pickup.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=1600&auto=format&fit=crop&q=80',
+        badge: '🪵 ROYAL DEHN AL OUD & MYSORE SANDALWOOD',
+        title: 'PURE HERITAGE EXTRAITS',
+        desc: 'Aged Cambodian Oud, Pure Mysore Sandalwood Oil & Kashmiri Kesar distilled for eternal longevity.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=1600&auto=format&fit=crop&q=80',
+        badge: '✨ BESPOKE CONNOISSEUR RESERVE',
+        title: 'ARTISANAL LUXURY FLACONS',
+        desc: 'Hand-blown crystal flacons, high-concentration oils, and complimentary custom laser bottle engraving.'
+      }
+    ],
+    Women: [
+      {
+        image: 'https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=1600&auto=format&fit=crop&q=80',
+        badge: '🌸 WOMEN’S HAUTE COUTURE & ROSE GOLD ATTARS',
+        title: 'ETHEREAL PEONY & DAMASCENE LUXE',
+        desc: 'Turkish Rose Petals, Kashmiri Kesar Vanilla & Sugared Gourmand Extraits with enchanting sillage.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1600&auto=format&fit=crop&q=80',
+        badge: '🍓 VIRAL GOURMAND & SWEET BERRY ESSENCE',
+        title: 'YARA BLUSH & ROSE PETALS',
+        desc: 'Soft powdery vanilla orchid, tropical red berries, and creamy sandalwood for daily glamour.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=1600&auto=format&fit=crop&q=80',
+        badge: '💖 BRIDAL SANGEET & DATE NIGHT SIGNATURE',
+        title: 'ROYAL KESAR GOURMAND',
+        desc: 'Sweet dates, praline, cinnamon, and warm amber vanilla crafted for memorable celebrations.'
+      }
+    ],
+    Men: [
+      {
+        image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&auto=format&fit=crop&q=80',
+        badge: '⚡ MEN’S TITANIUM & MARVEL BEAST MODE COLLECTION',
+        title: 'UNLEASH ALPHA SILLAGE',
+        desc: '16+ Hour Longevity in Pune Summer Heat. Smoky Birch, Mysore Sandalwood & Arabian Grey Amber.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?w=1600&auto=format&fit=crop&q=80',
+        badge: '🌊 AQUATIC MONSOON & HIGH VOLTAGE PROJECTION',
+        title: 'HAWAS POUR HOMME BEAST',
+        desc: 'Italian Bergamot, Cinnamon spice, and Crisp Grey Amber for intense all-day projection.'
+      },
+      {
+        image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600&auto=format&fit=crop&q=80',
+        badge: '🔥 18-HOUR COMPLIMENT MONSTER',
+        title: 'CLUB DE NUIT INTENSE',
+        desc: 'Smoky birchwood, crisp blackcurrant, and magnetic ambergris engineered for alpha presence.'
+      }
+    ]
+  };
+}
+
+function getStaffHeroBannerOpacity() {
+  return parseInt(localStorage.getItem('perfumes_hero_opacity') || '55', 10);
+}
+
+function handleStaffHeroOpacityChange(val) {
+  val = parseInt(val, 10);
+  const valEl = document.getElementById('staff-hero-opacity-val');
+  const sliderEl = document.getElementById('staff-hero-opacity-slider');
+  if (valEl) valEl.textContent = val + '%';
+  if (sliderEl) sliderEl.value = val;
+  localStorage.setItem('perfumes_hero_opacity', val.toString());
+  document.documentElement.style.setProperty('--hero-opacity', (val / 100).toString());
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushSettings) {
+    MongoSync.pushSettings();
+  }
+}
+
+function setStaffHeroOpacityPreset(val) {
+  handleStaffHeroOpacityChange(val);
+}
+
+function switchStaffBannerManagerSection(sec) {
+  staffActiveBannerSection = sec;
+  ['all', 'women', 'men'].forEach(s => {
+    const btn = document.getElementById(`staff-banner-sec-${s}-btn`);
+    if (btn) {
+      if (s === sec.toLowerCase()) {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#C59B27] text-[#120D0A] shadow-sm';
+      } else {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-[#231B17] border border-gray-700 text-gray-300 hover:text-white';
+      }
+    }
+  });
+  renderStaffHeroBanners();
+}
+
+function renderStaffHeroBanners() {
+  const currentOpacity = getStaffHeroBannerOpacity();
+  const valEl = document.getElementById('staff-hero-opacity-val');
+  const sliderEl = document.getElementById('staff-hero-opacity-slider');
+  if (valEl) valEl.textContent = currentOpacity + '%';
+  if (sliderEl) sliderEl.value = currentOpacity;
+
+  const container = document.getElementById('staff-hero-banners-list-grid');
+  if (!container) return;
+
+  const banners = getStaffHeroBanners();
+  const slides = banners[staffActiveBannerSection] || [];
+
+  if (slides.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-12 text-center space-y-2 bg-[#1C1511] rounded-2xl border border-gray-800 p-6">
+        <p class="text-sm text-gray-400">No slides configured for ${staffActiveBannerSection} section.</p>
+        <button onclick="openStaffHeroBannerModal()" class="bg-[#C59B27] text-[#120D0A] px-4 py-2 rounded-xl text-xs font-bold uppercase">Add First Slide</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = slides.map((slide, idx) => `
+    <div class="bg-[#1C1511] rounded-3xl border border-gray-800 overflow-hidden space-y-3 flex flex-col justify-between shadow-md">
+      <div class="relative aspect-video w-full bg-black/40 overflow-hidden">
+        <img src="${slide.image}" alt="${slide.title}" class="w-full h-full object-cover">
+        <span class="absolute top-2 left-2 px-2.5 py-1 rounded-full text-[10px] font-bold bg-black/80 text-[#C59B27] border border-[#C59B27]/40 shadow-sm">
+          Slide #${idx + 1} (${staffActiveBannerSection})
+        </span>
+      </div>
+
+      <div class="p-4 space-y-2 flex-1">
+        <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-[#231B17] border border-gray-700 text-gray-300 inline-block truncate max-w-full">
+          ${slide.badge}
+        </span>
+        <h4 class="font-heading text-sm font-bold text-white uppercase">${slide.title}</h4>
+        <p class="text-[11px] text-gray-400 line-clamp-2 leading-relaxed">${slide.desc}</p>
+      </div>
+
+      <div class="p-4 pt-0 flex items-center justify-between border-t border-gray-800/80">
+        <button onclick="openStaffHeroBannerModal(${idx})" class="text-xs text-[#C59B27] font-semibold hover:underline flex items-center gap-1">
+          <i class="fa-solid fa-pen-to-square text-[10px]"></i> Edit Slide
+        </button>
+        <button onclick="deleteStaffHeroBannerSlide('${staffActiveBannerSection}', ${idx})" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
+          <i class="fa-solid fa-trash text-[10px]"></i> Delete
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openStaffHeroBannerModal(editIndex = -1) {
+  const modal = document.getElementById('staff-hero-banner-modal');
+  const title = document.getElementById('staff-hero-banner-modal-title');
+  const indexInput = document.getElementById('staff-hb-edit-index');
+  const sectionSelect = document.getElementById('staff-hb-section');
+  const imageInput = document.getElementById('staff-hb-image');
+  const badgeInput = document.getElementById('staff-hb-badge');
+  const titleInput = document.getElementById('staff-hb-title');
+  const descInput = document.getElementById('staff-hb-desc');
+
+  sectionSelect.value = staffActiveBannerSection;
+  indexInput.value = editIndex;
+
+  if (editIndex >= 0) {
+    const banners = getStaffHeroBanners();
+    const slide = (banners[staffActiveBannerSection] || [])[editIndex];
+    if (slide) {
+      title.textContent = `Edit Slide #${editIndex + 1} (${staffActiveBannerSection})`;
+      imageInput.value = slide.image || '';
+      badgeInput.value = slide.badge || '';
+      titleInput.value = slide.title || '';
+      descInput.value = slide.desc || '';
+      previewStaffHeroBannerImage(slide.image || '');
+    }
+  } else {
+    title.textContent = `Add Hero Banner Slide (${staffActiveBannerSection})`;
+    document.getElementById('staff-hero-banner-form').reset();
+    sectionSelect.value = staffActiveBannerSection;
+    indexInput.value = -1;
+    clearStaffHeroBannerImage();
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeStaffHeroBannerModal() {
+  const modal = document.getElementById('staff-hero-banner-modal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function previewStaffHeroBannerImage(url) {
+  const previewBox = document.getElementById('staff-hb-image-preview-box');
+  const previewImg = document.getElementById('staff-hb-preview-img');
+  if (url && url.trim().length > 5) {
+    previewImg.src = url;
+    previewBox.classList.remove('hidden');
+  } else {
+    previewBox.classList.add('hidden');
+  }
+}
+
+function clearStaffHeroBannerImage() {
+  document.getElementById('staff-hb-image').value = '';
+  document.getElementById('staff-hb-image-file').value = '';
+  document.getElementById('staff-hb-file-label').textContent = 'Upload Banner';
+  document.getElementById('staff-hb-image-preview-box').classList.add('hidden');
+}
+
+async function handleStaffHeroBannerFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const label = document.getElementById('staff-hb-file-label');
+  label.textContent = 'Compressing...';
+
+  try {
+    const result = await processImageFile(file, 1600, 1000, 0.82);
+    document.getElementById('staff-hb-image').value = result.dataUrl;
+    label.textContent = file.name;
+    previewStaffHeroBannerImage(result.dataUrl);
+    showToast('Banner Compressed Successfully');
+  } catch (err) {
+    label.textContent = 'Upload Banner';
+    showToast(err.message, 'error');
+  }
+}
+
+function handleStaffHeroBannerSubmit(event) {
+  event.preventDefault();
+  const section = document.getElementById('staff-hb-section').value;
+  const editIndex = parseInt(document.getElementById('staff-hb-edit-index').value, 10);
+  const image = document.getElementById('staff-hb-image').value.trim();
+  const badge = document.getElementById('staff-hb-badge').value.trim();
+  const title = document.getElementById('staff-hb-title').value.trim();
+  const desc = document.getElementById('staff-hb-desc').value.trim();
+
+  if (!image) {
+    showToast('Please provide a banner photograph', 'error');
+    return;
+  }
+
+  const banners = getStaffHeroBanners();
+  if (!banners[section]) banners[section] = [];
+
+  const slideData = { image, badge, title, desc };
+
+  if (editIndex >= 0 && editIndex < banners[section].length) {
+    banners[section][editIndex] = slideData;
+  } else {
+    banners[section].push(slideData);
+  }
+
+  localStorage.setItem('perfumes_hero_banners', JSON.stringify(banners));
+  if (typeof MongoSync !== 'undefined' && MongoSync.pushHeroBanners) {
+    MongoSync.pushHeroBanners(banners);
+  }
+
+  closeStaffHeroBannerModal();
+  renderStaffHeroBanners();
+  showToast('Hero Banner Slide Saved & Synced');
+}
+
+function deleteStaffHeroBannerSlide(section, index) {
+  if (!confirm(`Are you sure you want to delete this slide from ${section}?`)) return;
+
+  const banners = getStaffHeroBanners();
+  if (banners[section] && banners[section][index]) {
+    banners[section].splice(index, 1);
+    localStorage.setItem('perfumes_hero_banners', JSON.stringify(banners));
+    if (typeof MongoSync !== 'undefined' && MongoSync.pushHeroBanners) {
+      MongoSync.pushHeroBanners(banners);
+    }
+    renderStaffHeroBanners();
+    showToast('Slide Deleted');
+  }
+}
+

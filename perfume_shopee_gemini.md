@@ -115,6 +115,9 @@
 21. **🎨 Universal Dynamic Theme Synchronization (Storefront + Super Admin + Staff Admin) & Discovery Box Contrast**:
     - Fixed text readability and contrast in the **Custom Discovery Box & 5ml Tester Slots** for Clean Skin & White Minimal theme (`[data-style="artisan-minimal"]`).
     - Super Admin (`superadmin.html`) and Staff Admin (`admin.html`) now dynamically inherit and synchronize the exact active store theme styling across all tables, inputs, sidebars, and cards.
+22. **🖼️ Hero Banner Contrast Protection & Interactive Transparency / Darkness Overlay Slider**:
+    - Protected hero typography (`#hero-title-text`, `#hero-badge-text`, `#hero-desc-text`, and buttons) with high-contrast luminous text-shadows, ensuring crystal-clear readability over photographic backgrounds in ALL themes.
+    - Added an interactive **Storefront Banner Darkness & Transparency Slider** (0% clear to 95% deep velvet tint) in both **Super Admin** (`superadmin.html`) and **Staff Admin** (`admin.html`) with real-time live preview and cross-device synchronization.
 
 ## Super Admin 1-Click Control Engines
 1. **🎨 1-Click Global UI Visual Styles Switcher**:
@@ -125,10 +128,11 @@
    - **Clean Skin & White Minimal (Studio Organic)**: Clean, simple, human-designed bespoke aesthetic. Warm skin/linen tones (`#FAF8F5`, `#F4EFEB`), pure white cards (`#FFFFFF`), high-contrast charcoal black typography (`#14110E`), and zero brown background artifacts (`data-style="artisan-minimal"`).
    - Persists in `perfumes_site_style` and applies seamlessly across the storefront.
 
-2. **🖼️ Dynamic Hero Perfume Banners Manager**:
+2. **🖼️ Dynamic Hero Perfume Banners & Opacity Manager**:
    - Full CRUD management of hero banner slides for **All / Unisex**, **Women's Haute Rose**, and **Men's Titanium Beast Mode** sections.
+   - Interactive **Banner Darkness & Transparency Slider** (0% to 95%) with instant live preview.
    - Dynamic auto-sliding carousel (every 5 seconds) with interactive indicator dots.
-   - Stored in `perfumes_hero_banners` with live storefront synchronization and JSON backup/restore support.
+   - Stored in `perfumes_hero_banners` and `perfumes_hero_opacity` with live storefront synchronization and cloud database backup.
 
 3. **🌟 Celebrity Scent Wardrobes & Recommendations Manager**:
    - Add, edit, reprice, or remove celebrity layering recommendations with dual photo uploads, custom star ratings, and quotes.
